@@ -1,0 +1,1 @@
+Slides01_RMQ.pdf : http://web.stanford.edu/class/cs166/lectures/01/Slides01.pdf
