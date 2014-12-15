@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# Latex
+*.log
+*.bbl
+*.blg
+*.aux
