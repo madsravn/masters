@@ -30,10 +30,10 @@
 \pagenumbering{roman} 
 \vspace*{\fill}\noindent{\rule{\linewidth}{1mm}\\[4ex]
 {\Huge\sf Something about Computer Science}\\[2ex]
-{\huge\sf Karsken Bælg, 20051234}\\[2ex]
+{\huge\sf Mads Ravn, 20071580}\\[2ex]
 \noindent\rule{\linewidth}{1mm}\\[4ex]
 \noindent{\Large\sf Master's Thesis, Computer Science\\[1ex] 
-\monthname\ \the\year  \\[1ex] Advisor: Anders Møller\\[15ex]}\\[\fill]}
+\monthname\ \the\year  \\[1ex] Advisor: Hvem\\[15ex]}\\[\fill]}
 \epsfig{file=logo.eps}\clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,7 +56,7 @@
 
 \vspace{2ex}
 \begin{flushright}
-  \emph{Karsken Bælg,}\\
+  \emph{Mads Ravn,}\\
   \emph{Aarhus, \today.}
 \end{flushright}
 
@@ -68,10 +68,21 @@
 
 \chapter{Introduction}
 \label{ch:intro}
+In an age where everybody is presented with the possibility of searching through a lot of data, for example ebay.com and bilzonen.dk, we are interested in fast queries with as little overhead space usage as possible. We want to do two-dimensional orthogonal range search in our database, which means we can select two axes on which we can select results between two points on each. We are essentially forming an axis-aligned rectangle and selecting all points which lie within it.
+
+
 
 \todo{\dots}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Theory}
+In this chapter we present the original Orthogonal Range Searching as by Chan et al. and look at how it can be simplified. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up.
+
+This simplified range searching is still theoritically faster than the kd-tree which is the standard range search used today. The technique relies heavily on a concept called \texttt{Ball inheritance} which will be explained later.
+
+\section{Original Range Searching}
+
+\section{Simplified Range Searching}
 
 \chapter{\todo{\dots}}
 \label{ch:main}
