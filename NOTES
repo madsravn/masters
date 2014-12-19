@@ -1,0 +1,10 @@
+We will sort the points as we would expect: First sort by y rank and then divide the node by putting the lower half (x-wise) in the left child and the upper half in the right child. We now want to have a way to look-up which node we want to start at - like which node is the LCA of x_1 and x_2. We traverse down to that node while keeping track of the y_ranks indices.
+
+Starting at LCA(x_1,x_2) we remeber that everything between x_1 and x_2 (the right child, when x_1 is on the left and opposite) will always be within [x_1, x_2] and we just need to make sure that y_ranks are in order for this. 
+
+We will always need to go aallll the way down to the child though - it is only here that the information lies. The full x and y coordinates lie nowhere else.
+
+So the root node will contain a look-up table of both x and y: from coordinate to rank. We can use a binary search. Somehow the result criteria must be that we want to do predessecor search, so find a spot where i where x_i < x_1 < x_{i+1}. This must be possible implementing with an array and a binary search. With this information we can somehow find LCA(x_1,x_2) and the y_rank. LCA(x_1,x_2) must somehow be extrapolated by the binary representation of the rank of x_1 and x_2 and then "walk down the tree" until they part ways.
+
+
+Remeber the B^i point. We can traverse max B times B^i before we hit a multiple of B^{i+1} and then we begin traversing the B^{i+1} instead. Same with B^{i+1} to B^{i+2} - B times. And we always pick the bigger one. But these "jumps" only reside on levels that are multiple of whatever step they make. Read what "level" actually meant. It seemed Kasper inferred they were horizontal.
