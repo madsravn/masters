@@ -33,7 +33,7 @@
 {\huge\sf Mads Ravn, 20071580}\\[2ex]
 \noindent\rule{\linewidth}{1mm}\\[4ex]
 \noindent{\Large\sf Master's Thesis, Computer Science\\[1ex] 
-\monthname\ \the\year  \\[1ex] Advisor: Hvem\\[15ex]}\\[\fill]}
+\monthname\ \the\year  \\[1ex] Advisor: Kasper Green Larsen\\[15ex]}\\[\fill]}
 \epsfig{file=logo.eps}\clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -76,6 +76,12 @@ In an age where everybody is presented with the possibility of searching through
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Theory}
+
+Rank Space Reduction: Given a universe $U$ the grid $U \times U$ contain all the points in coordinate space. In order to preserve space the points are reduced to rank space. 
+
+Ball Inheritance model: Given the rank space reduction we wish to 
+
+
 In this chapter we present the original Orthogonal Range Searching as by Chan et al. and look at how it can be simplified. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up.
 
 This simplified range searching is still theoritically faster than the kd-tree which is the standard range search used today. The technique relies heavily on a concept called \texttt{Ball inheritance} which will be explained later.
