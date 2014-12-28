@@ -68,7 +68,15 @@
 
 \chapter{Introduction}
 \label{ch:intro}
-In an age where everybody is presented with the possibility of searching through a lot of data, for example ebay.com and bilzonen.dk, we are interested in fast queries with as little overhead space usage as possible. We want to do two-dimensional orthogonal range search in our database, which means we can select two axes on which we can select results between two points on each. We are essentially forming an axis-aligned rectangle and selecting all points which lie within it.
+In an age where everybody is presented with the possibility of searching through a lot of data, for example ebay.com and bilzonen.dk, we are interested in fast queries with as little overhead space usage as possible. We want to do two-dimensional orthogonal range search in our database, which means we can select two axes on which we can select results between two points on each. We are essentially forming an axis-aligned rectangle and selecting all points which lie within it. \todo{Rewrite}
+
+\noindent \textbf{Orthogonal Range Searching.} \texttt{Orthogonal range searcing} is one of the most fundamental and well-studied problems in computational geometry. Even with extensive research over three decades a lot of questions remain. In this thesis we will focus on $2D$ orthogonal range searching: Given $n$ points from $\mathbb{R}^2$ we want to insert them into a data structure which will be able to efficiently report which $k$ points lie within a given query range $\mathbb{Q} \subseteq \mathbb{R}^2$. This query can be defined as two corners of a rectangle, the lower left corner and the upper right corner, seeing as the query range is orthogonal to the axes.
+
+\noindent \textbf{Word RAM Model.}
+
+\noindent \textbf{Rank Reduction.}
+
+\noindent \textbf{Ball Inheritance Model.}
 
 
 
