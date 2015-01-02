@@ -68,7 +68,7 @@
 
 \chapter{Introduction}
 \label{ch:intro}
-In an age where everybody is presented with the possibility of searching through a lot of data, for example ebay.com and bilzonen.dk, we are interested in fast queries with as little overhead space usage as possible. We want to do two-dimensional orthogonal range search in our database, which means we can select two axes on which we can select results between two points on each. We are essentially forming an axis-aligned rectangle and selecting all points which lie within it. \todo{Rewrite} \\
+In an age where everybody is presented with the possibility of searching through a lot of data, for example ebay.com and bilzonen.dk, we are interested in fast queries with as little overhead space usage as possible. We want to do two-dimensional orthogonal range search in our database, which means we can select two axes on which we can select results between two points on each. We are essentially forming an axis-aligned rectangle and selecting all points which lie within it. \todo{Rewrite - Ellis style} \\
 
 \noindent \textbf{Orthogonal Range Searching.} \emph{Orthogonal range searcing} is one of the most fundamental and well-studied problems in computational geometry. Even with extensive research over three decades a lot of questions remain. In this thesis we will focus on $2D$ orthogonal range searching: Given $n$ points from $\mathbb{R}^2$ we want to insert them into a data structure which will be able to efficiently report which $k$ points lie within a given query range $\mathbb{Q} \subseteq \mathbb{R}^2$. This query can be defined as two corners of a rectangle, the lower left corner and the upper right corner, seeing as the query range is orthogonal to the axes. \\
 
@@ -76,28 +76,27 @@ In an age where everybody is presented with the possibility of searching through
 
 \noindent \textbf{Rank Space Reduction.} Given $n$ points from a universe $U$, the rank of a given point is defined as the amount of points which preceed it in a sorted list. Given two points $a,b \in U: a \leq b$ \emph{iff} $rank(a) \leq rank(b)$. Expanding this concept to 2 dimensions we have a set $P$ of $n$ points on a $U \times U$ grid. We compute for the \emph{x-rank} $r_x$ for each point in $P$ by finding the rank of the x-coordinate amongst all the x-coordinates in $P$. The \emph{y-rank} $r_y$ finds the rank of y-coordinate amongst all of the y-coordinates in $P$. Using \emph{rank space reduction} a new set $P^*$ is constructed where $(x,y) \in P$ is replaced by $(r_x(x), r_y(y) \in P^*$. Given a range query $q = [x_1, x_2] \times [y_1, y_2]$, a point $(x,y) \in P$ is found within $q$ \emph{iff} $(r_x(x), r_y(y))$ is found within $q^* = [r_x(x_1), r_x(x_2)] \times [r_y(y_1), r_y(y_2)]$. \todo{Noget med at deres ordered property remains intact.} Computing the set $P^*$ from $P$ using rank space reduction, $P^*$ is said to be in rank space. While the $n$ points could be represented by $\lg U$ bits in $P$, they can now be represented by $\lg n$ bits in $P^*$ with $\lg n \ll \lg U$ which saves memory. \todo{We have essentially created a mapping between \dots } \\
 
-\noindent \textbf{Ball Inheritance Model.} \\
+\noindent \textbf{Ball Inheritance Model.} Given a perfect binary tree with $n$ leafs, the \texttt{ball inheritance problem} is distributing $n$ labelled balls which appear in an ordered list at the root to the leafs in $\lg n$ steps. \todo{Rephrase}. The list of balls at a given node will inherited by its children with each child receiving the same amount of balls. Each level of the tree contains the same amount of balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. The identity of a given ball is a node and the index of the ball in that nodes list. The goal is to track a ball from a given node to a leaf and report the identity of the leaf. \\
+
+\noindent \textbf{Ball Inheritance.} Given a perfect binary tree with $n$ leafs and $n$ labelled balls at the root the idea is to distribute the balls from the root to the leafs. The balls at the root are contained in an ordered list and for each ball in a nodes list one of its children is picked to inherit the ball such that both children recieve the same amount of balls. Each level of the tree contains the same amount of balls, and at level $i$ each ball contains $2^i$ balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. The identity of a given ball is a node and the index of the ball in that nodes list. The goal is to track a balls inheritance from a given node to a leaf and report the identity of the leaf. \\
+
 
 \noindent \textbf{Outline.} \\
 
-\noindent \textbf{Notation.} lg er base to. epsilon er et meget lille tal \\
+\noindent \textbf{Notation.} The set of integers ${i, i+1, \dots, j-1, j}$ is denoted by $[i,j]$. When no base is explicitely given logarithm will have base $2$. $\epsilon$ is an arbitrary small constant. Given an array $A$, $A[i]$ denotes the entry with index $i$ in $A$ and $A[i,j]$ denotes the subarray containing the entries from $i$ to $j$ in $A$.
 
-
-\todo{\dots}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Theory}
+\chapter{Related Work}
 
-Rank Space Reduction: Given a universe $U$ the grid $U \times U$ contain all the points in coordinate space. In order to preserve space the points are reduced to rank space. 
+In this chapter we present the original Orthogonal Range Searching as by Chan et al. and look at how it can be simplified. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model.
 
-Ball Inheritance model: Given the rank space reduction we wish to 
+This simplified range searching is still theoritically faster than the kd-tree which is the standard range search used today. 
 
-
-In this chapter we present the original Orthogonal Range Searching as by Chan et al. and look at how it can be simplified. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up.
-
-This simplified range searching is still theoritically faster than the kd-tree which is the standard range search used today. The technique relies heavily on a concept called \texttt{Ball inheritance} which will be explained later.
+\section{$kD$-trees}
 
 \section{Original Range Searching}
+Utilizing the \texttt{ball inheritance problem} Chan et al. propose a better solution for ranged search queries. With the same space complexity as the $kD$-tree, but lower query time.
 
 \section{Simplified Range Searching}
 
