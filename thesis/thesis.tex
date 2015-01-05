@@ -1,15 +1,16 @@
 \documentclass[twoside,11pt,openright]{report}
 
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[american]{babel}
 \usepackage{a4}
 \usepackage{latexsym}
+\usepackage[numbers]{natbib}
+%\usepackage[square,semicolon,sort,longnamesfirst]{natbib}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{epsfig}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage[labeled]{multibib}
 \usepackage{color}
 \usepackage{datetime}
 \usepackage{epstopdf} 
@@ -18,7 +19,6 @@
 
 \newcommand{\todo}[1]{{\color[rgb]{.5,0,0}\textbf{$\blacktriangleright$#1$\blacktriangleleft$}}}
 
-\newcites{A,B}{Primary Bibliography,Secondary Bibliography}
 
 % see http://imf.au.dk/system/latex/bog/
 
@@ -87,24 +87,33 @@ In an age where everybody is presented with the possibility of searching through
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Theory}
 \chapter{Related Work}
 
-In this chapter we present the original Orthogonal Range Searching as by Chan et al. and look at how it can be simplified. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model.
+In this chapter we present the original Orthogonal Range Searching as by \citet{chanetal} and look at how it can be simplified. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model.
 
 This simplified range searching is still theoritically faster than the kd-tree which is the standard range search used today. 
 
 \section{$kD$-trees}
 
 \section{Original Range Searching}
-Utilizing the \texttt{ball inheritance problem} Chan et al. propose a better solution for ranged search queries. With the same space complexity as the $kD$-tree, but lower query time.
+Utilizing the \emph{ball inheritance} concept \citeauthor{chanetal} propose a better solution for ranged search queries. With the same space complexity as the $kD$-tree, but lower query time. Theorem $2.1$ states that \emph{for any $2 \leq B \leq \lg^\epsilon n$, we can can solve $2$-d orthogonal range reporting in rank space with $\mathcal{O}(n \lg_B \lg n)$ space and $(1+k)\mathcal{O}(B \lg \lg n)$ query time.}
+
+\subsection{Solving the ball-inheritance problem} 
+
+
+
+Simply solving the ball inheritance problem first consists of a bit vector at each level in the tree. This bit vector $A[1..n]$ uses $\mathcal{O}(n)$ bits to answer $rank(k) = \Sigma_{i \leq k} A[i]$. The entry $A[i]$ indicates with a $0$ that the ball with index $i$ has been inherited by its left child and with a $1$ that is has been inherited by its right child. $rank(k)$ tells how many balls before $k$ was inherited by both the left and right child.
+
+\subsection{Solving range reporting}
+
 
 \section{Simplified Range Searching}
 
 \chapter{\todo{\dots}}
 \label{ch:main}
 
-\todo{example of a citation to primary literature: \citeA{lazypropagation2010},
-and one to secondary literature: \citeB{ambiguity2010}}
+%% \todo{example of a citation to primary literature: \citeA{lazypropagation2010},
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -116,11 +125,8 @@ and one to secondary literature: \citeB{ambiguity2010}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \addcontentsline{toc}{chapter}{Primary Bibliography}
-\bibliographystyleA{plain} 
-\bibliographyA{refs}
-\addcontentsline{toc}{chapter}{Secondary Bibliography}
-\bibliographystyleB{plain} 
-\bibliographyB{refs} % remove this if you don't need secondary literature
+\bibliographystyle{plainnat} 
+\bibliography{refs}
 
 \end{document}
 
