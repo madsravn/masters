@@ -101,12 +101,13 @@ Utilizing the \emph{ball inheritance} concept \citeauthor{chanetal} propose a be
 
 \subsection{Solving the ball-inheritance problem} 
 
+Consider a perfect binary tree with $n$ leafs. At each node we use a bit vector $A$\todo{Insert size of bv} to indicate which of its children a ball is inherited by: If $A[i]$ is $0$ means that the ball with identity $i$ in that node was inherited by its left child and $1$ means that it was inherited by its right child. Given a node and an identity of a ball we can know calculate the balls identity in the node it is inherited by. The node can answer the query $rank(k) = \Sigma_{i \leq k} A[i]$. If a ball is inherited by the right child node its new identity at that node is $rank(i)$ because that is how many $1$s that preceeds it in the current node. If a ball is inherited by the left child node the new identity is then $i-rank(i)$. With this information it is possible to traverse down the tree following a ball from any given node to a leaf. Each level in the tree uses $\mathcal{O}(n)$ bits to store the bit vectors. The root has a list of $n$ entries while its $2$ children has a list each of half that. This adds up to $\mathcal{O}(n \lg n)$ bits, or $\mathcal{O}(n)$ words. This trivial solution to the ball-inheritance problem uses $\mathcal{O}(\lg n)$ query time which can be improved. \\
 
 
-Simply solving the ball inheritance problem first consists of a bit vector at each level in the tree. This bit vector $A[1..n]$ uses $\mathcal{O}(n)$ bits to answer $rank(k) = \Sigma_{i \leq k} A[i]$. The entry $A[i]$ indicates with a $0$ that the ball with index $i$ has been inherited by its left child and with a $1$ that is has been inherited by its right child. $rank(k)$ tells how many balls before $k$ was inherited by both the left and right child.
+\noindent \todo{Improvements}
 
 \subsection{Solving range reporting}
-
+With a solution to the ball-inheritance problem, \citet{chanetal} proposes \textbf{Lemma 2.4} \emph{if the ball inheritance problem can be solved with space $S$ and query time $\tau$, $2$-d range reporting can be solved with space $\mathcal{O}(S+n)$ and query time $\mathcal{O}(\lg \lg n + (1+k) \dot \tau)$.}
 
 \section{Simplified Range Searching}
 
