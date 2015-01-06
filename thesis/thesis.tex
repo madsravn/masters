@@ -9,6 +9,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{epsfig}
+\usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{color}
@@ -76,14 +77,14 @@ In an age where everybody is presented with the possibility of searching through
 
 \noindent \textbf{Rank Space Reduction.} Given $n$ points from a universe $U$, the rank of a given point is defined as the amount of points which preceed it in a sorted list. Given two points $a,b \in U: a \leq b$ \emph{iff} $rank(a) \leq rank(b)$. Expanding this concept to 2 dimensions we have a set $P$ of $n$ points on a $U \times U$ grid. We compute for the \emph{x-rank} $r_x$ for each point in $P$ by finding the rank of the x-coordinate amongst all the x-coordinates in $P$. The \emph{y-rank} $r_y$ finds the rank of y-coordinate amongst all of the y-coordinates in $P$. Using \emph{rank space reduction} on $P$ a new set $P^*$ is constructed where $(x,y) \in P$ is replaced by $(r_x(x), r_y(y) \in P^*$. Given a range query $q = [x_1, x_2] \times [y_1, y_2]$, a point $(x,y) \in P$ is found within $q$ \emph{iff} $(r_x(x), r_y(y))$ is found within $q^* = [r_x(x_1), r_x(x_2)] \times [r_y(y_1), r_y(y_2)]$. \todo{Noget med at deres ordered property remains intact.} Computing the set $P^*$ from $P$ using rank space reduction, $P^*$ is said to be in rank space. While the $n$ points could be represented by $\lg U$ bits in $P$, they can now be represented by $\lg n$ bits in $P^*$ with $\lg n \ll \lg U$ which saves memory. \todo{We have essentially created a mapping between \dots } \\
 
-\noindent \textbf{Ball Inheritance Model.} Given a perfect binary tree with $n$ leafs, the \texttt{ball inheritance problem} is distributing $n$ labelled balls which appear in an ordered list at the root to the leafs in $\lg n$ steps. \todo{Rephrase}. The list of balls at a given node will inherited by its children with each child receiving the same amount of balls. Each level of the tree contains the same amount of balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. The identity of a given ball is a node and the index of the ball in that nodes list. The goal is to track a ball from a given node to a leaf and report the identity of the leaf. \\
+\noindent \textbf{Ball Inheritance Problem.} Given a perfect binary tree with $n$ leafs, we want to distribute $n$ labelled balls which appear in an ordered list at the root to the leafs in $\lg n$ steps. \todo{Rephrase}. The list of balls at a given node will inherited by its children with each child receiving the same amount of balls. Each level of the tree contains the same amount of balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. The identity of a given ball is a node and the index of the ball in that nodes list. The true identity, the information the ball contains, only lies in the leaf. The \emph{ball-inheritance problem} is to track a ball from a given node to a leaf and report the identity of the leaf. \\
 
 \noindent \textbf{Ball Inheritance.} Given a perfect binary tree with $n$ leafs and $n$ labelled balls at the root the idea is to distribute the balls from the root to the leafs. The balls at the root are contained in an ordered list and for each ball in a nodes list one of its children is picked to inherit the ball such that both children recieve the same amount of balls. Each level of the tree contains the same amount of balls, and at level $i$ each ball contains $2^i$ balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. The identity of a given ball is a node and the index of the ball in that nodes list. The goal is to track a balls inheritance from a given node to a leaf and report the identity of the leaf. \\
 
 
 \noindent \textbf{Outline.} \\
 
-\noindent \textbf{Notation.} The set of integers ${i, i+1, \dots, j-1, j}$ is denoted by $[i,j]$. When no base is explicitely given logarithm will have base $2$. $\epsilon$ is an arbitrary small constant. Given an array $A$, $A[i]$ denotes the entry with index $i$ in $A$ and $A[i,j]$ denotes the subarray containing the entries from $i$ to $j$ in $A$.
+\noindent \textbf{Notation.} The set of integers ${i, i+1, \dots, j-1, j}$ is denoted by $[i,j]$. When no base is explicitely given logarithm will have base $2$. $\epsilon$ is an arbitrary small constant. Given an array $A$, $A[i]$ denotes the entry with index $i$ in $A$ and $A[i,j]$ denotes the subarray containing the entries from $i$ to $j$ in $A$. Throughout the thesis the successor of $x$ will be meant as the first number which is greater or equal to $x$ - the same applies for predecessor of $x$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,11 +98,14 @@ This simplified range searching is still theoritically faster than the kd-tree w
 \section{$kD$-trees}
 
 \section{Original Range Searching}
+\label{sect:original}
 Utilizing the \emph{ball inheritance} concept \citeauthor{chanetal} propose a better solution for ranged search queries. With the same space complexity as the $kD$-tree, but lower query time. Theorem $2.1$ states that \emph{for any $2 \leq B \leq \lg^\epsilon n$, we can can solve $2$-d orthogonal range reporting in rank space with $\mathcal{O}(n \lg_B \lg n)$ space and $(1+k)\mathcal{O}(B \lg \lg n)$ query time.}
 
 \subsection{Solving the ball-inheritance problem} 
+\label{ssection:solving-ball}
 
-Consider a perfect binary tree with $n$ leafs. At each node we use a bit vector $A$\todo{Insert size of bv} to indicate which of its children a ball is inherited by: If $A[i]$ is $0$ means that the ball with identity $i$ in that node was inherited by its left child and $1$ means that it was inherited by its right child. Given a node and an identity of a ball we can know calculate the balls identity in the node it is inherited by. The node can answer the query $rank(k) = \Sigma_{i \leq k} A[i]$. If a ball is inherited by the right child node its new identity at that node is $rank(i)$ because that is how many $1$s that preceeds it in the current node. If a ball is inherited by the left child node the new identity is then $i-rank(i)$. With this information it is possible to traverse down the tree following a ball from any given node to a leaf. Each level in the tree uses $\mathcal{O}(n)$ bits to store the bit vectors. The root has a list of $n$ entries while its $2$ children has a list each of half that. This adds up to $\mathcal{O}(n \lg n)$ bits, or $\mathcal{O}(n)$ words. This trivial solution to the ball-inheritance problem uses $\mathcal{O}(\lg n)$ query time which can be improved. \\
+Consider a perfect binary tree with $n$ leafs. At each level we use a bit vector $A[1..n]$ to indicate which of its children a ball is inherited by: If $A[i]$ is $0$ means that the ball with identity $i$ in that node was inherited by its left child and $1$ means that it was inherited by its right child. Given a node and an identity of a ball we can know calculate the balls identity in the node it is inherited by. The node can answer the query $rank(k) = \Sigma_{i \leq k} A[i]$. If a ball is inherited by the right child node its new identity at that node is $rank(i)$ because that is how many $1$s that preceeds it in the current node. If a ball is inherited by the left child node the new identity is then $i-rank(i)$. With this information it is possible to traverse down the tree following a ball from any given node to a leaf. There are n balls per level which is represented by a bit vector of size $n$ per level, so even though conceptually this bit vector is divided out amongst the nodes of that level, we can interchangebly think of a bit vector per level or a bit vector per node.\todo{Rephrase and replace} Each level in the tree uses $\mathcal{O}(n)$ bits to store the bit vectors. This adds up to $\mathcal{O}(n \lg n)$ bits, or $\mathcal{O}(n)$ words. This trivial solution to the ball-inheritance problem uses $\mathcal{O}(\lg n)$ query time which can be improved. \\
+
 
 
 \noindent \todo{Improvements}
@@ -115,14 +119,35 @@ Having distributed the $n$ points from the root to the leafs, we require additio
 
 In order to use this new data structure to report points in the range of $[x_1, x_2] \times [y_1, y_2]$ we follow these steps:
 \begin{enumerate}
-  \item We find the rank space successor (equal or greater) of $x_1$, $x^*_1$, and the rank space predecessor (equal or smaller) of $x_2$, $x^*_2$. We use these to find the lowest common ancestor of $x^*_1$ and $x^*_2$, $LCA(x^*_1, x^*_2)$. This is the lowest node in the tree containing at least all the points $x_1$ and $x_2$. By knowing $x^*_1$ and $x^*_2$, finding the lowest common ancestor is a constant time operation. Given that points are in an array, we can use xor as our $LCA$ operation.
+  \item We find the rank space successor of $x_1$, $x^*_1$, and the rank space predecessor of $x_2$, $x^*_2$. We use these to find the lowest common ancestor of $x^*_1$ and $x^*_2$, $LCA(x^*_1, x^*_2)$. This is the lowest node in the tree containing at least all the points between $x_1$ and $x_2$. By knowing $x^*_1$ and $x^*_2$, finding the lowest common ancestor is a constant time operation. Given that points are in an array, we can use xor as our $LCA$ operation. \todo{rephrase}
   \item As in step $1$ where we found the rank space of the x-coordinates, we find the rank space coordinates of the y-coordinates, $y^*_1$ and $y^*_2$, inside the left and right child of $LCA(x^*_1, x^*_2)$.
   \item We now descend into the right child of $LCA(x^*_1, x^*_2)$ and using the range minimum query structure to the find the index $m$ (the y-rank) of the point with the smallest x-coordinate in the range $[y^*_1, y^*_2]$. Using the ball inheritance model we follow the path to the leaf to find the actual x-coordinate of the point. If the x-coordinate is smaller than $x_2$ we return the point as a result and recurse into the ranges of $[y^*_1, m-1]$ and $[m+1, y^*_2]$ in order to find more points. When this is done we apply the same concept to the left child of $LCA(x^*_1, x^*_2)$ using the range maximum query to find points above $x_1$.
 \end{enumerate}
 
-\todo{Describe the rest of the chapter and report time complexity}
+\todo{Insert figure to conceptually show we are working our way out from the inside}
+
+In order to support the predecessor (and successor) search of step $2$ we are still missing a piece of the puzzle. We add a succint data structure for this purpose to some levels of our tree. Given a sorted array $A[1..n]$ of $\omega$-bit integers, we can support predecessor search queries in $\mathcal{O}(\lg \omega)$ time using $\mathcal{O}(n \lg \omega)$ space which supports oracle access to the entries in the array. \todo{reference}. The points in rank space of $\mathcal{O}(\lg n)$ bits will use $\mathcal{O}(n \lg \lg n)$ bits ($\omega = \lg n$) per level and $\mathcal{O}(n \lg n \lg \lg n)$ bits in all, which is $\mathcal{O}(n \lg \lg n)$ words. In order to reduce this to linear space we will only place this predecessor search structure at levels which are multiples of $\lg \lg n$. When using the predecessor search from $LCA(x^*_1, x^*_2)$ we go up to the closest ancestor to use its search structure. Searching takes $\mathcal{O}(\lg \lg n)$ time plus $\mathcal{O}(1)$ queries to the ball-inheritance structure. \todo{Why?}. Using the ball-inheritance structure we walk at most $\lg \lg n$ steps down while translating the ranks of $y_1$ and $y_2$ to the right and left child of $LCA(x^*_1, x^*_2)$. 
+
+Step $3$ mainly requires the use of the ball-inheritance structure. The time to traverse this structure is dependend on the improvements we made in \ref{ssection:solving-ball}. An empty range will result in two queries, one query to each child of $LCA(x^*_1, x^*_2)$, otherwise it will not exceed twice the number of nodes beneath $LCA(x^*_1, x^*_2)$. \todo{Why?} \todo{Add time complexity when ball-inheritance improvements has been written}.
 
 \section{Simplified Range Searching}
+
+In this section we will describe a simplified model of the one mentioned in section \ref{sect:original}. It will mainly use the ball-inheritance structure. A predecessor search structure will be used a the root of the tree to find the rank space of two points, $(x_1,y_1)$ and $(x_2,y_2)$, delimiting the search range.
+\todo{Nu hvor jeg lige har beskrevet den originale, hvor meget skal jeg så gå i detaljer med hvorfor vi gør tingene? Som f.eks. at have tingene i rank space}
+
+The ball distribution part works the same way as it did in the original range searching by \citeauthor{chanetal}: Given a perfect tree with $n$ leafs, the $n$ points are sorted by their y-rank at the root. Distributing their balls, a node will give half of its points to each of its children: the smallest by x-rank to its left child and the highest by x-rank to its right child. The points in the two new lists will retain the same order as their parents.
+
+Given a range query $q = [x_1, x_2] \times [y_1, y_2]$ we are going to find the rank successor of $x_1$ and $y_1$ and the rank predecessor of $x_2$ and $y_2$. \todo{Have we explained why this is?}. We call these $x^*_1, y^*_1, x^*_2$ and $y^*_2$. We use $x^*_1$ and $x^*_2$ to find the lowest common ancestor $LCA$ containing all the points between $x_1$ and $x_2$. We know the positions of the leaves containing $x^*_1$ and $x^*_2$ so we can traverse from the $LCA$ down to them both. Traversing to $x^*_1$ the first stop is the left child of the $LCA$. From here, each time a node selectes a left child as the path to $x^*_1$ we know that the subtree contained in the right child contains points between $x_1$ and $x_2$. Symmetrically the same applies when going right from the $LCA$: Each time a node selects a right child on the path to $x^*_2$ the subtree contained in the left child contains points between $x_1$ and $x_2$. 
+
+Traversing from the root to $LCA(x^*_1, x^*_2)$ and from the $LCA$ to the two leaves containing $x_1$ and $x_2$ requires $\mathcal{O}(\lg n)$ steps. Having this method to find the points within the range of $[x_1, x_2]$ we have now reduced the problem to a $1$-d range query. In order to keep track of which these points lie within the range of $[y_1, y_2]$ we will utilize the rank function from before, $rank(k) = \Sigma_{i \leq k} A[i]$ when working on a nodes ball-inheritance list $A$.
+
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.8\textwidth]{pictures/LCA.png}
+    \caption{Traversing left from the LCA, each right subtree contains x-coordinates between $x_1$ and $x_2$. Traversing right from the LCA the same holds for left subtrees.}
+    \label{fig:LCA}
+\end{figure}
 
 \chapter{\todo{\dots}}
 \label{ch:main}
