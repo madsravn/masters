@@ -8,3 +8,5 @@ So the root node will contain a look-up table of both x and y: from coordinate t
 
 
 Remeber the B^i point. We can traverse max B times B^i before we hit a multiple of B^{i+1} and then we begin traversing the B^{i+1} instead. Same with B^{i+1} to B^{i+2} - B times. And we always pick the bigger one. But these "jumps" only reside on levels that are multiple of whatever step they make. Read what "level" actually meant. It seemed Kasper inferred they were horizontal.
+
+kd-tree : http://libkdtree.alioth.debian.org/
