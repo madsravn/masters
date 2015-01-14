@@ -59,7 +59,9 @@ In order to use this new data structure to report points in the range of $[x_1, 
 
 \todo{Insert figure to conceptually show we are working our way out from the inside}
 
-The time complexity of step $3$ depends on the use of the ball-inheritance structure. The time to traverse this structure is dependent on the improvements made in \ref{ssection:solving-ball}. An empty range will result in two queries, one query to each child of $LCA(x^*_1, x^*_2)$, otherwise it will not exceed twice the number of nodes beneath $LCA(x^*_1, x^*_2)$. \todo{Why?} Conceptually. $LCA(x^*_1, x^*_2)$ describes a point between $x_1$ and $x_2$. Step $3$ selects points that are in the range of $[y_1, y_2]$ moving outwards from the point of $LCA(x^*_1, x^*_2)$, always picking the point closest to $LCA(x^*_1, x^*_2)$ in its decreasing y-range. \todo{rephrase}
+The time complexity of step $3$ depends on the use of the ball-inheritance structure. The time to traverse this structure is dependent on the improvements made in \ref{ssection:solving-ball}. An empty range will result in two queries, one query to each child of $LCA(x^*_1, x^*_2)$. In the worst case the amount of queries to the ball-inheritance structure will not exceed twice the number of results reported. Each time a result is found, a recursion is made to both the left and right subrange of that result. If one of the sides constantly fails to find a result, two queries are made for each result found. 
+
+Conceptually, $LCA(x^*_1, x^*_2)$ describes a point between $x_1$ and $x_2$. Step $3$ selects points that are in the range of $[y_1, y_2]$ moving outwards from the point of $LCA(x^*_1, x^*_2)$, always picking the point closest to $LCA(x^*_1, x^*_2)$ in its decreasing y-range. \todo{rephrase}
 
 Going back to Lemma $2.4$, we see that the time complexity fits: $\mathcal{O}(\lg \lg n)$ time is used for the predecessor search and $\mathcal{O}((1+k)\tau)$ time is used for walking from the $LCA$ to the leaves solving the ball inheritance problem for the $k$ results.
 
