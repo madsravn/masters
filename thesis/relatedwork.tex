@@ -1,13 +1,15 @@
 \chapter{Related Work}
 \label{ch:relatedwork}
 
-In this chapter the original work of \citet{chanetal} is presented followed by a simplification of their idea. This simplification serves two purposes: It will be easier to implement which will present a much cleaner code to read and it will be easier to execute since it has much less things to compute and look up. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model.
+
+In this chapter a simplification of the work done by \citet{chanetal} is presented followed by their original idea. The simplification is the primary work of this thesis. The order in which it is presented is chosen so the read can better get acquinted with the core concepts before reading about the original work of \citet{chanetal}. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model. \todo{rewrite}
+
 
 The algorithms mentioned in this chapter are all \emph{output-sensitive}, meaning that their running time depends on the amount of results found.
 
 \section{kd-trees}
 
-The current standard of range reporting is kd-trees. This technique will be used as a reference point when evaluting the results of the primary work in this thesis. With linear space it is optimal for range reporting on the RAM.
+The current standard of range reporting is kd-trees. This technique will be used as a reference point when evaluting the results of the primary work in this thesis. With linear space it is an ideal data structure\todo{bedst kendt at virke i praksis} for range reporting on the RAM.
 
 A kd-tree is constructed recursively: Given $n$ points, the median of the points with respect to x are found. All points which has an x-coordinate larger than the median goes to the right child, while points which has an x-coordinate smaller than the median, and the median point, goes to the left child. At the next level the points will be divided in a similar fashion, this time using the y-median and the y-coordinates instead. When dividing $n$ points, the median will be chosen as the $\lceil n/2 \rceil$-th smallest number \cite{compgeo}.
 Switching back and forth between focussing on x or y is done at each level of the tree and this will be continued until a binary tree has been constructed with $n$ leaves.
