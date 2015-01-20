@@ -2,8 +2,9 @@
 \label{ch:relatedwork}
 
 
-In this chapter a simplification of the work done by \citet{chanetal} is presented followed by their original idea. The simplification is the primary work of this thesis. The order in which it is presented is chosen so the read can better get acquinted with the core concepts before reading about the original work of \citet{chanetal}. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model. \todo{rewrite}
+In this chapter a simplification of the work done by \citet{chanetal} is presented followed by their original idea. The simplification is the primary work of this thesis. Conceptually, the original structure by \citet{chanetal} can be thought of as an extension of the simplified data structure of this thesis. This way the reader will introduced to the core concepts at an incremental level.\todo{rephrase} The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model. \todo{rewrite}
 
+Each section will start with a subsection explaining the preliminary data structures used with ball-inheritance structure. This way the reader is acquinted with the data structures when they are referenced instead of having them explained in the middle of another explanation.
 
 The algorithms mentioned in this chapter are all \emph{output-sensitive}, meaning that their running time depends on the amount of results found.
 
