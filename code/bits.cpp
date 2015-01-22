@@ -98,7 +98,7 @@ int main() {
 
     std::bitset<32> bits2(andtoremovelast(30));
     std::cout << bits2.to_string() << std::endl;
-
+/*
     // REMEMBER TO INITIALIZE THIS
     arr = populateList();
 
@@ -109,6 +109,6 @@ int main() {
     std::cout << rank(bitvector, 12, 32) << std::endl;
     uint test = 4'294'967'001;
     std::cout << rank(test) << " and " << rank_correct(test) << std::endl;
-
+*/
     return 0;
 }
