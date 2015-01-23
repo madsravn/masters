@@ -9,6 +9,12 @@
 
 struct Point {
     int x, y;
+    bool operator==(Point a) {
+       if (a.x==x && a.y== y)
+          return true;
+       else
+          return false;
+    }
 };
 
 struct {

@@ -99,12 +99,12 @@ Ort::followball(int level, int nodepos, int pos, int amount) {
         
         if(dir == 0) {
 
-            std::cout << "venstre" << std::endl;;
-            return followball(level+1, nodepos, nodepos + pos - irank, amount/2);
+            //std::cout << "venstre" << std::endl;;
+            return followball(level+1, nodepos, pos - irank, amount/2);
 
         } else if(dir == 1) {
 
-            std::cout << "højre" << std::endl;
+            //std::cout << "højre" << std::endl;
             return followball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2);
 
         } else {
@@ -145,12 +145,12 @@ Ort::Ort(int amount) {
 
     std::cout << points << std::endl;
 
-    std::vector<Point> cpoints(amount);
+    /*std::vector<Point> cpoints(amount);
     std::copy(std::begin(points), std::end(points), std::begin(cpoints));
 
     // Correct
     std::nth_element(std::begin(cpoints), std::begin(cpoints) + cpoints.size()/2, std::end(cpoints), sortpointx);
-
+    */
 
     uint bit = 1;
     for(int i = 0; i < 32; ++i) {
@@ -191,7 +191,13 @@ Ort::Ort(int amount) {
 
 
     std::cout << findRank(0, 0, 5) << std::endl;
-    std::cout << followball(0,0,3,8) << std::endl;
+    bool all = true;
+    for(int i = 0; i < points.size(); ++i) {
+        /*std::cout << "It is: " << followball(0,0,i,points.size()) << std::endl;
+        std::cout << "Should be: " << points.at(i) << std::endl;*/
+        all = all & (points.at(i) == followball(0,0,i,points.size()));
+    }
+    std::cout << "ALL WAS " << all << std::endl;
 
 
 }
