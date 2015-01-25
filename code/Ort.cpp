@@ -121,7 +121,7 @@ Ort::followball(int level, int nodepos, int pos, int amount) {
 
 
 // Generates $amount$ of points with unique x-coordinates and unique y-coordinates
-Ort::Ort(int amount) {
+Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0)) {
 
     std::vector<int> x(amount);
     std::vector<int> y(amount);
@@ -164,10 +164,10 @@ Ort::Ort(int amount) {
 
     //std::cout << bits << std::endl;
 
-    std::vector<std::vector<uint>> vs(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0));
-    levels = vs;
-    std::vector<Point> ps(amount);
-    balls = ps;
+    //std::vector<std::vector<uint>> vs(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0));
+    //levels = vs;
+    //std::vector<Point> ps(amount);
+    //balls = ps;
     
     divide(0,0,points);
 
@@ -190,7 +190,6 @@ Ort::Ort(int amount) {
     }
 
 
-    std::cout << findRank(0, 0, 5) << std::endl;
     bool all = true;
     for(int i = 0; i < points.size(); ++i) {
         /*std::cout << "It is: " << followball(0,0,i,points.size()) << std::endl;
@@ -202,9 +201,10 @@ Ort::Ort(int amount) {
 
 }
 
+
+// TODO: Tjek om den er sat
 void
 Ort::setBit(int level, int pos, int value) {
-    // TODO: Tjek om den er sat
     if(value != 0) {
         int pos_i = pos/32;
         int pos_a = pos%32;
@@ -213,12 +213,17 @@ Ort::setBit(int level, int pos, int value) {
     }
 }
 
+//TODO: Pænere output
 void
 Ort::outputLevels() {
     for(const auto& vs : levels) {
         for(const auto& v : vs) {
             std::bitset<32> bb(v);
-            std::cout << bb.to_string().substr(0,8);
+            if(balls.size() < 32) {
+                std::cout << bb.to_string().substr(0,balls.size());
+            } else {
+                std::cout << bb.to_string();
+            }
         }
         std::cout << std::endl;
     }
