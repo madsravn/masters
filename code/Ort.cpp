@@ -66,11 +66,13 @@ Ort::findRank(int level, int nodepos, int pos) {
     resultrank += rank(t);
     resultrank -= nodepos/2;*/
 
-    // Simple version
-    uint mask = makemask(pos);
-    uint t = (levels.at(level)).at(0);
+    // Simple version expanded
+    int pos_i = pos/32;
+    int pos_a = pos % 32;
+    uint mask = makemask(pos_a);
+    uint t = (levels.at(level)).at(pos_i);
     t = t & mask;
-    uint resultrank = rank(t);
+    uint resultrank = (ranks.at(level)).at(pos_i) + rank(t);
 
     return resultrank;
 }
@@ -93,8 +95,8 @@ Ort::followball(int level, int nodepos, int pos, int amount) {
         
         uint irank = findRank(level, nodepos, pos) - nodepos/2;
         std::vector<uint> curr_level = levels.at(level);
-        uint mask = bits.at(pos);
-        uint num = (levels.at(level)).at(0) & mask;
+        uint mask = bits.at(pos%32);
+        uint num = (levels.at(level)).at(pos/32) & mask;
         uint dir = rank(num);
         
         if(dir == 0) {
@@ -196,6 +198,8 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
         std::cout << "Should be: " << points.at(i) << std::endl;*/
         all = all & (points.at(i) == followball(0,0,i,points.size()));
     }
+    std::cout << points.at(10) << std::endl;
+    std::cout << followball(0,0,10,points.size()) << std::endl;
     std::cout << "ALL WAS " << all << std::endl;
 
 

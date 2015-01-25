@@ -3,7 +3,7 @@
 
 int main() {
 
-    Ort ort(32);
+    Ort ort(256);
 
 
 
