@@ -1,0 +1,271 @@
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #557799">#include &quot;Ort.hpp&quot;</span>
+<span style="color: #557799">#include &lt;iostream&gt;</span>
+<span style="color: #557799">#include &lt;bitset&gt;</span>
+
+<span style="color: #008800; font-weight: bold">template</span> <span style="color: #333333">&lt;</span><span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">T</span><span style="color: #333333">&gt;</span>
+<span style="color: #008800; font-weight: bold">inline</span> std<span style="color: #333333">::</span>ostream<span style="color: #333333">&amp;</span> <span style="color: #008800; font-weight: bold">operator</span> <span style="color: #333333">&lt;&lt;</span> (std<span style="color: #333333">::</span>ostream<span style="color: #333333">&amp;</span> os, <span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>T<span style="color: #333333">&gt;&amp;</span> v) {
+	os <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;[&quot;</span>;
+	<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #008800; font-weight: bold">const</span> <span style="color: #008800; font-weight: bold">auto</span><span style="color: #333333">&amp;</span> elem <span style="color: #333333">:</span> v)
+	{
+		os <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot; &quot;</span> <span style="color: #333333">&lt;&lt;</span> elem;
+	}
+	os <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot; ]&quot;</span>;
+	<span style="color: #008800; font-weight: bold">return</span> os;
+}
+
+<span style="color: #008800; font-weight: bold">inline</span> std<span style="color: #333333">::</span>ostream<span style="color: #333333">&amp;</span> <span style="color: #008800; font-weight: bold">operator</span> <span style="color: #333333">&lt;&lt;</span> (std<span style="color: #333333">::</span>ostream<span style="color: #333333">&amp;</span> os, <span style="color: #008800; font-weight: bold">const</span> Point<span style="color: #333333">&amp;</span> p){
+    os <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;(&quot;</span> <span style="color: #333333">&lt;&lt;</span> p.x <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">&lt;&lt;</span> p.y <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;)&quot;</span> <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;, &quot;</span>;
+    <span style="color: #008800; font-weight: bold">return</span> os;
+}
+
+
+uint 
+Ort<span style="color: #333333">::</span>rank(uint number) {
+    uint first <span style="color: #333333">=</span> number <span style="color: #333333">&gt;&gt;</span> <span style="color: #0000DD; font-weight: bold">16</span>;
+    uint last <span style="color: #333333">=</span> number <span style="color: #333333">&amp;</span> <span style="color: #0000DD; font-weight: bold">65</span><span style="color: #FF0000; background-color: #FFAAAA">&#39;</span><span style="color: #0000DD; font-weight: bold">535</span>;
+
+    uint answer <span style="color: #333333">=</span> inttobin[first] <span style="color: #333333">+</span> inttobin[last];
+    <span style="color: #008800; font-weight: bold">return</span> answer;
+}
+
+uint
+Ort<span style="color: #333333">::</span>makemask(uint range) {
+    uint result <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">32</span><span style="color: #333333">-</span>range; <span style="color: #333333">++</span>i) {
+        result <span style="color: #333333">=</span> result <span style="color: #333333">&lt;&lt;</span> <span style="color: #0000DD; font-weight: bold">1</span>;
+        result <span style="color: #333333">+=</span> <span style="color: #0000DD; font-weight: bold">1</span>;
+    }
+    result <span style="color: #333333">=</span> <span style="color: #333333">~</span>result;
+    <span style="color: #008800; font-weight: bold">return</span> result;
+}
+
+uint
+Ort<span style="color: #333333">::</span>findRank(<span style="color: #333399; font-weight: bold">int</span> level, <span style="color: #333399; font-weight: bold">int</span> nodepos, <span style="color: #333399; font-weight: bold">int</span> pos) {
+
+    <span style="color: #888888">// Slå op i ranks level og position med pos/32 og pos%32</span>
+    <span style="color: #888888">// Træk nodepos/2 fra (da der er lige mange 1&#39;ere og 0&#39;ere før</span>
+    <span style="color: #888888">// Så har du din rank</span>
+
+    <span style="color: #888888">/*std::cout &lt;&lt; &quot;FINDRANK STARTER HER&quot; &lt;&lt; std::endl;</span>
+<span style="color: #888888">    std::vector&lt;uint&gt; curr_rank = ranks.at(level);</span>
+<span style="color: #888888">    std::cout &lt;&lt; &quot;curr_rank: &quot; &lt;&lt; curr_rank &lt;&lt; std::endl;</span>
+<span style="color: #888888">    std::vector&lt;uint&gt; curr_level = levels.at(level);</span>
+<span style="color: #888888">    std::cout &lt;&lt; &quot;curr_level: &quot; &lt;&lt; curr_level &lt;&lt; std::endl;</span>
+<span style="color: #888888">    int pos_i = pos/32;</span>
+<span style="color: #888888">    int pos_a = pos%32;</span>
+<span style="color: #888888">    int resultrank = curr_rank.at(pos_i);</span>
+<span style="color: #888888">    std::cout &lt;&lt; &quot;resultrank = &quot; &lt;&lt; resultrank &lt;&lt; std::endl;</span>
+<span style="color: #888888">    int t = curr_level.at(pos_i);</span>
+<span style="color: #888888">    std::cout &lt;&lt; &quot;pos_a = &quot; &lt;&lt; pos_a &lt;&lt; std::endl;</span>
+<span style="color: #888888">    outputLevels();</span>
+<span style="color: #888888">    std::bitset&lt;32&gt; b(t);</span>
+<span style="color: #888888">    std::cout &lt;&lt; b.to_string() &lt;&lt; std::endl;</span>
+<span style="color: #888888">    t = t &amp; makemask(pos_a);</span>
+<span style="color: #888888">    std::bitset&lt;32&gt; bb(t);</span>
+<span style="color: #888888">    std::cout &lt;&lt; bb.to_string() &lt;&lt; std::endl;</span>
+<span style="color: #888888">    resultrank += rank(t);</span>
+<span style="color: #888888">    resultrank -= nodepos/2;*/</span>
+
+    <span style="color: #888888">// Simple version expanded</span>
+    <span style="color: #333399; font-weight: bold">int</span> pos_i <span style="color: #333333">=</span> pos<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">32</span>;
+    <span style="color: #333399; font-weight: bold">int</span> pos_a <span style="color: #333333">=</span> pos <span style="color: #333333">%</span> <span style="color: #0000DD; font-weight: bold">32</span>;
+    uint mask <span style="color: #333333">=</span> makemask(pos_a);
+    uint t <span style="color: #333333">=</span> (levels.at(level)).at(pos_i);
+    t <span style="color: #333333">=</span> t <span style="color: #333333">&amp;</span> mask;
+    uint resultrank <span style="color: #333333">=</span> (ranks.at(level)).at(pos_i) <span style="color: #333333">+</span> rank(t);
+
+    <span style="color: #008800; font-weight: bold">return</span> resultrank;
+}
+
+<span style="color: #333399; font-weight: bold">void</span>
+Ort<span style="color: #333333">::</span>populateList() {
+    <span style="color: #008800; font-weight: bold">for</span>(uint i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> UINT16_MAX<span style="color: #333333">+</span><span style="color: #0000DD; font-weight: bold">1</span>; <span style="color: #333333">++</span>i) {
+        std<span style="color: #333333">::</span>bitset<span style="color: #333333">&lt;</span><span style="color: #0000DD; font-weight: bold">32</span><span style="color: #333333">&gt;</span> bits(i);
+        inttobin.push_back(bits.count());
+    }
+}
+
+<span style="color: #888888">// position beskriver den vi kigger på</span>
+<span style="color: #888888">// nodepos beskriver hvor den node vi kigger på starter henne sådan vi kan regne ud hvor mange 1&#39;ere der kommer før den</span>
+<span style="color: #888888">// level beskriver level. </span>
+<span style="color: #888888">// amount beskriver hvor mange der er i hver node</span>
+Point
+Ort<span style="color: #333333">::</span>followball(<span style="color: #333399; font-weight: bold">int</span> level, <span style="color: #333399; font-weight: bold">int</span> nodepos, <span style="color: #333399; font-weight: bold">int</span> pos, <span style="color: #333399; font-weight: bold">int</span> amount) {
+    <span style="color: #008800; font-weight: bold">if</span>(amount <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>) {
+        
+        uint irank <span style="color: #333333">=</span> findRank(level, nodepos, pos) <span style="color: #333333">-</span> nodepos<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>;
+        std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>uint<span style="color: #333333">&gt;</span> curr_level <span style="color: #333333">=</span> levels.at(level);
+        uint mask <span style="color: #333333">=</span> bits.at(pos<span style="color: #333333">%</span><span style="color: #0000DD; font-weight: bold">32</span>);
+        uint num <span style="color: #333333">=</span> (levels.at(level)).at(pos<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">32</span>) <span style="color: #333333">&amp;</span> mask;
+        uint dir <span style="color: #333333">=</span> rank(num);
+        
+        <span style="color: #008800; font-weight: bold">if</span>(dir <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>) {
+
+            <span style="color: #888888">//std::cout &lt;&lt; &quot;venstre&quot; &lt;&lt; std::endl;;</span>
+            <span style="color: #008800; font-weight: bold">return</span> followball(level<span style="color: #333333">+</span><span style="color: #0000DD; font-weight: bold">1</span>, nodepos, pos <span style="color: #333333">-</span> irank, amount<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>);
+
+        } <span style="color: #008800; font-weight: bold">else</span> <span style="color: #008800; font-weight: bold">if</span>(dir <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span>) {
+
+            <span style="color: #888888">//std::cout &lt;&lt; &quot;højre&quot; &lt;&lt; std::endl;</span>
+            <span style="color: #008800; font-weight: bold">return</span> followball(level<span style="color: #333333">+</span><span style="color: #0000DD; font-weight: bold">1</span>, nodepos <span style="color: #333333">+</span> amount<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>, nodepos <span style="color: #333333">+</span> amount<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">+</span> irank, amount<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>);
+
+        } <span style="color: #008800; font-weight: bold">else</span> {
+
+            std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;error&quot;</span> <span style="color: #333333">&lt;&lt;</span> std<span style="color: #333333">::</span>endl;
+
+        }
+    } 
+
+    <span style="color: #008800; font-weight: bold">return</span> balls.at(nodepos);
+    
+}
+
+
+
+<span style="color: #888888">// Generates $amount$ of points with unique x-coordinates and unique y-coordinates</span>
+Ort<span style="color: #333333">::</span>Ort(<span style="color: #333399; font-weight: bold">int</span> amount) <span style="color: #333333">:</span> balls(amount), levels(std<span style="color: #333333">::</span>log2(amount), std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>uint<span style="color: #333333">&gt;</span>(std<span style="color: #333333">::</span>ceil(<span style="color: #333399; font-weight: bold">float</span>(amount)<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">32</span>), <span style="color: #0000DD; font-weight: bold">0</span>)) {
+
+    std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> x(amount);
+    std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> y(amount);
+
+    <span style="color: #333399; font-weight: bold">int</span> n {<span style="color: #0000DD; font-weight: bold">0</span>};
+    std<span style="color: #333333">::</span>generate(std<span style="color: #333333">::</span>begin(x), std<span style="color: #333333">::</span>end(x), [<span style="color: #333333">&amp;</span>]{ <span style="color: #008800; font-weight: bold">return</span> <span style="color: #333333">++</span>n;});
+    std<span style="color: #333333">::</span>copy(std<span style="color: #333333">::</span>begin(x), std<span style="color: #333333">::</span>end(x), std<span style="color: #333333">::</span>begin(y));
+    
+    std<span style="color: #333333">::</span>random_device rd;
+    std<span style="color: #333333">::</span>mt19937 g(rd());
+ 
+    std<span style="color: #333333">::</span>shuffle(std<span style="color: #333333">::</span>begin(x), std<span style="color: #333333">::</span>end(x), g);
+    std<span style="color: #333333">::</span>shuffle(std<span style="color: #333333">::</span>begin(y), std<span style="color: #333333">::</span>end(y), g);
+
+    std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>Point<span style="color: #333333">&gt;</span> points;
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> x.size(); <span style="color: #333333">++</span>i) {
+        points.push_back({x[i], y[i]});
+    }
+
+    std<span style="color: #333333">::</span>sort(std<span style="color: #333333">::</span>begin(points), std<span style="color: #333333">::</span>end(points), sortpointy);
+
+    std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> points <span style="color: #333333">&lt;&lt;</span> std<span style="color: #333333">::</span>endl;
+
+    <span style="color: #888888">/*std::vector&lt;Point&gt; cpoints(amount);</span>
+<span style="color: #888888">    std::copy(std::begin(points), std::end(points), std::begin(cpoints));</span>
+
+<span style="color: #888888">    // Correct</span>
+<span style="color: #888888">    std::nth_element(std::begin(cpoints), std::begin(cpoints) + cpoints.size()/2, std::end(cpoints), sortpointx);</span>
+<span style="color: #888888">    */</span>
+
+    uint bit <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1</span>;
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">32</span>; <span style="color: #333333">++</span>i) {
+        bits.push_back(bit);
+        bit <span style="color: #333333">=</span> bit <span style="color: #333333">&lt;&lt;</span> <span style="color: #0000DD; font-weight: bold">1</span>;
+    }
+
+    populateList();
+
+    std<span style="color: #333333">::</span>reverse(std<span style="color: #333333">::</span>begin(bits), std<span style="color: #333333">::</span>end(bits));
+
+    <span style="color: #888888">//std::cout &lt;&lt; bits &lt;&lt; std::endl;</span>
+
+    <span style="color: #888888">//std::vector&lt;std::vector&lt;uint&gt;&gt; vs(std::log2(amount), std::vector&lt;uint&gt;(std::ceil(float(amount)/32), 0));</span>
+    <span style="color: #888888">//levels = vs;</span>
+    <span style="color: #888888">//std::vector&lt;Point&gt; ps(amount);</span>
+    <span style="color: #888888">//balls = ps;</span>
+    
+    divide(<span style="color: #0000DD; font-weight: bold">0</span>,<span style="color: #0000DD; font-weight: bold">0</span>,points);
+
+    <span style="color: #888888">//std::cout &lt;&lt; levels &lt;&lt; std::endl;</span>
+    outputLevels();
+    <span style="color: #888888">//std::cout &lt;&lt; balls &lt;&lt; std::endl;</span>
+
+
+    std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>uint<span style="color: #333333">&gt;&gt;</span> vvs(std<span style="color: #333333">::</span>log2(amount), std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>uint<span style="color: #333333">&gt;</span>());
+    ranks <span style="color: #333333">=</span> vvs;
+    <span style="color: #888888">// Create the rank lists</span>
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> levels.size(); <span style="color: #333333">++</span>i) {
+
+        uint sum <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;
+        (ranks.at(i)).push_back(sum);
+        <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> j <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; j <span style="color: #333333">&lt;</span> (levels.at(i)).size(); <span style="color: #333333">++</span>j) {
+            sum <span style="color: #333333">+=</span> rank((levels.at(i)).at(j));
+            (ranks.at(i)).push_back(sum);
+        }
+    }
+
+
+    <span style="color: #333399; font-weight: bold">bool</span> all <span style="color: #333333">=</span> <span style="color: #007020">true</span>;
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> points.size(); <span style="color: #333333">++</span>i) {
+        <span style="color: #888888">/*std::cout &lt;&lt; &quot;It is: &quot; &lt;&lt; followball(0,0,i,points.size()) &lt;&lt; std::endl;</span>
+<span style="color: #888888">        std::cout &lt;&lt; &quot;Should be: &quot; &lt;&lt; points.at(i) &lt;&lt; std::endl;*/</span>
+        all <span style="color: #333333">=</span> all <span style="color: #333333">&amp;</span> (points.at(i) <span style="color: #333333">==</span> followball(<span style="color: #0000DD; font-weight: bold">0</span>,<span style="color: #0000DD; font-weight: bold">0</span>,i,points.size()));
+    }
+    std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> points.at(<span style="color: #0000DD; font-weight: bold">10</span>) <span style="color: #333333">&lt;&lt;</span> std<span style="color: #333333">::</span>endl;
+    std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> followball(<span style="color: #0000DD; font-weight: bold">0</span>,<span style="color: #0000DD; font-weight: bold">0</span>,<span style="color: #0000DD; font-weight: bold">10</span>,points.size()) <span style="color: #333333">&lt;&lt;</span> std<span style="color: #333333">::</span>endl;
+    std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> <span style="background-color: #fff0f0">&quot;ALL WAS &quot;</span> <span style="color: #333333">&lt;&lt;</span> all <span style="color: #333333">&lt;&lt;</span> std<span style="color: #333333">::</span>endl;
+
+
+}
+
+
+<span style="color: #888888">// TODO: Tjek om den er sat</span>
+<span style="color: #333399; font-weight: bold">void</span>
+Ort<span style="color: #333333">::</span>setBit(<span style="color: #333399; font-weight: bold">int</span> level, <span style="color: #333399; font-weight: bold">int</span> pos, <span style="color: #333399; font-weight: bold">int</span> value) {
+    <span style="color: #008800; font-weight: bold">if</span>(value <span style="color: #333333">!=</span> <span style="color: #0000DD; font-weight: bold">0</span>) {
+        <span style="color: #333399; font-weight: bold">int</span> pos_i <span style="color: #333333">=</span> pos<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">32</span>;
+        <span style="color: #333399; font-weight: bold">int</span> pos_a <span style="color: #333333">=</span> pos<span style="color: #333333">%</span><span style="color: #0000DD; font-weight: bold">32</span>;
+        (levels.at(level)).at(pos_i) <span style="color: #333333">+=</span> bits.at(pos_a);
+
+    }
+}
+
+<span style="color: #888888">//TODO: Pænere output</span>
+<span style="color: #333399; font-weight: bold">void</span>
+Ort<span style="color: #333333">::</span>outputLevels() {
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">const</span> <span style="color: #008800; font-weight: bold">auto</span><span style="color: #333333">&amp;</span> vs <span style="color: #333333">:</span> levels) {
+        <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">const</span> <span style="color: #008800; font-weight: bold">auto</span><span style="color: #333333">&amp;</span> v <span style="color: #333333">:</span> vs) {
+            std<span style="color: #333333">::</span>bitset<span style="color: #333333">&lt;</span><span style="color: #0000DD; font-weight: bold">32</span><span style="color: #333333">&gt;</span> bb(v);
+            <span style="color: #008800; font-weight: bold">if</span>(balls.size() <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">32</span>) {
+                std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> bb.to_string().substr(<span style="color: #0000DD; font-weight: bold">0</span>,balls.size());
+            } <span style="color: #008800; font-weight: bold">else</span> {
+                std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> bb.to_string();
+            }
+        }
+        std<span style="color: #333333">::</span>cout <span style="color: #333333">&lt;&lt;</span> std<span style="color: #333333">::</span>endl;
+    }
+}
+
+<span style="color: #333399; font-weight: bold">void</span>
+Ort<span style="color: #333333">::</span>divide(<span style="color: #333399; font-weight: bold">int</span> level, <span style="color: #333399; font-weight: bold">int</span> pos, std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>Point<span style="color: #333333">&gt;</span> points) {
+
+    <span style="color: #008800; font-weight: bold">if</span>(points.size() <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1</span>) {
+
+        <span style="color: #888888">// Find the median using nth_element</span>
+        std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>Point<span style="color: #333333">&gt;</span> temp(points.size());
+        std<span style="color: #333333">::</span>copy(std<span style="color: #333333">::</span>begin(points), std<span style="color: #333333">::</span>end(points), std<span style="color: #333333">::</span>begin(temp));
+        std<span style="color: #333333">::</span>nth_element(std<span style="color: #333333">::</span>begin(temp), std<span style="color: #333333">::</span>begin(temp) <span style="color: #333333">+</span> temp.size()<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>, std<span style="color: #333333">::</span>end(temp), sortpointx);
+
+        <span style="color: #333399; font-weight: bold">int</span> median <span style="color: #333333">=</span> (temp[temp.size()<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>]).x;
+
+        <span style="color: #888888">//std::cout &lt;&lt; &quot;MEDIAN: &quot; &lt;&lt; median &lt;&lt; std::endl;</span>
+        std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>Point<span style="color: #333333">&gt;</span> left, right;
+
+        <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> points.size(); <span style="color: #333333">++</span>i) {
+            <span style="color: #008800; font-weight: bold">if</span>((points.at(i)).x <span style="color: #333333">&lt;</span> median) {
+                left.push_back(points.at(i));
+            } <span style="color: #008800; font-weight: bold">else</span> {
+                right.push_back(points.at(i));
+                setBit(level, pos<span style="color: #333333">+</span>i, <span style="color: #0000DD; font-weight: bold">1</span>);
+            }
+        }
+
+        divide(level<span style="color: #333333">+</span><span style="color: #0000DD; font-weight: bold">1</span>,pos,left);
+        divide(level<span style="color: #333333">+</span><span style="color: #0000DD; font-weight: bold">1</span>, pos<span style="color: #333333">+</span>points.size()<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>,right);
+
+
+    } <span style="color: #008800; font-weight: bold">else</span> {
+        <span style="color: #888888">//std::cout &lt;&lt; level &lt;&lt; &quot; - &quot; &lt;&lt; pos &lt;&lt; &quot; - &quot; &lt;&lt; points.at(0) &lt;&lt; std::endl;</span>
+        balls.at(pos) <span style="color: #333333">=</span> points.at(<span style="color: #0000DD; font-weight: bold">0</span>);
+    }
+
+}
+</pre></div>
