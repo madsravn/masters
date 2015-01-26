@@ -4,6 +4,8 @@
 
 In this chapter a simplification of the work done by \citet{chanetal} is presented followed by their original idea. The simplification is the primary work of this thesis. Conceptually, the original structure by \citet{chanetal} can be thought of as an extension of the simplified data structure. This way the reader will introduced to the concepts at an incremental level.\todo{rephrase} The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified model. \todo{rewrite}
 
+The simplified model has a time complexity of $\mathcal{O}(\lg n)$ which is greather than the time complexity of the original model with $\mathcal{O}(\lg \lg n)$. However, the simplified model is far more simple - both in code and the data structures used. Because there is much more internal communication between the data structures in the original model and much more code to be executed, it is easy to assume \todo{Hvordan siger man det på engelsk?} that the running time constant of the original model far exceeds that of the simplified model, making the simplified faster than the original. \todo{rephrase}
+
 Some sections will start with a \emph{preliminaries} subsection. This subsection will describe some of the auxiliary data structures used in the section.  This will make the reader acquinted with the data structures when they are referenced instead of having them explained in the middle of another explanation.
 
 The algorithms mentioned in this chapter are all \emph{output-sensitive}, meaning that their running time depends on the amount of results found.
@@ -31,7 +33,7 @@ The tree with $n$ points can be represented as flat array with $n$ entries. The 
 In order to find the rank space successor or rank space predecessor of a point, a binary search is used on a sorted array of points. This data structure uses $\mathcal{O}(n)$ space and have a query time of $\mathcal{O}(\lg n)$. By finding the first key that is bigger in the array, the index of that key is the rank space successor. By finding the last key that is smaller in the array, the index of that key is the ranks space predecessor.
 
 \subsubsection{Succint rank queries}
-Something about this - WORK OF THE DAY
+Consider an array $A[1..n]$ with elements from some alphabet $\Sigma$. Given an index $i$ in the array, we want to find out how many elements in $A[1..i]$ is equal to $A[i]$. We call this a \emph{rank query}. We want to be able to answer the rank query in constant time. 
 
 
 \subsection{Solving the ball-inheritance problem} 
@@ -133,5 +135,7 @@ Conceptually, $LCA(x^*_1, x^*_2)$ describes a point between $x_1$ and $x_2$. Ste
 Going back to Lemma $2.4$, we see that the time complexity fits: $\mathcal{O}(\lg \lg n)$ time is used for the predecessor search and $\mathcal{O}((1+k)\tau)$ time is used for walking from the $LCA$ to the leaves solving the ball inheritance problem for the $k$ results.
 
 The three approaches described above all use a number of bits linear to the amount of points. The original search structure by \citet{chanetal} is the fastest with its $(1+k)\mathcal{O}(B\lg \lg n)$ query while kd-trees are the slowest with $\mathcal{O}(\sqrt{n} + k)$ query time.
+
+\todo{ADD CONSTANT TIME DIFFERENCE TALK}
 
 
