@@ -43,6 +43,9 @@ class Ort {
         uint findRank(int level, int nodepos, int pos);
         uint makemask(uint range);
         Point followball(int level, int nodepos, int pos, int amount);
+        void intMasks();
+        int minmask;
+        int maxmask;
 
     private:
         std::vector<std::vector<uint>> levels;
@@ -50,6 +53,8 @@ class Ort {
         std::vector<Point> balls;
         std::vector<std::vector<uint>> ranks;
         std::vector<uint> inttobin;
+        // Goes from 0 -> 31. ranks will find the sum if it includes all 32 bits
+        std::vector<uint> masks;
 
 
 

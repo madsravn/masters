@@ -28,43 +28,44 @@ Ort::rank(uint number) {
     return answer;
 }
 
+void
+Ort::intMasks() {
+    for(int range = 0; range < 32; ++range) {
+        uint result = 0;
+        // Why does the binary trick of ( 1 << k) - 1 not work here? 
+        for(int i = 0; i < 32-range; ++i) {
+            result = result << 1;
+            result += 1;
+        }
+        result = ~result;
+        masks.push_back(result);
+    }
+}
+     
+
+
 uint
 Ort::makemask(uint range) {
-    uint result = 0;
+    /*uint result = 0;
+    // Why does the binary trick of ( 1 << k) - 1 not work here? 
     for(int i = 0; i < 32-range; ++i) {
         result = result << 1;
         result += 1;
     }
     result = ~result;
-    return result;
+    if(range < minmask) {
+        minmask = range;
+    }
+    if(range > maxmask) {
+        maxmask = range;
+    }
+    return result;*/
+    return masks.at(range);
 }
 
 uint
 Ort::findRank(int level, int nodepos, int pos) {
 
-    // Slå op i ranks level og position med pos/32 og pos%32
-    // Træk nodepos/2 fra (da der er lige mange 1'ere og 0'ere før
-    // Så har du din rank
-
-    /*std::cout << "FINDRANK STARTER HER" << std::endl;
-    std::vector<uint> curr_rank = ranks.at(level);
-    std::cout << "curr_rank: " << curr_rank << std::endl;
-    std::vector<uint> curr_level = levels.at(level);
-    std::cout << "curr_level: " << curr_level << std::endl;
-    int pos_i = pos/32;
-    int pos_a = pos%32;
-    int resultrank = curr_rank.at(pos_i);
-    std::cout << "resultrank = " << resultrank << std::endl;
-    int t = curr_level.at(pos_i);
-    std::cout << "pos_a = " << pos_a << std::endl;
-    outputLevels();
-    std::bitset<32> b(t);
-    std::cout << b.to_string() << std::endl;
-    t = t & makemask(pos_a);
-    std::bitset<32> bb(t);
-    std::cout << bb.to_string() << std::endl;
-    resultrank += rank(t);
-    resultrank -= nodepos/2;*/
 
     // Simple version expanded
     int pos_i = pos/32;
@@ -127,6 +128,9 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
 
     std::vector<int> x(amount);
     std::vector<int> y(amount);
+    minmask = 1000;
+    maxmask = 0;
+    intMasks();
 
     int n {0};
     std::generate(std::begin(x), std::end(x), [&]{ return ++n;});
@@ -145,7 +149,7 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
 
     std::sort(std::begin(points), std::end(points), sortpointy);
 
-    std::cout << points << std::endl;
+    //std::cout << points << std::endl;
 
     /*std::vector<Point> cpoints(amount);
     std::copy(std::begin(points), std::end(points), std::begin(cpoints));
