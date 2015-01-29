@@ -47,9 +47,10 @@ class Ort {
         Point followball(int level, int nodepos, int pos, int amount);
         void intMasks();
         void initializeStuff();
-        std::vector<Point> FindPoints(int leftchild, int rightchild, int bit, int nodepos, int amount);
-        Point followPoint(int child, int bit, int nodepos, int amount, DIRECTION d);
+        std::vector<Point> FindPoints(int leftchild, int rightchild, int bit, int nodepos, int amount, int level);
+        std::vector<Point> followPoint(int child, int bit, int nodepos, int amount, DIRECTION d, int level);
         void initializeBinarySearches();
+        std::vector<Point> addAll(int nodepos, int level, int amount);
 
     private:
         std::vector<std::vector<uint>> levels;
