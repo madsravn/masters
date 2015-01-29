@@ -29,6 +29,8 @@ struct {
     }
 } sortpointx;
 
+enum DIRECTION { LEFT, RIGHT };
+
 using uint = std::uint32_t;
 
 
@@ -38,14 +40,16 @@ class Ort {
         void divide(int level, int pos, std::vector<Point> points);
         void setBit(int level, int pos, int value);
         void outputLevels();
-        void populateList();
+        void intIntegerToBinary();
         uint rank(uint number);
         uint findRank(int level, int nodepos, int pos);
         uint makemask(uint range);
         Point followball(int level, int nodepos, int pos, int amount);
         void intMasks();
-        int minmask;
-        int maxmask;
+        void initializeStuff();
+        std::vector<Point> FindPoints(int leftchild, int rightchild, int bit, int nodepos, int amount);
+        Point followPoint(int child, int bit, int nodepos, int amount, DIRECTION d);
+        void initializeBinarySearches();
 
     private:
         std::vector<std::vector<uint>> levels;
@@ -55,6 +59,7 @@ class Ort {
         std::vector<uint> inttobin;
         // Goes from 0 -> 31. ranks will find the sum if it includes all 32 bits
         std::vector<uint> masks;
+        std::vector<int> xb, yb;
 
 
 
