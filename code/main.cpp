@@ -4,7 +4,7 @@
 int main() {
 
     Ort ort(512);
-    ort.easyQuery({4,5}, {29,17});
+    ort.easyQuery({4,100}, {29,300});
 
 
 
