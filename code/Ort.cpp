@@ -174,7 +174,7 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
     divide(0,0,points);
 
     // Output the levels so we can see how the ball-inheritance has distributed
-    outputLevels();
+    //outputLevels();
 
 
     // Now let's precalculate the rank sums
@@ -207,18 +207,37 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
     std::cout << "ALL WAS " << all << std::endl;
 
     initializeBinarySearches();
-    int lower = 5;
-    int upper = 10;
-    auto l = std::lower_bound(std::begin(xb), std::end(xb), lower);
-    auto u = std::upper_bound(std::begin(xb), std::end(xb), upper);
-    int l_index = std::distance(std::begin(xb), l);
-    int u_index = std::distance(std::begin(xb), u) - 1;
+}
 
-    std::cout << "l_index: " << l_index << std::endl;
-    std::cout << "u_index: " << u_index << std::endl;
+std::vector<Point>
+Ort::easyQuery(Point lowerleft, Point upperright) {
+    
+    auto lx = std::lower_bound(std::begin(xb), std::end(xb), lowerleft.x);
+    auto ux = std::upper_bound(std::begin(xb), std::end(xb), upperright.x);
+    int lx_index = std::distance(std::begin(xb), lx);
+    int ux_index = std::distance(std::begin(xb), ux) - 1;
 
-    std::cout << FindPoints(l_index, u_index, 32-std::ceil(std::log2(amount)), 0, points.size(), 0) << std::endl;
+    std::cout << "lx_index: " << lx_index << std::endl;
+    std::cout << "ux_index: " << ux_index << std::endl;
 
+    auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
+    auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
+    int ly_indey = std::distance(std::begin(yb), ly);
+    int uy_indey = std::distance(std::begin(yb), uy) - 1;
+
+    std::cout << "ly_indey: " << ly_indey << std::endl;
+    std::cout << "uy_indey: " << uy_indey << std::endl;
+    
+
+    // TODO: Find a better way to express amount of balls
+    std::vector<Point> results = FindPoints(lx_index, ux_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
+    std::cout << results << std::endl;
+    bool all = true;
+    for(const auto& e : results) {
+        all = all & (lowerleft.x <= e.x && e.x <= upperright.x);
+    }
+    std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
+    return results;
 
 }
 

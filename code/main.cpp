@@ -3,7 +3,8 @@
 
 int main() {
 
-    Ort ort(32);
+    Ort ort(512);
+    ort.easyQuery({4,5}, {29,17});
 
 
 

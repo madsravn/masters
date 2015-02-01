@@ -51,8 +51,10 @@ class Ort {
         std::vector<Point> followPoint(int child, int bit, int nodepos, int amount, DIRECTION d, int level);
         void initializeBinarySearches();
         std::vector<Point> addAll(int nodepos, int level, int amount);
+        std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
 
     private:
+        int count;
         std::vector<std::vector<uint>> levels;
         std::vector<uint> bits;
         std::vector<Point> balls;
