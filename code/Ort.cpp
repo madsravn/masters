@@ -266,11 +266,11 @@ Ort::addAll(int nodepos, int lrank, int urank, int level, int amount) {
     for(int i = lrank-nodepos; i < urank-nodepos; ++i) {
         nonret.push_back(followball(level, nodepos, nodepos+i, amount));
     }
-    std::cout << std::endl << "addAll ======>" << std::endl;
-    std::cout << "lrank = " << lrank << " og urank = " << urank << " og amount = " << amount << std::endl;
-    std::cout << "nodepos = " << nodepos << std::endl;
-    std::cout << "ret = " << ret << std::endl;
-    std::cout << "nonret = " << nonret << std::endl;
+    //std::cout << std::endl << "addAll ======>" << std::endl;
+    //std::cout << "lrank = " << lrank << " og urank = " << urank << " og amount = " << amount << std::endl;
+    //std::cout << "nodepos = " << nodepos << std::endl;
+    //std::cout << "ret = " << ret << std::endl;
+    //std::cout << "nonret = " << nonret << std::endl;
         
 
     return nonret;
@@ -346,9 +346,9 @@ Ort::FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int b
 
     uint lrank = findRank(level, nodepos, ly_index) - nodepos/2;
     uint urank = findRank(level, nodepos, uy_index) - nodepos/2;
-    std::cout << std::endl << "FINDPOINTS ======> " << std::endl;
-    std::cout << "ly_rank = " << ly_index << " og lrank = " << lrank << std::endl;
-    std::cout << "uy_rank = " << uy_index << " og urank = " << urank << std::endl;
+    //std::cout << std::endl << "FINDPOINTS ======> " << std::endl;
+    //std::cout << "ly_rank = " << ly_index << " og lrank = " << lrank << std::endl;
+    //std::cout << "uy_rank = " << uy_index << " og urank = " << urank << std::endl;
 
 
     if(amount < 1) {
