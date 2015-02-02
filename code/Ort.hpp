@@ -9,7 +9,7 @@
 
 struct Point {
     int x, y;
-    bool operator==(Point a) {
+    const bool operator==(Point a) const {
        if (a.x==x && a.y== y)
           return true;
        else
@@ -52,6 +52,7 @@ class Ort {
         void initializeBinarySearches();
         std::vector<Point> addAll(int nodepos, int lrank, int urank, int level, int amount);
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
+        std::vector<Point> actualQuery(Point lowerleft, Point upperright);
 
     private:
         Point search;

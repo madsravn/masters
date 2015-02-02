@@ -223,7 +223,8 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
     auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
     int ly_index = std::distance(std::begin(yb), ly);
-    int uy_index = std::distance(std::begin(yb), uy) - 1;
+    //TODO: HVORFOR SKAL DEN HER IKKE HAVE - 1 ? 
+    int uy_index = std::distance(std::begin(yb), uy);
 
     std::cout << "ly_index: " << ly_index << std::endl;
     std::cout << "uy_index: " << uy_index << std::endl;
@@ -239,9 +240,24 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
         all = all & (lowerleft.x <= e.x && e.x <= upperright.x && lowerleft.y <= e.y && e.y <= upperright.y);
     }
     std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
-    return results;
 
+    return results;
 }
+
+std::vector<Point>
+Ort::actualQuery(Point lowerleft, Point upperright) {
+    std::vector<Point> outside;
+    std::vector<Point> inside;
+    for(const auto& e : balls) {
+        if(e.x < lowerleft.x || upperright.x < e.x || e.y < lowerleft.y || upperright.y < e.y) {
+            outside.push_back(e);
+        } else {
+            inside.push_back(e);
+        }
+    }
+    return inside;
+}
+ 
 
 
 // TODO: Tjek om den er sat
