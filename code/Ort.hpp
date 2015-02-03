@@ -6,7 +6,8 @@
 #include <vector>
 #include <functional>
 #include <cstdint>
-
+#include "Point.hpp"
+/*
 struct Point {
     int x, y;
     const bool operator==(Point a) const {
@@ -28,7 +29,7 @@ struct {
         return a.x < b.x;
     }
 } sortpointx;
-
+*/
 enum DIRECTION { LEFT, RIGHT };
 
 using uint = std::uint32_t;

@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Ort.hpp"
+#include "Data.hpp"
+#include "KDTree.hpp"
 
 int main() {
 

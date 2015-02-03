@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Ort.hpp"
+#include "Point.hpp"
 
 
 class Data {

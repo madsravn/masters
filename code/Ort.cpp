@@ -4,22 +4,6 @@
 
 //TODO: MAKE SURE EVERYTHING IS ONLY AS BIG AS IT NEEDS TO BE!
 
-template <class T>
-inline std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
-	os << "[";
-	for (const auto& elem : v)
-	{
-		os << " " << elem;
-	}
-	os << " ]";
-	return os;
-}
-
-inline std::ostream& operator << (std::ostream& os, const Point& p){
-    os << "(" << p.x << ", " << p.y << ")" << ", ";
-    return os;
-}
-
 
 uint 
 Ort::rank(uint number) {
