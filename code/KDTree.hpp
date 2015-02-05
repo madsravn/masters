@@ -11,10 +11,12 @@
 class KDTree {
 
     public: 
-        KDTree(std::vector<Point> input);
+        KDTree(int amount);
+        void build();
+        void buildTree(int start, int end, int level);
 
     private:
-        std::vector<Point> point;
+        std::vector<Point> points;
 };
 
 

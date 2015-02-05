@@ -44,6 +44,10 @@ Ort::findRank(int level, int nodepos, int pos) {
     int pos_i = pos/32;
     int pos_a = pos % 32;
     uint mask = makemask(pos_a);
+    if(pos_i == levels.at(level).size()) {
+        return (ranks.at(level)).at(pos_i);
+    }
+
     uint t = (levels.at(level)).at(pos_i);
     t = t & mask;
     uint resultrank = (ranks.at(level)).at(pos_i) + rank(t);
@@ -186,9 +190,9 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
 
 
 
-    std::cout << points.at(10) << std::endl;
+    /*std::cout << points.at(10) << std::endl;
     std::cout << followball(0,0,10,points.size()) << std::endl;
-    std::cout << "ALL WAS " << all << std::endl;
+    std::cout << "ALL WAS " << all << std::endl;*/
 
     initializeBinarySearches();
 }

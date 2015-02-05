@@ -7,29 +7,8 @@
 #include <functional>
 #include <cstdint>
 #include "Point.hpp"
-/*
-struct Point {
-    int x, y;
-    const bool operator==(Point a) const {
-       if (a.x==x && a.y== y)
-          return true;
-       else
-          return false;
-    }
-};
 
-struct {
-    bool operator()(Point a, Point b) {   
-        return a.y < b.y;
-    }   
-} sortpointy;
 
-struct {
-    bool operator()(Point a, Point b) {
-        return a.x < b.x;
-    }
-} sortpointx;
-*/
 enum DIRECTION { LEFT, RIGHT };
 
 using uint = std::uint32_t;
