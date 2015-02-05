@@ -50,7 +50,7 @@ std::vector<Point> randomPoints(std::mt19937 gen, int amount) {
 
 
 int main() {
-    std::random_device rd;
+    /*std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(4,14);
     for(int i = 0; i < 1000; ++i) {
@@ -69,7 +69,9 @@ int main() {
             std::cout << b << std::endl;
             std::cout << diff(a,b) << std::endl;
         }
-    }
+    }*/
+    KDTree kdtree(16);
+    kdtree.build();
 
 
     return 0;
