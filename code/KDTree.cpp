@@ -81,76 +81,52 @@ std::vector<Point>
 KDTree::search(Region reg, Region query, int start, int size, int level) {
 
     std::vector<Point> ret;
-    if(size > 0) {
-        std::vector<Point> comp(std::begin(points) + start, std::begin(points) + start + size);
-        std::cout << std::endl << comp << std::endl;
-        std::cout << "Should all be in : " << reg << std::endl;
-        bool t = true;
-        for(const auto& p : comp) {
-            t = t && (reg.ll.x <= p.x && reg.ll.y <= p.y && p.x <= reg.ur.x && p.y <= reg.ur.y);
-        }
-        if(!t) {
-            std::cout << "DET ER LØGN" << std::endl;
-        }
-        std::cout << std::endl;
-
-    }
     if(size > 1) {
         if(query.ll.x <= reg.ll.x && query.ll.y <= reg.ll.y && reg.ur.x <= query.ur.x && reg.ur.y <= query.ur.y) {
             std::vector<Point> complete(std::begin(points) + start, std::begin(points) + start + size);
-            if(debug) {
-                std::cout << std::endl << "COMPLETE REGION INCLUDED: " << complete << std::endl;
-                std::cout << "Region is: " << reg << std::endl;
-                std::cout << "Query is: " << query << std::endl << std::endl;
-            }
             return complete;
         }
 
         int middle = std::ceil(float(size)/2) - 1; // The middle point belongs to the left region
         Point div = points.at(start+middle);
-        if(debug) {
-            std::cout << std::endl << "Region is " << reg << std::endl;
-            std::cout << "diving point is: " << div << std::endl;
-            std::vector<Point> entire(std::begin(points) + start, std::begin(points) + start + size);
-            std::cout << "Entire vector is: " << entire << std::endl;
-            std::cout << "We are dividing on the " << (level%2 == 0 ? "x" : "y") << " axis" << std::endl;
+        std::cout << std::endl << std::endl << "level: " << level << std::endl;
+        std::cout << "start: " << start << std::endl;
+        std::cout << "middle: " << middle << std::endl;
+        std::cout << "size: " << size << std::endl;
 
+        std::vector<Point> ll(std::begin(points) + start, std::begin(points) + start + middle + 1);
+        std::vector<Point> rr(std::begin(points) + start + middle + 1, std::begin(points) + start + middle - middle + size);
+        std::vector<Point> all(std::begin(points) + start, std::begin(points) + start + size);
+
+        std::cout << "ll: " << ll << std::endl;
+        std::cout << "rr: " << rr << std::endl;
+        std::cout << "all: " << all << std::endl;
+        std::cout << "Region: " << reg << std::endl;
+        std::cout << "Dividing point is: " << div << std::endl;
+        bool t = true;
+        for(const auto& p : all) {
+           t = t && (reg.ll.x <= p.x && reg.ll.y <= p.y && p.x <= reg.ur.x && p.y <= reg.ur.y);
         }
+        if(!t) {
+            std::cout << "DET ER FALSK!" << std::endl;
+        }
+
+
         if(level%2 == 0) {
             Region left = limitRegion(reg, div, SIDE::RIGHT);
             Region right = limitRegion(reg, div, SIDE::LEFT);
-
-            if(debug) {
-                std::cout << "Going left" << std::endl;
-                std::cout << reg << " ==> " << left << std::endl;
-            }
+            
             std::vector<Point> l = search(left, query, start, middle+1, level+1);
-
-            if(debug) {
-                std::cout << "Going right" << std::endl;
-                std::cout << reg << " ==> " << right << std::endl;
-            }
- 
             std::vector<Point> r = search(right, query, start+middle+1, size-middle-1, level+1);
 
             ret.insert(std::end(ret), std::begin(l), std::end(l));
             ret.insert(std::end(ret), std::begin(r), std::end(r));
+
         } else {
             Region down = limitRegion(reg, div, SIDE::UP);
             Region up = limitRegion(reg, div, SIDE::DOWN);
-            if(debug) {
-                std::cout << "Going down" << std::endl;
-                std::cout << reg << " ==> " << down << std::endl;
-            }
- 
 
             std::vector<Point> d = search(down, query, start, middle+1, level+1);
-            if(debug) {
-                std::cout << "Going up" << std::endl;
-                std::cout << reg << " ==> " << up << std::endl;
-            }
- 
-
             std::vector<Point> u = search(up, query, start+middle+1, size-middle-1, level+1);
 
             ret.insert(std::end(ret), std::begin(d), std::end(d));
@@ -162,9 +138,6 @@ KDTree::search(Region reg, Region query, int start, int size, int level) {
     if(size == 1) {
         Point p = points.at(start);
         if(query.ll.x <= p.x && query.ll.y <= p.y && p.x <= query.ur.x && p.y <= query.ur.y) {
-            if(debug) {
-                std::cout << std::endl << "SINGLE POINT included: " << p << std::endl << std::endl;
-            }
             ret.push_back(p);
         }
     }

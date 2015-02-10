@@ -71,17 +71,17 @@ int main(int argc, char** argv) {
         }
     }*/
     if(argc == 1) {
-        for(int i = 0; i < 100000; ++i) {
-            KDTree kdtree(16);
+        for(int i = 0; i < 1; ++i) {
+            KDTree kdtree(32);
             kdtree.build();
             Region query = {{20, 20}, {30, 30}};
             kdtree.search(query);
             Region q2 = {{10,10}, {20,20}};
             if(kdtree.search(q2) != kdtree.actualSearch(q2)) {
-                kdtree.saveState(q2);
-                std::cout << "ERROR" << std::endl;
+                std::cout << std::endl << std::endl << "ERROR" << std::endl;
                 std::cout <<kdtree.search(q2) << std::endl;
                 std::cout << kdtree.actualSearch(q2) << std::endl;
+                kdtree.saveState(q2);
 
             }
         }
