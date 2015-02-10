@@ -72,6 +72,10 @@ int main() {
     }*/
     KDTree kdtree(16);
     kdtree.build();
+    Region query = {{20, 20}, {30, 30}};
+    kdtree.search(query);
+    Region q2 = {{10,10}, {20,20}};
+    kdtree.search(q2);
 
 
     return 0;

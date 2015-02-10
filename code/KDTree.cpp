@@ -21,14 +21,87 @@ KDTree::KDTree(int amount) {
     // Sort the points by their x-coordinates
     std::sort(std::begin(points), std::end(points), sortpointx);
 
+
 }
 
 void
 KDTree::build() {
     buildTree(0, points.size(), 0);
+    createRegion();
     std::cout << points << std::endl;
 
 }
+
+void
+KDTree::createRegion() {
+    if(!points.empty()){ 
+        std::vector<Point> cpy(points);
+        Point smallest;
+        Point biggest;
+        std::sort(std::begin(cpy), std::end(cpy), sortpointx);
+        smallest.x = cpy.front().x;
+        biggest.x = cpy.back().x;
+
+        std::sort(std::begin(cpy), std::end(cpy), sortpointy);
+        smallest.y = cpy.front().y;
+        biggest.y = cpy.back().y;
+
+        region.ll = smallest;
+        region.ur = biggest;
+    }
+}
+
+std::vector<Point>
+KDTree::search(Region query) {
+    return search(region, query);
+}
+
+std::vector<Point>
+KDTree::search(Region reg, Region query) {
+
+    std::cout << query << std::endl;
+    std::cout << reg << std::endl;
+    
+
+    // TODO : DET ER HER DET SKER!!!
+
+
+    if(overlap(query, reg)) {
+        std::cout << "overlap" << std::endl;
+    } else {
+        std::cout << "NO overlap" << std::endl;
+    }
+    return points;
+
+}
+
+// Trimming a region from a given side
+Region limitRegion(Region reg, Point p, SIDE side) {
+    if(side == SIDE::LEFT) {
+        reg.ll.x = p.x;
+    }
+    if(side == SIDE::RIGHT) {
+        reg.ur.x = p.x;
+    }
+    if(side == SIDE::UP) {
+        reg.ur.y = p.y;
+    }
+    if(side == SIDE::DOWN) {
+        reg.ll.y = p.y;
+    }
+    return reg;
+}
+
+bool
+KDTree::overlap(Region r1, Region r2) {
+    bool overlap = (r1.ll.x < r2.ur.x) && 
+        (r1.ur.x > r2.ll.x) &&
+        (r1.ll.y < r2.ur.y) && 
+        (r1.ur.y > r2.ll.y);
+    return overlap;
+}
+
+
 
 void
 KDTree::buildTree(int start, int size, int level) {
