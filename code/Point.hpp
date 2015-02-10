@@ -24,6 +24,12 @@ struct {
     }
 } sortpointx;
 
+struct Region {
+    Point ll; // lower left
+    Point ur; // upper right
+};
+
+
 template <class T>
 inline std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
 	os << "[";

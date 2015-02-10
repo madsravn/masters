@@ -7,11 +7,8 @@
 #include <functional>
 #include <cstdint>
 #include "Point.hpp"
+#include "Data.hpp"
 
-struct Region {
-    Point ll; // lower left
-    Point ur; // upper right
-};
 
 enum class SIDE { LEFT, RIGHT, UP, DOWN};
 
@@ -36,11 +33,16 @@ class KDTree {
         bool overlap(Region r1, Region r2);
         std::vector<Point> search(Region query);
         Region limitRegion(Region reg, Point p, SIDE side);
-        std::vector<Point> search(Region region, Region query);
+        std::vector<Point> search(Region reg, Region query, int start, int size, int level);
+        std::vector<Point> actualSearch(Region query);
+        void saveState(Region query);
+        void loadState(std::string filename);
+
 
     private:
         std::vector<Point> points;
         Region region;
+        bool debug;
 };
 
 

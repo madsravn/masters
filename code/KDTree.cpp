@@ -1,6 +1,7 @@
 #include "KDTree.hpp"
 
 KDTree::KDTree(int amount) {
+    debug = false;
     std::vector<int> x(amount);
     std::vector<int> y(amount);
 
@@ -28,7 +29,7 @@ void
 KDTree::build() {
     buildTree(0, points.size(), 0);
     createRegion();
-    std::cout << points << std::endl;
+    //std::cout << points << std::endl;
 
 }
 
@@ -51,32 +52,100 @@ KDTree::createRegion() {
     }
 }
 
+void
+KDTree::saveState(Region query) {
+    Data::saveState(points, query);
+}
+
+void
+KDTree::loadState(std::string filename) {
+    auto state = Data::loadState(filename);
+    points = std::get<0>(state);
+    Region query = std::get<1>(state);
+    createRegion();
+    debug = true;
+    std::cout << points << std::endl;
+    std::cout << "The query was " << query << std::endl;
+    std::cout << search(query) << std::endl;
+    std::cout << actualSearch(query) << std::endl;
+}
+
+
+
 std::vector<Point>
 KDTree::search(Region query) {
-    return search(region, query);
+    return search(region, query, 0, points.size(), 0);
 }
 
 std::vector<Point>
-KDTree::search(Region reg, Region query) {
+KDTree::search(Region reg, Region query, int start, int size, int level) {
 
-    std::cout << query << std::endl;
-    std::cout << reg << std::endl;
-    
+    std::vector<Point> ret;
+    if(size > 1) {
+        if(query.ll.x <= reg.ll.x && query.ll.y <= reg.ll.y && reg.ur.x <= query.ur.x && reg.ur.y <= query.ur.y) {
+            std::vector<Point> complete(std::begin(points) + start, std::begin(points) + start + size);
+            if(debug) {
+                std::cout << "Complete region included: " << complete << std::endl;
+                std::cout << "Region is: " << reg << std::endl;
+                std::cout << "Query is: " << query << std::endl;
+            }
+            return complete;
+        }
 
-    // TODO : DET ER HER DET SKER!!!
+        int middle = std::ceil(float(size)/2) - 1; // The middle point belongs to the left region
+        Point div = points.at(start+middle);
+        if(debug) {
+            std::cout << "diving point is: " << div << std::endl;
+        }
+        if(level%2 == 0) {
+            Region left = limitRegion(reg, div, SIDE::RIGHT);
+            Region right = limitRegion(reg, div, SIDE::LEFT);
 
+            std::vector<Point> l = search(left, query, start, middle+1, level+1);
+            std::vector<Point> r = search(right, query, start+middle+1, size-middle-1, level+1);
 
-    if(overlap(query, reg)) {
-        std::cout << "overlap" << std::endl;
-    } else {
-        std::cout << "NO overlap" << std::endl;
+            ret.insert(std::end(ret), std::begin(l), std::end(l));
+            ret.insert(std::end(ret), std::begin(r), std::end(r));
+        } else {
+            Region down = limitRegion(reg, div, SIDE::UP);
+            Region up = limitRegion(reg, div, SIDE::DOWN);
+
+            std::vector<Point> d = search(down, query, start, middle+1, level+1);
+            std::vector<Point> u = search(up, query, start+middle+1, size-middle-1, level+1);
+
+            ret.insert(std::end(ret), std::begin(d), std::end(d));
+            ret.insert(std::end(ret), std::begin(u), std::end(u));
+        }
+
     }
-    return points;
 
+    if(size == 1) {
+        Point p = points.at(start);
+        if(query.ll.x <= p.x && query.ll.y <= p.y && p.x <= query.ur.x && p.y <= query.ur.y) {
+            if(debug) {
+                std::cout << "Single point included: " << p << std::endl;
+            }
+            ret.push_back(p);
+        }
+    }
+    return ret;
+
+}
+
+std::vector<Point>
+KDTree::actualSearch(Region query) {
+    std::vector<Point> ret;
+    for(const auto& p : points) {
+        if(query.ll.x <= p.x && query.ll.y <= p.y && p.x <= query.ur.x && p.y <= query.ur.y) {
+            ret.push_back(p);
+        }
+    }
+    return ret;
 }
 
 // Trimming a region from a given side
-Region limitRegion(Region reg, Point p, SIDE side) {
+Region 
+KDTree::limitRegion(Region reg, Point p, SIDE side) {
     if(side == SIDE::LEFT) {
         reg.ll.x = p.x;
     }
@@ -114,7 +183,7 @@ KDTree::buildTree(int start, int size, int level) {
         }
 
         int middle = std::ceil(float(size)/2) - 1;
-        std::cout << std::endl << std::endl << "start: " << start << std::endl;
+        /*std::cout << std::endl << std::endl << "start: " << start << std::endl;
 
         std::vector<Point> entire(std::begin(points) + start, std::begin(points) + start + size);
         std::cout << "Entire range: " << entire << std::endl;
@@ -122,9 +191,9 @@ KDTree::buildTree(int start, int size, int level) {
         std::vector<Point> right(std::begin(points) + start + middle + 1, std::begin(points)+start+size);
         std::cout << "Left side contains: " << left << std::endl;
         std::cout << "Middle is: " << points.at(start+middle) << std::endl;
-        std::cout << "Right side contains: " << right << std::endl;
+        std::cout << "Right side contains: " << right << std::endl;*/
 
-        buildTree(start, middle,level+1);
+        buildTree(start, middle, level+1);
         buildTree(start+middle+1, size-middle-1, level+1);
     }
 

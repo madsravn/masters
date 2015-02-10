@@ -49,7 +49,7 @@ std::vector<Point> randomPoints(std::mt19937 gen, int amount) {
 }
 
 
-int main() {
+int main(int argc, char** argv) {
     /*std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(4,14);
@@ -70,12 +70,29 @@ int main() {
             std::cout << diff(a,b) << std::endl;
         }
     }*/
-    KDTree kdtree(16);
-    kdtree.build();
-    Region query = {{20, 20}, {30, 30}};
-    kdtree.search(query);
-    Region q2 = {{10,10}, {20,20}};
-    kdtree.search(q2);
+    if(argc == 1) {
+        for(int i = 0; i < 100000; ++i) {
+            KDTree kdtree(32);
+            kdtree.build();
+            Region query = {{20, 20}, {30, 30}};
+            kdtree.search(query);
+            Region q2 = {{10,10}, {20,20}};
+            if(kdtree.search(q2) != kdtree.actualSearch(q2)) {
+                kdtree.saveState(q2);
+                std::cout << "ERROR" << std::endl;
+                std::cout <<kdtree.search(q2) << std::endl;
+                std::cout << kdtree.actualSearch(q2) << std::endl;
+
+            }
+        }
+    }
+
+    if(argc == 2) {
+        const char* input_file = argv[1];
+        std::string input(input_file);
+        KDTree kdtree(128);
+        kdtree.loadState(input);
+    }
 
 
     return 0;
