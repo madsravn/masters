@@ -71,8 +71,8 @@ int main(int argc, char** argv) {
         }
     }*/
     if(argc == 1) {
-        for(int i = 0; i < 1; ++i) {
-            KDTree kdtree(32);
+        for(int i = 0; i < 5000; ++i) {
+            KDTree kdtree(64);
             kdtree.build();
             Region query = {{20, 20}, {30, 30}};
             kdtree.search(query);

@@ -33,7 +33,7 @@ class KDTree {
         bool overlap(Region r1, Region r2);
         std::vector<Point> search(Region query);
         Region limitRegion(Region reg, Point p, SIDE side);
-        std::vector<Point> search(Region reg, Region query, int start, int size, int level);
+        std::vector<Point> search(Region reg, Region query, int from, int to, int level);
         std::vector<Point> actualSearch(Region query);
         void saveState(Region query);
         void loadState(std::string filename);
@@ -41,6 +41,8 @@ class KDTree {
 
     private:
         std::vector<Point> points;
+        std::vector<int> middles;
+        std::vector<Point> splits; // x for x splits and y for y splits
         Region region;
         bool debug;
 };
