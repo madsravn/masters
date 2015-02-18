@@ -37,6 +37,16 @@ Ort::makemask(uint range) {
 
 }
 
+std::tuple<bool, int, int>
+Ort::bigJump(int level, int pos) {
+
+
+
+    std::tuple<bool, int, int> answer = std::make_tuple(true, 3, 3);
+    return answer;
+
+}
+
 uint
 Ort::findRank(int level, int nodepos, int pos) {
 
@@ -131,9 +141,9 @@ Ort::initializeBinarySearches() {
 
 
 // Generates $amount$ of points with unique x-coordinates and unique y-coordinates
-Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0)) {
+Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0)) {
 
-
+    /*
     std::vector<int> x(amount);
     std::vector<int> y(amount);
 
@@ -147,10 +157,12 @@ Ort::Ort(int amount) : balls(amount), levels(std::log2(amount), std::vector<uint
     std::shuffle(std::begin(x), std::end(x), g);
     std::shuffle(std::begin(y), std::end(y), g);
 
-    std::vector<Point> points;
     for(int i = 0; i < x.size(); ++i) {
         points.push_back({x[i], y[i]});
-    }
+    }*/
+
+    std::vector<Point> points;
+    points = input;
 
     std::sort(std::begin(points), std::end(points), sortpointy);
 
@@ -205,8 +217,8 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     int lx_index = std::distance(std::begin(xb), lx);
     int ux_index = std::distance(std::begin(xb), ux) - 1;
 
-    std::cout << "lx_index: " << lx_index << std::endl;
-    std::cout << "ux_index: " << ux_index << std::endl;
+    //std::cout << "lx_index: " << lx_index << std::endl;
+    //std::cout << "ux_index: " << ux_index << std::endl;
 
     auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
     auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
@@ -214,20 +226,20 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     //TODO: HVORFOR SKAL DEN HER IKKE HAVE - 1 ? 
     int uy_index = std::distance(std::begin(yb), uy);
 
-    std::cout << "ly_index: " << ly_index << std::endl;
-    std::cout << "uy_index: " << uy_index << std::endl;
+    //std::cout << "ly_index: " << ly_index << std::endl;
+    //std::cout << "uy_index: " << uy_index << std::endl;
     
     Point x{lowerleft.y, upperright.y};
     search = x;
 
     // TODO: Find a better way to express amount of balls
     std::vector<Point> results = FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
-    std::cout << results << std::endl;
+    //std::cout << results << std::endl;
     bool all = true;
     for(const auto& e : results) {
         all = all & (lowerleft.x <= e.x && e.x <= upperright.x && lowerleft.y <= e.y && e.y <= upperright.y);
     }
-    std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
+    //std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
 
     return results;
 }

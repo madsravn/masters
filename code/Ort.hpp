@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <random>
 #include <vector>
+#include <tuple>
 #include <functional>
 #include <cstdint>
 #include "Point.hpp"
@@ -16,7 +17,7 @@ using uint = std::uint32_t;
 
 class Ort {
     public:
-        Ort(int amount);
+        Ort(int amount, std::vector<Point> input);
         void divide(int level, int pos, std::vector<Point> points);
         void setBit(int level, int pos, int value);
         void outputLevels();
@@ -33,6 +34,7 @@ class Ort {
         std::vector<Point> addAll(int nodepos, int lrank, int urank, int level, int amount);
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
+        std::tuple<bool, int, int> bigJump(int level, int pos);
 
     private:
         Point search;

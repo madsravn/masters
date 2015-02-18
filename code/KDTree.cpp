@@ -1,7 +1,8 @@
 #include "KDTree.hpp"
 
-KDTree::KDTree(int amount) {
+KDTree::KDTree(int amount, std::vector<Point> input) {
     debug = false;
+    /*
     std::vector<int> x(amount);
     std::vector<int> y(amount);
 
@@ -17,7 +18,8 @@ KDTree::KDTree(int amount) {
 
     for(int i = 0; i < x.size(); ++i) {
         points.push_back({x[i], y[i]});
-    }
+    }*/
+    points = input;
 
     // Sort the points by their x-coordinates
     std::sort(std::begin(points), std::end(points), sortpointx);

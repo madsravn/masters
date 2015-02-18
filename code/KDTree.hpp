@@ -24,7 +24,7 @@ inline std::ostream& operator << (std::ostream& os, const Region& reg) {
 class KDTree {
 
     public: 
-        KDTree(int amount);
+        KDTree(int amount, std::vector<Point> input);
         void build();
         void buildTree(int start, int end, int level);
         void createRegion();
