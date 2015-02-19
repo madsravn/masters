@@ -4,6 +4,46 @@
 #include "Data.hpp"
 
 
+std::vector<Point> 
+Data::randomPoints(std::mt19937 gen, int amount) {
+
+     std::uniform_int_distribution<> dis(1, amount);
+     Point l, u;
+
+    int a = 5;
+    int b = 5;
+
+    while(a == b) {
+     
+        a = dis(gen);
+        b = dis(gen);
+        if(a < b) {
+            l.x = a; 
+            u.x = b;
+        } else {
+            u.x = a;
+            l.x = b;
+        }
+    }
+
+    a = 5;
+    b = 5;
+    while(a == b) {
+        a = dis(gen);
+        b = dis(gen);
+        if(a < b) {
+            l.y = a;
+            u.y = b;
+        } else {
+            u.y = a;
+            l.y = b;
+        }
+    }
+    std::vector<Point> result {l, u};
+    return result;
+}
+
+
 
 std::vector<Point>
 Data::generate(int amount) {

@@ -73,12 +73,58 @@ Ort::intIntegerToBinary() {
     }
 }
 
+// Will return values between 0 and 2^(stop-start) range
+int
+Ort::convertRangeToInt(std::vector<int> vec, int start, int stop) {
+    int ret = vec.at(start);
+    for(int i = start+1; i < stop; ++i) {
+        ret = ret << 1;
+        ret += vec.at(i);
+    }
+    return ret;
+}
+
+
+// LADER TIL AT VIRKE KORREKT
+void
+Ort::generateJumps() {
+    if(linkedlists.at(0).size() != twodarray.size() || twodarray.size() != levels.size()) {
+        std::cout << "Houston, we have a problem" << std::endl;
+        std::cout << "linkedlists.at(0).size() = " << linkedlists.at(0).size() << std::endl;
+        std::cout << "twodarray.size() = " << twodarray.size() << std::endl;
+        std::cout << "levels.size() = " << levels.size() << std::endl;
+        return;
+    }
+    int skiplevels = 3;
+    for(int i = 0; i < levels.size(); i+=skiplevels) {
+        if(i+skiplevels <= levels.size()) {
+            Jumper jump;
+            jump.jump = skiplevels;
+            std::vector<int> targets;
+            // TODO: ER DET DEN KORREKTE? 
+            for(int j = 0; j < linkedlists.size(); ++j) {
+                std::vector<int> linkedlist = linkedlists.at(twodarray.at(i).at(j));
+                int target = convertRangeToInt(linkedlist, i, i+skiplevels);
+                targets.push_back(target);
+            }
+            
+            std::cout << "targets: " <<  targets << std::endl;
+        } else {
+            // FIGURE OUT ALPHABET SIZE AND ASSIGN JUMP TO LEAF
+            
+        }
+    }
+
+
+
+}
+
 // position beskriver den vi kigger på
 // nodepos beskriver hvor den node vi kigger på starter henne sådan vi kan regne ud hvor mange 1'ere der kommer før den
 // level beskriver level. 
 // amount beskriver hvor mange der er i hver node
 Point
-Ort::followball(int level, int nodepos, int pos, int amount) {
+Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
     if(amount > 1) {
         
         uint irank = findRank(level, nodepos, pos) - nodepos/2;
@@ -90,12 +136,23 @@ Ort::followball(int level, int nodepos, int pos, int amount) {
         if(dir == 0) {
 
             //std::cout << "venstre" << std::endl;;
-            return followball(level+1, nodepos, pos - irank, amount/2);
+            if(building) {
+                (linkedlists.at(current)).push_back(0);
+                (twodarray.at(level)).at(pos) = current;
+            } else {
+
+
+            }
+            return followball(level+1, nodepos, pos - irank, amount/2, building);
 
         } else if(dir == 1) {
 
             //std::cout << "højre" << std::endl;
-            return followball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2);
+            if(building) {
+                (linkedlists.at(current)).push_back(1);
+                (twodarray.at(level)).at(pos) = current;
+            }
+            return followball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2, building);
 
         } else {
 
@@ -190,6 +247,33 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
             (ranks.at(i)).push_back(sum);
         }
     }
+
+
+    // Generating big jumps
+
+    // TODO: FIX THIS!
+    std::vector<std::vector<int>> temparray(levels.size(), std::vector<int>(points.size(), -1));
+    twodarray = temparray;
+    Jumper tempjump;
+    tempjump.jump = 1;
+    std::vector<Jumper> tjumps(levels.size(), tempjump);
+    jumps = tjumps;
+
+    for(current = 0; current < points.size(); ++current) {
+        linkedlists.push_back(std::vector<int>{});
+        followball(0,0,current,points.size(), true);
+
+    }
+    generateJumps();
+    for(const auto& l : linkedlists) {
+        std::cout << l << std::endl;
+    }
+    std::cout << points << std::endl;
+
+    for(const auto& l : twodarray) {
+        std::cout << l << std::endl;
+    }
+
 
 
     // Testing that all balls falls to their correct leaf

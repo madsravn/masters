@@ -14,6 +14,13 @@ enum DIRECTION { LEFT, RIGHT };
 
 using uint = std::uint32_t;
 
+struct Jumper {
+    int jump; // 2, 4, 8, 16 etc. Gets adjusted if we hit the bottom
+    std::vector<int> ranks; // Det skal der være hver
+    std::vector<int> entries;
+    bool end; // True if bottom is hit
+};
+
 
 class Ort {
     public:
@@ -25,7 +32,7 @@ class Ort {
         uint rank(uint number);
         uint findRank(int level, int nodepos, int pos);
         uint makemask(uint range);
-        Point followball(int level, int nodepos, int pos, int amount);
+        Point followball(int level, int nodepos, int pos, int amount, bool building = false);
         void intMasks();
         void initializeStuff();
         std::vector<Point> FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level);
@@ -35,6 +42,8 @@ class Ort {
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
         std::tuple<bool, int, int> bigJump(int level, int pos);
+        int convertRangeToInt(std::vector<int> vec, int start, int stop);
+        void generateJumps();
 
     private:
         Point search;
@@ -47,7 +56,10 @@ class Ort {
         // Goes from 0 -> 31. ranks will find the sum if it includes all 32 bits
         std::vector<uint> masks;
         std::vector<int> xb, yb;
-
+        int current;
+        std::vector<std::vector<int>> linkedlists;
+        std::vector<std::vector<int>> twodarray;
+        std::vector<Jumper> jumps;
 
 
 };

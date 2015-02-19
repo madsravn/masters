@@ -14,6 +14,8 @@ class Data {
         static std::vector<Point> generateRandom(int amount, int start, int stop);
         static void saveState(std::vector<Point> points, Region region);
         static std::tuple<std::vector<Point>, Region> loadState(std::string filename);
+        static std::vector<Point> randomPoints(std::mt19937 gen, int amount);
+
 
 };
 
