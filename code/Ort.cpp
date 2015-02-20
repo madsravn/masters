@@ -37,12 +37,19 @@ Ort::makemask(uint range) {
 
 }
 
-std::tuple<bool, int, int>
+// <do we jump, character, rank, alphabet size>
+std::tuple<bool, int, int, int>
 Ort::bigJump(int level, int pos) {
+    Jumper jump = jumps.at(level);
+    if(jump.jump == 1) {
+        return std::make_tuple(false,1,1,1);
+    }
+    int character = jump.targets.at(pos);
+    int rank = jump.entries.at(pos);
+    int size = jump.jump;
 
 
-
-    std::tuple<bool, int, int> answer = std::make_tuple(true, 3, 3);
+    std::tuple<bool, int, int, int> answer = std::make_tuple(true, character, rank, size);
     return answer;
 
 }
@@ -85,6 +92,7 @@ Ort::convertRangeToInt(std::vector<int> vec, int start, int stop) {
 }
 
 
+// TODO: REFACTOR!
 // LADER TIL AT VIRKE KORREKT
 void
 Ort::generateJumps() {
@@ -95,27 +103,71 @@ Ort::generateJumps() {
         std::cout << "levels.size() = " << levels.size() << std::endl;
         return;
     }
-    int skiplevels = 3;
-    for(int i = 0; i < levels.size(); i+=skiplevels) {
-        if(i+skiplevels <= levels.size()) {
-            Jumper jump;
-            jump.jump = skiplevels;
-            std::vector<int> targets;
-            // TODO: ER DET DEN KORREKTE? 
-            for(int j = 0; j < linkedlists.size(); ++j) {
-                std::vector<int> linkedlist = linkedlists.at(twodarray.at(i).at(j));
-                int target = convertRangeToInt(linkedlist, i, i+skiplevels);
-                targets.push_back(target);
+    //int skiplevels = 3;
+    for(int skiplevels = 2; skiplevels < levels.size(); ++skiplevels) {
+        for(int i = 0; i < levels.size(); i+=skiplevels) {
+            if(i+skiplevels <= levels.size()) {
+                std::cout << "to a node" << std::endl;
+                Jumper jump;
+                jump.jump = skiplevels;
+                std::vector<int> targets;
+                // TODO: ER DET DEN KORREKTE? 
+                for(int j = 0; j < linkedlists.size(); ++j) {
+                    std::vector<int> linkedlist = linkedlists.at(twodarray.at(i).at(j));
+                    int target = convertRangeToInt(linkedlist, i, i+skiplevels);
+                    targets.push_back(target);
+                }
+                
+                std::cout << "targets: " <<  targets << std::endl;
+                jump.targets = targets;
+                std::vector<int> alph(pow(2,skiplevels), 0);
+                std::vector<int> entries(targets.size(), 0);
+                for(int ent = 0; ent < targets.size(); ++ent) {
+                    int entry = targets.at(ent);
+                    entries.at(ent) = alph.at(entry);
+                    alph.at(entry)++;
+                }
+                std::cout << "entries: " << entries << std::endl;
+                jump.entries = entries;
+                jump.end = false;
+                jumps.at(i) = jump;
+            } else {
+                std::cout << std::endl << "skiplevels: " << skiplevels << std::endl;
+                std::cout << "i: " << i << std::endl;
+                std::cout << "skiplevels+i: " << skiplevels+i << std::endl;
+                std::cout << "levels.size(): " << levels.size() << std::endl;
+
+                /*std::cout << "to a leaf" << std::endl;
+                Jumper jump;
+                jump.end = true;
+                // DET ER HER FEJLEN LIGGER
+                int skiplevels = levels.size()-i;
+                jump.jump = 1; // TEMPORARY FIX
+                std::vector<int> targets;
+                // TODO: ER DET DEN KORREKTE? 
+                for(int j = 0; j < linkedlists.size(); ++j) {
+                    std::vector<int> linkedlist = linkedlists.at(twodarray.at(i).at(j));
+                    int target = convertRangeToInt(linkedlist, i, i+skiplevels);
+                    targets.push_back(target);
+                }
+                
+                std::cout << "targets: " <<  targets << std::endl;
+                jump.targets = targets;
+                std::vector<int> alph(pow(2,skiplevels), 0);
+                std::vector<int> entries(targets.size(), 0);
+                for(int ent = 0; ent < targets.size(); ++ent) {
+                    int entry = targets.at(ent);
+                    entries.at(ent) = alph.at(entry);
+                    alph.at(entry)++;
+                }
+                std::cout << "entries: " << entries << std::endl;
+                jump.entries = entries;
+                jump.end = true;
+                jumps.at(i) = jump;*/
+                
             }
-            
-            std::cout << "targets: " <<  targets << std::endl;
-        } else {
-            // FIGURE OUT ALPHABET SIZE AND ASSIGN JUMP TO LEAF
-            
         }
     }
-
-
 
 }
 
@@ -127,11 +179,26 @@ Point
 Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
     if(amount > 1) {
         
+        // TODO: Refactor this piece of code
         uint irank = findRank(level, nodepos, pos) - nodepos/2;
         std::vector<uint> curr_level = levels.at(level);
         uint mask = bits.at(pos%32);
         uint num = (levels.at(level)).at(pos/32) & mask;
         uint dir = rank(num);
+        std::tuple<bool, int, int, int> big = bigJump(level, pos);
+        if(std::get<0>(big) == true && !building) {
+            //std::cout << std::endl << "Using big jump" << std::endl;
+            int character = std::get<1>(big);
+            int rank = std::get<2>(big);
+            int jumps = std::get<3>(big);
+            int size = pow(2, jumps);
+            /*std::cout << "character: " << character << std::endl;
+            std::cout << "rank: " << rank << std::endl;
+            std::cout << "jumps: " << jumps << std::endl;
+            std::cout << "size: " << size << std::endl;
+            std::cout << "amount: " << amount << std::endl;*/
+            return followball(level+jumps, nodepos + (amount*character)/size, rank - nodepos/size, building);
+        }
         
         if(dir == 0) {
 
@@ -139,10 +206,8 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
             if(building) {
                 (linkedlists.at(current)).push_back(0);
                 (twodarray.at(level)).at(pos) = current;
-            } else {
-
-
-            }
+            } 
+            
             return followball(level+1, nodepos, pos - irank, amount/2, building);
 
         } else if(dir == 1) {
@@ -272,6 +337,9 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
     for(const auto& l : twodarray) {
         std::cout << l << std::endl;
+    }
+    for(const auto& e : jumps) {
+        std::cout << e.jump << std::endl;
     }
 
 

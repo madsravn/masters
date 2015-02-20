@@ -15,9 +15,10 @@ enum DIRECTION { LEFT, RIGHT };
 using uint = std::uint32_t;
 
 struct Jumper {
-    int jump; // 2, 4, 8, 16 etc. Gets adjusted if we hit the bottom
+    int jump; // 1, 2, 3, 4, 5 etc. Gets adjusted if we hit the bottom
     std::vector<int> ranks; // Det skal der være hver
     std::vector<int> entries;
+    std::vector<int> targets;
     bool end; // True if bottom is hit
 };
 
@@ -41,7 +42,7 @@ class Ort {
         std::vector<Point> addAll(int nodepos, int lrank, int urank, int level, int amount);
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
-        std::tuple<bool, int, int> bigJump(int level, int pos);
+        std::tuple<bool, int, int,int> bigJump(int level, int pos);
         int convertRangeToInt(std::vector<int> vec, int start, int stop);
         void generateJumps();
 

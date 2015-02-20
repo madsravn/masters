@@ -12,11 +12,16 @@ std::vector<Point> diff(std::vector<Point> a, std::vector<Point> b) {
 }
 
 
-int main(int argc, char** argv) {
+auto main(int argc, char** argv) -> int {
 
-    int amount = 16;
+    int amount = 128;
     Ort ort(amount, Data::generate(amount));
-
+    std::vector<Point> a = ort.easyQuery({4,4}, {32,32});
+    std::vector<Point> b = ort.actualQuery({4,4},{32,32});
+    std::sort(std::begin(a), std::end(a), sortpointx);
+    std::sort(std::begin(b), std::end(b), sortpointx);
+    std::cout << a << std::endl;
+    std::cout << b << std::endl;
 
     /*std::random_device rd;
     std::mt19937 gen(rd());
