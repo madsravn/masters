@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <random>
 #include <vector>
-#include <tuple>
 #include <functional>
 #include <cstdint>
 #include "Point.hpp"
@@ -20,6 +19,13 @@ struct Jumper {
     std::vector<int> entries;
     std::vector<int> targets;
     bool end; // True if bottom is hit
+};
+
+struct qreturn {
+    int jump;
+    int character;
+    int rank; 
+    int size;
 };
 
 
@@ -42,7 +48,7 @@ class Ort {
         std::vector<Point> addAll(int nodepos, int lrank, int urank, int level, int amount);
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
-        std::tuple<bool, int, int,int> bigJump(int level, int pos);
+        qreturn bigJump(int level, int pos);
         int convertRangeToInt(std::vector<int> vec, int start, int stop);
         void generateJumps();
 

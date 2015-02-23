@@ -38,19 +38,17 @@ Ort::makemask(uint range) {
 }
 
 // <do we jump, character, rank, alphabet size>
-std::tuple<bool, int, int, int>
+qreturn
 Ort::bigJump(int level, int pos) {
     Jumper jump = jumps.at(level);
     if(jump.jump == 1) {
-        return std::make_tuple(false,1,1,1);
+        return {0,1,1,1};
     }
     int character = jump.targets.at(pos);
     int rank = jump.entries.at(pos);
     int size = jump.jump;
 
-
-    std::tuple<bool, int, int, int> answer = std::make_tuple(true, character, rank, size);
-    return answer;
+    return {1,character, rank, size};
 
 }
 
@@ -185,18 +183,22 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
         uint mask = bits.at(pos%32);
         uint num = (levels.at(level)).at(pos/32) & mask;
         uint dir = rank(num);
-        std::tuple<bool, int, int, int> big = bigJump(level, pos);
-        if(std::get<0>(big) == true && !building) {
+        qreturn big = bigJump(level, pos);
+        if(big.jump == 1 && !building) {
             //std::cout << std::endl << "Using big jump" << std::endl;
-            int character = std::get<1>(big);
-            int rank = std::get<2>(big);
-            int jumps = std::get<3>(big);
+            int character = big.character;
+            int rank = big.rank;
+            int jumps = big.size; 
             int size = pow(2, jumps);
             /*std::cout << "character: " << character << std::endl;
             std::cout << "rank: " << rank << std::endl;
             std::cout << "jumps: " << jumps << std::endl;
             std::cout << "size: " << size << std::endl;
-            std::cout << "amount: " << amount << std::endl;*/
+            std::cout << "amount: " << amount << std::endl;
+            Point p = followball(level+jumps, nodepos + (amount*character)/size, 1 + rank - nodepos/size, building);
+            std::cout << "followball found by big jump: " << p << std::endl;
+            return p;*/
+
             return followball(level+jumps, nodepos + (amount*character)/size, rank - nodepos/size, building);
         }
         
@@ -345,12 +347,12 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
 
     // Testing that all balls falls to their correct leaf
-    bool all = true;
+    /*bool all = true;
     for(int i = 0; i < points.size(); ++i) {
-        /*std::cout << "It is: " << followball(0,0,i,points.size()) << std::endl;
-        std::cout << "Should be: " << points.at(i) << std::endl;*/
+        std::cout << "It is: " << followball(0,0,i,points.size()) << std::endl;
+        std::cout << "Should be: " << points.at(i) << std::endl;
         all = all & (points.at(i) == followball(0,0,i,points.size()));
-    }
+    }*/
 
 
 
@@ -427,19 +429,10 @@ std::vector<Point>
 Ort::addAll(int nodepos, int lrank, int urank, int level, int amount) {
     std::vector<Point> ret;
 
-    for(int i = 0; i < amount; ++i) {
-        ret.push_back(followball(level, nodepos, nodepos+i, amount));
-    }
     std::vector<Point> nonret;
     for(int i = lrank-nodepos; i < urank-nodepos; ++i) {
         nonret.push_back(followball(level, nodepos, nodepos+i, amount));
     }
-    //std::cout << std::endl << "addAll ======>" << std::endl;
-    //std::cout << "lrank = " << lrank << " og urank = " << urank << " og amount = " << amount << std::endl;
-    //std::cout << "nodepos = " << nodepos << std::endl;
-    //std::cout << "ret = " << ret << std::endl;
-    //std::cout << "nonret = " << nonret << std::endl;
-        
 
     return nonret;
 
