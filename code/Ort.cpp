@@ -190,16 +190,19 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
             int rank = big.rank;
             int jumps = big.size; 
             int size = pow(2, jumps);
-            /*std::cout << "character: " << character << std::endl;
+            std::cout << "<========================>" << std::endl;
+            std::cout << "character: " << character << std::endl;
             std::cout << "rank: " << rank << std::endl;
             std::cout << "jumps: " << jumps << std::endl;
             std::cout << "size: " << size << std::endl;
             std::cout << "amount: " << amount << std::endl;
-            Point p = followball(level+jumps, nodepos + (amount*character)/size, 1 + rank - nodepos/size, building);
+            std::cout << "(amount*character)/size: " << (amount*character)/size << std::endl;
+            Point p = followball(level+jumps, nodepos + (amount*character)/size, (character*amount)/size + nodepos + rank, amount/size, building);
             std::cout << "followball found by big jump: " << p << std::endl;
-            return p;*/
+            std::cout << "<========================>" << std::endl;
+            return p;
 
-            return followball(level+jumps, nodepos + (amount*character)/size, rank - nodepos/size, building);
+            //return followball(level+jumps, nodepos + (amount*character)/size, nodepos + rank - nodepos/size, amount/size, building);
         }
         
         if(dir == 0) {
@@ -219,6 +222,7 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
                 (linkedlists.at(current)).push_back(1);
                 (twodarray.at(level)).at(pos) = current;
             }
+            // TODO: Hvad var det udregningen for denne var? Find i noter
             return followball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2, building);
 
         } else {
@@ -227,7 +231,13 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
 
         }
     } 
+    std::cout << std::endl << "Returning ball" << std::endl;
+    std::cout << "amount: " << amount << std::endl;
+    std::cout << "pos: " << pos << std::endl;
+    std::cout << "nodepos: " << nodepos << std::endl;
+    std::cout << "level: " << level << std::endl << std::endl;
 
+    // Nodepos and pos should be equal now - since amount == 1
     return balls.at(nodepos);
     
 }
@@ -335,7 +345,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     for(const auto& l : linkedlists) {
         std::cout << l << std::endl;
     }
-    std::cout << points << std::endl;
+    //std::cout << points << std::endl;
 
     for(const auto& l : twodarray) {
         std::cout << l << std::endl;
@@ -352,7 +362,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
         std::cout << "It is: " << followball(0,0,i,points.size()) << std::endl;
         std::cout << "Should be: " << points.at(i) << std::endl;
         all = all & (points.at(i) == followball(0,0,i,points.size()));
-    }*/
+        }*/
 
 
 

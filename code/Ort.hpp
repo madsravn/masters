@@ -22,10 +22,10 @@ struct Jumper {
 };
 
 struct qreturn {
-    int jump;
-    int character;
-    int rank; 
-    int size;
+    int jump; // Do we jump? [0,1]
+    int character; // Which character is chosen
+    int rank; // What is the rank of this character at this position?
+    int size; // How many levels do we jump? 
 };
 
 

@@ -14,16 +14,16 @@ std::vector<Point> diff(std::vector<Point> a, std::vector<Point> b) {
 
 auto main(int argc, char** argv) -> int {
 
-    /*int amount = 128;
+    int amount = 128; // Går galt ved 128 og 2048
     Ort ort(amount, Data::generate(amount));
     std::vector<Point> a = ort.easyQuery({4,4}, {32,32});
     std::vector<Point> b = ort.actualQuery({4,4},{32,32});
     std::sort(std::begin(a), std::end(a), sortpointx);
     std::sort(std::begin(b), std::end(b), sortpointx);
     std::cout << a << std::endl;
-    std::cout << b << std::endl;*/
+    std::cout << b << std::endl;
 
-    std::random_device rd;
+    /*std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(4,14);
     int amount = pow(2,12);
@@ -53,7 +53,7 @@ auto main(int argc, char** argv) -> int {
 
     std::cout << "KDTree took: " << t2.duration().count() << " ms" << std::endl;
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
-
+    */
 
     /*
     for(int i = 0; i < 1000; ++i) {
