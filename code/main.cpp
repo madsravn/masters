@@ -23,17 +23,19 @@ auto main(int argc, char** argv) -> int {
     std::cout << a << std::endl;
     std::cout << b << std::endl;*/
 
-    /*std::random_device rd;
+    std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(4,14);
     int amount = pow(2,12);
     int loop = 100;
     std::vector<Point> input = Data::generate(amount);
-    Ort ort(amount, input);
     std::vector<Point> points = Data::randomPoints(gen, amount);
+
+
+    Ort ort(amount, input);
     Timer t1;
-    points.at(0) = {20,1};
-    points.at(1) = {50,amount};
+    //points.at(0) = {20,1};
+    //points.at(1) = {50,amount};
     t1.start();
     for(int i = 0; i < loop; ++i) {
         ort.easyQuery(points.at(0), points.at(1));
@@ -53,8 +55,8 @@ auto main(int argc, char** argv) -> int {
 
     std::cout << "KDTree took: " << t2.duration().count() << " ms" << std::endl;
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
-    */
-
+    
+/*
     for(int i = 0; i < 1000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -88,7 +90,7 @@ auto main(int argc, char** argv) -> int {
             std::cout << d << std::endl;
             std::cout << diff(c,d) << std::endl;
         }
-    }
+    }*/
     /*
     if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {

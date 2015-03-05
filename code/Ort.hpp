@@ -42,10 +42,10 @@ class Ort {
         Point followball(int level, int nodepos, int pos, int amount, bool building = false);
         void intMasks();
         void initializeStuff();
-        std::vector<Point> FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level);
-        std::vector<Point> followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level);
+        void FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level);
+        void followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level);
         void initializeBinarySearches();
-        std::vector<Point> addAll(int nodepos, int lrank, int urank, int level, int amount);
+        void addAll(int nodepos, int lrank, int urank, int level, int amount);
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
         qreturn bigJump(int level, int pos);

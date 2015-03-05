@@ -177,13 +177,7 @@ Point
 Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
     if(amount > 1) {
         
-        // TODO: Refactor this piece of code
-        uint irank = findRank(level, nodepos, pos) - nodepos/2;
-        std::vector<uint> curr_level = levels.at(level);
-        uint mask = bits.at(pos%32);
-        uint num = (levels.at(level)).at(pos/32) & mask;
-        uint dir = rank(num);
-        qreturn big = bigJump(level, pos);
+            qreturn big = bigJump(level, pos);
         if(big.jump == 1 && !building) {
             //std::cout << std::endl << "Using big jump" << std::endl;
             int character = big.character;
@@ -204,6 +198,14 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
 
             //return followball(level+jumps, nodepos + (amount*character)/size, nodepos + rank - nodepos/size, amount/size, building);
         }
+
+        // TODO: Refactor this piece of code
+        uint irank = findRank(level, nodepos, pos) - nodepos/2;
+        std::vector<uint> curr_level = levels.at(level);
+        uint mask = bits.at(pos%32);
+        uint num = (levels.at(level)).at(pos/32) & mask;
+        uint dir = rank(num);
+
         
         if(dir == 0) {
 
@@ -400,8 +402,12 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     Point x{lowerleft.y, upperright.y};
     search = x;
 
+    int dist = std::max(ux_index-lx_index, uy_index-ly_index);
+    results.clear();
+    results.reserve(dist);
+
     // TODO: Find a better way to express amount of balls
-    std::vector<Point> results = FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
+    FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
     //std::cout << results << std::endl;
     bool all = true;
     for(const auto& e : results) {
@@ -439,23 +445,17 @@ Ort::setBit(int level, int pos, int value) {
     }
 }
 
-std::vector<Point>
+void
 Ort::addAll(int nodepos, int lrank, int urank, int level, int amount) {
-    std::vector<Point> ret;
-
-    std::vector<Point> nonret;
     for(int i = lrank-nodepos; i < urank-nodepos; ++i) {
-        nonret.push_back(followball(level, nodepos, nodepos+i, amount));
+        results.push_back(followball(level, nodepos, nodepos+i, amount));
     }
-
-    return nonret;
-
 }
 
 // Jeg ved præcis hvor mange punkter jeg skal melde tilbage med 
 // så jeg kan lave en vektor der er af den størrelse.
 // DIRECTION d indicates which subtree of the LCA we are walking in
-std::vector<Point>
+void
 Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level) {
 
     if(amount < 1) {
@@ -476,27 +476,23 @@ Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int am
             if(d == LEFT) {
                 // We now add all the points from the right subtree
                 //std::cout << "Vi tager hele højre undertræ" << std::endl;
-                std::vector<Point> all = addAll(nodepos + amount/2, nodepos + amount/2+lrank, nodepos + amount/2 + urank, level+1, amount/2);
-                p.insert(std::end(p), std::begin(all), std::end(all));
+                addAll(nodepos + amount/2, nodepos + amount/2+lrank, nodepos + amount/2 + urank, level+1, amount/2);
 
             }
 
-            std::vector<Point> left = followPoint(child, lyrank-lrank, uyrank-urank, bit+1, nodepos, amount/2, d, level+1);
-            p.insert(std::end(p), std::begin(left), std::end(left));
-            return p;
+            followPoint(child, lyrank-lrank, uyrank-urank, bit+1, nodepos, amount/2, d, level+1);
+            return;
 
         } else {
             if(d == RIGHT) {
                 // We now add all the points from the left subtree
                 //std::cout << "Vi tager hele venstre undertræ" << std::endl;
-                std::vector<Point> all = addAll(nodepos, lyrank-lrank, uyrank-urank, level+1, amount/2);
-                p.insert(std::end(p), std::begin(all), std::end(all));
+                addAll(nodepos, lyrank-lrank, uyrank-urank, level+1, amount/2);
 
             }
 
-            std::vector<Point> right = followPoint(child, nodepos+amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, d, level+1);
-            p.insert(std::end(p), std::begin(right), std::end(right));
-            return p;
+            followPoint(child, nodepos+amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, d, level+1);
+            return;
 
         }
 
@@ -505,13 +501,12 @@ Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int am
     // There might only be one point in amount
     Point last = balls.at(nodepos);
     if(search.x <= last.y && last.y <= search.y) { 
-        p.push_back(balls.at(nodepos));
+        results.push_back(balls.at(nodepos));
     }
-    return p;
 
 }
 
-std::vector<Point> 
+void
 Ort::FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level) {
     // TODO: What to do if the number of balls are greater than 2^32? 
     // Lav en vektor med større.
@@ -534,18 +529,15 @@ Ort::FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int b
     if(left == right) {
         //std::cout << "Sammen" << std::endl;
         if(left == 0) {
-            return FindPoints(leftchild, rightchild, ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, level+1);
+            FindPoints(leftchild, rightchild, ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, level+1);
+            return;
         } else {
-            return FindPoints(leftchild, rightchild, nodepos + amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, level+1);
+            FindPoints(leftchild, rightchild, nodepos + amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, level+1);
+            return;
         }
     }
-    std::vector<Point> p;
-    std::vector<Point> leftvec = followPoint(leftchild,ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, LEFT, level+1);
-    std::vector<Point> rightvec = followPoint(rightchild,nodepos+amount/2+lrank,nodepos+amount/2+urank, bit+1, nodepos+amount/2, amount/2, RIGHT, level+1);
-    p.insert(std::end(p), std::begin(leftvec), std::end(leftvec));
-    p.insert(std::end(p), std::begin(rightvec), std::end(rightvec));
-
-    return p;
+    followPoint(leftchild,ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, LEFT, level+1);
+    followPoint(rightchild,nodepos+amount/2+lrank,nodepos+amount/2+urank, bit+1, nodepos+amount/2, amount/2, RIGHT, level+1);
 }
 
 

@@ -1,5 +1,5 @@
 
-CFLAGS	= -ggdb -pg
+CFLAGS	= -pg -ggdb
 
 
 all: balls
