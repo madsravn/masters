@@ -105,7 +105,7 @@ Ort::generateJumps() {
     for(int skiplevels = 2; skiplevels < levels.size(); ++skiplevels) {
         for(int i = 0; i < levels.size(); i+=skiplevels) {
             if(i+skiplevels <= levels.size()) {
-                std::cout << "to a node" << std::endl;
+                //std::cout << "to a node" << std::endl;
                 Jumper jump;
                 jump.jump = skiplevels;
                 std::vector<int> targets;
@@ -116,7 +116,7 @@ Ort::generateJumps() {
                     targets.push_back(target);
                 }
                 
-                std::cout << "targets: " <<  targets << std::endl;
+                //std::cout << "targets: " <<  targets << std::endl;
                 jump.targets = targets;
                 std::vector<int> alph(pow(2,skiplevels), 0);
                 std::vector<int> entries(targets.size(), 0);
@@ -125,15 +125,15 @@ Ort::generateJumps() {
                     entries.at(ent) = alph.at(entry);
                     alph.at(entry)++;
                 }
-                std::cout << "entries: " << entries << std::endl;
+                //std::cout << "entries: " << entries << std::endl;
                 jump.entries = entries;
                 jump.end = false;
                 jumps.at(i) = jump;
             } else {
-                std::cout << std::endl << "skiplevels: " << skiplevels << std::endl;
+                /*std::cout << std::endl << "skiplevels: " << skiplevels << std::endl;
                 std::cout << "i: " << i << std::endl;
                 std::cout << "skiplevels+i: " << skiplevels+i << std::endl;
-                std::cout << "levels.size(): " << levels.size() << std::endl;
+                std::cout << "levels.size(): " << levels.size() << std::endl;*/
 
                 /*std::cout << "to a leaf" << std::endl;
                 Jumper jump;
@@ -190,16 +190,16 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
             int rank = big.rank;
             int jumps = big.size; 
             int size = pow(2, jumps);
-            std::cout << "<========================>" << std::endl;
+            /*std::cout << std::endl << "<========================>" << std::endl;
             std::cout << "character: " << character << std::endl;
             std::cout << "rank: " << rank << std::endl;
             std::cout << "jumps: " << jumps << std::endl;
             std::cout << "size: " << size << std::endl;
             std::cout << "amount: " << amount << std::endl;
-            std::cout << "(amount*character)/size: " << (amount*character)/size << std::endl;
-            Point p = followball(level+jumps, nodepos + (amount*character)/size, (character*amount)/size + nodepos + rank, amount/size, building);
-            std::cout << "followball found by big jump: " << p << std::endl;
-            std::cout << "<========================>" << std::endl;
+            std::cout << "(amount*character)/size: " << (amount*character)/size << std::endl;*/
+            Point p = followball(level+jumps, nodepos + (amount*character)/size, (character*amount)/size + nodepos + rank - nodepos/size, amount/size, building);
+            /*std::cout << "followball found by big jump: " << p << std::endl;
+            std::cout << "<========================>" << std::endl;*/
             return p;
 
             //return followball(level+jumps, nodepos + (amount*character)/size, nodepos + rank - nodepos/size, amount/size, building);
@@ -231,11 +231,11 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
 
         }
     } 
-    std::cout << std::endl << "Returning ball" << std::endl;
+    /*std::cout << std::endl << "Returning ball" << std::endl;
     std::cout << "amount: " << amount << std::endl;
     std::cout << "pos: " << pos << std::endl;
     std::cout << "nodepos: " << nodepos << std::endl;
-    std::cout << "level: " << level << std::endl << std::endl;
+    std::cout << "level: " << level << std::endl << std::endl;*/
 
     // Nodepos and pos should be equal now - since amount == 1
     return balls.at(nodepos);
@@ -328,21 +328,25 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
     // Generating big jumps
 
-    // TODO: FIX THIS!
+    // TODO: FIX THIS! How do I do this correctly with the constructor? 
     std::vector<std::vector<int>> temparray(levels.size(), std::vector<int>(points.size(), -1));
     twodarray = temparray;
+    //twodarray.insert(std::begin(twodarray), levels.size(), std::vector<int>(points.size(), -1));
     Jumper tempjump;
     tempjump.jump = 1;
     std::vector<Jumper> tjumps(levels.size(), tempjump);
     jumps = tjumps;
 
+    // TODO: Maybe move this to generateJumps ? 
+    // Constructing the linked lists down the tree for each ball.
     for(current = 0; current < points.size(); ++current) {
         linkedlists.push_back(std::vector<int>{});
         followball(0,0,current,points.size(), true);
 
     }
     generateJumps();
-    for(const auto& l : linkedlists) {
+    // GenerateJumps debug output
+    /*for(const auto& l : linkedlists) {
         std::cout << l << std::endl;
     }
     //std::cout << points << std::endl;
@@ -352,7 +356,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     }
     for(const auto& e : jumps) {
         std::cout << e.jump << std::endl;
-    }
+    }*/
 
 
 

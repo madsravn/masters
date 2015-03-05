@@ -14,14 +14,14 @@ std::vector<Point> diff(std::vector<Point> a, std::vector<Point> b) {
 
 auto main(int argc, char** argv) -> int {
 
-    int amount = 128; // Går galt ved 128 og 2048
+    /*int amount = 128; // Går galt ved 128 og 2048
     Ort ort(amount, Data::generate(amount));
     std::vector<Point> a = ort.easyQuery({4,4}, {32,32});
     std::vector<Point> b = ort.actualQuery({4,4},{32,32});
     std::sort(std::begin(a), std::end(a), sortpointx);
     std::sort(std::begin(b), std::end(b), sortpointx);
     std::cout << a << std::endl;
-    std::cout << b << std::endl;
+    std::cout << b << std::endl;*/
 
     /*std::random_device rd;
     std::mt19937 gen(rd());
@@ -55,13 +55,17 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-    /*
     for(int i = 0; i < 1000; ++i) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(4,10);
+
         int amount = pow(2,dis(gen));
         std::cout << "AMOUNT IS " << amount << std::endl;
-        Ort ort(amount);
-        KDTree kdtree(amount);
-        std::vector<Point> points = randomPoints(gen, amount);
+        std::vector<Point> input = Data::generate(amount);
+        Ort ort(amount, input);
+        KDTree kdtree(amount, input);
+        std::vector<Point> points = Data::randomPoints(gen, amount);
         std::cout << "POINTS: " << points << std::endl;
         std::vector<Point> a = ort.easyQuery(points.at(0), points.at(1));
         std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
@@ -85,7 +89,6 @@ auto main(int argc, char** argv) -> int {
             std::cout << diff(c,d) << std::endl;
         }
     }
-    */
     /*
     if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {

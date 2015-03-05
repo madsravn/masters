@@ -67,6 +67,7 @@ class Ort {
         std::vector<std::vector<int>> linkedlists;
         std::vector<std::vector<int>> twodarray;
         std::vector<Jumper> jumps;
+        std::vector<Point> results;
 
 
 };
