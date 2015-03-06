@@ -40,13 +40,13 @@ Ort::makemask(uint range) {
 // <do we jump, character, rank, alphabet size>
 qreturn
 Ort::bigJump(int level, int pos) {
-    Jumper jump = jumps.at(level);
-    if(jump.jump == 1) {
+    if(jumps.at(level).jump == 1) {
         return {0,1,1,1};
     }
-    int character = jump.targets.at(pos);
-    int rank = jump.entries.at(pos);
-    int size = jump.jump;
+    //Jumper jump = jumps.at(level);
+    int character = jumps.at(level).targets.at(pos);
+    int rank = jumps.at(level).entries.at(pos);
+    int size = jumps.at(level).jump;
 
     return {1,character, rank, size};
 
@@ -176,8 +176,8 @@ Ort::generateJumps() {
 Point
 Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
     if(amount > 1) {
-        
-            qreturn big = bigJump(level, pos);
+    
+        qreturn big = bigJump(level, pos);
         if(big.jump == 1 && !building) {
             //std::cout << std::endl << "Using big jump" << std::endl;
             int character = big.character;
@@ -201,7 +201,7 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
 
         // TODO: Refactor this piece of code
         uint irank = findRank(level, nodepos, pos) - nodepos/2;
-        std::vector<uint> curr_level = levels.at(level);
+        //std::vector<uint> curr_level = levels.at(level);
         uint mask = bits.at(pos%32);
         uint num = (levels.at(level)).at(pos/32) & mask;
         uint dir = rank(num);
@@ -409,10 +409,10 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     // TODO: Find a better way to express amount of balls
     FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
     //std::cout << results << std::endl;
-    bool all = true;
+    /*bool all = true;
     for(const auto& e : results) {
         all = all & (lowerleft.x <= e.x && e.x <= upperright.x && lowerleft.y <= e.y && e.y <= upperright.y);
-    }
+    }*/
     //std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
 
     return results;
@@ -452,8 +452,6 @@ Ort::addAll(int nodepos, int lrank, int urank, int level, int amount) {
     }
 }
 
-// Jeg ved præcis hvor mange punkter jeg skal melde tilbage med 
-// så jeg kan lave en vektor der er af den størrelse.
 // DIRECTION d indicates which subtree of the LCA we are walking in
 void
 Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level) {
@@ -464,7 +462,6 @@ Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int am
     
     //std::cout << "Hver for sig" << std::endl;
 
-    std::vector<Point> p;
     if(amount > 1) {
         uint num = bits.at(bit);
         uint dir = child & num;
@@ -499,6 +496,7 @@ Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int am
     }
 
     // There might only be one point in amount
+    // TODO: Is this assumption correct? 
     Point last = balls.at(nodepos);
     if(search.x <= last.y && last.y <= search.y) { 
         results.push_back(balls.at(nodepos));
