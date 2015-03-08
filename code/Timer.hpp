@@ -1,7 +1,7 @@
 #ifndef TIMER_HPP_
 #define TIMER_HPP_
 #include <chrono>
-using unitofmeassure = std::chrono::microseconds;
+using unitofmeassure = std::chrono::milliseconds;
 
 class Timer {
     private:

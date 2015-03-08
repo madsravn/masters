@@ -1,6 +1,6 @@
 
-#CFLAGS	= -g -O0 -pg
-CFLAGS = -O3
+CFLAGS	= -g -O0 -pg -ggdb
+#CFLAGS = -O3
 
 all: balls
 

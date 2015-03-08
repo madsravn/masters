@@ -169,39 +169,13 @@ Ort::generateJumps() {
 
 }
 
-// position beskriver den vi kigger på
-// nodepos beskriver hvor den node vi kigger på starter henne sådan vi kan regne ud hvor mange 1'ere der kommer før den
-// level beskriver level. 
-// amount beskriver hvor mange der er i hver node
+
 Point
-Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
+Ort::buildfollowball(int level, int nodepos, int pos, int amount) {
     if(amount > 1) {
     
-        qreturn big = bigJump(level, pos);
-        if(big.jump == 1 && !building) {
-            //std::cout << std::endl << "Using big jump" << std::endl;
-            int character = big.character;
-            int rank = big.rank;
-            int jumps = big.size; 
-            int size = pow(2, jumps);
-            /*std::cout << std::endl << "<========================>" << std::endl;
-            std::cout << "character: " << character << std::endl;
-            std::cout << "rank: " << rank << std::endl;
-            std::cout << "jumps: " << jumps << std::endl;
-            std::cout << "size: " << size << std::endl;
-            std::cout << "amount: " << amount << std::endl;
-            std::cout << "(amount*character)/size: " << (amount*character)/size << std::endl;*/
-            Point p = followball(level+jumps, nodepos + (amount*character)/size, (character*amount)/size + nodepos + rank - nodepos/size, amount/size, building);
-            /*std::cout << "followball found by big jump: " << p << std::endl;
-            std::cout << "<========================>" << std::endl;*/
-            return p;
-
-            //return followball(level+jumps, nodepos + (amount*character)/size, nodepos + rank - nodepos/size, amount/size, building);
-        }
-
         // TODO: Refactor this piece of code
         uint irank = findRank(level, nodepos, pos) - nodepos/2;
-        //std::vector<uint> curr_level = levels.at(level);
         uint mask = bits.at(pos%32);
         uint num = (levels.at(level)).at(pos/32) & mask;
         uint dir = rank(num);
@@ -209,23 +183,17 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
         
         if(dir == 0) {
 
-            //std::cout << "venstre" << std::endl;;
-            if(building) {
-                (linkedlists.at(current)).push_back(0);
-                (twodarray.at(level)).at(pos) = current;
-            } 
+            (linkedlists.at(current)).push_back(0);
+            (twodarray.at(level)).at(pos) = current;
             
-            return followball(level+1, nodepos, pos - irank, amount/2, building);
+            return buildfollowball(level+1, nodepos, pos - irank, amount/2);
 
         } else if(dir == 1) {
 
-            //std::cout << "højre" << std::endl;
-            if(building) {
-                (linkedlists.at(current)).push_back(1);
-                (twodarray.at(level)).at(pos) = current;
-            }
-            // TODO: Hvad var det udregningen for denne var? Find i noter
-            return followball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2, building);
+            (linkedlists.at(current)).push_back(1);
+            (twodarray.at(level)).at(pos) = current;
+
+            return buildfollowball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2);
 
         } else {
 
@@ -233,15 +201,102 @@ Ort::followball(int level, int nodepos, int pos, int amount, bool building) {
 
         }
     } 
-    /*std::cout << std::endl << "Returning ball" << std::endl;
-    std::cout << "amount: " << amount << std::endl;
-    std::cout << "pos: " << pos << std::endl;
-    std::cout << "nodepos: " << nodepos << std::endl;
-    std::cout << "level: " << level << std::endl << std::endl;*/
+
+    // Nodepos and pos should be equal now - since amount == 1
+    return balls.at(nodepos);
+}
+
+
+
+// position beskriver den vi kigger på
+// nodepos beskriver hvor den node vi kigger på starter henne sådan vi kan regne ud hvor mange 1'ere der kommer før den
+// level beskriver level. 
+// amount beskriver hvor mange der er i hver node
+Point
+Ort::followball(int level, int nodepos, int pos, int amount) {
+    if(amount > 1) {
+    
+        qreturn big = bigJump(level, pos);
+        if(big.jump == 1) {
+            //std::cout << std::endl << "Using big jump" << std::endl;
+            int character = big.character;
+            int rank = big.rank;
+            int jumps = big.size; 
+            int size = pow(2, jumps);
+            return followball(level+jumps, nodepos + (amount*character)/size, (character*amount)/size + nodepos + rank - nodepos/size, amount/size);
+
+        }
+
+        uint irank = findRank(level, nodepos, pos) - nodepos/2;
+        uint mask = bits.at(pos%32);
+        uint num = (levels.at(level)).at(pos/32) & mask;
+        uint dir = rank(num);
+
+        
+        if(dir == 0) {
+
+            return followball(level+1, nodepos, pos - irank, amount/2);
+
+        } else if(dir == 1) {
+
+            return followball(level+1, nodepos + amount/2, nodepos + amount/2 + irank, amount/2);
+
+        } else {
+
+            std::cout << "error" << std::endl;
+
+        }
+    } 
 
     // Nodepos and pos should be equal now - since amount == 1
     return balls.at(nodepos);
     
+}
+
+Point
+Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
+
+    while(amount > 1) {
+        qreturn big = bigJump(level, pos);
+        if(big.jump == 1) {
+            //std::cout << std::endl << "Using big jump" << std::endl;
+            int size = pow(2, big.size);
+
+            level += big.size;
+            pos = (amount*big.character)/size + nodepos + big.rank - nodepos/size;
+            nodepos += (amount*big.character)/size;
+            amount = amount/size;
+
+        } else {
+
+            uint irank = findRank(level, nodepos, pos) - nodepos/2;
+            uint mask = bits.at(pos%32);
+            uint num = (levels.at(level)).at(pos/32) & mask;
+            uint dir = rank(num);
+
+            
+            if(dir == 0) {
+
+                ++level;
+                pos = pos - irank;
+                amount = amount/2;
+
+            } else if(dir == 1) {
+
+                ++level;
+                pos = nodepos + amount/2 + irank;
+                nodepos += amount/2;
+                amount = amount/2;
+
+            } else {
+
+                std::cout << "error" << std::endl;
+
+            }
+        }
+
+    }
+    return balls.at(nodepos);
 }
 
 void
@@ -341,12 +396,13 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
     // TODO: Maybe move this to generateJumps ? 
     // Constructing the linked lists down the tree for each ball.
-    for(current = 0; current < points.size(); ++current) {
+    
+    /*for(current = 0; current < points.size(); ++current) {
         linkedlists.push_back(std::vector<int>{});
-        followball(0,0,current,points.size(), true);
+        buildfollowball(0,0,current,points.size());
 
     }
-    generateJumps();
+    generateJumps();*/
     // GenerateJumps debug output
     /*for(const auto& l : linkedlists) {
         std::cout << l << std::endl;
@@ -448,7 +504,7 @@ Ort::setBit(int level, int pos, int value) {
 void
 Ort::addAll(int nodepos, int lrank, int urank, int level, int amount) {
     for(int i = lrank-nodepos; i < urank-nodepos; ++i) {
-        results.push_back(followball(level, nodepos, nodepos+i, amount));
+        results.push_back(whilefollowball(level, nodepos, nodepos+i, amount));
     }
 }
 

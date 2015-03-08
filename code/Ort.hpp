@@ -39,7 +39,9 @@ class Ort {
         uint rank(uint number);
         uint findRank(int level, int nodepos, int pos);
         uint makemask(uint range);
-        Point followball(int level, int nodepos, int pos, int amount, bool building = false);
+        Point followball(int level, int nodepos, int pos, int amount);
+        Point buildfollowball(int level, int nodepos, int pos, int amount);
+        Point whilefollowball(int level, int nodepos, int pos, int amount);
         void intMasks();
         void initializeStuff();
         void FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level);

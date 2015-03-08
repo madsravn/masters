@@ -30,6 +30,8 @@ struct Region {
 };
 
 
+
+
 template <class T>
 inline std::ostream& operator << (std::ostream& os, const std::vector<T>& v) {
 	os << "[";

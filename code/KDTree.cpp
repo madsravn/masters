@@ -2,36 +2,15 @@
 
 KDTree::KDTree(int amount, std::vector<Point> input) {
     debug = false;
-    /*
-    std::vector<int> x(amount);
-    std::vector<int> y(amount);
-
-    int n {0};
-    std::generate(std::begin(x), std::end(x), [&]{ return ++n;});
-    std::copy(std::begin(x), std::end(x), std::begin(y));
-    
-    std::random_device rd;
-    std::mt19937 g(rd());
-
-    std::shuffle(std::begin(x), std::end(x), g);
-    std::shuffle(std::begin(y), std::end(y), g);
-
-    for(int i = 0; i < x.size(); ++i) {
-        points.push_back({x[i], y[i]});
-    }*/
     points = input;
+    build();
 
-    // Sort the points by their x-coordinates
-    std::sort(std::begin(points), std::end(points), sortpointx);
-    std::vector<Point> spl(points.size(), {0,0});
-    splits = spl;
 
 }
 
 void
 KDTree::build() {
     buildTree(0, points.size(), 0);
-    std::sort(std::begin(middles), std::end(middles));
     //std::cout << middles << std::endl;
     createRegion();
     //std::cout << points << std::endl;
@@ -95,7 +74,10 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
         }
 
         int middle = std::ceil(float(size)/2) - 1; // The middle point belongs to the left region
-        Point div = splits.at(from+middle);
+        Point div = points.at(from+middle);
+        if(query.ll.x <= div.x && div.x <= query.ur.x && query.ll.y <= div.y && div.y <= query.ur.y) {
+            ret.push_back(div);
+        }
         /*std::cout << std::endl << std::endl << "level: " << level << std::endl;
         std::cout << "from: " << from << std::endl;
         std::cout << "to: " << to << std::endl,
@@ -128,7 +110,7 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
             //std::cout << "Region right: " << right << std::endl;
 
             
-            std::vector<Point> l = search(left, query, from, from+middle+1, level+1);
+            std::vector<Point> l = search(left, query, from, from+middle, level+1);
             std::vector<Point> r = search(right, query, from+middle+1, to, level+1);
             
             ret.insert(std::end(ret), std::begin(l), std::end(l));
@@ -142,7 +124,7 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
             //std::cout << "Region up: " << up << std::endl;
 
 
-            std::vector<Point> d = search(down, query, from, from+middle+1, level+1);
+            std::vector<Point> d = search(down, query, from, from+middle, level+1);
             std::vector<Point> u = search(up, query, from+middle+1, to, level+1);
 
             ret.insert(std::end(ret), std::begin(d), std::end(d));
@@ -212,7 +194,6 @@ KDTree::buildTree(int start, int size, int level) {
         }
 
         int middle = std::ceil(float(size)/2) - 1;
-        middles.push_back(start+middle);
         /*std::cout << std::endl << std::endl << "start: " << start << std::endl;
 
         std::vector<Point> entire(std::begin(points) + start, std::begin(points) + start + size);
@@ -223,7 +204,6 @@ KDTree::buildTree(int start, int size, int level) {
         std::cout << "Middle is: " << points.at(start+middle) << std::endl;
         std::cout << "Right side contains: " << right << std::endl;*/
 
-        splits.at(start+middle) = points.at(start+middle);
         /*std::vector<Point> l(std::begin(points) + start, std::begin(points) + start + middle + 1);
         std::vector<Point> r(std::begin(points) + start+middle+1, std::begin(points) + start+size);
         std::vector<Point> a(std::begin(points) + start, std::begin(points)+start+size);
@@ -232,7 +212,7 @@ KDTree::buildTree(int start, int size, int level) {
         std::cout << "all: " << a << std::endl;
         std::cout << "level: " << level << std::endl;*/
         
-        buildTree(start, middle+1, level+1);
+        buildTree(start, middle, level+1);
         buildTree(start+middle+1, size-middle-1, level+1);
     }
 

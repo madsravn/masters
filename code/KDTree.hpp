@@ -41,8 +41,6 @@ class KDTree {
 
     private:
         std::vector<Point> points;
-        std::vector<int> middles;
-        std::vector<Point> splits; // x for x splits and y for y splits
         Region region;
         bool debug;
 };
