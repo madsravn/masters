@@ -1,7 +1,49 @@
 #include <random>
 #include <algorithm>
+#include <bitset>
 #include <chrono>
 #include "Data.hpp"
+
+std::vector<char> translatetobits(const std::vector<uint>& numbers, int size) {
+    std::vector<char> bits;
+
+    for(int i = 0; i < numbers.size(); ++i) {
+        std::bitset<32> bs(numbers.at(i));
+        for(const auto& e : bs.to_string().substr(32-size)) {
+            bits.push_back(e - '0');
+        }
+    }
+    return bits;
+}
+
+
+std::vector<uint>
+Data::packBits(const std::vector<uint>& input, int size) {
+    std::vector<char> bits = translatetobits(input, size);
+    while(bits.size() % 32 != 0) {
+        bits.push_back('0');
+    }
+    std::vector<uint> packedbits;
+    for(int i = 0; i < bits.size(); i += 32) {
+        uint res = 0;
+        for(int j = 0; j < 31; ++j) {
+            res += (bits.at(i+j) - '0');
+            res = res << 1;
+        }
+        res += (bits.at(i+31) - '0');
+        packedbits.push_back(res);
+    }
+
+    return packedbits;
+}
+
+uint
+Data::readPackedBits(const std::vector<uint>& input, int size, int pos) {
+
+
+
+    return 0;
+}
 
 
 std::vector<Point> 

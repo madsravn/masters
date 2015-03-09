@@ -31,15 +31,9 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-
-
-auto main(int argc, char** argv) -> int {
-
-
-    std::map<int, Ort> ortmap;
+void repl() {
+std::map<int, Ort> ortmap;
     std::map<int, KDTree> kdtreemap;
-
-
     while(1) {
         std::string command;
         std::cout << "Command>> ";
@@ -89,7 +83,7 @@ auto main(int argc, char** argv) -> int {
         }
         
         if(commands.at(0) == "quit") {
-            return 0;
+            return;
         }
 
         if(commands.at(0) == "search") {
@@ -131,10 +125,15 @@ auto main(int argc, char** argv) -> int {
             }
         }
     }
+}
 
 
-    /*
-    int amount = pow(2,15);
+
+
+
+auto main(int argc, char** argv) -> int {
+
+    /*int amount = pow(2,15);
     std::random_device rd;
     std::mt19937 gen(rd());
     Ort ort(amount, Data::generate(amount));
@@ -143,8 +142,10 @@ auto main(int argc, char** argv) -> int {
     std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
     std::sort(std::begin(a), std::end(a), sortpointx);
     std::sort(std::begin(b), std::end(b), sortpointx);
-    std::cout << "Punkterne er ens: " << (a == b) << std::endl;
-    */
+    std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
+
+    std::vector<uint> vec {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2};
+    std::cout << Data::packBits(vec, 2) << std::endl;
     
    /* 
     int amount = pow(2,15);

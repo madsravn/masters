@@ -80,7 +80,7 @@ Ort::intIntegerToBinary() {
 
 // Will return values between 0 and 2^(stop-start) range
 int
-Ort::convertRangeToInt(std::vector<int> vec, int start, int stop) {
+Ort::convertRangeToInt(std::vector<uint> vec, int start, int stop) {
     int ret = vec.at(start);
     for(int i = start+1; i < stop; ++i) {
         ret = ret << 1;
@@ -94,6 +94,13 @@ Ort::convertRangeToInt(std::vector<int> vec, int start, int stop) {
 // LADER TIL AT VIRKE KORREKT
 void
 Ort::generateJumps() {
+    
+    for(current = 0; current < balls.size(); ++current) {
+        linkedlists.push_back(std::vector<uint>{});
+        buildfollowball(0,0,current,balls.size());
+
+    }
+
     if(linkedlists.at(0).size() != twodarray.size() || twodarray.size() != levels.size()) {
         std::cout << "Houston, we have a problem" << std::endl;
         std::cout << "linkedlists.at(0).size() = " << linkedlists.at(0).size() << std::endl;
@@ -108,18 +115,18 @@ Ort::generateJumps() {
                 //std::cout << "to a node" << std::endl;
                 Jumper jump;
                 jump.jump = skiplevels;
-                std::vector<int> targets;
+                std::vector<uint> targets;
                 // TODO: ER DET DEN KORREKTE? 
                 for(int j = 0; j < linkedlists.size(); ++j) {
-                    std::vector<int> linkedlist = linkedlists.at(twodarray.at(i).at(j));
+                    std::vector<uint> linkedlist = linkedlists.at(twodarray.at(i).at(j));
                     int target = convertRangeToInt(linkedlist, i, i+skiplevels);
                     targets.push_back(target);
                 }
                 
                 //std::cout << "targets: " <<  targets << std::endl;
                 jump.targets = targets;
-                std::vector<int> alph(pow(2,skiplevels), 0);
-                std::vector<int> entries(targets.size(), 0);
+                std::vector<uint> alph(pow(2,skiplevels), 0);
+                std::vector<uint> entries(targets.size(), 0);
                 for(int ent = 0; ent < targets.size(); ++ent) {
                     int entry = targets.at(ent);
                     entries.at(ent) = alph.at(entry);
@@ -129,6 +136,25 @@ Ort::generateJumps() {
                 jump.entries = entries;
                 jump.end = false;
                 jumps.at(i) = jump;
+                
+
+                // Converting to linear representation
+
+                std::vector<std::vector<uint>> majorcheckpoints(std::log2(balls.size()) + 1, std::vector<uint>(pow(2,skiplevels), 0));
+                std::vector<uint> minorcheckpoints;
+                std::vector<uint> seen(pow(2, skiplevels), 0);
+                int curr = 0;
+                int div = pow(2, skiplevels)*std::log2(balls.size());
+                for(int ent = 0; ent < targets.size(); ++ent) {
+                    if(curr != ent/div) {
+                        majorcheckpoints.push_back(seen);
+                        curr++;
+                    }
+                    seen.at(targets.at(ent))++;
+                    minorcheckpoints.push_back(seen.at(targets.at(ent) - majorcheckpoints.back().at(targets.at(ent))));
+                }
+
+
             } else {
                 /*std::cout << std::endl << "skiplevels: " << skiplevels << std::endl;
                 std::cout << "i: " << i << std::endl;
@@ -386,7 +412,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     // Generating big jumps
 
     // TODO: FIX THIS! How do I do this correctly with the constructor? 
-    std::vector<std::vector<int>> temparray(levels.size(), std::vector<int>(points.size(), -1));
+    std::vector<std::vector<uint>> temparray(levels.size(), std::vector<uint>(points.size(), -1));
     twodarray = temparray;
     //twodarray.insert(std::begin(twodarray), levels.size(), std::vector<int>(points.size(), -1));
     Jumper tempjump;
@@ -394,15 +420,8 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     std::vector<Jumper> tjumps(levels.size(), tempjump);
     jumps = tjumps;
 
-    // TODO: Maybe move this to generateJumps ? 
-    // Constructing the linked lists down the tree for each ball.
     
-    /*for(current = 0; current < points.size(); ++current) {
-        linkedlists.push_back(std::vector<int>{});
-        buildfollowball(0,0,current,points.size());
-
-    }
-    generateJumps();*/
+    generateJumps();
     // GenerateJumps debug output
     /*for(const auto& l : linkedlists) {
         std::cout << l << std::endl;

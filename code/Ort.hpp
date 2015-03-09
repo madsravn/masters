@@ -15,10 +15,18 @@ using uint = std::uint32_t;
 
 struct Jumper {
     int jump; // 1, 2, 3, 4, 5 etc. Gets adjusted if we hit the bottom
-    std::vector<int> ranks; // Det skal der være hver
-    std::vector<int> entries;
-    std::vector<int> targets;
+    std::vector<uint> ranks; // Currently ununsed
+    std::vector<uint> entries; // Which rank does it have?
+    std::vector<uint> targets; // Where does it go? 
     bool end; // True if bottom is hit
+};
+
+struct LinearJumper {
+    int jump;
+    std::vector<uint> major; // Contains the major checkpoint
+    std::vector<uint> minor;
+    std::vector<uint> entries;
+    bool end;
 };
 
 struct qreturn {
@@ -51,7 +59,7 @@ class Ort {
         std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
         qreturn bigJump(int level, int pos);
-        int convertRangeToInt(std::vector<int> vec, int start, int stop);
+        int convertRangeToInt(std::vector<uint> vec, int start, int stop);
         void generateJumps();
 
     private:
@@ -66,8 +74,8 @@ class Ort {
         std::vector<uint> masks;
         std::vector<int> xb, yb;
         int current;
-        std::vector<std::vector<int>> linkedlists;
-        std::vector<std::vector<int>> twodarray;
+        std::vector<std::vector<uint>> linkedlists;
+        std::vector<std::vector<uint>> twodarray;
         std::vector<Jumper> jumps;
         std::vector<Point> results;
 
