@@ -13,38 +13,72 @@ std::vector<char> translatetobits(const std::vector<uint>& numbers, int size) {
             bits.push_back(e - '0');
         }
     }
+
+    for(const auto& e : bits) {
+        std::cout << int(e);
+    }
+    std::cout << std::endl;
     return bits;
 }
 
+// TODO: Assert that number can reside in two entries next to each other
+uint
+Data::findInt(const std::vector<uint>& input, int size, int pos) {
+    pos = pos*size;
+    int end = pos+size;
+    int firstc = pos/32;
+    int secondc = end/32;
+    int ipos = pos % 32;
+    int jpos = end % 32;
+    if(firstc == secondc) {
+        uint number = input.at(firstc);
+        number = number >> (32 - end);
+        number = number & ((1 << size) - 1);
+        return number;
+    }
+    // else
+        uint number = input.at(firstc);
+    number = number << (jpos);
+    number = number & ((1 << size) -1);
+    uint number2 = input.at(secondc);
+    number2 = number2 >> (32 - jpos);
+    number2 = number2 & ((1 << jpos) - 1);
+    
+    
+    /*std::cout << "pos: " << pos << std::endl;
+    std::cout << "end: " << end << std::endl;
+    std::cout << "firstc: " << firstc << std::endl;
+    std::cout << "secondc: " << secondc << std::endl;
+    std::cout << "ipos: " << ipos << std::endl;
+    std::cout << "jpos: " << jpos << std::endl;
+    std::cout << "number: " << number << std::endl;
+    std::cout << "Finurlig return: " << number + number2 << std::endl;*/
+    return number + number2;
+}
 
 std::vector<uint>
 Data::packBits(const std::vector<uint>& input, int size) {
     std::vector<char> bits = translatetobits(input, size);
     while(bits.size() % 32 != 0) {
-        bits.push_back('0');
+        bits.push_back(0);
     }
+    for(const auto& e : bits) {
+        std::cout << int(e);
+    }
+    std::cout << std::endl;
     std::vector<uint> packedbits;
     for(int i = 0; i < bits.size(); i += 32) {
         uint res = 0;
         for(int j = 0; j < 31; ++j) {
-            res += (bits.at(i+j) - '0');
+            res += (bits.at(i+j));
             res = res << 1;
         }
-        res += (bits.at(i+31) - '0');
+        res += (bits.at(i+31));
         packedbits.push_back(res);
     }
 
     return packedbits;
 }
-
-uint
-Data::readPackedBits(const std::vector<uint>& input, int size, int pos) {
-
-
-
-    return 0;
-}
-
 
 std::vector<Point> 
 Data::randomPoints(std::mt19937 gen, int amount) {

@@ -16,7 +16,8 @@ class Data {
         static std::tuple<std::vector<Point>, Region> loadState(std::string filename);
         static std::vector<Point> randomPoints(std::mt19937 gen, int amount);
         static std::vector<uint> packBits(const std::vector<uint>& input, int size);
-        static uint readPackedBits(const std::vector<uint>& input, int size, int pos);
+        static uint findInt(const std::vector<uint>& input, int size, int pos);
+
 
 
 };

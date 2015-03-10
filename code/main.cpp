@@ -5,6 +5,7 @@
 #include "Data.hpp"
 #include "KDTree.hpp"
 #include "Timer.hpp"
+#include <bitset>
 
 std::vector<Point> diff(std::vector<Point> a, std::vector<Point> b) {
     std::vector<Point> result;
@@ -144,8 +145,19 @@ auto main(int argc, char** argv) -> int {
     std::sort(std::begin(b), std::end(b), sortpointx);
     std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
 
-    std::vector<uint> vec {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2};
-    std::cout << Data::packBits(vec, 2) << std::endl;
+    std::vector<uint> vec {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3};
+    std::cout << Data::packBits(vec, 3) << std::endl;
+    auto packed = Data::packBits(vec, 3);
+    for(const auto& e : Data::packBits(vec, 3)) {
+        std::bitset<32> bs(e);
+        std::cout << bs.to_string() << std::endl;
+    }
+    std::cout << Data::findInt(packed, 3, 3) << std::endl;
+    for(int i = 0; i < vec.size(); ++i) {
+        Data::findInt(packed, 3, i);
+    }
+    std::cout << std::endl;
+
     
    /* 
     int amount = pow(2,15);
