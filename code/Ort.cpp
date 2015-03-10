@@ -48,7 +48,22 @@ Ort::bigJump(int level, int pos) {
     int rank = jumps.at(level).entries.at(pos);
     int size = jumps.at(level).jump;
 
-    return {1,character, rank, size};
+    //TODO: Optimer ved at gemme nogle af konstanterne i klassen.
+    int character2 = notsolinear.at(level).entries.at(pos);
+    int size2 = notsolinear.at(level).jump;
+    int div = pow(2, size2)*std::log2(balls.size());
+    int major_size = pow(2, size2);
+    int rank2 = notsolinear.at(level).major.at((pos/div)*major_size + character2) + notsolinear.at(level).minor.at(pos);
+    if(rank2 != rank || character != character2 || size != size2) {
+        std::cout << std::endl << std::endl << "rank: " << rank << " og rank2: " << rank2 << std::endl;
+        std::cout << "character: " << character << " og character2: " << character2 << std::endl;
+        std::cout << "size: " << size << " og size2: " << size2 << std::endl;
+        std::cout << "major: " << notsolinear.at(level).major.at((pos/div)*major_size + character2) << std::endl;
+        std::cout << "minor: " << notsolinear.at(level).minor.at(pos) << std::endl;
+        std::cout << "fejl" << std::endl;
+    }
+
+    return {1,character2, rank2, size2};
 
 }
 
@@ -140,20 +155,41 @@ Ort::generateJumps() {
 
                 // Converting to linear representation
 
-                std::vector<std::vector<uint>> majorcheckpoints(std::log2(balls.size()) + 1, std::vector<uint>(pow(2,skiplevels), 0));
+                // TODO : TARGETS OG ENTRIES HEDDER DET FORKERTE. TJEK DATAEN FRA BIGJUMP OG FIND UD AF HVAD DET GØR
+                std::vector<std::vector<uint>> majorcheckpoints; //(std::log2(balls.size()) + 2, std::vector<uint>(pow(2,skiplevels), 0));
                 std::vector<uint> minorcheckpoints;
                 std::vector<uint> seen(pow(2, skiplevels), 0);
+
+                majorcheckpoints.push_back(seen);
                 int curr = 0;
                 int div = pow(2, skiplevels)*std::log2(balls.size());
                 for(int ent = 0; ent < targets.size(); ++ent) {
                     if(curr != ent/div) {
-                        majorcheckpoints.push_back(seen);
                         curr++;
+                        /*std::cout << "curr er nu: " << curr << std::endl;
+                        std::cout << "targets.size(): " << targets.size() << std::endl;
+                        std::cout << "div: " << div << std::endl;
+                        std::cout << "skiplevels: " << skiplevels << " (" << pow(2,skiplevels) << ")" << std::endl;*/
+                        majorcheckpoints.push_back(seen);
                     }
+                    //std::cout << "targets.at(ent): " <<targets.at(ent) << std::endl;
+                    uint one = seen.at(targets.at(ent));
+                    uint two = majorcheckpoints.at(curr).at(targets.at(ent));
+                    minorcheckpoints.push_back(one - two);
                     seen.at(targets.at(ent))++;
-                    minorcheckpoints.push_back(seen.at(targets.at(ent) - majorcheckpoints.back().at(targets.at(ent))));
                 }
-
+                std::vector<uint> major;
+                for(const auto& outer : majorcheckpoints) {
+                    for(const auto& inner : outer) {
+                        major.push_back(inner);
+                    }
+                }
+                LinearJumper linearjump;
+                linearjump.jump = skiplevels;
+                linearjump.major = major;
+                linearjump.minor = minorcheckpoints;
+                linearjump.entries = targets;
+                notsolinear.at(i) = linearjump;
 
             } else {
                 /*std::cout << std::endl << "skiplevels: " << skiplevels << std::endl;
@@ -415,10 +451,16 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     std::vector<std::vector<uint>> temparray(levels.size(), std::vector<uint>(points.size(), -1));
     twodarray = temparray;
     //twodarray.insert(std::begin(twodarray), levels.size(), std::vector<int>(points.size(), -1));
+    
     Jumper tempjump;
     tempjump.jump = 1;
     std::vector<Jumper> tjumps(levels.size(), tempjump);
     jumps = tjumps;
+
+    LinearJumper templinearjump;
+    templinearjump.jump = 1;
+    std::vector<LinearJumper> tlinearjumps(levels.size(), templinearjump);
+    notsolinear = tlinearjumps;
 
     
     generateJumps();

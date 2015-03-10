@@ -22,6 +22,7 @@ std::vector<char> translatetobits(const std::vector<uint>& numbers, int size) {
 }
 
 // TODO: Assert that number can reside in two entries next to each other
+// The way $input$ is packed with 32 bits currently, means that this assertion holds
 uint
 Data::findInt(const std::vector<uint>& input, int size, int pos) {
     pos = pos*size;

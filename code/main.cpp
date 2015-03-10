@@ -145,7 +145,7 @@ auto main(int argc, char** argv) -> int {
     std::sort(std::begin(b), std::end(b), sortpointx);
     std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
 
-    std::vector<uint> vec {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3};
+    /*std::vector<uint> vec {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3};
     std::cout << Data::packBits(vec, 3) << std::endl;
     auto packed = Data::packBits(vec, 3);
     for(const auto& e : Data::packBits(vec, 3)) {
@@ -156,20 +156,18 @@ auto main(int argc, char** argv) -> int {
     for(int i = 0; i < vec.size(); ++i) {
         Data::findInt(packed, 3, i);
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 
     
-   /* 
-    int amount = pow(2,15);
+    /*int amount = pow(2,15);
     std::random_device rd;
     std::mt19937 gen(rd());
     Ort ort(amount, Data::generate(amount));
     std::vector<Point> points = Data::randomPoints(gen, amount);
     for(int i = 0; i < 100; ++i) {
-        std::cout << "Run " << i << std::endl;
         ort.easyQuery(points.at(0), points.at(1));
-    }
-    */
+    }*/
+
     /*
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -207,11 +205,10 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-/*
     for(int i = 0; i < 1000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(4,10);
+        std::uniform_int_distribution<> dis(4,14);
 
         int amount = pow(2,dis(gen));
         std::cout << "AMOUNT IS " << amount << std::endl;
@@ -219,7 +216,7 @@ auto main(int argc, char** argv) -> int {
         Ort ort(amount, input);
         KDTree kdtree(amount, input);
         std::vector<Point> points = Data::randomPoints(gen, amount);
-        std::cout << "POINTS: " << points << std::endl;
+        //std::cout << "POINTS: " << points << std::endl;
         std::vector<Point> a = ort.easyQuery(points.at(0), points.at(1));
         std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
         Region query = {points.at(0), points.at(1)};
@@ -241,7 +238,7 @@ auto main(int argc, char** argv) -> int {
             std::cout << d << std::endl;
             std::cout << diff(c,d) << std::endl;
         }
-    }*/
+    }
     /*if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {
             int amount = 256;
