@@ -6,6 +6,7 @@
 #include "KDTree.hpp"
 #include "Timer.hpp"
 #include <bitset>
+#include <string>
 
 std::vector<Point> diff(std::vector<Point> a, std::vector<Point> b) {
     std::vector<Point> result;
@@ -68,6 +69,23 @@ std::map<int, Ort> ortmap;
 
             }
         }
+        if(commands.at(0) == "size") {
+            std::cout << "Size of the Ort map: " << std::endl;
+            /*std::vector<std::string> titles {"", "Size of Ort without big jumps", "Size of Ort with non-linear big jumps", "Size of Ort with linear big jumps"};
+            for(int i = 1; i < 4; ++i) {
+                std::cout << std::endl << std::endl << titles.at(i) << std::endl;
+                for(const auto& e: ortmap) {
+                    std::cout << pow(2, e.first) << " " << e.second.size(i) << std::endl;
+                }
+            }*/
+            for(const auto& e : ortmap) {
+                std::cout << pow(2, e.first) << " " << e.second.size(1) << " " << e.second.size(2) << " "  << e.second.size(3) << std::endl;
+            }
+            std::cout << std::endl << std::endl << "size of the KDTree map: " << std::endl;
+            for(const auto& e : kdtreemap) {
+                std::cout << pow(2, e.first) << " " << e.second.size() << std::endl;
+            }
+        }
 
         if(commands.at(0) == "list") {
             std::cout << "Ort map contains the following keys: " << std::endl;
@@ -96,15 +114,38 @@ std::map<int, Ort> ortmap;
                 Point ll = {std::stoi(commands.at(3)), std::stoi(commands.at(4))};
                 Point ur = {std::stoi(commands.at(5)), std::stoi(commands.at(6))};
                 int count = std::stoi(commands.at(2));
+                int resultsize = -1;
+                
                 if(ort != ortmap.end()) {
+                    
                     Timer t1;
                     t1.start();
                     for(int i = 0; i < count; ++i) {
-                        ort->second.easyQuery(ll,ur);
+                        ort->second.search({ll,ur}, 1);
                     }
                     t1.stop();
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-                    std::cout << "Ort search took: " << t1.duration().count() << " ms." << std::endl;
+                    std::cout << "Ort search with NO big jumps took: " << t1.duration().count() << " ms." << std::endl;
+
+                    Timer t2;
+                    t2.start();
+                    for(int i = 0; i < count; ++i) {
+                        ort->second.search({ll,ur}, 2);
+                    }
+                    t2.stop();
+                    //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
+                    std::cout << "Ort search with big-space big jumps took: " << t2.duration().count() << " ms." << std::endl;
+
+                    Timer t3;
+                    t3.start();
+                    for(int i = 0; i < count; ++i) {
+                        ort->second.search({ll,ur}, 3);
+                    }
+                    t3.stop();
+                    //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
+                    std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
+                    resultsize = ort->second.search({ll,ur},1).size();
+
                 }
                 else {
                     std::cout << "Ort structure at index " << commands.at(1) << " not found." <<std::endl;
@@ -122,6 +163,7 @@ std::map<int, Ort> ortmap;
                 } else {
                     std::cout << "KDtree structure at index " << commands.at(1) << " not found." << std::endl;
                 }
+                std::cout << "The search gave " << resultsize << " results." << std::endl;
                 
             }
         }
@@ -134,28 +176,55 @@ std::map<int, Ort> ortmap;
 
 auto main(int argc, char** argv) -> int {
 
+
+    //repl();
+    
+
     /*int amount = pow(2,15);
     std::random_device rd;
     std::mt19937 gen(rd());
     Ort ort(amount, Data::generate(amount));
     std::vector<Point> points = Data::randomPoints(gen, amount);
-    std::vector<Point> a = ort.easyQuery(points.at(0), points.at(1));
+    std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
     std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
     std::sort(std::begin(a), std::end(a), sortpointx);
     std::sort(std::begin(b), std::end(b), sortpointx);
-    std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
+    std::cout << "Punkterne er ens: " << (a == b) << std::endl;
+    for(const auto& e : ort.getJumps()) {
+        std::cout << e.jump << std::endl;
+    }*/
 
-    /*std::vector<uint> vec {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3};
-    std::cout << Data::packBits(vec, 3) << std::endl;
-    auto packed = Data::packBits(vec, 3);
-    for(const auto& e : Data::packBits(vec, 3)) {
+
+
+    /*std::vector<uint> vec;
+    for(int i = 0; i < 8; ++i) {
+        for(int j = 0; j < 10; ++j) {
+            vec.push_back(i);
+        }
+    }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::shuffle(std::begin(vec), std::end(vec), gen);
+
+    auto sizekey = std::max_element(std::begin(vec), std::end(vec));
+    int biggest = vec.at(std::distance(std::begin(vec), sizekey));
+
+    int size = std::ceil(std::log2(biggest));
+       
+    std::cout << Data::packBits(vec, size) << std::endl;
+    auto packed = Data::packBits(vec, size);
+    for(const auto& e : Data::packBits(vec, size)) {
         std::bitset<32> bs(e);
         std::cout << bs.to_string() << std::endl;
     }
     std::cout << Data::findInt(packed, 3, 3) << std::endl;
     for(int i = 0; i < vec.size(); ++i) {
-        Data::findInt(packed, 3, i);
+        if(Data::findInt(packed, size, i) != vec.at(i)) {
+            std::cout << Data::findInt(packed, size, i) << " == " << vec.at(i) << std::endl;
+        }
     }
+
     std::cout << std::endl;*/
 
     
@@ -217,7 +286,7 @@ auto main(int argc, char** argv) -> int {
         KDTree kdtree(amount, input);
         std::vector<Point> points = Data::randomPoints(gen, amount);
         //std::cout << "POINTS: " << points << std::endl;
-        std::vector<Point> a = ort.easyQuery(points.at(0), points.at(1));
+        std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
         std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
         Region query = {points.at(0), points.at(1)};
         std::vector<Point> c = kdtree.search(query);
@@ -239,6 +308,8 @@ auto main(int argc, char** argv) -> int {
             std::cout << diff(c,d) << std::endl;
         }
     }
+
+
     /*if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {
             int amount = 256;

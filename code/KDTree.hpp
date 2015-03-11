@@ -37,6 +37,7 @@ class KDTree {
         std::vector<Point> actualSearch(Region query);
         void saveState(Region query);
         void loadState(std::string filename);
+        int size() const { return points.size(); }
 
 
     private:

@@ -7,6 +7,7 @@
 #include <functional>
 #include <cstdint>
 #include "Point.hpp"
+#include "Data.hpp"
 
 
 enum DIRECTION { LEFT, RIGHT };
@@ -23,6 +24,10 @@ struct Jumper {
 
 struct LinearJumper {
     int jump;
+    int majorkey;
+    int minorkey;
+    int entrieskey;
+    int div;
     std::vector<uint> major; // Contains the major checkpoint
     std::vector<uint> minor;
     std::vector<uint> entries;
@@ -61,9 +66,14 @@ class Ort {
         qreturn bigJump(int level, int pos);
         int convertRangeToInt(std::vector<uint> vec, int start, int stop);
         void generateJumps();
+        uint size(int t) const;
+        std::vector<Point> search(Region reg, int t);
+        std::vector<Jumper> getJumps() { return jumps; }
 
     private:
-        Point search;
+        // type: 1 for no big jumps, 2 for expensive big jumps and 3 for linear big jumps
+        int type;
+        Point corner;
         int count;
         std::vector<std::vector<uint>> levels;
         std::vector<uint> bits;
@@ -78,6 +88,7 @@ class Ort {
         std::vector<std::vector<uint>> twodarray;
         std::vector<Jumper> jumps;
         std::vector<LinearJumper> notsolinear;
+        std::vector<LinearJumper> linear;
         std::vector<Point> results;
 
 

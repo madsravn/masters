@@ -14,10 +14,9 @@ std::vector<char> translatetobits(const std::vector<uint>& numbers, int size) {
         }
     }
 
-    for(const auto& e : bits) {
+    /*for(const auto& e : bits) {
         std::cout << int(e);
-    }
-    std::cout << std::endl;
+    }*/
     return bits;
 }
 
@@ -38,7 +37,7 @@ Data::findInt(const std::vector<uint>& input, int size, int pos) {
         return number;
     }
     // else
-        uint number = input.at(firstc);
+    uint number = input.at(firstc);
     number = number << (jpos);
     number = number & ((1 << size) -1);
     uint number2 = input.at(secondc);
@@ -63,10 +62,11 @@ Data::packBits(const std::vector<uint>& input, int size) {
     while(bits.size() % 32 != 0) {
         bits.push_back(0);
     }
-    for(const auto& e : bits) {
+    
+    /*for(const auto& e : bits) {
         std::cout << int(e);
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
     std::vector<uint> packedbits;
     for(int i = 0; i < bits.size(); i += 32) {
         uint res = 0;
@@ -77,6 +77,9 @@ Data::packBits(const std::vector<uint>& input, int size) {
         res += (bits.at(i+31));
         packedbits.push_back(res);
     }
+    //TODO: FIKS DENNE. Det er som om at (ved 256) den gerne vil kigge på det næste entry, men det ikke findes.
+    // findInt(vector size = 4, size = 4, pos = 124)
+    packedbits.push_back(0);
 
     return packedbits;
 }
