@@ -213,7 +213,7 @@ Ort::generateJumps() {
         return;
     }
     //TODO: Her skal skæres - det skal ikke være levels.size(), nærmere std::log2(levels.size())
-    for(int h = 2; h < levels.size(); ++h) {
+    for(int h = 2; h < std::ceil(std::log2(levels.size()))+1; ++h) {
         int tskiplevels = pow(2, h);
         for(int i = 0; i < levels.size(); i+=tskiplevels) {
             // TODO: HVORFOR <= ???
@@ -275,6 +275,9 @@ Ort::generateJumps() {
                     major.push_back(inner);
                 }
             }
+            major.shrink_to_fit();
+            minor.shrink_to_fit();
+            targets.shrink_to_fit();
             LinearJumper notsolinearjump;
             notsolinearjump.jump = skiplevels;
             notsolinearjump.major = major;
@@ -319,6 +322,9 @@ Ort::generateJumps() {
             linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
 
             linearjump.div = div;
+            linearjump.major.shrink_to_fit();
+            linearjump.minor.shrink_to_fit();
+            linearjump.entries.shrink_to_fit();
             linear.at(i) = linearjump;
         }
     }
@@ -594,6 +600,10 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     linkedlists.clear();
     twodarray.clear();
     type = 1;
+    // TODO: SRHINK STUFF LATER. It can be expensive and doesn't show up in the current size
+    //balls.shrink_to_fit();
+    //ranks.shrink_to_fit();
+
 }
 
 std::vector<Point>

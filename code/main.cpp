@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <map>
 #include <sstream>
 #include "Ort.hpp"
@@ -79,11 +80,11 @@ std::map<int, Ort> ortmap;
                 }
             }*/
             for(const auto& e : ortmap) {
-                std::cout << pow(2, e.first) << " " << e.second.size(1) << " " << e.second.size(2) << " "  << e.second.size(3) << std::endl;
+                std::cout << int(pow(2, e.first)) << " " << e.second.size(1) << " " << e.second.size(2) << " "  << e.second.size(3) << std::endl;
             }
             std::cout << std::endl << std::endl << "size of the KDTree map: " << std::endl;
             for(const auto& e : kdtreemap) {
-                std::cout << pow(2, e.first) << " " << e.second.size() << std::endl;
+                std::cout << int(pow(2, e.first)) << " " << e.second.size() << std::endl;
             }
         }
 
@@ -192,7 +193,7 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
+    //repl();
     
 
     /*int amount = pow(2,15);
@@ -289,7 +290,7 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-    /*for(int i = 0; i < 1000; ++i) {
+    for(int i = 0; i < 1000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> dis(6,17);
@@ -322,7 +323,7 @@ auto main(int argc, char** argv) -> int {
             std::cout << d << std::endl;
             std::cout << diff(c,d) << std::endl;
         }
-    }*/
+    }
 
 
     /*if(argc == 1) {
