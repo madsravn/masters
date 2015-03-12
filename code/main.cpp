@@ -105,6 +105,21 @@ std::map<int, Ort> ortmap;
             return;
         }
 
+        if(commands.at(0) == "show") {
+            if(commands.size() == 2) {
+                auto entry = std::stoi(commands.at(1));
+                auto ort = ortmap.find(entry);
+                if(ort != ortmap.end()) {
+                    for(const auto& e : ort->second.getJumps()) {
+                        std::cout << e.jump << " ";
+                    }
+                    std::cout << std::endl;
+                }
+            }
+        }
+
+
+
         if(commands.at(0) == "search") {
             if(commands.size() != 7) {
                 std::cout << "search takes 6 arguments: structure to search, number of iterations and a region x_1, y_1, x_2, y_2." << std::endl;
@@ -141,7 +156,7 @@ std::map<int, Ort> ortmap;
                     for(int i = 0; i < count; ++i) {
                         ort->second.search({ll,ur}, 3);
                     }
-                    t3.stop();
+                    t3.stop(); 
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
                     std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
                     resultsize = ort->second.search({ll,ur},1).size();
@@ -177,7 +192,7 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
+    repl();
     
 
     /*int amount = pow(2,15);
@@ -274,10 +289,10 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-    for(int i = 0; i < 1000; ++i) {
+    /*for(int i = 0; i < 1000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(4,14);
+        std::uniform_int_distribution<> dis(6,17);
 
         int amount = pow(2,dis(gen));
         std::cout << "AMOUNT IS " << amount << std::endl;
@@ -307,7 +322,7 @@ auto main(int argc, char** argv) -> int {
             std::cout << d << std::endl;
             std::cout << diff(c,d) << std::endl;
         }
-    }
+    }*/
 
 
     /*if(argc == 1) {

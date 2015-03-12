@@ -103,10 +103,11 @@ Ort::bigJump(int level, int pos) {
 std::vector<Point> 
 Ort::search(Region reg, int t) {
     type = t;
-    std::cout << "Searching with type = " << type << std::endl;
+    //std::cout << "Searching with type = " << type << std::endl;
     return easyQuery(reg.ll, reg.ur);
 }
 
+// Will return the size in the amount of 32-bits containers used (int, uint)
 uint
 Ort::size(int t) const {
 
@@ -117,7 +118,7 @@ Ort::size(int t) const {
         storage += e.size();
     }
 
-    storage += balls.size();
+    storage += 2*balls.size();
     storage += bits.size();
     storage += xb.size() + yb.size();
     storage += masks.size();
@@ -211,7 +212,7 @@ Ort::generateJumps() {
         std::cout << "levels.size() = " << levels.size() << std::endl;
         return;
     }
-    //int skiplevels = 3;
+    //TODO: Her skal skæres - det skal ikke være levels.size(), nærmere std::log2(levels.size())
     for(int h = 2; h < levels.size(); ++h) {
         int tskiplevels = pow(2, h);
         for(int i = 0; i < levels.size(); i+=tskiplevels) {
@@ -226,7 +227,7 @@ Ort::generateJumps() {
             Jumper jump;
             jump.jump = skiplevels;
             std::vector<uint> targets;
-            // TODO: ER DET DEN KORREKTE? 
+            
             for(int j = 0; j < linkedlists.size(); ++j) {
                 std::vector<uint> linkedlist = linkedlists.at(twodarray.at(i).at(j));
                 int target = convertRangeToInt(linkedlist, i, i+skiplevels);
@@ -261,13 +262,8 @@ Ort::generateJumps() {
             for(int ent = 0; ent < targets.size(); ++ent) {
                 if(curr != ent/div) {
                     curr++;
-                    /*std::cout << "curr er nu: " << curr << std::endl;
-                    std::cout << "targets.size(): " << targets.size() << std::endl;
-                    std::cout << "div: " << div << std::endl;
-                    std::cout << "skiplevels: " << skiplevels << " (" << pow(2,skiplevels) << ")" << std::endl;*/
                     majorcheckpoints.push_back(seen);
                 }
-                //std::cout << "targets.at(ent): " <<targets.at(ent) << std::endl;
                 uint one = seen.at(targets.at(ent));
                 uint two = majorcheckpoints.at(curr).at(targets.at(ent));
                 minor.push_back(one - two);
@@ -291,7 +287,7 @@ Ort::generateJumps() {
             auto majorkeyindex = std::max_element(std::begin(major), std::end(major));
             uint majorkey = major.at(std::distance(std::begin(major), majorkeyindex));
             
-            // TODO: HVORFOR KAN DEN VÆRE 0?!
+            // TODO: Lav anden håndtering ved sådan et special-case. Kun '0'-entries kommer til at tage 2 bits plads
             // Når skiplevels bliver stor nok er der kun éen major, den første som holder 0'er
             if(majorkey == 0) {
                 majorkey = 1;
@@ -302,10 +298,12 @@ Ort::generateJumps() {
 
             auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
             uint minorkey = minor.at(std::distance(std::begin(minor), minorkeyindex));
-            // Kan det her overhovedet ske?
+
+
             if(minorkey == 0) {
                 minorkey = 1;
             }
+
             linearjump.minorkey = std::ceil(std::log2(minorkey+1));
             linearjump.minor = Data::packBits(minor, linearjump.minorkey);
 
@@ -316,10 +314,10 @@ Ort::generateJumps() {
             if(entrieskey == 0) {
                 entrieskey = 1;
             }
+
             linearjump.entrieskey = std::ceil(std::log2(entrieskey+1));
             linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
 
-            //int div = pow(2, skiplevels)*std::log2(balls.size());
             linearjump.div = div;
             linear.at(i) = linearjump;
         }
@@ -420,7 +418,8 @@ Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
             int size = pow(2, big.size);
 
             level += big.size;
-            pos = (amount*big.character)/size + nodepos + big.rank - nodepos/size;
+            // If bottom is hit, the (big.rank - nodepos/size) will be 0. Thus we can save away the entire rank storage
+            pos = (amount*big.character)/size + nodepos + (big.rank - nodepos/size);
             nodepos += (amount*big.character)/size;
             amount = amount/size;
 
