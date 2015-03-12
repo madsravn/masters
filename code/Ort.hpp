@@ -73,22 +73,45 @@ class Ort {
     private:
         // type: 1 for no big jumps, 2 for expensive big jumps and 3 for linear big jumps
         int type;
+
+        // Used to check if the left-most and right-most point are within the range
         Point corner;
+
+        // Unused? 
         int count;
+
+        // Contains the actual tree for ball-inheritance
         std::vector<std::vector<uint>> levels;
+
+        // Used to get the x'th bit of a number, contains 100, 010, 001..
         std::vector<uint> bits;
+
+        // Contains the balls/points
         std::vector<Point> balls;
+
+        // Contains the accumulated sum of the ranks up to a given point.
         std::vector<std::vector<uint>> ranks;
+
+
+        // Contains the 2^16 number mapping from int -> number of ones in binary
         std::vector<uint> inttobin;
         // Goes from 0 -> 31. ranks will find the sum if it includes all 32 bits
         std::vector<uint> masks;
+
+        // In order to do binary search
         std::vector<int> xb, yb;
+
+        // Being used to generate the big jumps
         int current;
         std::vector<std::vector<uint>> linkedlists;
         std::vector<std::vector<uint>> twodarray;
+
+        // Three different kinds of big jumps
         std::vector<Jumper> jumps;
         std::vector<LinearJumper> notsolinear;
         std::vector<LinearJumper> linear;
+
+        // The result set
         std::vector<Point> results;
 
 
