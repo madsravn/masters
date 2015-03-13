@@ -193,7 +193,7 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
+    repl();
     
 
     /*int amount = pow(2,15);
@@ -290,6 +290,7 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
+    /*
     for(int i = 0; i < 1000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -325,6 +326,7 @@ auto main(int argc, char** argv) -> int {
         }
     }
 
+    */
 
     /*if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {
