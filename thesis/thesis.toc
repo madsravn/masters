@@ -1,9 +1,0 @@
-\select@language {american}
-\contentsline {chapter}{Abstract}{iii}
-\contentsline {chapter}{Resum\'e}{v}
-\contentsline {chapter}{Acknowledgments}{vii}
-\contentsline {chapter}{\numberline {1}Introduction}{3}
-\contentsline {chapter}{\numberline {2}{\color [rgb]{.5,0,0}\textbf {$\blacktriangleright $\dots $\blacktriangleleft $}}}{5}
-\contentsline {chapter}{\numberline {3}Conclusion}{7}
-\contentsline {chapter}{Primary Bibliography}{7}
-\contentsline {chapter}{Secondary Bibliography}{9}
