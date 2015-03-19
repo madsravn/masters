@@ -78,37 +78,11 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
         if(query.ll.x <= div.x && div.x <= query.ur.x && query.ll.y <= div.y && div.y <= query.ur.y) {
             ret.push_back(div);
         }
-        /*std::cout << std::endl << std::endl << "level: " << level << std::endl;
-        std::cout << "from: " << from << std::endl;
-        std::cout << "to: " << to << std::endl,
-        std::cout << "middle: " << middle << std::endl;
-        std::cout << "from + middle = " << from + middle << std::endl;
-        std::cout << "size: " << size << std::endl;
-
-        std::vector<Point> ll(std::begin(points) + from, std::begin(points) + from + middle + 1);
-        std::vector<Point> rr(std::begin(points) + from + middle + 1, std::begin(points) + to);
-        std::vector<Point> all(std::begin(points) + from, std::begin(points) + to);
-
-        std::cout << "ll: " << ll << std::endl;
-        std::cout << "rr: " << rr << std::endl;
-        std::cout << "all: " << all << std::endl;
-        std::cout << "Region: " << reg << std::endl;
-        std::cout << "Dividing point is: " << div << std::endl;
-        bool t = true;
-        for(const auto& p : all) {
-           t = t && (reg.ll.x <= p.x && reg.ll.y <= p.y && p.x <= reg.ur.x && p.y <= reg.ur.y);
-        }
-        if(!t) {
-            std::cout << "DET ER FALSK!" << std::endl;
-        }*/
 
         if(level%2 == 0) {
             Region left = limitRegion(reg, div, SIDE::RIGHT);
             Region right = limitRegion(reg, div, SIDE::LEFT);
             
-            //std::cout << "Region left: " << left << std::endl;
-            //std::cout << "Region right: " << right << std::endl;
-
             
             std::vector<Point> l = search(left, query, from, from+middle, level+1);
             std::vector<Point> r = search(right, query, from+middle+1, to, level+1);
@@ -119,9 +93,6 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
         } else {
             Region down = limitRegion(reg, div, SIDE::UP);
             Region up = limitRegion(reg, div, SIDE::DOWN);
-
-            //std::cout << "Region down: " << down << std::endl;
-            //std::cout << "Region up: " << up << std::endl;
 
 
             std::vector<Point> d = search(down, query, from, from+middle, level+1);
@@ -140,7 +111,6 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
         }
     }
     return ret;
-
 }
 
 std::vector<Point>
