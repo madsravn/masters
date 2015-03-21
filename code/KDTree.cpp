@@ -59,24 +59,26 @@ KDTree::loadState(std::string filename) {
 
 std::vector<Point>
 KDTree::search(Region query) {
-    return search(region, query, 0, points.size(), 0);
+    std::vector<Point> temp;
+    results.swap(temp);
+    search(region, query, 0, points.size(), 0);
+    return results;
 }
 
-std::vector<Point>
+void
 KDTree::search(Region reg, Region query, int from, int to, int level) {
 
     int size = to-from;
-    std::vector<Point> ret;
     if(size > 1) {
         if(query.ll.x <= reg.ll.x && query.ll.y <= reg.ll.y && reg.ur.x <= query.ur.x && reg.ur.y <= query.ur.y) {
-            std::vector<Point> complete(std::begin(points) + from, std::begin(points) + to);
-            return complete;
+            results.insert(std::end(results), std::begin(points) + from, std::begin(points) + to);
+            return;
         }
 
         int middle = std::ceil(float(size)/2) - 1; // The middle point belongs to the left region
         Point div = points.at(from+middle);
         if(query.ll.x <= div.x && div.x <= query.ur.x && query.ll.y <= div.y && div.y <= query.ur.y) {
-            ret.push_back(div);
+            results.push_back(div);
         }
 
         if(level%2 == 0) {
@@ -84,22 +86,25 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
             Region right = limitRegion(reg, div, SIDE::LEFT);
             
             
-            std::vector<Point> l = search(left, query, from, from+middle, level+1);
-            std::vector<Point> r = search(right, query, from+middle+1, to, level+1);
+            if(overlap(query, left)) {
+                search(left, query, from, from+middle, level+1);
+            }
+            if(overlap(query, right)) {
+                search(right, query, from+middle+1, to, level+1);
+            }
             
-            ret.insert(std::end(ret), std::begin(l), std::end(l));
-            ret.insert(std::end(ret), std::begin(r), std::end(r));
-
         } else {
             Region down = limitRegion(reg, div, SIDE::UP);
             Region up = limitRegion(reg, div, SIDE::DOWN);
 
 
-            std::vector<Point> d = search(down, query, from, from+middle, level+1);
-            std::vector<Point> u = search(up, query, from+middle+1, to, level+1);
+            if(overlap(query, down)) {
+                search(down, query, from, from+middle, level+1);
+            }
+            if(overlap(query, up)) {
+                search(up, query, from+middle+1, to, level+1);
+            }
 
-            ret.insert(std::end(ret), std::begin(d), std::end(d));
-            ret.insert(std::end(ret), std::begin(u), std::end(u));
         }
 
     }
@@ -107,10 +112,9 @@ KDTree::search(Region reg, Region query, int from, int to, int level) {
     if(size == 1) {
         Point p = points.at(from);
         if(query.ll.x <= p.x && query.ll.y <= p.y && p.x <= query.ur.x && p.y <= query.ur.y) {
-            ret.push_back(p);
+            results.push_back(p);
         }
     }
-    return ret;
 }
 
 std::vector<Point>

@@ -4,13 +4,18 @@
 
 \section{Simplified Range Searching}
 
-This section will introduce the primary work of the thesis. \todo{this thesis eller the thesis?} It will show how the SRS data structure is built and how range reporting is done using the data structure. The data structure uses $\mathcal{O}(n)$ space and supports search queries in $\mathcal{O}(\lg n + k\cdot \lg^\epsilon n)$ time. This is the same space complexity as the kd-tree. The query time is different in that $\lg n$ is smaller than $\sqrt{n}$, but there now is a penalty of $\mathcal{O}(\lg^\epsilon n)$ per point reported. Succint rank queries are an important part of this chapter, playing a key role in solving the ball-inheritance problem. 
+This section will introduce the primary work of this thesis. It will show how the SRS data structure is built and how range reporting is done using the data structure. The data structure uses $\mathcal{O}(n)$ space and supports search queries in $\mathcal{O}(\lg n + (1+k)\cdot \lg^\epsilon n)$ time. This is the same space complexity as the kd-tree. The query time is different in that $\lg n$ is smaller than $\sqrt{n}$, but there now is a penalty of $\mathcal{O}(\lg^\epsilon n)$ per point reported. Succint rank queries are an important part of this chapter, playing a key role in solving the ball-inheritance problem. 
 
 
 \subsection{Preliminaries}
 
+\subsubsection{Rank Space Reduction}
+Given $n$ points from a universe $U$, the rank of a given point in a sorted list of points is defined as the amount of points which preceed it in the list. Given two points $a,b \in U: a < b$ \emph{iff} $rank(a) < rank(b)$. Expanding this concept to 2 dimensions we have a set $P$ of $n$ points on a $U \times U$ grid. We compute for the \emph{x-rank} $r_x$ for each point in $P$ by finding the rank of the x-coordinate amongst all the x-coordinates in $P$. The \emph{y-rank} $r_y$ finds the rank of y-coordinate amongst all of the y-coordinates in $P$. Using \emph{rank space reduction} on $P$, a new set $P^*$ is constructed where $(x,y) \in P$ is replaced by $(r_x(x), r_y(y)) \in P^*$. Given a range query $q = [x_1, x_2] \times [y_1, y_2]$, a point $(x,y) \in P$ is found within $q$ \emph{iff} $(r_x(x), r_y(y))$ is found within $q^* = [r_x(x_1), r_x(x_2)] \times [r_y(y_1), r_y(y_2)]$. Computing the set $P^*$ from $P$ using rank space reduction, $P^*$ is said to be in rank space. While the $n$ points could be represented by $\lg U$ bits in $P$, they can now be represented by $\lg n$ bits in $P^*$ with $\lg n \ll \lg U$ when $n \ll U$ which saves memory. Given $n$ points from $U$ we can translate them to rank space by inserting them in an array $A[1..n]$ and sort $A$. A point's index in $A$ is now its rank. In order to translate a search query $q = [x_1, x_2]$ to rank space, we will look up the successor of $x_1$ in $A$ and the predecessor of $x_2$ in $A$. The indeces of these two points delimits the search query in rank space. The array $A$ acts as a mapping to and from rank space. \todo{rephrase} 
+
 \subsubsection{Predecessor search using binary search}
 In order to find the rank space successor or rank space predecessor of a point, a binary search is used on a sorted array of points. This data structure uses $\mathcal{O}(n)$ space and have a query time of $\mathcal{O}(\lg n)$. By locating the first key in the array that is greater than or equal to the search query, the index of that key is the rank space successor. Similarly, by locating the last key that is smaller in the array, the index of that key is the ranks space predecessor.
+
+
 
 \subsubsection{Succint rank queries}
 Consider an array $A[1..n]$ with elements from some alphabet $\Sigma$. Given an index $i$ in the array, we can find out how many elements in $A[1..i]$ are equal to $A[i]$. This is called a \emph{rank query}. We want to be able to answer the rank query in constant time using a data structure of $\mathcal{O}(n \lg \Sigma)$ bits. In order to do this, checkpoints are created. For each character in the alphabet $\Sigma$, the checkpoint contains the number of times that character appears in $A[1..i]$, where $i$ is the checkpoint location. Such a checkpoint takes up $\mathcal{O}(\Sigma \lg n)$ bits of space. By placing each checkpoint $\Sigma \lg n$ entries apart of each other, all of the checkpoints use $\mathcal{O}(\frac{n}{\Sigma \lg n} \cdot \Sigma \lg n) = \mathcal{O}(n)$ bits of space.
@@ -18,6 +23,14 @@ Consider an array $A[1..n]$ with elements from some alphabet $\Sigma$. Given an 
 Furthermore, for each entry in the array $A$, a smaller sum will be stored. Each entry in $A$ contains a character from the alphabet $\Sigma$. At $A[i]$ we store the amount of times the character at $A[i]$ appears since the last checkpoint. This is a smaller number and can be stored using $\mathcal{O}(\lg (\Sigma \lg n))$ bits per entry in $A$. This is because we only need $\lg x$ bits to store a number which has a maximum value of $x-1$. Since there is only $\Sigma \lg n$ entries between each checkpoint, this adds up. This approach fits the required space bound if $\Sigma \geq \sqrt{\lg n}$ \todo{replace $\sqrt{\lg n}$ with $\lg^\epsilon n$}, because there $\Sigma$ will dominate the complexity. 
 
 For smaller alphabets, another scheme is used. Checkpoinst are still stored at every $\Sigma \lg n$ positions. In addition to this, minor checkpoints are added. These minor checkpoints are added at every $\lg \lg n$ positions and contain the amount of times each character is seen since the last major checkpoint. These minor checkpoints take up $\mathcal{O}(\Sigma \lg \lg n)$ bits each. In order to answer the rank query, a query to the last major checkpoint and the last minor checkpoint has to be made. Given that $\Sigma \lg \lg n \leq \sqrt{\lg n} \cdot \lg \lg n$, the array entries holding the amount of times $A[i]$ is seen since the last minor checkpoint fits into $\mathcal{O}(\sqrt{\lg n} \cdot \lg^2 \lg n)$ bits. Therefore it is possible to store these array entries in plain form, and with the help of a precomputed table of $n^{\mathcal{O}(1)}$ space we can answer rank queries between minor checkpoints in constant time. \todo{Plain form?} \todo{rephrase} \todo{Maybe only need large alphabet +  bit vector. Then can leave out complicated multilevel}
+
+%\noindent \textbf{Ball Inheritance Problem.} Given a perfect binary tree with $n$ leaves, we want to distribute $n$ labelled balls which appear in an ordered list at the root to the leaves in $\lg n$ steps. \todo{Rephrase}. The list of balls at a given node will inherited by its children with each child receiving the same amount of balls. Each level of the tree contains the same amount of balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. The identity of a given ball is a node and the index of the ball in that nodes list. The true identity, the information the ball contains, only lies in the leaf. The \emph{ball-inheritance problem} is to track a ball from a given node to a leaf and report the identity of the leaf. \\
+
+
+\subsubsection{Ball Inheritance}
+Given a perfect binary tree with $n$ leaves and $n$ labelled balls at the root, the goal is to distribute the balls from the root to the leaves. The balls at the root are contained in an ordered list and for each ball in a node's list, one of its children is picked to inherit the ball such that both children recieve the same amount of balls. The level of a node is defined to be the height of the node from the leaves. The root has the highest level, while each node is one level smaller than its parent. The leaves are at level $0$. Each level of the tree contains the same amount of balls, and at level $i$ each node contains $2^i$ balls. Eventually each ball reaches a leaf of the tree and each leaf will contain exactly one ball. A ball can be identified by a node and the index of the ball in that node's list. Given the identity of a ball at any level, it is possible to follow this ball down the tree to its leaf which contains the actual coordinates of a point. The goal is to track a balls inheritance from a given node to a leaf and report the identity of the leaf. We call the identity of the leaf, where the actual coordinates reside, the \emph{true identity} of a ball. When refering to ball inheritance, the words \emph{ball} or \emph{point} can be used interchangebly.\todo{Formatering} \\
+
+
 
 
 \subsection{Solving the ball-inheritance problem} 
@@ -30,9 +43,20 @@ A bit vector is an array with entries from the alphabet $\Sigma = \{0,1\}$, wher
 
 Using this concept, we pick $B$ such that $2 \leq B \leq m$, where $m$ is the height of the tree. All levels that are a multiple of $B^i$ expand their alphabet such that the balls reach $B^i$ levels down. If a target level does not exist, the ball points to its leaf. We need at most visit $B$ levels that are multiple of $B^i$ before reaching a level that is multiple of $B^{i+1}$, making it possible to jump down the tree with bigger and bigger steps.
 
-Storing the expanded alphabets at each level that is multiple of $B^i$ costs $B^i$ bits per ball. The total cost is then $\Sigma^{\lg_B \lg n}_i \frac{\lg n}{B^i} \cdot \mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$ bits per ball, at all levels. With $n$ balls, this is $\mathcal{O}(n \lg_B \lg n)$ words of space with query time of $\mathcal{O}(B \lg_B \lg n)$. If we pick a $B \leq \lg^\epsilon n$ we can reduce $\lg_B \lg n$ to $\lg_{\lg^\epsilon n} \lg n = \frac{1}{\epsilon}$. Thus, the time complexity for solving the ball-inheritance is $\mathcal{O}(\lg^\epsilon n)$. \todo{Det er fordi $\lg_B \lg n$ er det største $i$ som beskriver $B^i \leq \lg n$ }
+% $\Sigma^{\lg_B \lg n}_i \frac{\lg n}{B^i} \cdot \mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$ 
+Storing the expanded alphabets at each level that is multiple of $B^i$ costs $B^i$ bits per ball. The total cost is then 
+\begin{align*}
+  \sum\limits_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i} \cdot \mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)
+\end{align*}
 
 
+\noindent bits per ball, at all levels. With $n$ balls, this is $\mathcal{O}(n \lg_B \lg n)$ words of space with query time of $\mathcal{O}(B \lg_B \lg n)$. If we pick a $B \leq \lg^\epsilon n$ we can reduce $\lg_B \lg n$ to $\lg_{\lg^\epsilon n} \lg n = \frac{1}{\epsilon}$. Thus, the space complexity for the ball-inheritance data structure is $\mathcal{O}(\frac{1}{\epsilon} \cdot n) = \mathcal{O}(n)$ words of space. By picking $B = \lg^{\epsilon / 2} n \geq \lg \lg n$ we can make the following reduction \todo{rigtige ord?} on the query time:
+\begin{align*}
+  \mathcal{O}(B \lg_B \lg n) &= \mathcal{O}(B \lg \lg n) = \mathcal{O}(\lg^{\epsilon /2} n \cdot \lg \lg n)\\
+  &= \mathcal{O}(\lg^{\epsilon / 2} n \cdot \lg^{\epsilon / 2} n) = \mathcal{O}(\lg^\epsilon n)
+\end{align*}
+
+\todo{Det er fordi $\lg_B \lg n$ er det største $i$ som beskriver $B^i \leq \lg n$ }
 
 \subsection{Solving range reporting}
 

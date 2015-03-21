@@ -325,7 +325,6 @@ auto main(int argc, char** argv) -> int {
             std::cout << diff(c,d) << std::endl;
         }
     }
-
     */
 
     /*if(argc == 1) {
