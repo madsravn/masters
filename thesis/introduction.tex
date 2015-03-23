@@ -1,9 +1,9 @@
 \chapter{Introduction}
 \label{ch:intro}
 
-\emph{Orthogonal range searcing} is one of the most fundamental and well-studied problems in computational geometry. Even with extensive research over three decades a lot of questions remain. In this thesis we will focus on $2D$ orthogonal range searching: Given $n$ points from $\mathbb{R}^2$ we want to insert them into a data structure which will be able to efficiently report which $k$ points lie within a given query range $\mathbb{Q} \subseteq \mathbb{R}^2$. This query can be defined as two corners of a rectangle, the lower left corner and the upper right corner, seeing as the query range is orthogonal to the axes. \\
+The main objective of this thesis is to study a variety of orthogonal range searching data structures. \todo{Fortsæt ligesom Pearson .. side 11}
 
-The main focus of this thesis is to introduce the SRS \todo{Kan man give den et bedre navn?} data structure. It is a simplification of the work done by \citet{chanetal}.
+\emph{Orthogonal range searching} is one of the most fundamental and well-studied problems in computational geometry. Even with extensive research over three decades a lot of questions remain. In this thesis we will focus on $2D$ orthogonal range searching: Given $n$ points from $\mathbb{R}^2$ we want to insert them into a data structure which will be able to efficiently report which $k$ points lie within a given query range $\mathbb{Q} \subseteq \mathbb{R}^2$. This query can be defined as two corners of a rectangle, the lower left corner and the upper right corner, seeing as the query range is orthogonal to the axes. \\
 
 In this thesis we are going to explore data structure we believe to be faster at orthogonal range search than a kd-tree. We are going to introduce the a range reporting data structure by \citet{chanetal}. A simplified version of their data structure will be made and implemented. We wish to show that this simplified version is able to compete with a kd-tree. \\
 
