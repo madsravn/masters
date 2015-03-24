@@ -1,18 +1,9 @@
 \chapter{Related Work}
 \label{ch:relatedwork}
 
+This chapter will describe two well-known data structures for range searching: the kd-tree and the range tree. The kd-tree is the current de facto standard for range searching because of its low space complexity. It has a space complexity of $\mathcal{O}(n)$ and a running time of $\mathcal{O}(\sqrt{n} + k)$ where $k$ is the number of results reported. In practise it uses nearly the same amount of words as it holds elements. The range tree uses $\mathcal{O}(n \lg n)$ words of space and has a running time of $\mathcal{O}(\lg^2 n + k)$ without \emph{fractional cascading} and a running time of $\mathcal{O}(\lg n + k)$ with fractional cascading. The difference between the space complexities of the kd-tree and the range tree is a factor $\mathcal{O}(\lg n)$ which can become issue when dealing with very large datasets and a limited amount of main memory.\\
 
-In this chapter a simplification of the work done by \citet{chanetal} is presented followed by their original data structure. The simplification is the theoretical work of this thesis. Conceptually, the original structure by \citet{chanetal} can be thought of as an extension of the simplified data structure. This way the reader will be introduced to the concepts at an incremental level. The theory behind a $kD$-tree will also be explained as it is the de facto standard of orthogonal range queries today and will be used to compare the practical results of the simplified data structure. \todo{rewrite} Going forward, we will use \emph{ORS} as shorthand for \emph{Original Range Search} and \emph{SRS} as shorthand for \emph{Simplified Range Search}.
-
-\vspace{4mm}
-
-The SRS data structure has a time complexity of $\mathcal{O}(\lg n + (1+k)\cdot \lg^\epsilon n)$ which is greather than the time complexity of the ORS data structure with $\mathcal{O}(\lg \lg n + (1+k)\cdot \lg^\epsilon n)$. However, the SRS data structure is far more simple - both in code and the auxilary data structures used. Because there is much more internal communication between the data structures in the ORS data structure and much more code to be executed, it is safe to assume that the running time constant hidden in the $\mathcal{O}(\lg \lg n + (1+k)\lg^\epsilon n)$ time complexity of ORS far exceeds that of SRS, making the SRS data structure faster than the ORS data structure in practise. \todo{rephrase}
-
-\vspace{4mm}
-
-Some sections will start with a \emph{preliminaries} subsection. This subsection will describe some of the auxiliary data structures used in the section.  It will make the reader acquinted with the data structures when they are referenced.
-
-\vspace{4mm}
+The kd-tree will be used as a baseline \todo{andet ord} comparison against the Simple Range Search data structure since they have the same space complexity. This property makes the Simple Range Search data structure quite attractive. The range tree will be used to show how much the running time can be decreased by increasing the space complexity by a factor of $\mathcal{O}(\lg n)$. The range tree will also be used to introduce some of the ideas behind the Simple Range Search and Original Range Search datastructures, which is where \citet{chanetal} drew some of the inspiration.
 
 The query time of the main data structures in this chapter are all \emph{output-sensitive}, meaning that their running time depends on the amount of results found. The data structures themselves are static: After the initial construction of the data structures they will not be altered by insertions or deletions. \todo{more} 
 
