@@ -131,7 +131,7 @@ In this section some supporting data structures will be introduced. Then we will
 \subsection{Preliminaries}
 
 \subsubsection{Range minimum queries}
-In order to find the smallest element in a range, a succint data structure will be used. This data structure can solve the \emph{range minimum query} problem and will be refered to as RMQ. 
+In order to find the smallest element in a range, a succint data structure will be used. This data structure can solve the \emph{range minimum query} problem and will be referred to as RMQ. 
 Consider an array $A$ with $n$ comparable keys, this succint data structure allows finding the index of the minimum key in the subarray $A[i,j]$. \citet{fischer} introduces a data structure which solves this problem in $2n + \mathcal{O}(n)$ bits of space with constant query time. The construction requires that the array is ordered, which we will see fits into our scheme.
 
 \subsubsection{Rank space predessecor search}
