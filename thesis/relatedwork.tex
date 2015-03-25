@@ -3,7 +3,7 @@
 
 This chapter will describe two well-known data structures for range searching: the kd-tree and the range tree. The kd-tree is the current de facto standard for range searching because of its low space complexity. It has a space complexity of $\mathcal{O}(n)$ and a running time of $\mathcal{O}(\sqrt{n} + k)$ where $k$ is the number of results reported. In practise it uses nearly the same amount of words as it holds elements. The range tree uses $\mathcal{O}(n \lg n)$ words of space and has a running time of $\mathcal{O}(\lg^2 n + k)$ without \emph{fractional cascading} and a running time of $\mathcal{O}(\lg n + k)$ with fractional cascading. The difference between the space complexities of the kd-tree and the range tree is a factor $\mathcal{O}(\lg n)$ which can become issue when dealing with very large datasets and a limited amount of main memory.\\
 
-The kd-tree will be used as a baseline \todo{andet ord} comparison against the Simple Range Search data structure since they have the same space complexity. This property makes the Simple Range Search data structure quite attractive. The range tree will be used to show how much the running time can be decreased by increasing the space complexity by a factor of $\mathcal{O}(\lg n)$. The range tree will also be used to introduce some of the ideas behind the Simple Range Search and Original Range Search datastructures, which is where \citet{chanetal} drew some of the inspiration.
+The kd-tree will be used as a baseline \todo{andet ord} comparison against the Simple Range Search data structure since they have the same space complexity. This property makes the Simple Range Search data structure quite attractive. The range tree will be used to show how much the running time can be decreased by increasing the space complexity by a factor of $\mathcal{O}(\lg n)$. The range tree will also be used to introduce some of the ideas behind the Simple Range Search and Original Range Search data structures, which is where \citet{chanetal} drew some of their inspiration.
 
 The query time of the main data structures in this chapter are all \emph{output-sensitive}, meaning that their running time depends on the amount of results found. The data structures themselves are static: After the initial construction of the data structures they will not be altered by insertions or deletions. \todo{more} 
 
@@ -71,12 +71,14 @@ Searching the range tree with fractional cascasding starts by finding the least 
 
 \noindent where $v$ are the nodes flagged on the path to $x_1$ and $x_2$ from their least common ancestor.
 
-\noindent \textbf{Composite-number space.} In order to ensure all points have unique x-coordinates and unique y-coordinates, the points are translated into \emph{composite-number space}. A composite number of two numbers $x$ and $y$ is denoted by $(x \mid y)$. A total ordering on the composite-number space is defined by using lexicographic order. Given two composite numbers $(x_1 \mid y_1)$ and $(x_2 \mid y_2)$, we define the order as
+\section{Composite-number space} 
+\label{sect:composite}
+In order to ensure all points have unique x-coordinates and unique y-coordinates, the points are translated into \emph{composite-number space}. A composite number of two numbers $x$ and $y$ is denoted by $(x \mid y)$. A total ordering on the composite-number space is defined by using lexicographic order. Given two composite numbers $(x_1 \mid y_1)$ and $(x_2 \mid y_2)$, we define the order as
 \begin{align*}
   (x_1 \mid y_1) < (x_2 \mid y_2) \iff x_1 < x_2 \text{ or } (x_1 = x_2 \text{ and } y_1 < y_2)
 \end{align*}
 
-Given a set P of $n$ distinct points from $\mathbb{R}^2$, we translate each point $(x,y) \in P$ into composite-number space by assigning the point new set of coordinates: $(x,y) := ( (x \mid y), (y \mid x) )$. No two points will have the same x-coordinate unless the points are identical. The same holds for the y-coordinate.
+\noindent Given a set P of $n$ distinct points from $\mathbb{R}^2$, we translate each point $(x,y) \in P$ into composite-number space by assigning the point new set of coordinates: $(x,y) := ( (x \mid y), (y \mid x) )$. No two points will have the same x-coordinate unless the points are identical. The same holds for the y-coordinate.
 
 \noindent In order to perform a range query $q = [x_1, x_2] \times [y_1, y_2]$ in composite-number space, the query will have to be transformed. This transformed range query will be $\hat{q} = [(x_1 \mid -\infty), (x_2 \mid +\infty)] \times [(y_1 \mid -\infty), (y_2 \mid +\infty)]$. It follows that 
 \begin{align*}
@@ -84,3 +86,11 @@ Given a set P of $n$ distinct points from $\mathbb{R}^2$, we translate each poin
 \end{align*}
 
 
+\section{Summary}
+\label{sect:relsummary}
+
+The kd-tree is a data structure using $\mathcal{O}(n)$ words of space and supports a range query in $\mathcal{O}(\sqrt{n} + k)$ time. It is built by constantly subdividing smaller and smaller regions of the tree until a region only contains one point. A range search query will then match the query region to the region of node to see if there is any overlap or full containment. Because building process alternates between subdividing regions by the x-coordinates and subdividing the regions by the y-coordinates, we cannot state anything other than a region completely below another region contains only points which have smaller y-coordinate than the points in the region above it. The same applies for a region entirely to the left of another region: it only contains points which have a smaller x-coordinate than the points in the region to the right of it. This property forces a range query to look in all the regions which the bordes of range query overlaps. \todo{Rephrase - ikke alle, men det højeste level}
+
+The range tree is a data structure using $\mathcal{O}(n \lg n)$ words of space and support a range query in $\mathcal{O}(\lg n + k)$ time. It is built by creating a tree with $n$ leaves and dividing the points to the leaves, such that all the leaves to the left of a leaf contain points with a smaller x-coordinate than the point at the leaf. All the internal nodes of the tree contain an auxillary tree which has the same property just with the y-coordinate of the points contained in the subtree. This property allows a search query to quickly locate the subtrees containing only points between $[x_1, x_2]$ and $[y_1, y_2]$.
+
+The $\mathcal{O}(\lg n + k)$ running time of the range tree is faster than the $\mathcal{O}(\sqrt{n} + k)$ running time of the kd-tree. However, the $\mathcal{O}(\sqrt{n})$ part is based on a rather pessimistic idea that a range query will overlap, but not fully include, a lot of regions stretching over the two extreme in one dimension.
