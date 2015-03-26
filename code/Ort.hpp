@@ -31,7 +31,7 @@ struct LinearJumper {
     std::vector<uint> major; // Contains the major checkpoint
     std::vector<uint> minor;
     std::vector<uint> entries;
-    bool end;
+    int end;
 };
 
 struct qreturn {
@@ -39,6 +39,7 @@ struct qreturn {
     int character; // Which character is chosen
     int rank; // What is the rank of this character at this position?
     int size; // How many levels do we jump? 
+    int end; // Do we reach the end?
 };
 
 
@@ -68,7 +69,8 @@ class Ort {
         void generateJumps();
         uint size(int t) const;
         std::vector<Point> search(Region reg, int t);
-        std::vector<Jumper> getJumps() { return jumps; }
+        std::vector<LinearJumper> getJumps() { return linear; }
+        std::vector<int> createLinkedList(int size);
 
     private:
         // type: 1 for no big jumps, 2 for expensive big jumps and 3 for linear big jumps

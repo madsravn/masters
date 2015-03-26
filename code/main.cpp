@@ -112,7 +112,7 @@ std::map<int, Ort> ortmap;
                 auto ort = ortmap.find(entry);
                 if(ort != ortmap.end()) {
                     for(const auto& e : ort->second.getJumps()) {
-                        std::cout << e.jump << " ";
+                        std::cout << e.jump << " (" << e.end << ")" << " => ";
                     }
                     std::cout << std::endl;
                 }
@@ -193,7 +193,7 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
+    //repl();
     
 
     /*int amount = pow(2,15);
@@ -290,11 +290,10 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-    /*
-    for(int i = 0; i < 1000; ++i) {
+    for(int i = 0; i < 100000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(6,17);
+        std::uniform_int_distribution<> dis(6,20);
 
         int amount = pow(2,dis(gen));
         std::cout << "AMOUNT IS " << amount << std::endl;
@@ -314,18 +313,20 @@ auto main(int argc, char** argv) -> int {
         std::sort(std::begin(d), std::end(d), sortpointx);
         if(a != b) {
             std::cout << "ERROR" << std::endl;
+            std::cout << "Search area: " << points.at(0) << ", " << points.at(1) << std::endl;
             std::cout << a << std::endl;
+            std::cout << "Size of a: " << a.size() << std::endl;
             std::cout << b << std::endl;
-            std::cout << diff(a,b) << std::endl;
+            std::cout << "Size of b: " << b.size() << std::endl;
+            std::cout << "DIFF: " << diff(a,b) << std::endl;
         }
         if(c != d) {
             std::cout << "ERROR TWO" << std::endl;
             std::cout << c << std::endl;
             std::cout << d << std::endl;
-            std::cout << diff(c,d) << std::endl;
+            std::cout << "DIFF: " << diff(c,d) << std::endl;
         }
     }
-    */
 
     /*if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {
