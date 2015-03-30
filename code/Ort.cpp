@@ -40,9 +40,9 @@ Ort::makemask(uint range) {
 // <do we jump, character, rank, alphabet size>
 qreturn
 Ort::bigJump(int level, int pos) {
-    if(linear.at(level).jump == 1 || type == 1) {
+    if(jumps.at(level).jump == 1 || type == 1) {
         //std::cout << "Small steps" << std::endl;
-        return {0,1,1,1,0};
+        return {0,1,1,1};
     }
     if(type == 2) {
         //std::cout << "Big expensive steps" << std::endl;
@@ -50,52 +50,27 @@ Ort::bigJump(int level, int pos) {
         int character = jumps.at(level).targets.at(pos);
         int rank = jumps.at(level).entries.at(pos);
         int size = jumps.at(level).jump;
-        return {1,character, rank, size, 0};
+        return {1,character, rank, size};
     }
 
 
-    // Which character is at this location?
+    //std::cout << "Big linear steps" << std::endl;
     int character = Data::findInt(linear.at(level).entries, linear.at(level).entrieskey, pos);
-    // Size of the jump (So, pow(2, size) is the amount of targets possible)
     int size = linear.at(level).jump;
     int end = linear.at(level).end;
 
-        // Used to find the rank
+    if(end == 0) {
+
         int major_size = pow(2, size);
         int div = linear.at(level).div;
         int major = Data::findInt(linear.at(level).major, linear.at(level).majorkey, (pos/div)*major_size + character);
         int minor =  Data::findInt(linear.at(level).minor, linear.at(level).minorkey, pos);
         int rank = major + minor;
+        
+        return {1, character, rank, size};
+    }
 
-        return {1,character, rank, size, end};
-
-    // If the end is reached, no rank necessary.
-    return {1, character, 0, size, end};
-
-
-
-    /*if(rank2 != rank || character != character2 || size != size2 || rank3 != rank || character != character3 || size != size3) {
-        std::cout << std::endl << std::endl << "rank: " << rank << " og rank2: " << rank2 << " og rank3: " << rank3 << std::endl;
-        std::cout << "character: " << character << " og character2: " << character2 << " og character3: " << character3 << std::endl;
-        std::cout << "size: " << size << " og size2: " << size2 << " og size3: " << size3 << std::endl;
-        std::cout << "major: " << notsolinear.at(level).major.at((pos/div)*major_size + character2) << " og major3: " << major3 << std::endl;
-        std::cout << "minor: " << notsolinear.at(level).minor.at(pos) << " og minor3: " << minor3 << std::endl;
-        std::cout << "fejl" << std::endl;
-        std::cout << "pos: " << pos << std::endl;
-        std::cout << "majorkey: " << linear.at(level).majorkey << " og minorkey: " << linear.at(level).minorkey << std::endl;
-
-        auto minorkeyindex = std::max_element(std::begin(notsolinear.at(level).minor), std::end(notsolinear.at(level).minor));
-        uint minkey = notsolinear.at(level).minor.at(std::distance(std::begin(notsolinear.at(level).minor), minorkeyindex));
-        std::cout << "minor_stdlog2: " << std::ceil(std::log2(minkey)) << " og minorkey: " << linear.at(level).minorkey << std::endl;
-
-        for(int i = 0; i < notsolinear.at(level).minor.size(); ++i) {
-            if(notsolinear.at(level).minor.at(i) != Data::findInt(linear.at(level).minor, linear.at(level).minorkey, i)) {
-                std::cout << notsolinear.at(level).minor.at(i) << " != " << Data::findInt(linear.at(level).minor, linear.at(level).minorkey, i) << std::endl;
-            }
-        }
-
-    }*/
-
+    return {1,character, 0, size};
 
 }
 
@@ -201,9 +176,7 @@ Ort::createLinkedList(int size) {
     //
     // Another idea could be to find the middle level and let that jump to the end
     // All levels above it considers the middle as the actual goal. Then we have split it in half
-
-
-
+    
     int B = 2;
     for(int i = 1; i < std::ceil(std::log2(size+1)); ++i) {
         int skiplevels = pow(B, i);
@@ -211,10 +184,10 @@ Ort::createLinkedList(int size) {
             jumplist.at(j) = skiplevels;
         }
     }
+        
     
-    //TODO: FIX!!!
-    //std::reverse(std::begin(jumplist), std::end(jumplist));
-   
+    std::reverse(std::begin(jumplist), std::end(jumplist));
+
     for(int i = 0; i < jumplist.size(); ++i) {
         // Is the jump close to just hitting the end? Then let it
         if(i+jumplist.at(i) > jumplist.size() - 4) {
@@ -222,8 +195,6 @@ Ort::createLinkedList(int size) {
             jumplist.at(i) = jumplist.size()+3;
         }
     }
-
-
     //std::cout << jumplist << std::endl;
     return jumplist;
 }
@@ -247,7 +218,6 @@ Ort::generateJumps() {
         std::cout << "levels.size() = " << levels.size() << std::endl;
         return;
     }
-
     std::vector<int> jumplist = createLinkedList(levels.size());
     //std::cout << jumplist << std::endl;
     //std::cout << jumplist << std::endl;
@@ -255,21 +225,18 @@ Ort::generateJumps() {
         std::cout << "Houston, another problem!" << std::endl;
     }
 
-    /*
+
     for(int i = 0; i < levels.size(); i++) {
-        
+
         int tskiplevels = jumplist.at(i);
         int skiplevels = 1000;
         int end = 0;
-        
-        
+
         if(i+tskiplevels <= levels.size()) {
             skiplevels = tskiplevels;
         } else {
             skiplevels = levels.size()-i;
         }
-
-
 
         if(i+skiplevels == levels.size()) {
             end = 1;
@@ -278,36 +245,35 @@ Ort::generateJumps() {
         Jumper jump;
         jump.jump = skiplevels;
         std::vector<uint> targets;
-        
         for(int j = 0; j < linkedlists.size(); ++j) {
             std::vector<uint> linkedlist = linkedlists.at(twodarray.at(i).at(j));
             int target = convertRangeToInt(linkedlist, i, i+skiplevels);
             targets.push_back(target);
         }
-        
-        //std::cout << "targets: " <<  targets << std::endl;
+
+        //std::cout << "targets: " << targets << std::endl;
         jump.targets = targets;
         std::vector<uint> alph(pow(2,skiplevels), 0);
         std::vector<uint> entries(targets.size(), 0);
+
         for(int ent = 0; ent < targets.size(); ++ent) {
             int entry = targets.at(ent);
             entries.at(ent) = alph.at(entry);
             alph.at(entry)++;
         }
+
         //std::cout << "entries: " << entries << std::endl;
         jump.entries = entries;
         jump.end = false;
         jumps.at(i) = jump;
-        
 
         // Converting to linear representation
-
         // TODO : TARGETS OG ENTRIES HEDDER DET FORKERTE. TJEK DATAEN FRA BIGJUMP OG FIND UD AF HVAD DET GØR
         std::vector<std::vector<uint>> majorcheckpoints; //(std::log2(balls.size()) + 2, std::vector<uint>(pow(2,skiplevels), 0));
         std::vector<uint> minor;
         std::vector<uint> seen(pow(2, skiplevels), 0);
-
         majorcheckpoints.push_back(seen);
+
         int curr = 0;
         int div = pow(2, skiplevels)*std::log2(balls.size());
         for(int ent = 0; ent < targets.size(); ++ent) {
@@ -320,15 +286,18 @@ Ort::generateJumps() {
             minor.push_back(one - two);
             seen.at(targets.at(ent))++;
         }
+
         std::vector<uint> major;
         for(const auto& outer : majorcheckpoints) {
             for(const auto& inner : outer) {
                 major.push_back(inner);
             }
         }
+
         major.shrink_to_fit();
         minor.shrink_to_fit();
         targets.shrink_to_fit();
+
         LinearJumper notsolinearjump;
         notsolinearjump.jump = skiplevels;
         notsolinearjump.major = major;
@@ -336,12 +305,14 @@ Ort::generateJumps() {
         notsolinearjump.entries = targets;
         notsolinear.at(i) = notsolinearjump;
 
+
         LinearJumper linearjump;
         linearjump.jump = skiplevels;
+
         if(end == 0) {
             auto majorkeyindex = std::max_element(std::begin(major), std::end(major));
             uint majorkey = major.at(std::distance(std::begin(major), majorkeyindex));
-            
+
             // TODO: Lav anden håndtering ved sådan et special-case. Kun '0'-entries kommer til at tage 2 bits plads
             // Når skiplevels bliver stor nok er der kun éen major, den første som holder 0'er
             if(majorkey == 0) {
@@ -351,9 +322,9 @@ Ort::generateJumps() {
             linearjump.majorkey = std::ceil(std::log2(majorkey+1));
             linearjump.major = Data::packBits(major, linearjump.majorkey);
 
+
             auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
             uint minorkey = minor.at(std::distance(std::begin(minor), minorkeyindex));
-
 
             if(minorkey == 0) {
                 minorkey = 1;
@@ -362,17 +333,14 @@ Ort::generateJumps() {
             linearjump.minorkey = std::ceil(std::log2(minorkey+1));
             linearjump.minor = Data::packBits(minor, linearjump.minorkey);
 
-
             linearjump.div = div;
             linearjump.major.shrink_to_fit();
             linearjump.minor.shrink_to_fit();
-
         }
-
 
         auto entrieskeyindex = std::max_element(std::begin(targets), std::end(targets));
         uint entrieskey = targets.at(std::distance(std::begin(targets), entrieskeyindex));
-        
+
         if(entrieskey == 0) {
             entrieskey = 1;
         }
@@ -384,16 +352,10 @@ Ort::generateJumps() {
         linearjump.end = end;
         linear.at(i) = linearjump;
     }
-    std::cout << "[ ";
-    for(const auto& e : linear) {
-        std::cout << e.jump << " ";
-    }
-    std::cout << " ]" << std::endl;*/
 
-
-    // OLD WORKING CODE
+    /*
     //TODO: Her skal skæres - det skal ikke være levels.size(), nærmere std::log2(levels.size())
-    for(int h = 2; h < std::ceil(std::log2(levels.size()))+1; ++h) {
+    for(int h = 2; h < levels.size(); ++h) {
         int tskiplevels = pow(2, h);
         for(int i = 0; i < levels.size(); i+=tskiplevels) {
             // TODO: HVORFOR <= ???
@@ -455,9 +417,6 @@ Ort::generateJumps() {
                     major.push_back(inner);
                 }
             }
-            major.shrink_to_fit();
-            minor.shrink_to_fit();
-            targets.shrink_to_fit();
             LinearJumper notsolinearjump;
             notsolinearjump.jump = skiplevels;
             notsolinearjump.major = major;
@@ -502,13 +461,9 @@ Ort::generateJumps() {
             linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
 
             linearjump.div = div;
-            linearjump.major.shrink_to_fit();
-            linearjump.minor.shrink_to_fit();
-            linearjump.entries.shrink_to_fit();
-            linearjump.end = 0;
             linear.at(i) = linearjump;
         }
-    }
+    }*/
 
 }
 
@@ -559,7 +514,6 @@ Point
 Ort::followball(int level, int nodepos, int pos, int amount) {
     if(amount > 1) {
     
-        std::cout << "IKKKKEEE BRUG DEN HER!!!" << std::endl;
         qreturn big = bigJump(level, pos);
         if(big.jump == 1) {
             //std::cout << std::endl << "Using big jump" << std::endl;
@@ -602,16 +556,14 @@ Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
 
     while(amount > 1) {
         qreturn big = bigJump(level, pos);
-        
         if(big.jump == 1) {
             int size = pow(2, big.size);
 
             level += big.size;
             // If bottom is hit, the (big.rank - nodepos/size) will be 0. Thus we can save away the entire rank storage
-            // If we jump to the end of the linked list, the $pos$ value will be wrong - but that does not matter
-            // because we will look up the ball-point using the $nodepos$ value
-            pos = (amount*big.character)/size + nodepos + (big.rank - nodepos/size);
-            nodepos += (amount*big.character)/size;
+            int tlong = (ulon(amount)*ulon(big.character))/size;
+            pos = tlong + nodepos + (big.rank - nodepos/size);
+            nodepos += tlong;
             amount = amount/size;
 
         } else {
@@ -744,7 +696,6 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
     LinearJumper templinearjump;
     templinearjump.jump = 1;
-    templinearjump.end = 0;
     std::vector<LinearJumper> tlinearjumps(levels.size(), templinearjump);
     notsolinear = tlinearjumps;
     linear = tlinearjumps;
@@ -768,27 +719,19 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
 
 
+    type = 3;
     // Testing that all balls falls to their correct leaf
-    type = 2;
-    bool all = true;
+    /*bool all = true;
     for(int i = 0; i < points.size(); ++i) {
-        //std::cout << "It is: " << whilefollowball(0,0,i,points.size()) << std::endl;
-        //std::cout << "Should be: " << points.at(i) << std::endl;
         all = all & (points.at(i) == whilefollowball(0,0,i,points.size()));
     }
 
-
-
-    std::cout << "ALL WAS " << all << std::endl;
+    std::cout << "ALL WAS " << all << std::endl;*/
 
     initializeBinarySearches();
     linkedlists.clear();
     twodarray.clear();
-    type = 1;
-    // TODO: SRHINK STUFF LATER. It can be expensive and doesn't show up in the current size
-    //balls.shrink_to_fit();
-    //ranks.shrink_to_fit();
-
+    type = 3;
 }
 
 std::vector<Point>

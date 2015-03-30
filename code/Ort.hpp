@@ -13,6 +13,7 @@
 enum DIRECTION { LEFT, RIGHT };
 
 using uint = std::uint32_t;
+using ulon = unsigned long long;
 
 struct Jumper {
     int jump; // 1, 2, 3, 4, 5 etc. Gets adjusted if we hit the bottom
@@ -31,15 +32,15 @@ struct LinearJumper {
     std::vector<uint> major; // Contains the major checkpoint
     std::vector<uint> minor;
     std::vector<uint> entries;
-    int end;
+    bool end;
 };
 
+// This do not need to contain information about jumping to end.
 struct qreturn {
     int jump; // Do we jump? [0,1]
     int character; // Which character is chosen
     int rank; // What is the rank of this character at this position?
     int size; // How many levels do we jump? 
-    int end; // Do we reach the end?
 };
 
 
@@ -75,45 +76,22 @@ class Ort {
     private:
         // type: 1 for no big jumps, 2 for expensive big jumps and 3 for linear big jumps
         int type;
-
-        // Used to check if the left-most and right-most point are within the range
         Point corner;
-
-        // Unused? 
         int count;
-
-        // Contains the actual tree for ball-inheritance
         std::vector<std::vector<uint>> levels;
-
-        // Used to get the x'th bit of a number, contains 100, 010, 001..
         std::vector<uint> bits;
-
-        // Contains the balls/points
         std::vector<Point> balls;
-
-        // Contains the accumulated sum of the ranks up to a given point.
         std::vector<std::vector<uint>> ranks;
-
-
-        // Contains the 2^16 number mapping from int -> number of ones in binary
         std::vector<uint> inttobin;
         // Goes from 0 -> 31. ranks will find the sum if it includes all 32 bits
         std::vector<uint> masks;
-
-        // In order to do binary search
         std::vector<int> xb, yb;
-
-        // Being used to generate the big jumps
         int current;
         std::vector<std::vector<uint>> linkedlists;
         std::vector<std::vector<uint>> twodarray;
-
-        // Three different kinds of big jumps
         std::vector<Jumper> jumps;
         std::vector<LinearJumper> notsolinear;
         std::vector<LinearJumper> linear;
-
-        // The result set
         std::vector<Point> results;
 
 

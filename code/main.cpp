@@ -293,38 +293,40 @@ auto main(int argc, char** argv) -> int {
     for(int i = 0; i < 100000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(6,20);
+        std::uniform_int_distribution<> dis(17,20);
 
         int amount = pow(2,dis(gen));
         std::cout << "AMOUNT IS " << amount << std::endl;
         std::vector<Point> input = Data::generate(amount);
         Ort ort(amount, input);
         KDTree kdtree(amount, input);
-        std::vector<Point> points = Data::randomPoints(gen, amount);
-        //std::cout << "POINTS: " << points << std::endl;
-        std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
-        std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
-        Region query = {points.at(0), points.at(1)};
-        std::vector<Point> c = kdtree.search(query);
-        std::vector<Point> d = kdtree.actualSearch(query);
-        std::sort(std::begin(a), std::end(a), sortpointx);
-        std::sort(std::begin(b), std::end(b), sortpointx);
-        std::sort(std::begin(c), std::end(c), sortpointx);
-        std::sort(std::begin(d), std::end(d), sortpointx);
-        if(a != b) {
-            std::cout << "ERROR" << std::endl;
-            std::cout << "Search area: " << points.at(0) << ", " << points.at(1) << std::endl;
-            std::cout << a << std::endl;
-            std::cout << "Size of a: " << a.size() << std::endl;
-            std::cout << b << std::endl;
-            std::cout << "Size of b: " << b.size() << std::endl;
-            std::cout << "DIFF: " << diff(a,b) << std::endl;
-        }
-        if(c != d) {
-            std::cout << "ERROR TWO" << std::endl;
-            std::cout << c << std::endl;
-            std::cout << d << std::endl;
-            std::cout << "DIFF: " << diff(c,d) << std::endl;
+        for(int j = 0; j < 10000; ++j) {
+            std::vector<Point> points = Data::randomPoints(gen, amount);
+            //std::cout << "POINTS: " << points << std::endl;
+            std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
+            std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
+            Region query = {points.at(0), points.at(1)};
+            std::vector<Point> c = kdtree.search(query);
+            std::vector<Point> d = kdtree.actualSearch(query);
+            std::sort(std::begin(a), std::end(a), sortpointx);
+            std::sort(std::begin(b), std::end(b), sortpointx);
+            std::sort(std::begin(c), std::end(c), sortpointx);
+            std::sort(std::begin(d), std::end(d), sortpointx);
+            if(a != b) {
+                std::cout << "ERROR" << std::endl;
+                std::cout << "Search area: " << points.at(0) << ", " << points.at(1) << std::endl;
+                std::cout << a << std::endl;
+                std::cout << "Size of a: " << a.size() << std::endl;
+                std::cout << b << std::endl;
+                std::cout << "Size of b: " << b.size() << std::endl;
+                std::cout << "DIFF: " << diff(a,b) << std::endl;
+            }
+            if(c != d) {
+                std::cout << "ERROR TWO" << std::endl;
+                std::cout << c << std::endl;
+                std::cout << d << std::endl;
+                std::cout << "DIFF: " << diff(c,d) << std::endl;
+            }
         }
     }
 
