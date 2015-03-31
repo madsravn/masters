@@ -131,6 +131,7 @@ std::map<int, Ort> ortmap;
                 Point ur = {std::stoi(commands.at(5)), std::stoi(commands.at(6))};
                 int count = std::stoi(commands.at(2));
                 int resultsize = -1;
+                std::vector<Point> a,b;
                 
                 if(ort != ortmap.end()) {
                     
@@ -160,6 +161,7 @@ std::map<int, Ort> ortmap;
                     t3.stop(); 
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
                     std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
+                    a = ort->second.search({ll,ur},3);
                     resultsize = ort->second.search({ll,ur},1).size();
 
                 }
@@ -176,11 +178,57 @@ std::map<int, Ort> ortmap;
                     t2.stop();
                     //std::cout << kdtree->second.search({ll, ur}) << std::endl;
                     std::cout << "KDtree search took: " << t2.duration().count() << " ms." << std::endl;
+                    b = kdtree->second.search({ll,ur});
                 } else {
                     std::cout << "KDtree structure at index " << commands.at(1) << " not found." << std::endl;
                 }
                 std::cout << "The search gave " << resultsize << " results." << std::endl;
+                std::sort(std::begin(a), std::end(a), sortpointx);
+                std::sort(std::begin(b), std::end(b), sortpointx);
+                std::cout << "The results are identical: " << (a == b) << std::endl;
                 
+            }
+        }
+    }
+}
+
+void testingRun() {
+    for(int i = 0; i < 100000; ++i) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(17,20);
+
+        int amount = pow(2,dis(gen));
+        std::cout << "AMOUNT IS " << amount << std::endl;
+        std::vector<Point> input = Data::generate(amount);
+        Ort ort(amount, input);
+        KDTree kdtree(amount, input);
+        for(int j = 0; j < 10000; ++j) {
+            std::vector<Point> points = Data::randomPoints(gen, amount);
+            //std::cout << "POINTS: " << points << std::endl;
+            std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
+            std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
+            Region query = {points.at(0), points.at(1)};
+            std::vector<Point> c = kdtree.search(query);
+            std::vector<Point> d = kdtree.actualSearch(query);
+            std::sort(std::begin(a), std::end(a), sortpointx);
+            std::sort(std::begin(b), std::end(b), sortpointx);
+            std::sort(std::begin(c), std::end(c), sortpointx);
+            std::sort(std::begin(d), std::end(d), sortpointx);
+            if(a != b) {
+                std::cout << "ERROR" << std::endl;
+                std::cout << "Search area: " << points.at(0) << ", " << points.at(1) << std::endl;
+                std::cout << a << std::endl;
+                std::cout << "Size of a: " << a.size() << std::endl;
+                std::cout << b << std::endl;
+                std::cout << "Size of b: " << b.size() << std::endl;
+                std::cout << "DIFF: " << diff(a,b) << std::endl;
+            }
+            if(c != d) {
+                std::cout << "ERROR TWO" << std::endl;
+                std::cout << c << std::endl;
+                std::cout << d << std::endl;
+                std::cout << "DIFF: " << diff(c,d) << std::endl;
             }
         }
     }
@@ -190,10 +238,13 @@ std::map<int, Ort> ortmap;
 
 
 
+
+
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
+    repl();
+    //testingRun();
     
 
     /*int amount = pow(2,15);
@@ -290,47 +341,7 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-    for(int i = 0; i < 100000; ++i) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(17,20);
-
-        int amount = pow(2,dis(gen));
-        std::cout << "AMOUNT IS " << amount << std::endl;
-        std::vector<Point> input = Data::generate(amount);
-        Ort ort(amount, input);
-        KDTree kdtree(amount, input);
-        for(int j = 0; j < 10000; ++j) {
-            std::vector<Point> points = Data::randomPoints(gen, amount);
-            //std::cout << "POINTS: " << points << std::endl;
-            std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
-            std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
-            Region query = {points.at(0), points.at(1)};
-            std::vector<Point> c = kdtree.search(query);
-            std::vector<Point> d = kdtree.actualSearch(query);
-            std::sort(std::begin(a), std::end(a), sortpointx);
-            std::sort(std::begin(b), std::end(b), sortpointx);
-            std::sort(std::begin(c), std::end(c), sortpointx);
-            std::sort(std::begin(d), std::end(d), sortpointx);
-            if(a != b) {
-                std::cout << "ERROR" << std::endl;
-                std::cout << "Search area: " << points.at(0) << ", " << points.at(1) << std::endl;
-                std::cout << a << std::endl;
-                std::cout << "Size of a: " << a.size() << std::endl;
-                std::cout << b << std::endl;
-                std::cout << "Size of b: " << b.size() << std::endl;
-                std::cout << "DIFF: " << diff(a,b) << std::endl;
-            }
-            if(c != d) {
-                std::cout << "ERROR TWO" << std::endl;
-                std::cout << c << std::endl;
-                std::cout << d << std::endl;
-                std::cout << "DIFF: " << diff(c,d) << std::endl;
-            }
-        }
-    }
-
-    /*if(argc == 1) {
+        /*if(argc == 1) {
         for(int i = 0; i < 5000; ++i) {
             int amount = 256;
             std::random_device rd;
