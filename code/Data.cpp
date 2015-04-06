@@ -14,9 +14,6 @@ std::vector<char> translatetobits(const std::vector<uint>& numbers, int size) {
         }
     }
 
-    /*for(const auto& e : bits) {
-        std::cout << int(e);
-    }*/
     return bits;
 }
 
@@ -30,6 +27,7 @@ Data::findInt(const std::vector<uint>& input, int size, int pos) {
     int secondc = end/32;
     int ipos = pos % 32;
     int jpos = end % 32;
+    
     if(firstc == secondc) {
         uint number = input.at(firstc);
         number = number >> (32 - end);
@@ -44,29 +42,17 @@ Data::findInt(const std::vector<uint>& input, int size, int pos) {
     number2 = number2 >> (32 - jpos);
     number2 = number2 & ((1 << jpos) - 1);
     
-    
-    /*std::cout << "pos: " << pos << std::endl;
-    std::cout << "end: " << end << std::endl;
-    std::cout << "firstc: " << firstc << std::endl;
-    std::cout << "secondc: " << secondc << std::endl;
-    std::cout << "ipos: " << ipos << std::endl;
-    std::cout << "jpos: " << jpos << std::endl;
-    std::cout << "number: " << number << std::endl;
-    std::cout << "Finurlig return: " << number + number2 << std::endl;*/
     return number + number2;
 }
 
 std::vector<uint>
 Data::packBits(const std::vector<uint>& input, int size) {
+
     std::vector<char> bits = translatetobits(input, size);
     while(bits.size() % 32 != 0) {
         bits.push_back(0);
     }
     
-    /*for(const auto& e : bits) {
-        std::cout << int(e);
-    }
-    std::cout << std::endl;*/
     std::vector<uint> packedbits;
     for(int i = 0; i < bits.size(); i += 32) {
         uint res = 0;
@@ -77,8 +63,8 @@ Data::packBits(const std::vector<uint>& input, int size) {
         res += (bits.at(i+31));
         packedbits.push_back(res);
     }
-    //TODO: FIKS DENNE. Det er som om at (ved 256) den gerne vil kigge på det næste entry, men det ikke findes.
-    // findInt(vector size = 4, size = 4, pos = 124)
+
+    // Current lookup requires an empty entry - should be fixed
     packedbits.push_back(0);
 
     return packedbits;
