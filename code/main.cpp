@@ -5,9 +5,10 @@
 #include "Ort.hpp"
 #include "Data.hpp"
 #include "KDTree.hpp"
-#include "Timer.hpp"
+//#include "Timer.hpp"
 #include <bitset>
 #include <string>
+#include "Tester.hpp"
 
 using unitofmeassure = std::chrono::microseconds;
 
@@ -196,7 +197,10 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
+    //repl();
+    Tester test;
+    test.Test1("Horizontal tests");
+    test.Test2("Vertical tests");
     
 
     /*int amount = pow(2,15);

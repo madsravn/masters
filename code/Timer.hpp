@@ -2,7 +2,6 @@
 #define TIMER_HPP_
 #include <chrono>
 #include <string>
-//using unitofmeassure = std::chrono::milliseconds;
 
 
 template<typename T>
@@ -20,7 +19,7 @@ struct ttime<std::chrono::microseconds> {
     enum {value = 3};
 };
 
-std::string conv(int i) {
+inline std::string conv(int i) {
     if(i == 2) {
         return "milliseconds";
     } 
