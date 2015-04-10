@@ -197,7 +197,7 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
+    repl();
     Tester test;
     test.Test1("Horizontal tests");
     test.Test2("Vertical tests");
