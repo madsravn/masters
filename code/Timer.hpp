@@ -19,12 +19,20 @@ struct ttime<std::chrono::microseconds> {
     enum {value = 3};
 };
 
+template<>
+struct ttime<std::chrono::nanoseconds> {
+    enum {value = 4};
+};
+
 inline std::string conv(int i) {
     if(i == 2) {
         return "milliseconds";
     } 
     if(i == 3) {
         return "microseconds";
+    }
+    if(i == 4) {
+        return "nanoseconds";
     }
     return "N/A";
 }
@@ -40,6 +48,7 @@ class Timer {
         void stop() { t2 = std::chrono::high_resolution_clock::now(); elapsed += std::chrono::duration_cast<T>(t2-t1); };
         T duration() { return elapsed;  }
         void reset() { elapsed = T(0); }
+        void startover() { reset(); start();}
         std::string type() { return conv(ttime<T>::value);}
 
 };

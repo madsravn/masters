@@ -197,11 +197,19 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
+    //repl();
     Tester test;
-    test.Test1("Horizontal tests");
-    test.Test2("Vertical tests");
-    
+    //test.Test1("Horizontal tests");
+    //test.Test3("Another Vertical test");
+    //test.Test2("Vertical tests");
+    //test.Test4("Amount of times, vertical");
+    //test.Test5("Same test as before - just different loop");
+    //test.Test6("Amount of times, horizontal");
+    // Test 7 and 8 seems wonky
+    //test.Test7("Shrinking vertical");
+    //test.Test8("Shrinking horizontal");
+    test.Test9("Testing if vertical lines agree");
+    test.Test10("Testing if horizontal lines agree");
 
     /*int amount = pow(2,15);
     std::random_device rd;
