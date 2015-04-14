@@ -774,9 +774,13 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     Point x{lowerleft.y, upperright.y};
     corner = x;
 
-    int dist = std::max(ux_index-lx_index, uy_index-ly_index);
-    results.clear();
-    results.reserve(dist);
+    //TODO: Skal vi bruge det her?
+    //int dist = std::max(ux_index-lx_index, uy_index-ly_index);
+    //results.clear();
+    //results.reserve(dist);
+    
+    std::vector<Point> temp;
+    results.swap(temp);
 
     // TODO: Find a better way to express amount of balls
     FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);

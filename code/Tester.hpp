@@ -14,17 +14,19 @@ class Tester {
         //TODO: LAV EN RANDOM FINDER - DEN TJEKKER TILFÆLDIGE SETTINGS OG SER OM ORT PERFORMER BEDRE
         //TODO: IMPLEMENTER CACHE STUFF FOR AT SE OM DET ER DET DER GIVER TILFÆLDIGE SHIT-RESULTATER
         void Test1(std::string name);
-        void Test2(std::string name);
-        void Test3(std::string name);
-        void Test4(std::string name);
-        void Test5(std::string name);
+        void slices_of_100_vertical_independent_of_n(std::string name);
+        void slices_of_100_horizontal_independent_of_n(std::string name);
+        void cacheimportance(std::string name);
+        void compare_vertical_slices_times_between_ort_and_kdtree(std::string name);
+        void compare_horizontal_slices_times_between_ort_and_kdtree(std::string name);
         void Test6(std::string name);
         void Test7(std::string name);
         void Test8(std::string name);
-        void Test9(std::string name);
-        void Test10(std::string name);
+        void ten_vertical_slices_have_same_performance(std::string name);
+        void ten_horizontal_slices_have_same_performance(std::string name);
         std::tuple<Ort, KDTree> buildtrees(int n);
         void report(const std::vector<int>& vec, std::string name, std::string timename);
+        void report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename);
 
 };
 

@@ -197,19 +197,25 @@ std::map<int, Ort> ortmap;
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
-    Tester test;
+    repl();
+    //Tester test;
     //test.Test1("Horizontal tests");
-    //test.Test3("Another Vertical test");
-    //test.Test2("Vertical tests");
-    //test.Test4("Amount of times, vertical");
-    //test.Test5("Same test as before - just different loop");
+    //TODO: TEST HELT I MIDTEN
+    // Test 2 viser vertical hits 
+    //test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
+    
+    //test.slices_of_100_horizontal_independent_of_n("Testing that slices of 100 horizontally is independent of n");
+
+    // Test 3 viser at caching kan være rimelig stærkt
+    //test.cacheimportance("Showing cache difference");
+    
+    //test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
+    //test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
+    
     //test.Test6("Amount of times, horizontal");
-    // Test 7 and 8 seems wonky
-    //test.Test7("Shrinking vertical");
-    //test.Test8("Shrinking horizontal");
-    test.Test9("Testing if vertical lines agree");
-    test.Test10("Testing if horizontal lines agree");
+
+    //test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    //test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
 
     /*int amount = pow(2,15);
     std::random_device rd;

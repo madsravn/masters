@@ -31,6 +31,38 @@ std::vector<int> numbers(std::vector<T> input, bool reverse = false) {
     return ret;
 }
 
+
+template<typename T>
+std::vector<std::vector<int>> numbers2(std::vector<std::vector<T>> vecs, bool reverse = false) {
+    std::vector<std::vector<int>> rret;
+    for(auto& input : vecs) {
+        std::vector<int> ret;
+        if(reverse) {
+            std::sort(std::begin(input), std::end(input), std::greater<T>());
+        } else {
+            std::sort(std::begin(input), std::end(input), std::less<T>());
+        }
+
+        ret.push_back(input.at(0)); // 0
+        ret.push_back(input.at(0.05*(input.size()-1))); // 1
+        ret.push_back(input.at(0.25*(input.size()-1))); // 2
+        ret.push_back(input.at(0.5*(input.size()-1))); // 3
+        ret.push_back(input.at(0.75*(input.size()-1))); // 4
+        ret.push_back(input.at(0.95*(input.size()-1))); // 5
+        ret.push_back(input.at(input.size()-1)); // 6
+
+        float res = 0.0;
+        for(const auto& e : input) {
+            res += float(e)/input.size();
+        }
+        ret.push_back(res); // 7
+        rret.push_back(ret);
+    }
+    return rret;
+}
+
+
+
 Tester::Tester() {
     // Nothing
 }
@@ -66,176 +98,166 @@ Tester::report(const std::vector<int>& vec, std::string name, std::string timena
     std::cout << "<=== === === === === === === === ===>" << std::endl;
 }
 
-
 void
-Tester::Test2(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    int amount = pow(2,testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 100; ++i) {
-        Ort ort = std::get<0>(buildtrees(testSize));
-        for(int j = 0; j < 100; ++j) {
-            t1.reset();
-            t1.start();
-            ort.search({{(amount/100)*j, 0},{(amount/100)*j + 20, amount}}, 3);
-            t1.stop();
-            ++x;
-            if(t1.duration().count() > max) {
-                max = t1.duration().count();
-                std::cout << x << ": NEW MAX : " << max << std::endl;
-            }
-            times.push_back(t1.duration().count());
-            
-        }
+Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename) {
+    std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
+    std::cout << "< 5%, 50%, 95%, average >" << std::endl;
+    for(const auto& e : vec) {
+        std::cout << "< " << e.at(1) << ", " << e.at(3) << ", " << e.at(5) << ", " << e.at(7) << " >" << std::endl;
     }
-    std::vector<int> rep = numbers(times);
-    report(rep, name, t1.type());
-
 }
 
-void
-Tester::Test3(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    int amount = pow(2, testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        Ort ort = std::get<0>(buildtrees(testSize));
-        for(int j = 0; j < 100; ++j) {
-            for(int h = 0; h < 100; ++h) {
-                t1.reset();
-                t1.start();
-                ort.search({{(amount/100)*j, 0},{(amount/100)*j + 20, amount}}, 3);
-                t1.stop();
-                ++x;
-                times.push_back(t1.duration().count());
-                if(t1.duration().count() > max) {
-                    max = t1.duration().count();
-                    std::cout << x << ": NEW MAX : " << max << std::endl;
-                }
-
-            }
-        }
-    }
-    std::vector<int> rep = numbers(times);
-    report(rep, name, t1.type());
-}
 
 void
-Tester::Test9(std::string name) {
-    int testSize = 17;
-    Timer<std::chrono::nanoseconds> t1;
-    int amount = pow(2, testSize);
-    std::vector<std::vector<int>> times(10, std::vector<int> {});
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        Ort ort = std::get<0>(buildtrees(testSize));
-        for(int j = 0; j < 100; ++j) {
+Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
+    for(int k = 17; k < 24; ++k) {
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
             for(int h = 0; h < 10; ++h) {
-                t1.reset();
-                t1.start();
-                ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, 3);
-                t1.stop();
-                ++x;
-                times.at(h).push_back(t1.duration().count());
-
-            }
-        }
-    }
-    for(int i = 0; i < 10; ++i) {
-        std::vector<int> rep = numbers(times.at(i));
-        report(rep, name, t1.type());
-    }
-}
-
-void
-Tester::Test10(std::string name) {
-    int testSize = 17;
-    Timer<std::chrono::nanoseconds> t1;
-    int amount = pow(2, testSize);
-    std::vector<std::vector<int>> times(10, std::vector<int> {});
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        Ort ort = std::get<0>(buildtrees(testSize));
-        for(int j = 0; j < 100; ++j) {
-            for(int h = 0; h < 10; ++h) {
-                t1.reset();
-                t1.start();
-                ort.search({{0, (amount/10)*h},{amount, (amount/10)*h + 50}}, 3);
-                t1.stop();
-                ++x;
-                times.at(h).push_back(t1.duration().count());
-
-            }
-        }
-    }
-    for(int i = 0; i < 10; ++i) {
-        std::vector<int> rep = numbers(times.at(i));
-        report(rep, name, t1.type());
-    }
-}
-
-
-
-
-void
-Tester::Test5(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    Timer<unitofmeassure> t2;
-    int amount = pow(2, testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        std::tuple<Ort, KDTree> trees = buildtrees(testSize);
-        Ort ort = std::get<0>(trees);
-        KDTree kdtree = std::get<1>(trees);
-        for(int j = 0; j < 100; ++j) {
-            for(int h = 0; h < 100; ++h) {
-                int a = 0;
-                int size = 10;
-
-                t1.reset();
-                t1.start();
-                ort.search({{(amount/100)*h, 0},{(amount/100)*h + size, amount}}, 3);
-                t1.stop();
-
-                t2.reset();
-                t2.start();
-                kdtree.search({{(amount/100)*h, 0},{(amount/100)*h + size, amount}});
-                t2.stop();
-
-
-                while(t1.duration().count() < t2.duration().count()) {
-                    a += 5;
-                    size += 5;
-
+                for(int j = 0; j < 100; ++j) {
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/100)*h, 0},{(amount/100)*h + size, amount}}, 3);
+                    ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 3);
                     t1.stop();
 
-                    t2.reset();
-                    t2.start();
-                    kdtree.search({{(amount/100)*h, 0},{(amount/100)*h + size, amount}});
-                    t2.stop();
-
+                    times.push_back(t1.duration().count());
+                    
                 }
-                times.push_back(a);
             }
         }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
     }
-    std::vector<int> rep = numbers(times, true);
-    report(rep, name, "times");
 
+}
+
+
+
+void
+Tester::slices_of_100_vertical_independent_of_n(std::string name) {
+    for(int k = 17; k < 24; ++k) {
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int h = 0; h < 10; ++h) {
+                for(int j = 0; j < 100; ++j) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + 100, amount}}, 3);
+                    t1.stop();
+
+                    times.push_back(t1.duration().count());
+                    
+                }
+            }
+        }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
+    }
+
+}
+
+void Tester::cacheimportance(std::string name) { 
+    for(int k = 17; k < 24; ++k) {
+        int testSize = k;
+        Timer<std::chrono::nanoseconds> t1;
+        int amount = pow(2, testSize);
+        std::vector<int> times;
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int j = 0; j < 100; ++j) {
+                for(int h = 0; h < 100; ++h) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + 20, amount}}, 3);
+                    t1.stop();
+
+                    times.push_back(t1.duration().count());
+
+                }
+            }
+        }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
+        
+
+        std::vector<int> times2;
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int j = 0; j < 100; ++j) {
+                for(int h = 0; h < 100; ++h) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{(amount/100)*h, 0},{(amount/100)*h + 20, amount}}, 3);
+                    t1.stop();
+
+                    times2.push_back(t1.duration().count());
+
+                }
+            }
+        }
+
+        std::vector<int> rep2 = numbers(times2);
+        report(rep2, std::to_string(k) + " = " + name, t1.type());
+    }
+
+}
+
+void
+Tester::ten_vertical_slices_have_same_performance(std::string name) {
+    for(int k = 17; k < 23; ++k) {
+        int testSize = k;
+        Timer<std::chrono::nanoseconds> t1;
+        int amount = pow(2, testSize);
+        std::vector<std::vector<int>> times(10, std::vector<int> {});
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int j = 0; j < 100; ++j) {
+                for(int h = 0; h < 10; ++h) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, 3);
+                    t1.stop();
+                    times.at(h).push_back(t1.duration().count());
+
+                }
+            }
+        }
+        std::vector<std::vector<int>> rep = numbers2(times);
+        report2(rep, std::to_string(k) + " = " + name, t1.type());
+    }
+}
+
+void
+Tester::ten_horizontal_slices_have_same_performance(std::string name) {
+    for(int k = 17; k < 23; ++k) {
+        int testSize = k;
+        Timer<std::chrono::nanoseconds> t1;
+        int amount = pow(2, testSize);
+        std::vector<std::vector<int>> times(10, std::vector<int> {});
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int j = 0; j < 100; ++j) {
+                for(int h = 0; h < 10; ++h) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{0, (amount/10)*h},{amount, (amount/10)*h + 50}}, 3);
+                    t1.stop();
+                    times.at(h).push_back(t1.duration().count());
+
+                }
+            }
+        }
+        std::vector<std::vector<int>> rep = numbers2(times);
+        report2(rep, std::to_string(k) + " = " + name, t1.type());
+    }
 }
 
 
@@ -284,11 +306,11 @@ Tester::Test6(std::string name) {
 
                 }
                 
-                /*if(a == 0) {
-                    Region reg {{0, (amount/100)*j},{amount, (amount/100)*j + size}};
-                    std::cout << reg << std::endl;
-                }*/
-                times.push_back(a);
+                if(a == 0) {
+                    times.push_back(a);
+                } else {
+                    times.push_back(size);
+                }
             }
         }
     }
@@ -348,10 +370,11 @@ Tester::Test8(std::string name) {
 
                 }
                 
-                /*if(a == 0) {
-                    std::cout << reg << std::endl;
-                }*/
-                times.push_back(a);
+                if(a == 0) {
+                    times.push_back(a);
+                } else {
+                    times.push_back(size);
+                }
             }
         }
     }
@@ -408,10 +431,12 @@ Tester::Test7(std::string name) {
 
                 }
                 
-                /*if(a == 0) {
-                    std::cout << reg << std::endl;
-                }*/
-                times.push_back(a);
+                if(a == 0) {
+                    times.push_back(a);
+                } else {
+                    times.push_back(size);
+                }
+               
             }
         }
     }
@@ -420,61 +445,130 @@ Tester::Test7(std::string name) {
 
 }
 
-
 void
-Tester::Test4(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    Timer<unitofmeassure> t2;
-    int amount = pow(2, testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        std::tuple<Ort, KDTree> trees = buildtrees(testSize);
-        Ort ort = std::get<0>(trees);
-        KDTree kdtree = std::get<1>(trees);
-        for(int j = 0; j < 100; ++j) {
+Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name) {
+    for(int k = 17; k < 23; ++k) {
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        Timer<unitofmeassure> t2;
+        int amount = pow(2, testSize);
+        std::vector<int> times;
+        int max = 0;
+        int x = 0;
+        for(int i = 0; i < 10; ++i) {
+            std::tuple<Ort, KDTree> trees = buildtrees(testSize);
+            Ort ort = std::get<0>(trees);
+            KDTree kdtree = std::get<1>(trees);
             for(int h = 0; h < 100; ++h) {
-                int a = 0;
-                int size = 10;
-
-                t1.reset();
-                t1.start();
-                ort.search({{(amount/100)*j, 0},{(amount/100)*j + size, amount}}, 3);
-                t1.stop();
-
-                t2.reset();
-                t2.start();
-                kdtree.search({{(amount/100)*j, 0},{(amount/100)*j + size, amount}});
-                t2.stop();
-
-
-                while(t1.duration().count() < t2.duration().count()) {
-                    a += 5;
-                    size += 5;
+                for(int j = 0; j < 10; ++j) {
+                    int a = 0;
+                    int size = 10;
+                    Region reg {{0, (amount/10)*j},{amount, (amount/10)*j + size}};
 
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + size, amount}}, 3);
+                    ort.search(reg, 3);
                     t1.stop();
 
                     t2.reset();
                     t2.start();
-                    kdtree.search({{(amount/100)*j, 0},{(amount/100)*j + size, amount}});
+                    kdtree.search(reg);
                     t2.stop();
 
+
+                    while(t1.duration().count() < t2.duration().count()) {
+                        a += 5;
+                        size += 5;
+                        reg = {{0, (amount/10)*j},{amount, (amount/10)*j + size}};
+
+
+
+                        t1.reset();
+                        t1.start();
+                        ort.search(reg, 3);
+                        t1.stop();
+
+                        t2.reset();
+                        t2.start();
+                        kdtree.search(reg);
+                        t2.stop();
+
+                    }
+                    if(a == 0) {
+                        times.push_back(a);
+                    } else {
+                        times.push_back(size);
+                    }
                 }
-                /*if(a == 0) {
-                    Region reg {{(amount/100)*j, 0},{(amount/100)*j + size, amount}};
-                    std::cout << reg << std::endl;
-                }*/
-                times.push_back(a);
             }
         }
+        std::vector<int> rep = numbers(times, true);
+        report(rep, std::to_string(k) + " = " + name, "times");
     }
-    std::vector<int> rep = numbers(times, true);
-    report(rep, name, "times");
+
+}
+
+
+
+void
+Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
+    for(int k = 17; k < 23; ++k) {
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        Timer<unitofmeassure> t2;
+        int amount = pow(2, testSize);
+        std::vector<int> times;
+        int max = 0;
+        int x = 0;
+        for(int i = 0; i < 10; ++i) {
+            std::tuple<Ort, KDTree> trees = buildtrees(testSize);
+            Ort ort = std::get<0>(trees);
+            KDTree kdtree = std::get<1>(trees);
+            for(int h = 0; h < 100; ++h) {
+                for(int j = 0; j < 10; ++j) {
+                    int a = 0;
+                    int size = 10;
+                    Region reg {{(amount/10)*j, 0},{(amount/10)*j + size, amount}};
+
+                    t1.reset();
+                    t1.start();
+                    ort.search(reg, 3);
+                    t1.stop();
+
+                    t2.reset();
+                    t2.start();
+                    kdtree.search(reg);
+                    t2.stop();
+
+
+                    while(t1.duration().count() < t2.duration().count()) {
+                        a += 5;
+                        size += 5;
+                        reg = {{(amount/10)*j, 0},{(amount/10)*j + size, amount}};
+
+
+                        t1.reset();
+                        t1.start();
+                        ort.search(reg, 3);
+                        t1.stop();
+
+                        t2.reset();
+                        t2.start();
+                        kdtree.search(reg);
+                        t2.stop();
+
+                    }
+                    if(a == 0) {
+                        times.push_back(a);
+                    } else {
+                        times.push_back(size);
+                    }
+                }
+            }
+        }
+        std::vector<int> rep = numbers(times, true);
+        report(rep, std::to_string(k) + " = " + name, "times");
+    }
 
 }
 
