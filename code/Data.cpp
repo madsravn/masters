@@ -17,6 +17,45 @@ std::vector<char> translatetobits(const std::vector<uint>& numbers, int size) {
     return bits;
 }
 
+std::vector<char> translatetobits2(const std::vector<uint>& numbers, int size) {
+    
+    std::vector<char> bits;
+
+    for(int i = 0; i < numbers.size(); ++i) {
+        std::bitset<32> bs(numbers.at(i));
+        if((bits.size()%32) + size > 32) {
+            while(bits.size() % 32 != 0) {
+                bits.push_back(0);
+            }
+        }
+
+        for(const auto& e : bs.to_string().substr(32-size)) {
+            bits.push_back(e - '0');
+        }
+    }
+
+    return bits;
+}
+
+uint
+Data::findInt2(const std::vector<uint>& input, int size, int pos) {
+    
+
+    //TODO: OPTIMIZE
+    int intspercontainer = 32/size;
+    int container = pos/intspercontainer;
+    int position = (pos % intspercontainer)*size;
+
+    int end = position+size;
+    
+    uint number = input.at(container);
+    number = number >> (32 - end);
+    number = number & ((1 << size) - 1);
+    return number;
+}
+
+
+
 // TODO: Assert that number can reside in two entries next to each other
 // The way $input$ is packed with 32 bits currently, means that this assertion holds
 uint
@@ -69,6 +108,34 @@ Data::packBits(const std::vector<uint>& input, int size) {
 
     return packedbits;
 }
+
+
+std::vector<uint>
+Data::packBits2(const std::vector<uint>& input, int size) {
+
+    std::vector<char> bits = translatetobits2(input, size);
+    while(bits.size() % 32 != 0) {
+        bits.push_back(0);
+    }
+    
+    std::vector<uint> packedbits;
+    for(int i = 0; i < bits.size(); i += 32) {
+        uint res = 0;
+        for(int j = 0; j < 31; ++j) {
+            res += (bits.at(i+j));
+            res = res << 1;
+        }
+        res += (bits.at(i+31));
+        packedbits.push_back(res);
+    }
+
+    // Current lookup requires an empty entry - should be fixed
+    packedbits.push_back(0);
+
+    return packedbits;
+}
+
+
 
 std::vector<Point> 
 Data::randomPoints(std::mt19937 gen, int amount) {

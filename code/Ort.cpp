@@ -40,7 +40,7 @@ Ort::makemask(uint range) {
 // <do we jump, character, rank, alphabet size>
 qreturn
 Ort::bigJump(int level, int pos) {
-    if(jumps.at(level).jump == 1 || type == 1) {
+    if(linear.at(level).jump == 1 || type == 1) {
         //std::cout << "Small steps" << std::endl;
         return {0,1,1,1};
     }
@@ -65,9 +65,30 @@ Ort::bigJump(int level, int pos) {
         }
         return {1,character, 0, size};
     }
+    
+    
+    // New type with a little garbage at the end of every uint
+    if(type == 4) {
+        int character = Data::findInt2(lineargarb.at(level).entries, lineargarb.at(level).entrieskey, pos);
+        int size = lineargarb.at(level).jump;
+        int end = lineargarb.at(level).end;
 
+        if(end == 0) {
 
-    //std::cout << "Big linear steps" << std::endl;
+            int major_size = pow(2, size);
+            int div = lineargarb.at(level).div;
+            int major = Data::findInt2(lineargarb.at(level).major, lineargarb.at(level).majorkey, (pos/div)*major_size + character);
+            int minor =  Data::findInt2(lineargarb.at(level).minor, lineargarb.at(level).minorkey, pos);
+            int rank = major + minor;
+        
+            return {1, character, rank, size};
+        }
+
+        return {1,character, 0, size};
+    }
+
+    // ELSE TYPE == 3
+
     int character = Data::findInt(linear.at(level).entries, linear.at(level).entrieskey, pos);
     int size = linear.at(level).jump;
     int end = linear.at(level).end;
@@ -214,7 +235,6 @@ Ort::createLinkedList(int size) {
 
 
 // TODO: REFACTOR!
-// LADER TIL AT VIRKE KORREKT
 void
 Ort::generateJumps() {
     
@@ -232,8 +252,7 @@ Ort::generateJumps() {
         return;
     }
     std::vector<int> jumplist = createLinkedList(levels.size());
-    //std::cout << jumplist << std::endl;
-    //std::cout << jumplist << std::endl;
+    
     if(jumplist.size() != levels.size()) {
         std::cout << "Houston, another problem!" << std::endl;
     }
@@ -255,8 +274,8 @@ Ort::generateJumps() {
             end = 1;
         }
 
-        Jumper jump;
-        jump.jump = skiplevels;
+        //Jumper jump;
+        //jump.jump = skiplevels;
         std::vector<uint> targets;
         for(int j = 0; j < linkedlists.size(); ++j) {
             std::vector<uint> linkedlist = linkedlists.at(twodarray.at(i).at(j));
@@ -265,7 +284,7 @@ Ort::generateJumps() {
         }
 
         //std::cout << "targets: " << targets << std::endl;
-        jump.targets = targets;
+        //jump.targets = targets;
         std::vector<uint> alph(pow(2,skiplevels), 0);
         std::vector<uint> entries(targets.size(), 0);
 
@@ -276,9 +295,9 @@ Ort::generateJumps() {
         }
 
         //std::cout << "entries: " << entries << std::endl;
-        jump.entries = entries;
-        jump.end = false;
-        jumps.at(i) = jump;
+        //jump.entries = entries;
+        //jump.end = false;
+        //jumps.at(i) = jump;
 
         // Converting to linear representation
         // TODO : TARGETS OG ENTRIES HEDDER DET FORKERTE. TJEK DATAEN FRA BIGJUMP OG FIND UD AF HVAD DET GØR
@@ -313,6 +332,7 @@ Ort::generateJumps() {
 
         LinearJumper notsolinearjump;
         notsolinearjump.jump = skiplevels;
+
         notsolinearjump.div = div;
         if(end == 0) {
             notsolinearjump.major = major;
@@ -326,9 +346,14 @@ Ort::generateJumps() {
         LinearJumper linearjump;
         linearjump.jump = skiplevels;
 
+        LinearJumper lineargarbjump;
+        lineargarbjump.jump = skiplevels;
+
         if(end == 0) {
             auto majorkeyindex = std::max_element(std::begin(major), std::end(major));
             uint majorkey = major.at(std::distance(std::begin(major), majorkeyindex));
+
+            //TODO: LINEAR PLADSFORBRUG: ER MAJORKEY+1 NOK TIL AT FJERNE SPECIALCASE?
 
             // TODO: Lav anden håndtering ved sådan et special-case. Kun '0'-entries kommer til at tage 2 bits plads
             // Når skiplevels bliver stor nok er der kun éen major, den første som holder 0'er
@@ -338,6 +363,9 @@ Ort::generateJumps() {
 
             linearjump.majorkey = std::ceil(std::log2(majorkey+1));
             linearjump.major = Data::packBits(major, linearjump.majorkey);
+
+            lineargarbjump.majorkey = std::ceil(std::log2(majorkey+1));
+            lineargarbjump.major = Data::packBits2(major, lineargarbjump.majorkey);
 
 
             auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
@@ -350,9 +378,16 @@ Ort::generateJumps() {
             linearjump.minorkey = std::ceil(std::log2(minorkey+1));
             linearjump.minor = Data::packBits(minor, linearjump.minorkey);
 
+            lineargarbjump.minorkey = std::ceil(std::log2(minorkey+1));
+            lineargarbjump.minor = Data::packBits2(minor, lineargarbjump.minorkey);
+
             linearjump.div = div;
             linearjump.major.shrink_to_fit();
             linearjump.minor.shrink_to_fit();
+
+            lineargarbjump.div = div;
+            lineargarbjump.major.shrink_to_fit();
+            lineargarbjump.minor.shrink_to_fit();
         }
 
         auto entrieskeyindex = std::max_element(std::begin(targets), std::end(targets));
@@ -364,10 +399,18 @@ Ort::generateJumps() {
 
         linearjump.entrieskey = std::ceil(std::log2(entrieskey+1));
         linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
-        linearjump.entries.shrink_to_fit();
 
+        lineargarbjump.entrieskey = std::ceil(std::log2(entrieskey+1));
+        lineargarbjump.entries = Data::packBits2(targets, lineargarbjump.entrieskey);
+
+
+        linearjump.entries.shrink_to_fit();
         linearjump.end = end;
         linear.at(i) = linearjump;
+
+        lineargarbjump.entries.shrink_to_fit();
+        lineargarbjump.end = end;
+        lineargarb.at(i) = lineargarbjump;
     }
 
     /*
@@ -716,6 +759,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     std::vector<LinearJumper> tlinearjumps(levels.size(), templinearjump);
     notsolinear = tlinearjumps;
     linear = tlinearjumps;
+    lineargarb = tlinearjumps;
 
 
 

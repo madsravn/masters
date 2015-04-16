@@ -92,6 +92,7 @@ class Ort {
         std::vector<Jumper> jumps;
         std::vector<LinearJumper> notsolinear;
         std::vector<LinearJumper> linear;
+        std::vector<LinearJumper> lineargarb;
         std::vector<Point> results;
 
 

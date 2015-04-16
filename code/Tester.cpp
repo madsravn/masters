@@ -212,18 +212,45 @@ void Tester::cacheimportance(std::string name) {
 
 void
 Tester::ten_vertical_slices_have_same_performance(std::string name) {
-    for(int k = 17; k < 23; ++k) {
+    for(int type = 3; type < 5; ++type) {
+        for(int k = 17; k < 21; ++k) {
+            int testSize = k;
+            Timer<std::chrono::nanoseconds> t1;
+            int amount = pow(2, testSize);
+            std::vector<std::vector<int>> times(10, std::vector<int> {});
+            for(int i = 0; i < 10; ++i) {
+                Ort ort = std::get<0>(buildtrees(testSize));
+                for(int j = 0; j < 100; ++j) {
+                    for(int h = 0; h < 10; ++h) {
+                        t1.reset();
+                        t1.start();
+                        ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, type);
+                        t1.stop();
+                        times.at(h).push_back(t1.duration().count());
+
+                    }
+                }
+            }
+            std::vector<std::vector<int>> rep = numbers2(times);
+            report2(rep, std::to_string(k) + "and type: " + std::to_string(type) + " = " + name, t1.type());
+        }
+    }
+}
+
+void
+Tester::ten_vertical_slices_kdtree(std::string name) {
+    for(int k = 17; k < 22; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
         std::vector<std::vector<int>> times(10, std::vector<int> {});
         for(int i = 0; i < 10; ++i) {
-            Ort ort = std::get<0>(buildtrees(testSize));
+            KDTree kdtree = std::get<1>(buildtrees(testSize));
             for(int j = 0; j < 100; ++j) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, 3);
+                    kdtree.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}});
                     t1.stop();
                     times.at(h).push_back(t1.duration().count());
 
@@ -235,9 +262,11 @@ Tester::ten_vertical_slices_have_same_performance(std::string name) {
     }
 }
 
+
+
 void
 Tester::ten_horizontal_slices_have_same_performance(std::string name) {
-    for(int k = 17; k < 23; ++k) {
+    for(int k = 17; k < 22; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
@@ -259,6 +288,32 @@ Tester::ten_horizontal_slices_have_same_performance(std::string name) {
         report2(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
+
+void
+Tester::ten_horizontal_slices_kdtree(std::string name) {
+    for(int k = 17; k < 22; ++k) {
+        int testSize = k;
+        Timer<std::chrono::nanoseconds> t1;
+        int amount = pow(2, testSize);
+        std::vector<std::vector<int>> times(10, std::vector<int> {});
+        for(int i = 0; i < 10; ++i) {
+            KDTree kdtree = std::get<1>(buildtrees(testSize));
+            for(int j = 0; j < 100; ++j) {
+                for(int h = 0; h < 10; ++h) {
+                    t1.reset();
+                    t1.start();
+                    kdtree.search({{0, (amount/10)*h},{amount, (amount/10)*h + 50}});
+                    t1.stop();
+                    times.at(h).push_back(t1.duration().count());
+
+                }
+            }
+        }
+        std::vector<std::vector<int>> rep = numbers2(times);
+        report2(rep, std::to_string(k) + " = " + name, t1.type());
+    }
+}
+
 
 
 void

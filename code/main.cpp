@@ -164,12 +164,8 @@ std::map<int, Ort> ortmap;
                     }
                     t3.stop(); 
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-<<<<<<< HEAD
                     std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
                     a = ort->second.search({ll,ur},3);
-=======
-                    std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " " << t3.type() << std::endl;
->>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
                     resultsize = ort->second.search({ll,ur},1).size();
 
                 }
@@ -185,12 +181,8 @@ std::map<int, Ort> ortmap;
                     }
                     t2.stop();
                     //std::cout << kdtree->second.search({ll, ur}) << std::endl;
-<<<<<<< HEAD
                     std::cout << "KDtree search took: " << t2.duration().count() << " ms." << std::endl;
                     b = kdtree->second.search({ll,ur});
-=======
-                    std::cout << "KDtree search took: " << t2.duration().count() << " " << t2.type() << std::endl;
->>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
                 } else {
                     std::cout << "KDtree structure at index " << commands.at(1) << " not found." << std::endl;
                 }
@@ -255,8 +247,8 @@ void testingRun() {
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
-    //Tester test;
+    //repl();
+    Tester test;
     //test.Test1("Horizontal tests");
     //TODO: TEST HELT I MIDTEN
     // Test 2 viser vertical hits 
@@ -272,7 +264,7 @@ auto main(int argc, char** argv) -> int {
     
     //test.Test6("Amount of times, horizontal");
 
-    //test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
     //test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
 
     /*int amount = pow(2,15);
@@ -280,14 +272,11 @@ auto main(int argc, char** argv) -> int {
     std::mt19937 gen(rd());
     Ort ort(amount, Data::generate(amount));
     std::vector<Point> points = Data::randomPoints(gen, amount);
-    std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
+    std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 4);
     std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
     std::sort(std::begin(a), std::end(a), sortpointx);
     std::sort(std::begin(b), std::end(b), sortpointx);
-    std::cout << "Punkterne er ens: " << (a == b) << std::endl;
-    for(const auto& e : ort.getJumps()) {
-        std::cout << e.jump << std::endl;
-    }*/
+    std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
 
 
 
@@ -305,22 +294,36 @@ auto main(int argc, char** argv) -> int {
     auto sizekey = std::max_element(std::begin(vec), std::end(vec));
     int biggest = vec.at(std::distance(std::begin(vec), sizekey));
 
-    int size = std::ceil(std::log2(biggest));
+    int size = std::ceil(std::log2(biggest+1));
        
-    std::cout << Data::packBits(vec, size) << std::endl;
+    //std::cout << Data::packBits(vec, size) << std::endl;
     auto packed = Data::packBits(vec, size);
-    for(const auto& e : Data::packBits(vec, size)) {
-        std::bitset<32> bs(e);
-        std::cout << bs.to_string() << std::endl;
-    }
-    std::cout << Data::findInt(packed, 3, 3) << std::endl;
+    
     for(int i = 0; i < vec.size(); ++i) {
         if(Data::findInt(packed, size, i) != vec.at(i)) {
             std::cout << Data::findInt(packed, size, i) << " == " << vec.at(i) << std::endl;
         }
     }
 
-    std::cout << std::endl;*/
+    auto packed2 = Data::packBits2(vec, size);
+    for(int i = 0; i < vec.size(); ++i) {
+        if(Data::findInt2(packed2, size, i) != vec.at(i)) {
+            std::cout << Data::findInt2(packed2, size, i) << " == " << vec.at(i) << std::endl;
+        }
+    }
+
+    for(const auto& e : Data::packBits(vec, size)) {
+        std::bitset<32> bs(e);
+        std::cout << bs.to_string() << std::endl;
+    }
+
+    std::cout << std::endl << "<<<<<=========>>>>>>>" <<std::endl << std::endl;
+    for(const auto& e : Data::packBits2(vec, size)) {
+        std::bitset<32> bs(e);
+        std::cout << bs.to_string() << std::endl;
+    }*/
+
+
 
     
     /*int amount = pow(2,15);
@@ -369,9 +372,6 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
-<<<<<<< HEAD
-        /*if(argc == 1) {
-=======
     /*
     for(int i = 0; i < 100000; ++i) {
         std::random_device rd;
@@ -414,7 +414,6 @@ auto main(int argc, char** argv) -> int {
     }*/
 
     /*if(argc == 1) {
->>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
         for(int i = 0; i < 5000; ++i) {
             int amount = 256;
             std::random_device rd;
