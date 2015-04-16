@@ -256,9 +256,6 @@ auto main(int argc, char** argv) -> int {
 
 
     repl();
-<<<<<<< HEAD
-    //testingRun();
-=======
     //Tester test;
     //test.Test1("Horizontal tests");
     //TODO: TEST HELT I MIDTEN
@@ -272,7 +269,6 @@ auto main(int argc, char** argv) -> int {
     
     //test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
     //test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
->>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
     
     //test.Test6("Amount of times, horizontal");
 
