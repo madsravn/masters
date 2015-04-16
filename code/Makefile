@@ -4,8 +4,8 @@ CFLAGS = -O3
 
 all: balls
 
-balls: main.o Data.o Ort.o KDTree.o
-	clang++ $(CFLAGS) -std=c++14 main.o Data.o Ort.o KDTree.o -o balls
+balls: main.o Data.o Ort.o KDTree.o Tester.o
+	clang++ $(CFLAGS) -std=c++14 main.o Tester.o Data.o Ort.o KDTree.o -o balls
 
 main.o: main.cpp
 	clang++ -c $(CFLAGS) -std=c++14 main.cpp
@@ -18,6 +18,9 @@ Ort.o: Ort.cpp
 
 KDTree.o: KDTree.cpp
 	clang++ -c $(CFLAGS) -std=c++14 KDTree.cpp
+
+Tester.o: Tester.cpp
+	clang++ -c $(CFLAGS) -std=c++14 Tester.cpp
 
 clean:
 	rm -rf *.o balls

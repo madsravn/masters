@@ -5,9 +5,13 @@
 #include "Ort.hpp"
 #include "Data.hpp"
 #include "KDTree.hpp"
-#include "Timer.hpp"
+//#include "Timer.hpp"
 #include <bitset>
 #include <string>
+#include "Tester.hpp"
+
+using unitofmeassure = std::chrono::microseconds;
+
 
 std::vector<Point> diff(std::vector<Point> a, std::vector<Point> b) {
     std::vector<Point> result;
@@ -49,17 +53,17 @@ std::map<int, Ort> ortmap;
                 int amount = pow(2,n);
                 std::cout << std::endl << "Building trees with size " << amount << std::endl;
                 std::vector<Point> input = Data::generate(amount);
-                Timer t1;
+                Timer<unitofmeassure> t1;
                 t1.start();
                 Ort ort(amount, input);
                 t1.stop();
-                std::cout << "Built Ort tree with " << amount << " elements. Took " << t1.duration().count() << " ms." << std::endl;
+                std::cout << "Built Ort tree with " << amount << " elements. Took " << t1.duration().count() << " " << t1.type() << std::endl;
 
-                Timer t2;
+                Timer<unitofmeassure> t2;
                 t2.start();
                 KDTree kdtree(amount, input);
                 t2.stop();
-                std::cout << "Built kd tree with " << amount << " elements. Took " << t2.duration().count() << " ms." << std::endl;
+                std::cout << "Built kd tree with " << amount << " elements. Took " << t2.duration().count() << " " << t2.type() << std::endl;
 
                 if(ortmap.find(n) == ortmap.end()) {
                     ortmap.insert(std::make_pair(n, ort));
@@ -135,33 +139,37 @@ std::map<int, Ort> ortmap;
                 
                 if(ort != ortmap.end()) {
                     
-                    Timer t1;
+                    Timer<unitofmeassure> t1;
                     t1.start();
                     for(int i = 0; i < count; ++i) {
                         ort->second.search({ll,ur}, 1);
                     }
                     t1.stop();
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-                    std::cout << "Ort search with NO big jumps took: " << t1.duration().count() << " ms." << std::endl;
+                    std::cout << "Ort search with NO big jumps took: " << t1.duration().count() << " " << t1.type() << std::endl;
 
-                    Timer t2;
+                    Timer<unitofmeassure> t2;
                     t2.start();
                     for(int i = 0; i < count; ++i) {
                         ort->second.search({ll,ur}, 2);
                     }
                     t2.stop();
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-                    std::cout << "Ort search with big-space big jumps took: " << t2.duration().count() << " ms." << std::endl;
+                    std::cout << "Ort search with big-space big jumps took: " << t2.duration().count() << " " << t2.type() << std::endl;
 
-                    Timer t3;
+                    Timer<unitofmeassure> t3;
                     t3.start();
                     for(int i = 0; i < count; ++i) {
                         ort->second.search({ll,ur}, 3);
                     }
                     t3.stop(); 
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
+<<<<<<< HEAD
                     std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
                     a = ort->second.search({ll,ur},3);
+=======
+                    std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " " << t3.type() << std::endl;
+>>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
                     resultsize = ort->second.search({ll,ur},1).size();
 
                 }
@@ -170,15 +178,19 @@ std::map<int, Ort> ortmap;
                 }
 
                 if(kdtree != kdtreemap.end()) {
-                    Timer t2;
+                    Timer<unitofmeassure> t2;
                     t2.start();
                     for(int i = 0; i < count; ++i) {
                         kdtree->second.search({ll,ur});
                     }
                     t2.stop();
                     //std::cout << kdtree->second.search({ll, ur}) << std::endl;
+<<<<<<< HEAD
                     std::cout << "KDtree search took: " << t2.duration().count() << " ms." << std::endl;
                     b = kdtree->second.search({ll,ur});
+=======
+                    std::cout << "KDtree search took: " << t2.duration().count() << " " << t2.type() << std::endl;
+>>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
                 } else {
                     std::cout << "KDtree structure at index " << commands.at(1) << " not found." << std::endl;
                 }
@@ -244,8 +256,28 @@ auto main(int argc, char** argv) -> int {
 
 
     repl();
+<<<<<<< HEAD
     //testingRun();
+=======
+    //Tester test;
+    //test.Test1("Horizontal tests");
+    //TODO: TEST HELT I MIDTEN
+    // Test 2 viser vertical hits 
+    //test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
     
+    //test.slices_of_100_horizontal_independent_of_n("Testing that slices of 100 horizontally is independent of n");
+
+    // Test 3 viser at caching kan være rimelig stærkt
+    //test.cacheimportance("Showing cache difference");
+    
+    //test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
+    //test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
+>>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
+    
+    //test.Test6("Amount of times, horizontal");
+
+    //test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    //test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
 
     /*int amount = pow(2,15);
     std::random_device rd;
@@ -317,7 +349,7 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Generating data done" << std::endl;
     Ort ort(amount, input);
     std::cout << "Done building ort" << std::endl;
-    Timer t1;
+    Timer<unitofmeassure> t1;
     //points.at(0) = {20,1};
     //points.at(1) = {50,amount};
     t1.start();
@@ -329,7 +361,7 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Ort tree took: " << t1.duration().count() << " ms" << std::endl;
 
     KDTree kdtree(amount, input);
-    Timer t2;
+    Timer<unitofmeassure> t2;
     t2.start();
     Region query = {points.at(0), points.at(1)};
     for(int i = 0; i < loop; ++i) {
@@ -341,7 +373,52 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
+<<<<<<< HEAD
         /*if(argc == 1) {
+=======
+    /*
+    for(int i = 0; i < 100000; ++i) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(17,20);
+
+        int amount = pow(2,dis(gen));
+        std::cout << "AMOUNT IS " << amount << std::endl;
+        std::vector<Point> input = Data::generate(amount);
+        Ort ort(amount, input);
+        KDTree kdtree(amount, input);
+        for(int j = 0; j < 10000; ++j) {
+            std::vector<Point> points = Data::randomPoints(gen, amount);
+            //std::cout << "POINTS: " << points << std::endl;
+            std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
+            std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
+            Region query = {points.at(0), points.at(1)};
+            std::vector<Point> c = kdtree.search(query);
+            std::vector<Point> d = kdtree.actualSearch(query);
+            std::sort(std::begin(a), std::end(a), sortpointx);
+            std::sort(std::begin(b), std::end(b), sortpointx);
+            std::sort(std::begin(c), std::end(c), sortpointx);
+            std::sort(std::begin(d), std::end(d), sortpointx);
+            if(a != b) {
+                std::cout << "ERROR" << std::endl;
+                std::cout << "Search area: " << points.at(0) << ", " << points.at(1) << std::endl;
+                std::cout << a << std::endl;
+                std::cout << "Size of a: " << a.size() << std::endl;
+                std::cout << b << std::endl;
+                std::cout << "Size of b: " << b.size() << std::endl;
+                std::cout << "DIFF: " << diff(a,b) << std::endl;
+            }
+            if(c != d) {
+                std::cout << "ERROR TWO" << std::endl;
+                std::cout << c << std::endl;
+                std::cout << d << std::endl;
+                std::cout << "DIFF: " << diff(c,d) << std::endl;
+            }
+        }
+    }*/
+
+    /*if(argc == 1) {
+>>>>>>> 9720c204757f4cf5f8a808c16bc289386b003135
         for(int i = 0; i < 5000; ++i) {
             int amount = 256;
             std::random_device rd;

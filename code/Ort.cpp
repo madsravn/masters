@@ -44,13 +44,26 @@ Ort::bigJump(int level, int pos) {
         //std::cout << "Small steps" << std::endl;
         return {0,1,1,1};
     }
+
+    // Skift mellem at bruge jumps eller notsolinear
     if(type == 2) {
-        //std::cout << "Big expensive steps" << std::endl;
-        //Jumper jump = jumps.at(level);
-        int character = jumps.at(level).targets.at(pos);
-        int rank = jumps.at(level).entries.at(pos);
-        int size = jumps.at(level).jump;
-        return {1,character, rank, size};
+        //int character = jumps.at(level).targets.at(pos);
+        //int rank = jumps.at(level).entries.at(pos);
+        //int size = jumps.at(level).jump;
+        int character = notsolinear.at(level).entries.at(pos);
+        int size = notsolinear.at(level).jump;
+        int end = notsolinear.at(level).end;
+        if(end == 0) {
+
+            int major_size = pow(2, size);
+            int div = notsolinear.at(level).div;
+            int major = notsolinear.at(level).major.at((pos/div)*major_size + character);
+            int minor =  notsolinear.at(level).minor.at(pos);
+            int rank = major + minor;
+        
+            return {1, character, rank, size};
+        }
+        return {1,character, 0, size};
     }
 
 
@@ -300,9 +313,13 @@ Ort::generateJumps() {
 
         LinearJumper notsolinearjump;
         notsolinearjump.jump = skiplevels;
-        notsolinearjump.major = major;
-        notsolinearjump.minor = minor;
+        notsolinearjump.div = div;
+        if(end == 0) {
+            notsolinearjump.major = major;
+            notsolinearjump.minor = minor;
+        }
         notsolinearjump.entries = targets;
+        notsolinearjump.end = end;
         notsolinear.at(i) = notsolinearjump;
 
 
@@ -757,9 +774,13 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     Point x{lowerleft.y, upperright.y};
     corner = x;
 
-    int dist = std::max(ux_index-lx_index, uy_index-ly_index);
-    results.clear();
-    results.reserve(dist);
+    //TODO: Skal vi bruge det her?
+    //int dist = std::max(ux_index-lx_index, uy_index-ly_index);
+    //results.clear();
+    //results.reserve(dist);
+    
+    std::vector<Point> temp;
+    results.swap(temp);
 
     // TODO: Find a better way to express amount of balls
     FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
