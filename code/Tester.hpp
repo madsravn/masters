@@ -19,6 +19,17 @@ class Tester {
         //void slices_of_100_vertical_on_kdtree(std::string name);
 
         void cacheimportance(std::string name);
+        void CACHE_only_create_ort_trees(std::string name);
+        void CACHE_create_and_search_ort_type_three_different(std::string name);
+        void CACHE_create_and_search_ort_type_three_same(std::string name);
+
+        void CACHE_create_and_search_ort_type_four_different(std::string name);
+        void CACHE_create_and_search_ort_type_four_same(std::string name);
+
+
+
+
+
         void compare_vertical_slices_times_between_ort_and_kdtree(std::string name);
         void compare_horizontal_slices_times_between_ort_and_kdtree(std::string name);
         void Test6(std::string name);

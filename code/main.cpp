@@ -121,6 +121,20 @@ std::map<int, Ort> ortmap;
                     std::cout << std::endl;
                 }
             }
+            if(commands.size() == 3) {
+                auto entry = std::stoi(commands.at(1));
+                auto ort = ortmap.find(entry);
+                if(ort != ortmap.end()) {
+                    for(const auto& e : ort->second.getJumps()) {
+                        std::cout << e.jump << " (" << e.end << ")" << " => " << std::endl;
+                        std::cout << e.entries.size() << std::endl;
+                        std::cout << e.major.size() << std::endl;
+                        std::cout << e.minor.size() << std::endl;
+                    }
+                    std::cout << std::endl;
+                }
+            }
+
         }
 
 
@@ -247,8 +261,11 @@ void testingRun() {
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
+    repl();
     Tester test;
+    //test.CACHE_only_create_ort_trees("Creating them trees");
+    //test.CACHE_create_and_search_ort_type_three_same("Searching them type threes");
+    
     //test.Test1("Horizontal tests");
     //TODO: TEST HELT I MIDTEN
     // Test 2 viser vertical hits 
@@ -264,7 +281,7 @@ auto main(int argc, char** argv) -> int {
     
     //test.Test6("Amount of times, horizontal");
 
-    test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    //test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
     //test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
 
     /*int amount = pow(2,15);

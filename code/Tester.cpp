@@ -135,6 +135,114 @@ Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
 
 }
 
+void
+Tester::CACHE_only_create_ort_trees(std::string name) {
+    for(int k = 17; k < 18; ++k) {
+        Timer<unitofmeassure> t1;
+        int testSize = k;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        for(int i = 0; i < 1; ++i) {
+            t1.reset();
+            t1.start();
+            Ort ort = std::get<0>(buildtrees(testSize));
+            t1.stop();
+            times.push_back(t1.duration().count());
+        }
+    }
+}
+
+void
+Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
+ for(int k = 17; k < 18; ++k) {
+        Timer<unitofmeassure> t1;
+        int testSize = k;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        Ort ort = std::get<0>(buildtrees(testSize));
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                t1.reset();
+                t1.start();
+                ort.search({{0, (amount/100)*h},{amount, (amount/100)*h + 100}}, 4);
+                t1.stop();
+
+                times.push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
+
+void
+Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
+ for(int k = 17; k < 18; ++k) {
+        Timer<unitofmeassure> t1;
+        int testSize = k;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        Ort ort = std::get<0>(buildtrees(testSize));
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                t1.reset();
+                t1.start();
+                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 4);
+                t1.stop();
+
+                times.push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
+
+void
+Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
+ for(int k = 17; k < 18; ++k) {
+        Timer<unitofmeassure> t1;
+        int testSize = k;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        Ort ort = std::get<0>(buildtrees(testSize));
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                t1.reset();
+                t1.start();
+                ort.search({{0, (amount/100)*h},{amount, (amount/100)*h + 100}}, 3);
+                t1.stop();
+
+                times.push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
+
+void
+Tester::CACHE_create_and_search_ort_type_three_different(std::string name) {
+ for(int k = 17; k < 18; ++k) {
+        Timer<unitofmeassure> t1;
+        int testSize = k;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        Ort ort = std::get<0>(buildtrees(testSize));
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                t1.reset();
+                t1.start();
+                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 3);
+                t1.stop();
+
+                times.push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
 
 
 void

@@ -276,189 +276,37 @@ Ort::generateJumps() {
 
         //Jumper jump;
         //jump.jump = skiplevels;
-        std::vector<uint> targets;
-        for(int j = 0; j < linkedlists.size(); ++j) {
-            std::vector<uint> linkedlist = linkedlists.at(twodarray.at(i).at(j));
-            int target = convertRangeToInt(linkedlist, i, i+skiplevels);
-            targets.push_back(target);
-        }
-
-        //std::cout << "targets: " << targets << std::endl;
-        //jump.targets = targets;
-        std::vector<uint> alph(pow(2,skiplevels), 0);
-        std::vector<uint> entries(targets.size(), 0);
-
-        for(int ent = 0; ent < targets.size(); ++ent) {
-            int entry = targets.at(ent);
-            entries.at(ent) = alph.at(entry);
-            alph.at(entry)++;
-        }
-
-        //std::cout << "entries: " << entries << std::endl;
-        //jump.entries = entries;
-        //jump.end = false;
-        //jumps.at(i) = jump;
-
-        // Converting to linear representation
-        // TODO : TARGETS OG ENTRIES HEDDER DET FORKERTE. TJEK DATAEN FRA BIGJUMP OG FIND UD AF HVAD DET GØR
-        std::vector<std::vector<uint>> majorcheckpoints; //(std::log2(balls.size()) + 2, std::vector<uint>(pow(2,skiplevels), 0));
-        std::vector<uint> minor;
-        std::vector<uint> seen(pow(2, skiplevels), 0);
-        majorcheckpoints.push_back(seen);
-
-        int curr = 0;
-        int div = pow(2, skiplevels)*std::log2(balls.size());
-        for(int ent = 0; ent < targets.size(); ++ent) {
-            if(curr != ent/div) {
-                curr++;
-                majorcheckpoints.push_back(seen);
-            }
-            uint one = seen.at(targets.at(ent));
-            uint two = majorcheckpoints.at(curr).at(targets.at(ent));
-            minor.push_back(one - two);
-            seen.at(targets.at(ent))++;
-        }
-
-        std::vector<uint> major;
-        for(const auto& outer : majorcheckpoints) {
-            for(const auto& inner : outer) {
-                major.push_back(inner);
-            }
-        }
-
-        major.shrink_to_fit();
-        minor.shrink_to_fit();
-        targets.shrink_to_fit();
-
-        LinearJumper notsolinearjump;
-        notsolinearjump.jump = skiplevels;
-
-        notsolinearjump.div = div;
-        if(end == 0) {
-            notsolinearjump.major = major;
-            notsolinearjump.minor = minor;
-        }
-        notsolinearjump.entries = targets;
-        notsolinearjump.end = end;
-        notsolinear.at(i) = notsolinearjump;
-
-
-        LinearJumper linearjump;
-        linearjump.jump = skiplevels;
-
-        LinearJumper lineargarbjump;
-        lineargarbjump.jump = skiplevels;
-
-        if(end == 0) {
-            auto majorkeyindex = std::max_element(std::begin(major), std::end(major));
-            uint majorkey = major.at(std::distance(std::begin(major), majorkeyindex));
-
-            //TODO: LINEAR PLADSFORBRUG: ER MAJORKEY+1 NOK TIL AT FJERNE SPECIALCASE?
-
-            // TODO: Lav anden håndtering ved sådan et special-case. Kun '0'-entries kommer til at tage 2 bits plads
-            // Når skiplevels bliver stor nok er der kun éen major, den første som holder 0'er
-            if(majorkey == 0) {
-                majorkey = 1;
-            }
-
-            linearjump.majorkey = std::ceil(std::log2(majorkey+1));
-            linearjump.major = Data::packBits(major, linearjump.majorkey);
-
-            lineargarbjump.majorkey = std::ceil(std::log2(majorkey+1));
-            lineargarbjump.major = Data::packBits2(major, lineargarbjump.majorkey);
-
-
-            auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
-            uint minorkey = minor.at(std::distance(std::begin(minor), minorkeyindex));
-
-            if(minorkey == 0) {
-                minorkey = 1;
-            }
-
-            linearjump.minorkey = std::ceil(std::log2(minorkey+1));
-            linearjump.minor = Data::packBits(minor, linearjump.minorkey);
-
-            lineargarbjump.minorkey = std::ceil(std::log2(minorkey+1));
-            lineargarbjump.minor = Data::packBits2(minor, lineargarbjump.minorkey);
-
-            linearjump.div = div;
-            linearjump.major.shrink_to_fit();
-            linearjump.minor.shrink_to_fit();
-
-            lineargarbjump.div = div;
-            lineargarbjump.major.shrink_to_fit();
-            lineargarbjump.minor.shrink_to_fit();
-        }
-
-        auto entrieskeyindex = std::max_element(std::begin(targets), std::end(targets));
-        uint entrieskey = targets.at(std::distance(std::begin(targets), entrieskeyindex));
-
-        if(entrieskey == 0) {
-            entrieskey = 1;
-        }
-
-        linearjump.entrieskey = std::ceil(std::log2(entrieskey+1));
-        linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
-
-        lineargarbjump.entrieskey = std::ceil(std::log2(entrieskey+1));
-        lineargarbjump.entries = Data::packBits2(targets, lineargarbjump.entrieskey);
-
-
-        linearjump.entries.shrink_to_fit();
-        linearjump.end = end;
-        linear.at(i) = linearjump;
-
-        lineargarbjump.entries.shrink_to_fit();
-        lineargarbjump.end = end;
-        lineargarb.at(i) = lineargarbjump;
-    }
-
-    /*
-    //TODO: Her skal skæres - det skal ikke være levels.size(), nærmere std::log2(levels.size())
-    for(int h = 2; h < levels.size(); ++h) {
-        int tskiplevels = pow(2, h);
-        for(int i = 0; i < levels.size(); i+=tskiplevels) {
-            // TODO: HVORFOR <= ???
-            int skiplevels = 1000;
-            if(i+tskiplevels <= levels.size()) {
-                skiplevels = tskiplevels;
-            } else {
-                skiplevels = levels.size()-i;
-            }
-
-            Jumper jump;
-            jump.jump = skiplevels;
+        if(skiplevels > 1) {
             std::vector<uint> targets;
-            
             for(int j = 0; j < linkedlists.size(); ++j) {
                 std::vector<uint> linkedlist = linkedlists.at(twodarray.at(i).at(j));
                 int target = convertRangeToInt(linkedlist, i, i+skiplevels);
                 targets.push_back(target);
             }
-            
-            //std::cout << "targets: " <<  targets << std::endl;
-            jump.targets = targets;
+
+            //std::cout << "targets: " << targets << std::endl;
+            //jump.targets = targets;
             std::vector<uint> alph(pow(2,skiplevels), 0);
             std::vector<uint> entries(targets.size(), 0);
+
             for(int ent = 0; ent < targets.size(); ++ent) {
                 int entry = targets.at(ent);
                 entries.at(ent) = alph.at(entry);
                 alph.at(entry)++;
             }
+
             //std::cout << "entries: " << entries << std::endl;
-            jump.entries = entries;
-            jump.end = false;
-            jumps.at(i) = jump;
-            
+            //jump.entries = entries;
+            //jump.end = false;
+            //jumps.at(i) = jump;
 
             // Converting to linear representation
-
             // TODO : TARGETS OG ENTRIES HEDDER DET FORKERTE. TJEK DATAEN FRA BIGJUMP OG FIND UD AF HVAD DET GØR
             std::vector<std::vector<uint>> majorcheckpoints; //(std::log2(balls.size()) + 2, std::vector<uint>(pow(2,skiplevels), 0));
             std::vector<uint> minor;
             std::vector<uint> seen(pow(2, skiplevels), 0);
-
             majorcheckpoints.push_back(seen);
+
             int curr = 0;
             int div = pow(2, skiplevels)*std::log2(balls.size());
             for(int ent = 0; ent < targets.size(); ++ent) {
@@ -471,48 +319,81 @@ Ort::generateJumps() {
                 minor.push_back(one - two);
                 seen.at(targets.at(ent))++;
             }
+
             std::vector<uint> major;
             for(const auto& outer : majorcheckpoints) {
                 for(const auto& inner : outer) {
                     major.push_back(inner);
                 }
             }
+
+            major.shrink_to_fit();
+            minor.shrink_to_fit();
+            targets.shrink_to_fit();
+
             LinearJumper notsolinearjump;
             notsolinearjump.jump = skiplevels;
-            notsolinearjump.major = major;
-            notsolinearjump.minor = minor;
+
+            notsolinearjump.div = div;
+            if(end == 0) {
+                notsolinearjump.major = major;
+                notsolinearjump.minor = minor;
+            }
             notsolinearjump.entries = targets;
+            notsolinearjump.end = end;
             notsolinear.at(i) = notsolinearjump;
+
 
             LinearJumper linearjump;
             linearjump.jump = skiplevels;
-            auto majorkeyindex = std::max_element(std::begin(major), std::end(major));
-            uint majorkey = major.at(std::distance(std::begin(major), majorkeyindex));
-            
-            // TODO: Lav anden håndtering ved sådan et special-case. Kun '0'-entries kommer til at tage 2 bits plads
-            // Når skiplevels bliver stor nok er der kun éen major, den første som holder 0'er
-            if(majorkey == 0) {
-                majorkey = 1;
+
+            LinearJumper lineargarbjump;
+            lineargarbjump.jump = skiplevels;
+
+            if(end == 0) {
+                auto majorkeyindex = std::max_element(std::begin(major), std::end(major));
+                uint majorkey = major.at(std::distance(std::begin(major), majorkeyindex));
+
+                //TODO: LINEAR PLADSFORBRUG: ER MAJORKEY+1 NOK TIL AT FJERNE SPECIALCASE?
+
+                // TODO: Lav anden håndtering ved sådan et special-case. Kun '0'-entries kommer til at tage 2 bits plads
+                // Når skiplevels bliver stor nok er der kun éen major, den første som holder 0'er
+                if(majorkey == 0) {
+                    majorkey = 1;
+                }
+
+                linearjump.majorkey = std::ceil(std::log2(majorkey+1));
+                linearjump.major = Data::packBits(major, linearjump.majorkey);
+
+                lineargarbjump.majorkey = std::ceil(std::log2(majorkey+1));
+                lineargarbjump.major = Data::packBits2(major, lineargarbjump.majorkey);
+
+
+                auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
+                uint minorkey = minor.at(std::distance(std::begin(minor), minorkeyindex));
+
+                if(minorkey == 0) {
+                    minorkey = 1;
+                }
+
+                linearjump.minorkey = std::ceil(std::log2(minorkey+1));
+                linearjump.minor = Data::packBits(minor, linearjump.minorkey);
+
+                lineargarbjump.minorkey = std::ceil(std::log2(minorkey+1));
+                lineargarbjump.minor = Data::packBits2(minor, lineargarbjump.minorkey);
+
+                linearjump.div = div;
+                linearjump.major.shrink_to_fit();
+                linearjump.minor.shrink_to_fit();
+
+                lineargarbjump.div = div;
+                lineargarbjump.major.shrink_to_fit();
+                lineargarbjump.minor.shrink_to_fit();
             }
-
-            linearjump.majorkey = std::ceil(std::log2(majorkey+1));
-            linearjump.major = Data::packBits(major, linearjump.majorkey);
-
-            auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
-            uint minorkey = minor.at(std::distance(std::begin(minor), minorkeyindex));
-
-
-            if(minorkey == 0) {
-                minorkey = 1;
-            }
-
-            linearjump.minorkey = std::ceil(std::log2(minorkey+1));
-            linearjump.minor = Data::packBits(minor, linearjump.minorkey);
-
 
             auto entrieskeyindex = std::max_element(std::begin(targets), std::end(targets));
             uint entrieskey = targets.at(std::distance(std::begin(targets), entrieskeyindex));
-            
+
             if(entrieskey == 0) {
                 entrieskey = 1;
             }
@@ -520,10 +401,19 @@ Ort::generateJumps() {
             linearjump.entrieskey = std::ceil(std::log2(entrieskey+1));
             linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
 
-            linearjump.div = div;
+            lineargarbjump.entrieskey = std::ceil(std::log2(entrieskey+1));
+            lineargarbjump.entries = Data::packBits2(targets, lineargarbjump.entrieskey);
+
+
+            linearjump.entries.shrink_to_fit();
+            linearjump.end = end;
             linear.at(i) = linearjump;
+
+            lineargarbjump.entries.shrink_to_fit();
+            lineargarbjump.end = end;
+            lineargarb.at(i) = lineargarbjump;
         }
-    }*/
+    }
 
 }
 
@@ -756,6 +646,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
     LinearJumper templinearjump;
     templinearjump.jump = 1;
+    templinearjump.end = 0;
     std::vector<LinearJumper> tlinearjumps(levels.size(), templinearjump);
     notsolinear = tlinearjumps;
     linear = tlinearjumps;
