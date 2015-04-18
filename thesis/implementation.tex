@@ -1,0 +1,11 @@
+\chapter{Implementation}
+
+\section{Language}
+
+Skriv om sproget. C++11 - tæt på processeren og ingen garbage collection. Gode spatial cache-mæssigt med vectors og godt bit-pilleri.
+
+\section{Design choices}
+
+Skriv om at vi lægger alle bolde i en vektor pr level i stedet for egentlig noder. På den skal vi ikke til at finde datatyper der kan holde størrelser < 32.
+
+Skriv om hvordan det virker med enkelte hop. Vi har en look-up til 16 bits. Vi har en sum for hvert 32 bits. At 0 bare er komplementar af 1 når vi tæller.
