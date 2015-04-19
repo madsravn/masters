@@ -6,10 +6,12 @@
 #include <string>
 #include "Timer.hpp"
 #include <tuple>
+#include <fstream>
 
 class Tester {
     public:
         Tester();
+        ~Tester();
         //TODO: LAV EN RANDOM FINDER - DEN TJEKKER TILFÆLDIGE SETTINGS OG SER OM ORT PERFORMER BEDRE
         //TODO: IMPLEMENTER CACHE STUFF FOR AT SE OM DET ER DET DER GIVER TILFÆLDIGE SHIT-RESULTATER
         void Test1(std::string name);
@@ -42,6 +44,9 @@ class Tester {
         std::tuple<Ort, KDTree> buildtrees(int n);
         void report(const std::vector<int>& vec, std::string name, std::string timename);
         void report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename);
+
+    private:
+        std::ofstream output;
 
 };
 

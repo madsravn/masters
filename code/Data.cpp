@@ -62,26 +62,26 @@ uint
 Data::findInt(const std::vector<uint>& input, int size, int pos) {
     pos = pos*size;
     int end = pos+size;
-    int firstc = pos/32;
-    int secondc = end/32;
-    int ipos = pos % 32;
-    int jpos = end % 32;
+    int firstc = pos >> 5;
+    int secondc = end >> 5;
+    int ipos = pos & 31;
+    int jpos = end & 31;
     
     if(firstc == secondc) {
-        uint number = input.at(firstc);
+        uint number = input[firstc];
         number = number >> (32 - end);
         number = number & ((1 << size) - 1);
         return number;
     }
     // else
-    uint number = input.at(firstc);
+    uint number = input[firstc];
     number = number << (jpos);
     number = number & ((1 << size) -1);
-    uint number2 = input.at(secondc);
+    uint number2 = input[secondc];
     number2 = number2 >> (32 - jpos);
     number2 = number2 & ((1 << jpos) - 1);
     
-    return number + number2;
+    return (number | number2);
 }
 
 std::vector<uint>

@@ -261,7 +261,7 @@ void testingRun() {
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
+    //repl();
     Tester test;
     //test.CACHE_only_create_ort_trees("Creating them trees");
     //test.CACHE_create_and_search_ort_type_three_same("Searching them type threes");
@@ -281,8 +281,8 @@ auto main(int argc, char** argv) -> int {
     
     //test.Test6("Amount of times, horizontal");
 
-    //test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
-    //test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
+    test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
 
     /*int amount = pow(2,15);
     std::random_device rd;
@@ -297,16 +297,22 @@ auto main(int argc, char** argv) -> int {
 
 
 
-    /*std::vector<uint> vec;
+    /*
+    std::vector<uint> vec;
     for(int i = 0; i < 8; ++i) {
         for(int j = 0; j < 10; ++j) {
             vec.push_back(i);
         }
     }
+    std::vector<int> vec2;
+    for(int i = 0; i < 1000000; ++i) {
+        vec2.push_back(i % vec.size());
+    }
 
     std::random_device rd;
     std::mt19937 gen(rd());
     std::shuffle(std::begin(vec), std::end(vec), gen);
+    std::shuffle(std::begin(vec2), std::end(vec2), gen);
 
     auto sizekey = std::max_element(std::begin(vec), std::end(vec));
     int biggest = vec.at(std::distance(std::begin(vec), sizekey));
@@ -338,7 +344,22 @@ auto main(int argc, char** argv) -> int {
     for(const auto& e : Data::packBits2(vec, size)) {
         std::bitset<32> bs(e);
         std::cout << bs.to_string() << std::endl;
-    }*/
+    }
+    Timer<unitofmeassure> t1;
+    t1.start();
+    for(const auto& e: vec2) {
+        Data::findInt(packed, size, e);
+    }
+    t1.stop();
+    std::cout << t1.duration().count() << std::endl;
+
+    t1.startover();
+    for(const auto& e : vec2) {
+        Data::findInt2(packed2, size, e);
+    }
+    t1.stop();
+    std::cout << t1.duration().count() << std::endl;*/
+
 
 
 

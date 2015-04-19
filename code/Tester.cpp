@@ -64,7 +64,25 @@ std::vector<std::vector<int>> numbers2(std::vector<std::vector<T>> vecs, bool re
 
 
 Tester::Tester() {
-    // Nothing
+    
+     auto now = std::chrono::system_clock::now();
+     std::random_device rd;
+     std::mt19937 gen(rd());
+     auto secs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
+
+     std::string filename = "tests/" + std::to_string(secs.count());
+     std::uniform_int_distribution<> dis(7652, 8761238);
+     int random = dis(gen);
+     filename += "_" + std::to_string(random);
+     output.open(filename);
+     std::cout << "Saving testing data to: " << filename << std::endl;
+    
+}
+
+Tester::~Tester() {
+    output.flush();
+    output.close();
+
 }
 
 std::tuple<Ort, KDTree>
@@ -96,6 +114,18 @@ Tester::report(const std::vector<int>& vec, std::string name, std::string timena
     std::cout << "Worst = " << vec.at(6) << "  " << timename << std::endl;
     std::cout << "Average = " << vec.at(7) << " " << timename << std::endl;
     std::cout << "<=== === === === === === === === ===>" << std::endl;
+
+    output << std::endl << std::endl << "TESTING " << name << std::endl;
+    output << "Best = " << vec.at(0) << " " << timename << std::endl;
+    output << "5% percentile = " << vec.at(1) << " " << timename << std::endl;
+    output << "25% percentile = " << vec.at(2) << " " << timename << std::endl;
+    output << "50% percentile = " << vec.at(3) << " " << timename << std::endl;
+    output << "75% percentile = " << vec.at(4) << " " << timename << std::endl;
+    output << "95% percentile = " << vec.at(5) << " " << timename << std::endl;
+    output << "Worst = " << vec.at(6) << "  " << timename << std::endl;
+    output << "Average = " << vec.at(7) << " " << timename << std::endl;
+    output << "<=== === === === === === === === ===>" << std::endl;
+
 }
 
 void
@@ -320,28 +350,26 @@ void Tester::cacheimportance(std::string name) {
 
 void
 Tester::ten_vertical_slices_have_same_performance(std::string name) {
-    for(int type = 3; type < 5; ++type) {
-        for(int k = 17; k < 21; ++k) {
-            int testSize = k;
-            Timer<std::chrono::nanoseconds> t1;
-            int amount = pow(2, testSize);
-            std::vector<std::vector<int>> times(10, std::vector<int> {});
-            for(int i = 0; i < 10; ++i) {
-                Ort ort = std::get<0>(buildtrees(testSize));
-                for(int j = 0; j < 100; ++j) {
-                    for(int h = 0; h < 10; ++h) {
-                        t1.reset();
-                        t1.start();
-                        ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, type);
-                        t1.stop();
-                        times.at(h).push_back(t1.duration().count());
+    for(int k = 17; k < 21; ++k) {
+        int testSize = k;
+        Timer<std::chrono::nanoseconds> t1;
+        int amount = pow(2, testSize);
+        std::vector<std::vector<int>> times(10, std::vector<int> {});
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int j = 0; j < 100; ++j) {
+                for(int h = 0; h < 10; ++h) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, 3);
+                    t1.stop();
+                    times.at(h).push_back(t1.duration().count());
 
-                    }
                 }
             }
-            std::vector<std::vector<int>> rep = numbers2(times);
-            report2(rep, std::to_string(k) + "and type: " + std::to_string(type) + " = " + name, t1.type());
         }
+        std::vector<std::vector<int>> rep = numbers2(times);
+        report2(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
 
