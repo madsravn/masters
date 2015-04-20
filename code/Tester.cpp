@@ -6,6 +6,7 @@
 using unitofmeassure = std::chrono::microseconds;
 //using unitofmeassure = std::chrono::nanoseconds;
 
+
 template<typename T>
 std::vector<int> numbers(std::vector<T> input, bool reverse = false) {
     std::vector<int> ret;
@@ -63,19 +64,22 @@ std::vector<std::vector<int>> numbers2(std::vector<std::vector<T>> vecs, bool re
 
 
 
-Tester::Tester() {
-    
-     auto now = std::chrono::system_clock::now();
-     std::random_device rd;
-     std::mt19937 gen(rd());
-     auto secs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
+Tester::Tester(int k) {
 
-     std::string filename = "tests/" + std::to_string(secs.count());
-     std::uniform_int_distribution<> dis(7652, 8761238);
-     int random = dis(gen);
-     filename += "_" + std::to_string(random);
-     output.open(filename);
-     std::cout << "Saving testing data to: " << filename << std::endl;
+    size_of_trees = k;
+    
+    auto now = std::chrono::system_clock::now();
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    auto secs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
+
+
+    std::string filename = "tests/" + std::to_string(secs.count());
+    std::uniform_int_distribution<> dis(7652, 8761238);
+    int random = dis(gen);
+    filename += "_" + std::to_string(random);
+    output.open(filename);
+    std::cout << "Saving testing data to: " << filename << std::endl;
     
 }
 
@@ -139,6 +143,111 @@ Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std:
 
 
 void
+Tester::how_much_faster_is_ort_horizontal(std::string name) {
+    for(int k = 17; k < 23; ++k) {
+        std::cout << "Starting tree with size " << k << std::endl;
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        int amount = pow(2,testSize);
+        int how_many = std::sqrt(amount)*1.5;
+        std::cout << "how_many = " << how_many << std::endl;
+        int interval = 5;
+        int jumps = how_many/interval;
+        std::vector<std::vector<int>> timevector(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector2(jumps, std::vector<int> {});
+        for(int i = 0; i < 10; ++i) {
+            std::tuple<Ort, KDTree> trees = buildtrees(testSize);
+            Ort ort = std::get<0>(trees);
+            KDTree kdtree = std::get<1>(trees);
+            for(int size = 1; size < jumps+1; ++size) {
+                for(int h = 0; h < 10; ++h) {
+                    for(int j = 0; j < 100; ++j) {
+                        t1.reset();
+                        t1.start();
+                        ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + size*interval}}, 3);
+                        t1.stop();
+
+                        timevector.at(size-1).push_back(t1.duration().count());
+
+                        t1.reset();
+                        t1.start();
+                        kdtree.search({{0, (amount/100)*j},{amount, (amount/100)*j + size*interval}});
+                        t1.stop();
+
+                        timevector2.at(size-1).push_back(t1.duration().count());
+                        
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < timevector.size(); ++i) {
+            std::vector<int> rep = numbers(timevector.at(i));
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + name, t1.type());
+            std::vector<int> rep2 = numbers(timevector2.at(i));
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + name, t1.type());
+        }
+
+
+    }
+
+
+
+}
+
+
+
+
+void
+Tester::how_much_faster_is_ort_vertical(std::string name) {
+    for(int k = 17; k < 23; ++k) {
+        std::cout << "Starting tree with size " << k << std::endl;
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        int amount = pow(2,testSize);
+        int how_many = std::sqrt(amount)*1.5;
+        std::cout << "how_many = " << how_many << std::endl;
+        int interval = 5;
+        int jumps = how_many/interval;
+        std::vector<std::vector<int>> timevector(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector2(jumps, std::vector<int> {});
+        for(int i = 0; i < 10; ++i) {
+            std::tuple<Ort, KDTree> trees = buildtrees(testSize);
+            Ort ort = std::get<0>(trees);
+            KDTree kdtree = std::get<1>(trees);
+            for(int size = 1; size < jumps+1; ++size) {
+                for(int h = 0; h < 10; ++h) {
+                    for(int j = 0; j < 100; ++j) {
+                        t1.reset();
+                        t1.start();
+                        ort.search({{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}}, 3);
+                        t1.stop();
+
+                        timevector.at(size-1).push_back(t1.duration().count());
+
+                        t1.reset();
+                        t1.start();
+                        kdtree.search({{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}});
+                        t1.stop();
+
+                        timevector2.at(size-1).push_back(t1.duration().count());
+                        
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < timevector.size(); ++i) {
+            std::vector<int> rep = numbers(timevector.at(i));
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + name, t1.type());
+            std::vector<int> rep2 = numbers(timevector2.at(i));
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + name, t1.type());
+        }
+
+
+    }
+}
+
+
+void
 Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
     for(int k = 17; k < 24; ++k) {
         int testSize = k;
@@ -167,7 +276,7 @@ Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
 
 void
 Tester::CACHE_only_create_ort_trees(std::string name) {
-    for(int k = 17; k < 18; ++k) {
+    for(int k = 17; k < 22; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -184,7 +293,7 @@ Tester::CACHE_only_create_ort_trees(std::string name) {
 
 void
 Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
- for(int k = 17; k < 18; ++k) {
+ for(int k = 17; k < 22; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -201,13 +310,15 @@ Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
                 
             }
         }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
 
 
 void
 Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
- for(int k = 17; k < 18; ++k) {
+ for(int k = 17; k < 22; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -224,13 +335,15 @@ Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
                 
             }
         }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
 
 
 void
 Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
- for(int k = 17; k < 18; ++k) {
+ for(int k = 17; k < 22; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -247,13 +360,15 @@ Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
                 
             }
         }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
 
 
 void
 Tester::CACHE_create_and_search_ort_type_three_different(std::string name) {
- for(int k = 17; k < 18; ++k) {
+ for(int k = 17; k < 22; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -270,7 +385,19 @@ Tester::CACHE_create_and_search_ort_type_three_different(std::string name) {
                 
             }
         }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
     }
+}
+
+void
+Tester::test_two_different_findints(std::string name) {
+    CACHE_create_and_search_ort_type_three_different("Type three different");
+
+    CACHE_create_and_search_ort_type_four_different("Type four different");
+
+    CACHE_create_and_search_ort_type_three_same("Type three same");
+    CACHE_create_and_search_ort_type_four_same("Type four same");
 }
 
 

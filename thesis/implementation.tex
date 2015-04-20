@@ -2,9 +2,17 @@
 
 \section{Language}
 
+In order to implement the $SRS$ data structure and the kd-tree, C++11 was used. C++11 is a recent release of C++, combining the powers of a new language with the stability and support of an old\todo{andet ord for at det har været her i lang tid} language. C++11 was chosen because it is a good high level language without garbage collection.
+
 Skriv om sproget. C++11 - tæt på processeren og ingen garbage collection. Gode spatial cache-mæssigt med vectors og godt bit-pilleri.
 
 \section{Design choices}
+
+The theory describes the ball inheritance data structure as having a ball inheritance list per node. In the implementation we only have a single ball inheritance list per level. 
+
+In the implementation of the ball inheritance data structure there only exists a single ball inheritance list per level. This means that the nodes in the ball inheritance tree are merely concepts. In the implementation a node consists of a level, start position and amount of balls it holds. Thus, you can look up the balls belonging to that node in that levels ball inheritance list. Since one ball uses one bit per level in the ball inheritance tree, a node near the leaves would have to store only $2$, $4$, $8$, $16$ bits. Since there are no data types of $2$ bits, the nodes at level $1$ would take up $\frac{n}{2}\cdot 32$ bits if we had to store $2$ bits in a $32$ bits integer per node.
+
+
 
 Skriv om at vi lægger alle bolde i en vektor pr level i stedet for egentlig noder. På den skal vi ikke til at finde datatyper der kan holde størrelser < 32.
 

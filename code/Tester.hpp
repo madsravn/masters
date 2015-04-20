@@ -10,7 +10,7 @@
 
 class Tester {
     public:
-        Tester();
+        Tester(int k);
         ~Tester();
         //TODO: LAV EN RANDOM FINDER - DEN TJEKKER TILFÆLDIGE SETTINGS OG SER OM ORT PERFORMER BEDRE
         //TODO: IMPLEMENTER CACHE STUFF FOR AT SE OM DET ER DET DER GIVER TILFÆLDIGE SHIT-RESULTATER
@@ -22,13 +22,18 @@ class Tester {
 
         void cacheimportance(std::string name);
         void CACHE_only_create_ort_trees(std::string name);
+        
         void CACHE_create_and_search_ort_type_three_different(std::string name);
         void CACHE_create_and_search_ort_type_three_same(std::string name);
 
         void CACHE_create_and_search_ort_type_four_different(std::string name);
         void CACHE_create_and_search_ort_type_four_same(std::string name);
 
+        void test_two_different_findints(std::string name);
 
+        void how_much_faster_is_ort_vertical(std::string name);
+
+        void how_much_faster_is_ort_horizontal(std::string name);
 
 
 
@@ -47,6 +52,7 @@ class Tester {
 
     private:
         std::ofstream output;
+        int size_of_trees;
 
 };
 

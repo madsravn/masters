@@ -262,7 +262,7 @@ auto main(int argc, char** argv) -> int {
 
 
     //repl();
-    Tester test;
+    Tester test(24);
     //test.CACHE_only_create_ort_trees("Creating them trees");
     //test.CACHE_create_and_search_ort_type_three_same("Searching them type threes");
     
@@ -281,8 +281,10 @@ auto main(int argc, char** argv) -> int {
     
     //test.Test6("Amount of times, horizontal");
 
-    test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
-    test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
+    //test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    //test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
+    //test.test_two_different_findints("Two different findints in ort");
+    test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
 
     /*int amount = pow(2,15);
     std::random_device rd;
