@@ -715,7 +715,6 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     //results.reserve(dist);
     
     std::vector<Point> temp;
-    results.swap(temp);
 
     // TODO: Find a better way to express amount of balls
     FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
@@ -726,7 +725,9 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     }*/
     //std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
 
-    return results;
+
+    results.swap(temp);
+    return temp;
 }
 
 std::vector<Point>

@@ -135,9 +135,13 @@ Tester::report(const std::vector<int>& vec, std::string name, std::string timena
 void
 Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename) {
     std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
+    output << std::endl << std::endl << "TESTING " << name << std::endl;
     std::cout << "< 5%, 50%, 95%, average >" << std::endl;
+    output << "< 5%, 50%, 95%, average >" << std::endl;
     for(const auto& e : vec) {
         std::cout << "< " << e.at(1) << ", " << e.at(3) << ", " << e.at(5) << ", " << e.at(7) << " >" << std::endl;
+        
+        output << "< " << e.at(1) << ", " << e.at(3) << ", " << e.at(5) << ", " << e.at(7) << " >" << std::endl;
     }
 }
 
@@ -484,7 +488,7 @@ Tester::ten_vertical_slices_have_same_performance(std::string name) {
         std::vector<std::vector<int>> times(10, std::vector<int> {});
         for(int i = 0; i < 10; ++i) {
             Ort ort = std::get<0>(buildtrees(testSize));
-            for(int j = 0; j < 100; ++j) {
+            for(int j = 0; j < 1000; ++j) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();
@@ -536,7 +540,7 @@ Tester::ten_horizontal_slices_have_same_performance(std::string name) {
         std::vector<std::vector<int>> times(10, std::vector<int> {});
         for(int i = 0; i < 10; ++i) {
             Ort ort = std::get<0>(buildtrees(testSize));
-            for(int j = 0; j < 100; ++j) {
+            for(int j = 0; j < 1000; ++j) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();

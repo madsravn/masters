@@ -60,9 +60,9 @@ KDTree::loadState(std::string filename) {
 std::vector<Point>
 KDTree::search(Region query) {
     std::vector<Point> temp;
-    results.swap(temp);
     search(region, query, 0, points.size(), 0);
-    return results;
+    results.swap(temp);
+    return temp;
 }
 
 void
