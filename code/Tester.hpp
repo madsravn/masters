@@ -14,7 +14,7 @@ class Tester {
         ~Tester();
         //TODO: LAV EN RANDOM FINDER - DEN TJEKKER TILFÆLDIGE SETTINGS OG SER OM ORT PERFORMER BEDRE
         //TODO: IMPLEMENTER CACHE STUFF FOR AT SE OM DET ER DET DER GIVER TILFÆLDIGE SHIT-RESULTATER
-        void Test1(std::string name);
+        
         void slices_of_100_vertical_independent_of_n(std::string name);
         void slices_of_100_horizontal_independent_of_n(std::string name);
         //void slices_of_100_horizontal_on_kdtree(std::string name);
@@ -32,20 +32,18 @@ class Tester {
         void test_two_different_findints(std::string name);
 
         void how_much_faster_is_ort_vertical(std::string name);
-
         void how_much_faster_is_ort_horizontal(std::string name);
 
 
 
         void compare_vertical_slices_times_between_ort_and_kdtree(std::string name);
         void compare_horizontal_slices_times_between_ort_and_kdtree(std::string name);
-        void Test6(std::string name);
-        void Test7(std::string name);
-        void Test8(std::string name);
+
         void ten_vertical_slices_have_same_performance(std::string name);
         void ten_horizontal_slices_have_same_performance(std::string name);
         void ten_vertical_slices_kdtree(std::string name);
         void ten_horizontal_slices_kdtree(std::string name);
+
         std::tuple<Ort, KDTree> buildtrees(int n);
         void report(const std::vector<int>& vec, std::string name, std::string timename);
         void report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename);

@@ -148,13 +148,11 @@ Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std:
 
 void
 Tester::how_much_faster_is_ort_horizontal(std::string name) {
-    for(int k = 17; k < 23; ++k) {
-        std::cout << "Starting tree with size " << k << std::endl;
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<unitofmeassure> t1;
         int amount = pow(2,testSize);
         int how_many = std::sqrt(amount)*1.5;
-        std::cout << "how_many = " << how_many << std::endl;
         int interval = 5;
         int jumps = how_many/interval;
         std::vector<std::vector<int>> timevector(jumps, std::vector<int> {});
@@ -203,13 +201,11 @@ Tester::how_much_faster_is_ort_horizontal(std::string name) {
 
 void
 Tester::how_much_faster_is_ort_vertical(std::string name) {
-    for(int k = 17; k < 23; ++k) {
-        std::cout << "Starting tree with size " << k << std::endl;
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<unitofmeassure> t1;
         int amount = pow(2,testSize);
         int how_many = std::sqrt(amount)*1.5;
-        std::cout << "how_many = " << how_many << std::endl;
         int interval = 5;
         int jumps = how_many/interval;
         std::vector<std::vector<int>> timevector(jumps, std::vector<int> {});
@@ -250,37 +246,9 @@ Tester::how_much_faster_is_ort_vertical(std::string name) {
     }
 }
 
-
-void
-Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
-    for(int k = 17; k < 24; ++k) {
-        int testSize = k;
-        Timer<unitofmeassure> t1;
-        int amount = pow(2,testSize);
-        std::vector<int> times;
-        for(int i = 0; i < 10; ++i) {
-            Ort ort = std::get<0>(buildtrees(testSize));
-            for(int h = 0; h < 10; ++h) {
-                for(int j = 0; j < 100; ++j) {
-                    t1.reset();
-                    t1.start();
-                    ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 3);
-                    t1.stop();
-
-                    times.push_back(t1.duration().count());
-                    
-                }
-            }
-        }
-        std::vector<int> rep = numbers(times);
-        report(rep, std::to_string(k) + " = " + name, t1.type());
-    }
-
-}
-
 void
 Tester::CACHE_only_create_ort_trees(std::string name) {
-    for(int k = 17; k < 22; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -297,7 +265,7 @@ Tester::CACHE_only_create_ort_trees(std::string name) {
 
 void
 Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
- for(int k = 17; k < 22; ++k) {
+ for(int k = 17; k < size_of_trees; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -322,7 +290,7 @@ Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
 
 void
 Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
- for(int k = 17; k < 22; ++k) {
+ for(int k = 17; k < size_of_trees; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -347,7 +315,7 @@ Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
 
 void
 Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
- for(int k = 17; k < 22; ++k) {
+ for(int k = 17; k < size_of_trees; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -372,7 +340,7 @@ Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
 
 void
 Tester::CACHE_create_and_search_ort_type_three_different(std::string name) {
- for(int k = 17; k < 22; ++k) {
+ for(int k = 17; k < size_of_trees; ++k) {
         Timer<unitofmeassure> t1;
         int testSize = k;
         int amount = pow(2,testSize);
@@ -405,10 +373,39 @@ Tester::test_two_different_findints(std::string name) {
 }
 
 
+void
+Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
+    for(int k = 17; k < size_of_trees; ++k) {
+        int testSize = k;
+        Timer<unitofmeassure> t1;
+        int amount = pow(2,testSize);
+        std::vector<int> times;
+        for(int i = 0; i < 10; ++i) {
+            Ort ort = std::get<0>(buildtrees(testSize));
+            for(int h = 0; h < 10; ++h) {
+                for(int j = 0; j < 100; ++j) {
+                    t1.reset();
+                    t1.start();
+                    ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 3);
+                    t1.stop();
+
+                    times.push_back(t1.duration().count());
+                    
+                }
+            }
+        }
+        std::vector<int> rep = numbers(times);
+        report(rep, std::to_string(k) + " = " + name, t1.type());
+    }
+
+}
+
+
+
 
 void
 Tester::slices_of_100_vertical_independent_of_n(std::string name) {
-    for(int k = 17; k < 24; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<unitofmeassure> t1;
         int amount = pow(2,testSize);
@@ -434,7 +431,7 @@ Tester::slices_of_100_vertical_independent_of_n(std::string name) {
 }
 
 void Tester::cacheimportance(std::string name) { 
-    for(int k = 17; k < 24; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
@@ -481,7 +478,7 @@ void Tester::cacheimportance(std::string name) {
 
 void
 Tester::ten_vertical_slices_have_same_performance(std::string name) {
-    for(int k = 17; k < 21; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
@@ -506,14 +503,14 @@ Tester::ten_vertical_slices_have_same_performance(std::string name) {
 
 void
 Tester::ten_vertical_slices_kdtree(std::string name) {
-    for(int k = 17; k < 22; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
         std::vector<std::vector<int>> times(10, std::vector<int> {});
         for(int i = 0; i < 10; ++i) {
             KDTree kdtree = std::get<1>(buildtrees(testSize));
-            for(int j = 0; j < 100; ++j) {
+            for(int j = 0; j < 1000; ++j) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();
@@ -533,7 +530,7 @@ Tester::ten_vertical_slices_kdtree(std::string name) {
 
 void
 Tester::ten_horizontal_slices_have_same_performance(std::string name) {
-    for(int k = 17; k < 22; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
@@ -558,14 +555,14 @@ Tester::ten_horizontal_slices_have_same_performance(std::string name) {
 
 void
 Tester::ten_horizontal_slices_kdtree(std::string name) {
-    for(int k = 17; k < 22; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<std::chrono::nanoseconds> t1;
         int amount = pow(2, testSize);
         std::vector<std::vector<int>> times(10, std::vector<int> {});
         for(int i = 0; i < 10; ++i) {
             KDTree kdtree = std::get<1>(buildtrees(testSize));
-            for(int j = 0; j < 100; ++j) {
+            for(int j = 0; j < 1000; ++j) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();
@@ -582,194 +579,9 @@ Tester::ten_horizontal_slices_kdtree(std::string name) {
 }
 
 
-
-void
-Tester::Test6(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    Timer<unitofmeassure> t2;
-    int amount = pow(2, testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        std::tuple<Ort, KDTree> trees = buildtrees(testSize);
-        Ort ort = std::get<0>(trees);
-        KDTree kdtree = std::get<1>(trees);
-        for(int j = 0; j < 100; ++j) {
-            for(int h = 0; h < 100; ++h) {
-                int a = 0;
-                int size = 10;
-
-                t1.reset();
-                t1.start();
-                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + size}}, 3);
-                t1.stop();
-
-                t2.reset();
-                t2.start();
-                kdtree.search({{0, (amount/100)*j},{amount, (amount/100)*j + size}});
-                t2.stop();
-
-
-                while(t1.duration().count() < t2.duration().count()) {
-                    a += 5;
-                    size += 5;
-
-                    t1.reset();
-                    t1.start();
-                    ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + size}}, 3);
-                    t1.stop();
-
-                    t2.reset();
-                    t2.start();
-                    kdtree.search({{0, (amount/100)*j},{amount, (amount/100)*j + size}});
-                    t2.stop();
-
-                }
-                
-                if(a == 0) {
-                    times.push_back(a);
-                } else {
-                    times.push_back(size);
-                }
-            }
-        }
-    }
-    std::vector<int> rep = numbers(times, true);
-    report(rep, name, "times");
-
-}
-
-
-void
-Tester::Test8(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    Timer<unitofmeassure> t2;
-    int amount = pow(2, testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        std::tuple<Ort, KDTree> trees = buildtrees(testSize);
-        Ort ort = std::get<0>(trees);
-        KDTree kdtree = std::get<1>(trees);
-        for(int j = 0; j < 100; ++j) {
-            for(int h = 0; h < 10; ++h) {
-                int a = 0;
-                int size = 10;
-
-                Region reg {{0, (amount/100)*j},{amount-size, (amount/100)*j + 50}};
-
-                t1.reset();
-                t1.start();
-                ort.search(reg, 3);
-                t1.stop();
-
-                t2.reset();
-                t2.start();
-                kdtree.search(reg);
-                t2.stop();
-
-
-                while(t1.duration().count() < t2.duration().count() && amount > (size+5)) {
-                    a += 5;
-                    size += 5;
-
-                    reg = {{0, (amount/100)*j},{amount-size, (amount/100)*j + 50}};
-                    reg = {{(amount/100)*j, 0},{(amount/100)*j + 50, amount-size}};
-
-                    t1.reset();
-                    t1.start();
-                    ort.search(reg, 3);
-                    t1.stop();
-
-                    t2.reset();
-                    t2.start();
-                    kdtree.search(reg);
-                    t2.stop();
-
-                }
-                
-                if(a == 0) {
-                    times.push_back(a);
-                } else {
-                    times.push_back(size);
-                }
-            }
-        }
-    }
-    std::vector<int> rep = numbers(times, true);
-    report(rep, name, "times");
-
-}
-
-void
-Tester::Test7(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    Timer<unitofmeassure> t2;
-    int amount = pow(2, testSize);
-    std::vector<int> times;
-    int max = 0;
-    int x = 0;
-    for(int i = 0; i < 10; ++i) {
-        std::tuple<Ort, KDTree> trees = buildtrees(testSize);
-        Ort ort = std::get<0>(trees);
-        KDTree kdtree = std::get<1>(trees);
-        for(int j = 0; j < 100; ++j) {
-            for(int h = 0; h < 10; ++h) {
-                int a = 0;
-                int size = 10;
-
-                Region reg {{(amount/100)*j, 0},{(amount/100)*j + 50, amount-size}};
-
-                t1.reset();
-                t1.start();
-                ort.search(reg, 3);
-                t1.stop();
-
-                t2.reset();
-                t2.start();
-                kdtree.search(reg);
-                t2.stop();
-
-
-                while(t1.duration().count() < t2.duration().count() && amount > (size+5)) {
-                    a += 5;
-                    size += 5;
-                    reg = {{(amount/100)*j, 0},{(amount/100)*j + 50, amount-size}};
-
-                    t1.reset();
-                    t1.start();
-                    ort.search(reg, 3);
-                    t1.stop();
-
-                    t2.reset();
-                    t2.start();
-                    kdtree.search(reg);
-                    t2.stop();
-
-                }
-                
-                if(a == 0) {
-                    times.push_back(a);
-                } else {
-                    times.push_back(size);
-                }
-               
-            }
-        }
-    }
-    std::vector<int> rep = numbers(times, true);
-    report(rep, name, "times");
-
-}
-
 void
 Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name) {
-    for(int k = 17; k < 23; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<unitofmeassure> t1;
         Timer<unitofmeassure> t2;
@@ -781,7 +593,7 @@ Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name)
             std::tuple<Ort, KDTree> trees = buildtrees(testSize);
             Ort ort = std::get<0>(trees);
             KDTree kdtree = std::get<1>(trees);
-            for(int h = 0; h < 100; ++h) {
+            for(int h = 0; h < 1000; ++h) {
                 for(int j = 0; j < 10; ++j) {
                     int a = 0;
                     int size = 10;
@@ -834,7 +646,7 @@ Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name)
 
 void
 Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
-    for(int k = 17; k < 23; ++k) {
+    for(int k = 17; k < size_of_trees; ++k) {
         int testSize = k;
         Timer<unitofmeassure> t1;
         Timer<unitofmeassure> t2;
@@ -846,7 +658,7 @@ Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
             std::tuple<Ort, KDTree> trees = buildtrees(testSize);
             Ort ort = std::get<0>(trees);
             KDTree kdtree = std::get<1>(trees);
-            for(int h = 0; h < 100; ++h) {
+            for(int h = 0; h < 1000; ++h) {
                 for(int j = 0; j < 10; ++j) {
                     int a = 0;
                     int size = 10;
@@ -891,40 +703,5 @@ Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
         std::vector<int> rep = numbers(times, true);
         report(rep, std::to_string(k) + " = " + name, "times");
     }
-
-}
-
-// All horizontal queries are equal
-void
-Tester::Test1(std::string name) {
-    int testSize = 17;
-    Timer<unitofmeassure> t1;
-    int amount = pow(2,testSize);
-    int max = 0;
-    int x = 0;
-    std::vector<int> times;
-    for(int i = 0; i < 100; ++i) {
-        Ort ort = std::get<0>(buildtrees(testSize));
-        for(int j = 0; j < 100; ++j) {
-            t1.reset();
-            t1.start();
-            ort.search({{0,(amount/100)*j},{amount, (amount/100)*j + 20}}, 3);
-            t1.stop();
-            ++x;
-            times.push_back(t1.duration().count());
-            if(t1.duration().count() > max) {
-                max = t1.duration().count();
-                std::cout << x << ": NEW MAX : " << max << std::endl;
-            }
-            if(t1.duration().count() > 100) {
-                std::cout << "WE NAILED A BIG ONE, CAPT!" << std::endl;
-                std::cout << "Setting: (0, " << (amount/100)*j << "), (" << amount << ", " << (amount/100)*j + 20 << ")." << std::endl;
-            }
-
-            
-        }
-    }
-    std::vector<int> rep = numbers(times);
-    report(rep, name, t1.type());
 
 }
