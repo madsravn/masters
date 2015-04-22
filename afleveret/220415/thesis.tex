@@ -1,0 +1,115 @@
+\documentclass[twoside,11pt,openright]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage[numbers]{natbib}
+%\usepackage[square,semicolon,sort,longnamesfirst]{natbib}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{color}
+\usepackage{datetime}
+\usepackage{epstopdf} 
+
+\renewcommand*\ttdefault{txtt}
+
+\newcommand{\todo}[1]{{\color[rgb]{.5,0,0}\textbf{$\blacktriangleright$#1$\blacktriangleleft$}}}
+
+\newtheorem{innercustomlem}{Lemma}
+\newenvironment{customlem}[1]
+  {\renewcommand\theinnercustomlem{#1}\innercustomlem}
+  {\endinnercustomlem}
+
+\newtheorem{innercustomthm}{Theorem}
+\newenvironment{customthm}[1]
+  {\renewcommand\theinnercustomthm{#1}\innercustomthm}
+  {\endinnercustomthm}
+
+
+
+% see http://imf.au.dk/system/latex/bog/
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{empty} 
+\pagenumbering{roman} 
+\vspace*{\fill}\noindent{\rule{\linewidth}{1mm}\\[4ex]
+{\Huge\sf 2D Orthogonal Range Search}\\[2ex]
+{\huge\sf Mads Ravn, 20071580}\\[2ex]
+\noindent\rule{\linewidth}{1mm}\\[4ex]
+\noindent{\Large\sf Master's Thesis, Computer Science\\[1ex] 
+\monthname\ \the\year  \\[1ex] Advisor: Kasper Green Larsen\\[15ex]}\\[\fill]}
+\epsfig{file=logo.eps}\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+\todo{in English\dots}
+
+\chapter*{Resum\'e}
+\addcontentsline{toc}{chapter}{Resum\'e}
+
+\todo{in Danish\dots}
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+
+\todo{\dots}
+
+\vspace{2ex}
+\begin{flushright}
+  \emph{Mads Ravn,}\\
+  \emph{Aarhus, \today.}
+\end{flushright}
+
+\tableofcontents
+\pagenumbering{arabic}
+\setcounter{secnumdepth}{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\include{introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Theory}
+
+\include{relatedwork}
+\include{primarywork}
+
+\part{Practical}
+
+\include{implementation}
+\include{analysis}
+
+
+\chapter{\todo{\dots}}
+\label{ch:main}
+
+%% \todo{example of a citation to primary literature: \citeA{lazypropagation2010},
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Conclusion}
+\label{ch:conclusion}
+
+\todo{\dots}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\addcontentsline{toc}{chapter}{Primary Bibliography}
+\bibliographystyle{plainnat} 
+\bibliography{refs}
+
+\end{document}
+
