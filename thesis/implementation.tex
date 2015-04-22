@@ -2,16 +2,11 @@
 
 \section{Language}
 
-In order to implement the $SRS$ data structure and the kd-tree, C++11 was used. C++11 is a recent release of C++. Thus C++11 combine the advantages of a modern programming language with the stability and support of a language which have been around for more than three decades. C++11 was chosen for several reason: It does not have garbage collection, it is a high level language with support for low level operation and contains libraries for everything needed in this project. The chrono header gives access to a high resolution clock to meassure time. \todo{vector, noget med spatial something sådan at data ligger pakket i samme område og shrink to fit}
+In order to implement the $SRS$ data structure and the kd-tree, C++11 was used. C++11 is a recent release of C++. C++11 combines the advantages of a modern programming language with the stability and support of a mature language which have been around for more than three decades. C++11 was chosen for several reason: It does not have garbage collection, it is a high level language with support for low level operation and contains libraries for everything needed in this project. The chrono header gives access to a high resolution clock to meassure time. The vector class of the standard template library is very straight-forward container to work with and the underlying structure is a continuous block of memory making it ideal for cache purposes. The algorithm header gives access to convenience functions for generating and sorting data.
 
 \section{Design choices}
 
-The theory describes the ball inheritance data structure as having a ball inheritance list per node. In the implementation we only have a single ball inheritance list per level. 
+The theory describes the ball inheritance data structure as a binary tree with internal node and leaves. Each node then has a ball inheritance list to show which ball was inherited by which child. In practise all the ball inheritance lists per level are merged together to one, resulting in $\lg n$ ball inheritance lists in all. Instead of being an actual entity, a node is just defined as which level it is from, where on that levels list its ball inheritance list starts and how many balls its list holds. Since each ball only uses a single bit per level there would have been a lot of space wasted when nodes only held two or four balls in their ball inheritance lists. By having one list per level we can pick one data type to work without independent of how many balls needs to be stored per node. std::uint32\_t \todo{hvordan skriver jeg det pænt?} was chosen in this case. It is an unsigned fixed width integer type of $32$ bits.
 
-In the implementation of the ball inheritance data structure there only exists a single ball inheritance list per level. This means that the nodes in the ball inheritance tree are merely concepts. In the implementation a node consists of a level, start position and amount of balls it holds. Thus, you can look up the balls belonging to that node in that levels ball inheritance list. Since one ball uses one bit per level in the ball inheritance tree, a node near the leaves would have to store only $2$, $4$, $8$, $16$ bits. Since there are no data types of $2$ bits, the nodes at level $1$ would take up $\frac{n}{2}\cdot 32$ bits if we had to store $2$ bits in a $32$ bits integer per node.
-
-
-
-Skriv om at vi lægger alle bolde i en vektor pr level i stedet for egentlig noder. På den skal vi ikke til at finde datatyper der kan holde størrelser < 32.
 
 Skriv om hvordan det virker med enkelte hop. Vi har en look-up til 16 bits. Vi har en sum for hvert 32 bits. At 0 bare er komplementar af 1 når vi tæller.

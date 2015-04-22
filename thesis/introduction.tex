@@ -3,6 +3,14 @@
 
 \noindent \emph{Orthogonal range searching} is one of the most fundamental and well-studied problems in computational geometry. Even with extensive research over three decades a lot of questions remain. In this thesis we will focus on $2D$ orthogonal range searching: Given $n$ points from $\mathbb{R}^2$ we want to insert them into a data structure which will be able to efficiently report which points lie within a given axis-aligned query rectangle $\mathbb{Q} \subseteq \mathbb{R}^2$.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/introduction.png}
+    \caption{Example of an orthogonal range query}\label{fig:example}
+\end{figure}
+
+\noindent Consider a database of vehicles for sale. Each vehicle has measurable\todo{andet ord} properties like price, the year the model was released, engine size, amount of doors, gasoline consumption in kilometers per liter, size  and maximum speed. With a $2$-dimensional query, two properties can be picked and a range for both properties can be set. A point in the graph reprensent the ID of the car with which the car can be looked up in the database to find the other properties of the car. Given the ranges on two properties we want to find those of the cars in the database which lie within the search query. Figure~\ref{fig:example} shows an example of such a search query. A buyer is interested in finding cars which cost between $75,000$ and $95,000$ and can drive between $15$ and $20$ kilometers per liter of gasolin. The points within the gray area represent cars which fit these criteria.\\
+
 The objective of this thesis is to study a variety of \emph{orthogonal range searching} data structures. The main focus will be to introduce the \emph{Simple Range Search} data structure. It is a simplification of an orthogonal range searching data structure by \citet{chanetal}, which will be referred to as the \emph{Original Range Search} data structure. We are going to describe the kd-tree which will be the reference data structure in our analysis of the Simple Range Search data structure. We are going to describe the range tree which shares some of properties of the Simple Range Search and Original Range Search data structures.
 
 We show that a range query to the Simple Range Search data structure has a faster worst-case running time than a range query to the kd-tree. We also show that the Simple Range Search data structure is able to compete with the kd-tree, and even outperform the kd-tree in some cases. \todo{Mere ...} \\ 
