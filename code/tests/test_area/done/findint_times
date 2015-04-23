@@ -1,0 +1,334 @@
+TESTING 17 = Type three different
+Best = 12 microseconds
+5% percentile = 12 microseconds
+25% percentile = 12 microseconds
+50% percentile = 12 microseconds
+75% percentile = 15 microseconds
+95% percentile = 18 microseconds
+Worst = 31  microseconds
+Average = 13 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Type three different
+Best = 13 microseconds
+5% percentile = 14 microseconds
+25% percentile = 14 microseconds
+50% percentile = 14 microseconds
+75% percentile = 15 microseconds
+95% percentile = 25 microseconds
+Worst = 38  microseconds
+Average = 15 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Type three different
+Best = 8 microseconds
+5% percentile = 9 microseconds
+25% percentile = 9 microseconds
+50% percentile = 10 microseconds
+75% percentile = 10 microseconds
+95% percentile = 20 microseconds
+Worst = 34  microseconds
+Average = 10 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Type three different
+Best = 7 microseconds
+5% percentile = 8 microseconds
+25% percentile = 12 microseconds
+50% percentile = 14 microseconds
+75% percentile = 16 microseconds
+95% percentile = 19 microseconds
+Worst = 34  microseconds
+Average = 13 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Type three different
+Best = 8 microseconds
+5% percentile = 8 microseconds
+25% percentile = 9 microseconds
+50% percentile = 14 microseconds
+75% percentile = 16 microseconds
+95% percentile = 19 microseconds
+Worst = 29  microseconds
+Average = 12 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Type three different
+Best = 9 microseconds
+5% percentile = 10 microseconds
+25% percentile = 10 microseconds
+50% percentile = 11 microseconds
+75% percentile = 19 microseconds
+95% percentile = 21 microseconds
+Worst = 34  microseconds
+Average = 13 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Type three different
+Best = 11 microseconds
+5% percentile = 11 microseconds
+25% percentile = 12 microseconds
+50% percentile = 19 microseconds
+75% percentile = 21 microseconds
+95% percentile = 25 microseconds
+Worst = 46  microseconds
+Average = 17 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 = Type four different
+Best = 15 microseconds
+5% percentile = 16 microseconds
+25% percentile = 16 microseconds
+50% percentile = 17 microseconds
+75% percentile = 18 microseconds
+95% percentile = 21 microseconds
+Worst = 32  microseconds
+Average = 17 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Type four different
+Best = 17 microseconds
+5% percentile = 17 microseconds
+25% percentile = 17 microseconds
+50% percentile = 18 microseconds
+75% percentile = 18 microseconds
+95% percentile = 25 microseconds
+Worst = 36  microseconds
+Average = 18 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Type four different
+Best = 10 microseconds
+5% percentile = 11 microseconds
+25% percentile = 11 microseconds
+50% percentile = 12 microseconds
+75% percentile = 12 microseconds
+95% percentile = 21 microseconds
+Worst = 36  microseconds
+Average = 12 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Type four different
+Best = 8 microseconds
+5% percentile = 8 microseconds
+25% percentile = 9 microseconds
+50% percentile = 9 microseconds
+75% percentile = 10 microseconds
+95% percentile = 20 microseconds
+Worst = 32  microseconds
+Average = 10 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Type four different
+Best = 9 microseconds
+5% percentile = 10 microseconds
+25% percentile = 15 microseconds
+50% percentile = 17 microseconds
+75% percentile = 18 microseconds
+95% percentile = 21 microseconds
+Worst = 28  microseconds
+Average = 16 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Type four different
+Best = 11 microseconds
+5% percentile = 12 microseconds
+25% percentile = 12 microseconds
+50% percentile = 12 microseconds
+75% percentile = 13 microseconds
+95% percentile = 23 microseconds
+Worst = 34  microseconds
+Average = 13 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Type four different
+Best = 13 microseconds
+5% percentile = 13 microseconds
+25% percentile = 14 microseconds
+50% percentile = 22 microseconds
+75% percentile = 24 microseconds
+95% percentile = 28 microseconds
+Worst = 46  microseconds
+Average = 20 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 = Type three same
+Best = 10 microseconds
+5% percentile = 10 microseconds
+25% percentile = 10 microseconds
+50% percentile = 11 microseconds
+75% percentile = 11 microseconds
+95% percentile = 11 microseconds
+Worst = 29  microseconds
+Average = 10 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Type three same
+Best = 11 microseconds
+5% percentile = 12 microseconds
+25% percentile = 12 microseconds
+50% percentile = 12 microseconds
+75% percentile = 13 microseconds
+95% percentile = 13 microseconds
+Worst = 39  microseconds
+Average = 12 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Type three same
+Best = 7 microseconds
+5% percentile = 7 microseconds
+25% percentile = 7 microseconds
+50% percentile = 8 microseconds
+75% percentile = 8 microseconds
+95% percentile = 9 microseconds
+Worst = 33  microseconds
+Average = 8 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Type three same
+Best = 6 microseconds
+5% percentile = 6 microseconds
+25% percentile = 6 microseconds
+50% percentile = 6 microseconds
+75% percentile = 7 microseconds
+95% percentile = 7 microseconds
+Worst = 31  microseconds
+Average = 6 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Type three same
+Best = 7 microseconds
+5% percentile = 7 microseconds
+25% percentile = 7 microseconds
+50% percentile = 7 microseconds
+75% percentile = 8 microseconds
+95% percentile = 8 microseconds
+Worst = 27  microseconds
+Average = 7 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Type three same
+Best = 8 microseconds
+5% percentile = 8 microseconds
+25% percentile = 8 microseconds
+50% percentile = 8 microseconds
+75% percentile = 9 microseconds
+95% percentile = 9 microseconds
+Worst = 34  microseconds
+Average = 8 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Type three same
+Best = 8 microseconds
+5% percentile = 8 microseconds
+25% percentile = 9 microseconds
+50% percentile = 9 microseconds
+75% percentile = 9 microseconds
+95% percentile = 10 microseconds
+Worst = 45  microseconds
+Average = 9 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 = Type four same
+Best = 13 microseconds
+5% percentile = 14 microseconds
+25% percentile = 14 microseconds
+50% percentile = 14 microseconds
+75% percentile = 14 microseconds
+95% percentile = 14 microseconds
+Worst = 31  microseconds
+Average = 14 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Type four same
+Best = 16 microseconds
+5% percentile = 16 microseconds
+25% percentile = 16 microseconds
+50% percentile = 16 microseconds
+75% percentile = 16 microseconds
+95% percentile = 17 microseconds
+Worst = 455  microseconds
+Average = 17 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Type four same
+Best = 9 microseconds
+5% percentile = 10 microseconds
+25% percentile = 10 microseconds
+50% percentile = 10 microseconds
+75% percentile = 10 microseconds
+95% percentile = 11 microseconds
+Worst = 34  microseconds
+Average = 10 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Type four same
+Best = 7 microseconds
+5% percentile = 8 microseconds
+25% percentile = 8 microseconds
+50% percentile = 8 microseconds
+75% percentile = 8 microseconds
+95% percentile = 9 microseconds
+Worst = 35  microseconds
+Average = 8 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Type four same
+Best = 9 microseconds
+5% percentile = 9 microseconds
+25% percentile = 9 microseconds
+50% percentile = 10 microseconds
+75% percentile = 10 microseconds
+95% percentile = 10 microseconds
+Worst = 29  microseconds
+Average = 9 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Type four same
+Best = 10 microseconds
+5% percentile = 10 microseconds
+25% percentile = 10 microseconds
+50% percentile = 11 microseconds
+75% percentile = 11 microseconds
+95% percentile = 12 microseconds
+Worst = 37  microseconds
+Average = 10 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Type four same
+Best = 11 microseconds
+5% percentile = 11 microseconds
+25% percentile = 11 microseconds
+50% percentile = 11 microseconds
+75% percentile = 11 microseconds
+95% percentile = 12 microseconds
+Worst = 48  microseconds
+Average = 11 microseconds
+<=== === === === === === === === ===>

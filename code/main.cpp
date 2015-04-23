@@ -84,7 +84,7 @@ std::map<int, Ort> ortmap;
                 }
             }*/
             for(const auto& e : ortmap) {
-                std::cout << int(pow(2, e.first)) << " " << e.second.size(1) << " " << e.second.size(2) << " "  << e.second.size(3) << std::endl;
+                std::cout << int(pow(2, e.first)) << e.second.size(3) << std::endl;
             }
             std::cout << std::endl << std::endl << "size of the KDTree map: " << std::endl;
             for(const auto& e : kdtreemap) {
@@ -261,7 +261,8 @@ void testingRun() {
 auto main(int argc, char** argv) -> int {
 
 
-    //repl();
+    repl();
+    /*
     Tester test(24);
     
     test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
@@ -283,6 +284,7 @@ auto main(int argc, char** argv) -> int {
 
 
     test.test_two_different_findints("Two different findints in ort");
+    */
 
     /*int amount = pow(2,15);
     std::random_device rd;

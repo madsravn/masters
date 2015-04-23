@@ -1,0 +1,101 @@
+   049  ./kd_ort_diff kdtree_vs_ort_times_vertical > kd_vs_ort_vertical.dat
+ 9050  ./kd_ort_diff kdtree_vs_ort_times_horizontal > kd_vs_ort_horizontal.dat
+ 9051  vim kd_vs_ort_vertical.dat
+ 9052  cd ..
+ 9053  cp done/plot.pg done2/
+ 9054  cd done2
+ 9055  ls
+ 9056  ls -la
+ 9057  vim plot.pg
+ 9058  gnuplot -e "filename='hori_17.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 17'" plot.pg > hori_17.png
+ 9059  gnuplot -e "filename='hori_18.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 18'" plot.pg > hori_18.png
+ 9060  gnuplot -e "filename='hori_19.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 19'" plot.pg > hori_19.png
+ 9061  gnuplot -e "filename='hori_20.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 20'" plot.pg > hori_20.png
+ 9062  gnuplot -e "filename='hori_21.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 21'" plot.pg > hori_21.png
+ 9063  gnuplot -e "filename='hori_22.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 22'" plot.pg > hori_22.png
+ 9064  gnuplot -e "filename='hori_23.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 23'" plot.pg > hori_23.png
+ 9065  gnuplot -e "filename='veri_17.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 17'" plot.pg > veri_17.png
+ 9066  gnuplot -e "filename='vert_17.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 17'" plot.pg > vert_17.png
+ 9067  gnuplot -e "filename='vert_18.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 18'" plot.pg > vert_18.png
+ 9068  gnuplot -e "filename='vert_19.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 19'" plot.pg > vert_19.png
+ 9069  gnuplot -e "filename='vert_20.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 20'" plot.pg > vert_20.png
+ 9070  gnuplot -e "filename='vert_21.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 21'" plot.pg > vert_21.png
+ 9071  gnuplot -e "filename='vert_22.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 22'" plot.pg > vert_22.png
+ 9072  gnuplot -e "filename='vert_23.dat'; xtitle='size of slice'; ytitle='time'; toptitle='Time for slice sizes when lg n = 23'" plot.pg > vert_23.png
+ 9073  rm veri_17.png
+ 9074  ls
+ 9075  vim kd_ort_diff.cpp
+ 9076  cp kd_ort_diff.cpp translate.cpp
+ 9077  vim translate.cpp
+ 9078  clang++ translate.cpp -o translate -std=c++11
+ 9079  vim kd_vs_ort_horizontal.dat
+ 9080  ./translate kd_vs_ort_horizontal.dat 15
+ 9081  ./translate kd_vs_ort_horizontal.dat 50
+ 9082  vim translate.cpp
+ 9083  clang++ translate.cpp -o translate -std=c++11
+ 9084  ./translate kd_vs_ort_horizontal.dat 50
+ 9085  ./translate kd_vs_ort_horizontal.dat 75
+ 9086  ./translate kd_vs_ort_horizontal.dat 150
+ 9087  cp translate.cpp find_percentage.cpp
+ 9088  vim find_percentage.cpp
+ 9089  clang++ find_percentage.cpp -o find_percentage -std=c++11
+ 9090  vim find_percentage.cpp
+ 9091  clang++ find_percentage.cpp -o find_percentage -std=c++11
+ 9092  ./find_percentage kd_vs_ort_vertical.dat 100
+ 9093  vim find_percentage.cpp
+ 9094  clang++ find_percentage.cpp -o find_percentage -std=c++11
+ 9095  ./find_percentage kd_vs_ort_vertical.dat 100
+ 9096  vim find_percentage.cpp
+ 9097  vim find_percentage.cpp
+ 9098  clang++ find_percentage.cpp -o find_percentage -std=c++11
+ 9099  vim find_percentage.cpp
+ 9100  clang++ find_percentage.cpp -o find_percentage -std=c++11
+ 9101  ./find_percentage kd_vs_ort_vertical.dat 100
+ 9102  vim find_percentage.cpp
+ 9103  clang++ find_percentage.cpp -o find_percentage -std=c++11
+ 9104  ./find_percentage kd_vs_ort_vertical.dat 100
+ 9105  vim kd_vs_ort_vertical.dat
+ 9106  ./find_percentage kd_vs_ort_vertical.dat 200
+ 9107  vim kd_vs_ort_vertical.dat
+ 9108  ./find_percentage kd_vs_ort_horizontal.dat 100
+ 9109  ./find_percentage kd_vs_ort_vertical.dat 100
+ 9110  ./find_percentage kd_vs_ort_vertical.dat 100 > kd_size_slices_vertical.dat
+ 9111  ./find_percentage kd_vs_ort_horizontal.dat 100 > kd_size_slices_horizontal.dat
+ 9112  ls
+ 9113  vim translate.cpp
+ 9114  ./translate kd_vs_ort_horizontal.dat 150
+ 9115  vim kd_vs_ort_horizontal.dat
+ 9116  vim translate.cpp
+ 9117  vim find_percentage.cpp
+ 9118  mkdir intersections
+ 9119  mv {hori,vert}_{17,18,19,20,21,22,23}.{dat,png} intersections
+ 9120  ls
+ 9121  ls
+ 9122  ./find_percentage kd_vs_ort_horizontal.dat 150 > kd_size_slices_horizontal_150.dat
+ 9123  ./find_percentage kd_vs_ort_horizontal.dat 200 > kd_size_slices_horizontal_200.dat
+ 9124  ./find_percentage kd_vs_ort_vertical.dat 100 > kd_size_slices_vertical.dat
+ 9125  ./find_percentage kd_vs_ort_vertical.dat 150 > kd_size_slices_vertical_150.dat
+ 9126  ./find_percentage kd_vs_ort_vertical.dat 200 > kd_size_slices_vertical_200.dat
+ 9127  vim plot.pg
+ 9128  gnuplot -e "filename='kd_size_slices_vertical.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='100% (same time) vertical'" plot.pg > compare_kd_ort_100_vertical.png
+ 9129  vim plot.pg
+ 9130  vim kd_size_slices_vertical.dat
+ 9131  gnuplot -e "filename='kd_size_slices_vertical_150.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='150% (ort 50% faster) vertical'" plot.pg > compare_kd_ort_150_vertical.png
+ 9132  gnuplot -e "filename='kd_size_slices_vertical_200.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='200% (ort 100% faster) vertical'" plot.pg > compare_kd_ort_200_vertical.png
+ 9133  gnuplot -e "filename='kd_size_slices_horizontal_200.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='200% (ort 100% faster) horizontal'" plot.pg > compare_kd_ort_200_horizontal.png
+ 9134  gnuplot -e "filename='kd_size_slices_horizontal_150.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='150% (ort 50% faster) horizontal'" plot.pg > compare_kd_ort_150_horizontal.png
+ 9135  gnuplot -e "filename='kd_size_slices_horizontal_100.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='100% (same time) horizontal'" plot.pg > compare_kd_ort_100_horizontal.png
+ 9136  gnuplot -e "filename='kd_size_slices_horizontal.dat'; xtitle='lg n'; ytitle='size of slices'; toptitle='100% (same time) horizontal'" plot.pg > compare_kd_ort_100_horizontal.png
+ 9137  mkdir compare_sizes
+ 9138  mv compare_*.png compare_sizes
+ 9139  cd compare_sizes
+ 9140  vim README
+ 9141  history
+ 9142  cd school/masters/code/tests/test_area/done2/compare_sizes
+ 9143  history > README
+ 9144  less README
+ 9145  man history
+ 9146  history 25
+ 9147  history 20
+ 9148  history 15
+ 9149  history 10

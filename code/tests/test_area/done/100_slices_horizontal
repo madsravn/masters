@@ -1,0 +1,84 @@
+TESTING 17 = Testing that slices of 100 horizontally is independent of n
+Best = 11 microseconds
+5% percentile = 12 microseconds
+25% percentile = 12 microseconds
+50% percentile = 12 microseconds
+75% percentile = 12 microseconds
+95% percentile = 18 microseconds
+Worst = 68  microseconds
+Average = 12 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Testing that slices of 100 horizontally is independent of n
+Best = 14 microseconds
+5% percentile = 16 microseconds
+25% percentile = 17 microseconds
+50% percentile = 19 microseconds
+75% percentile = 20 microseconds
+95% percentile = 25 microseconds
+Worst = 457  microseconds
+Average = 19 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Testing that slices of 100 horizontally is independent of n
+Best = 8 microseconds
+5% percentile = 9 microseconds
+25% percentile = 9 microseconds
+50% percentile = 10 microseconds
+75% percentile = 11 microseconds
+95% percentile = 20 microseconds
+Worst = 37  microseconds
+Average = 11 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Testing that slices of 100 horizontally is independent of n
+Best = 7 microseconds
+5% percentile = 8 microseconds
+25% percentile = 8 microseconds
+50% percentile = 9 microseconds
+75% percentile = 16 microseconds
+95% percentile = 19 microseconds
+Worst = 34  microseconds
+Average = 11 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Testing that slices of 100 horizontally is independent of n
+Best = 8 microseconds
+5% percentile = 8 microseconds
+25% percentile = 9 microseconds
+50% percentile = 9 microseconds
+75% percentile = 15 microseconds
+95% percentile = 19 microseconds
+Worst = 37  microseconds
+Average = 11 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Testing that slices of 100 horizontally is independent of n
+Best = 9 microseconds
+5% percentile = 10 microseconds
+25% percentile = 10 microseconds
+50% percentile = 10 microseconds
+75% percentile = 11 microseconds
+95% percentile = 21 microseconds
+Worst = 105  microseconds
+Average = 12 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Testing that slices of 100 horizontally is independent of n
+Best = 10 microseconds
+5% percentile = 11 microseconds
+25% percentile = 11 microseconds
+50% percentile = 12 microseconds
+75% percentile = 20 microseconds
+95% percentile = 25 microseconds
+Worst = 52  microseconds
+Average = 14 microseconds
+<=== === === === === === === === ===>
+
+

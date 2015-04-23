@@ -1,0 +1,84 @@
+TESTING 17 = Compare vertical slices size between ort and kdtree
+Best = 215 times
+5% percentile = 195 times
+25% percentile = 185 times
+50% percentile = 175 times
+75% percentile = 170 times
+95% percentile = 155 times
+Worst = 0  times
+Average = 174 times
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Compare vertical slices size between ort and kdtree
+Best = 265 times
+5% percentile = 260 times
+25% percentile = 235 times
+50% percentile = 210 times
+75% percentile = 185 times
+95% percentile = 155 times
+Worst = 0  times
+Average = 207 times
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Compare vertical slices size between ort and kdtree
+Best = 380 times
+5% percentile = 310 times
+25% percentile = 300 times
+50% percentile = 290 times
+75% percentile = 275 times
+95% percentile = 260 times
+Worst = 0  times
+Average = 286 times
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Compare vertical slices size between ort and kdtree
+Best = 900 times
+5% percentile = 455 times
+25% percentile = 415 times
+50% percentile = 385 times
+75% percentile = 360 times
+95% percentile = 310 times
+Worst = 0  times
+Average = 380 times
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Compare vertical slices size between ort and kdtree
+Best = 1280 times
+5% percentile = 1155 times
+25% percentile = 555 times
+50% percentile = 540 times
+75% percentile = 505 times
+95% percentile = 465 times
+Worst = 15  times
+Average = 583 times
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Compare vertical slices size between ort and kdtree
+Best = 1900 times
+5% percentile = 1515 times
+25% percentile = 1415 times
+50% percentile = 760 times
+75% percentile = 670 times
+95% percentile = 580 times
+Worst = 0  times
+Average = 975 times
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Compare vertical slices size between ort and kdtree
+Best = 2560 times
+5% percentile = 2055 times
+25% percentile = 1980 times
+50% percentile = 1625 times
+75% percentile = 1565 times
+95% percentile = 770 times
+Worst = 0  times
+Average = 1620 times
+<=== === === === === === === === ===>
+
+

@@ -1,0 +1,84 @@
+TESTING 17 = Compare horizontal slices size between ort and kdtree
+Best = 135 times
+5% percentile = 100 times
+25% percentile = 90 times
+50% percentile = 85 times
+75% percentile = 85 times
+95% percentile = 85 times
+Worst = 0  times
+Average = 89 times
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Compare horizontal slices size between ort and kdtree
+Best = 175 times
+5% percentile = 125 times
+25% percentile = 120 times
+50% percentile = 115 times
+75% percentile = 110 times
+95% percentile = 110 times
+Worst = 0  times
+Average = 117 times
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Compare horizontal slices size between ort and kdtree
+Best = 435 times
+5% percentile = 345 times
+25% percentile = 325 times
+50% percentile = 305 times
+75% percentile = 290 times
+95% percentile = 255 times
+Worst = 0  times
+Average = 305 times
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Compare horizontal slices size between ort and kdtree
+Best = 765 times
+5% percentile = 705 times
+25% percentile = 660 times
+50% percentile = 645 times
+75% percentile = 620 times
+95% percentile = 495 times
+Worst = 15  times
+Average = 625 times
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Compare horizontal slices size between ort and kdtree
+Best = 995 times
+5% percentile = 875 times
+25% percentile = 835 times
+50% percentile = 820 times
+75% percentile = 790 times
+95% percentile = 600 times
+Worst = 0  times
+Average = 782 times
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Compare horizontal slices size between ort and kdtree
+Best = 1165 times
+5% percentile = 1090 times
+25% percentile = 1025 times
+50% percentile = 1005 times
+75% percentile = 980 times
+95% percentile = 735 times
+Worst = 0  times
+Average = 960 times
+<=== === === === === === === === ===>
+
+
+TESTING 23 = Compare horizontal slices size between ort and kdtree
+Best = 2285 times
+5% percentile = 1910 times
+25% percentile = 1505 times
+50% percentile = 1470 times
+75% percentile = 1385 times
+95% percentile = 970 times
+Worst = 0  times
+Average = 1427 times
+<=== === === === === === === === ===>
+
+

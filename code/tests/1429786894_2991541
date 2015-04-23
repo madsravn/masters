@@ -1,0 +1,72 @@
+
+
+TESTING 17 = Testing that slices of 100 is independent of n
+Best = 3 microseconds
+5% percentile = 4 microseconds
+25% percentile = 4 microseconds
+50% percentile = 5 microseconds
+75% percentile = 5 microseconds
+95% percentile = 7 microseconds
+Worst = 22  microseconds
+Average = 4 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 18 = Testing that slices of 100 is independent of n
+Best = 3 microseconds
+5% percentile = 4 microseconds
+25% percentile = 4 microseconds
+50% percentile = 5 microseconds
+75% percentile = 5 microseconds
+95% percentile = 7 microseconds
+Worst = 15  microseconds
+Average = 4 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 19 = Testing that slices of 100 is independent of n
+Best = 3 microseconds
+5% percentile = 4 microseconds
+25% percentile = 4 microseconds
+50% percentile = 5 microseconds
+75% percentile = 5 microseconds
+95% percentile = 7 microseconds
+Worst = 21  microseconds
+Average = 4 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 20 = Testing that slices of 100 is independent of n
+Best = 3 microseconds
+5% percentile = 4 microseconds
+25% percentile = 4 microseconds
+50% percentile = 5 microseconds
+75% percentile = 5 microseconds
+95% percentile = 7 microseconds
+Worst = 444  microseconds
+Average = 5 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 21 = Testing that slices of 100 is independent of n
+Best = 3 microseconds
+5% percentile = 4 microseconds
+25% percentile = 4 microseconds
+50% percentile = 5 microseconds
+75% percentile = 6 microseconds
+95% percentile = 7 microseconds
+Worst = 15  microseconds
+Average = 5 microseconds
+<=== === === === === === === === ===>
+
+
+TESTING 22 = Testing that slices of 100 is independent of n
+Best = 4 microseconds
+5% percentile = 4 microseconds
+25% percentile = 4 microseconds
+50% percentile = 5 microseconds
+75% percentile = 6 microseconds
+95% percentile = 8 microseconds
+Worst = 283  microseconds
+Average = 5 microseconds
+<=== === === === === === === === ===>
