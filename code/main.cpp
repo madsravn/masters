@@ -261,30 +261,31 @@ void testingRun() {
 auto main(int argc, char** argv) -> int {
 
 
-    repl();
-    /*
+    //repl();
     Tester test(24);
-    
+/*    
     test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
     test.slices_of_100_horizontal_independent_of_n("Testing that slices of 100 horizontally is independent of n");
 
     //test.cacheimportance("Showing cache difference");
     
+    */
     test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
     test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
+    /*
     
 
     test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
     test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
     test.ten_vertical_slices_kdtree("Testing if vertical lines on kdtree agree");
     test.ten_horizontal_slices_kdtree("Testing if horizontal lines on kdtree agree");
+    */
 
     test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
     test.how_much_faster_is_ort_horizontal("Testing how much faster Ort is than KDTree horizontal");
 
 
-    test.test_two_different_findints("Two different findints in ort");
-    */
+    //test.test_two_different_findints("Two different findints in ort");
 
     /*int amount = pow(2,15);
     std::random_device rd;
