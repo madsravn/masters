@@ -2,7 +2,7 @@
 #include <chrono>
 #include <functional>
 #include <ratio>
-
+#include <functional>
 
 using unitofmeassure = std::chrono::microseconds;
 //using unitofmeassure = std::chrono::nanoseconds;
@@ -32,6 +32,19 @@ std::vector<int> numbers(std::vector<T> input, bool reverse = false) {
     ret.push_back(res); // 7
     return ret;
 }
+
+
+void
+Tester::run() {
+
+
+std::function<void(std::string)> foo_str = std::bind(&Tester::how_much_faster_is_ort_vertical,this, std::placeholders::_1);
+
+
+}
+
+
+
 
 
 template<typename T>

@@ -48,6 +48,8 @@ class Tester {
         void report(const std::vector<int>& vec, std::string name, std::string timename);
         void report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename);
 
+        void run();
+
     private:
         std::ofstream output;
         int size_of_trees;
