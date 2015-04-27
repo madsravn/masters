@@ -262,16 +262,16 @@ auto main(int argc, char** argv) -> int {
 
 
     //repl();
-    Tester test(24);
-/*    
+    //Tester test(24);
+    /*    
     test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
     test.slices_of_100_horizontal_independent_of_n("Testing that slices of 100 horizontally is independent of n");
 
     //test.cacheimportance("Showing cache difference");
     
     */
-    test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
-    test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
+    //test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
+    //test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
     /*
     
 
@@ -281,8 +281,8 @@ auto main(int argc, char** argv) -> int {
     test.ten_horizontal_slices_kdtree("Testing if horizontal lines on kdtree agree");
     */
 
-    test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
-    test.how_much_faster_is_ort_horizontal("Testing how much faster Ort is than KDTree horizontal");
+    //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
+    //test.how_much_faster_is_ort_horizontal("Testing how much faster Ort is than KDTree horizontal");
 
 
     //test.test_two_different_findints("Two different findints in ort");
@@ -300,7 +300,6 @@ auto main(int argc, char** argv) -> int {
 
 
 
-    /*
     std::vector<uint> vec;
     for(int i = 0; i < 8; ++i) {
         for(int j = 0; j < 10; ++j) {
@@ -332,9 +331,10 @@ auto main(int argc, char** argv) -> int {
     }
 
     auto packed2 = Data::packBits2(vec, size);
+    std::cout << "TO" << std::endl;
     for(int i = 0; i < vec.size(); ++i) {
-        if(Data::findInt2(packed2, size, i) != vec.at(i)) {
-            std::cout << Data::findInt2(packed2, size, i) << " == " << vec.at(i) << std::endl;
+        if(Data::findInt3(packed, size, i) != vec.at(i)) {
+            std::cout << Data::findInt3(packed, size, i) << " == " << vec.at(i) << std::endl;
         }
     }
 
@@ -343,11 +343,11 @@ auto main(int argc, char** argv) -> int {
         std::cout << bs.to_string() << std::endl;
     }
 
-    std::cout << std::endl << "<<<<<=========>>>>>>>" <<std::endl << std::endl;
+    /*std::cout << std::endl << "<<<<<=========>>>>>>>" <<std::endl << std::endl;
     for(const auto& e : Data::packBits2(vec, size)) {
         std::bitset<32> bs(e);
         std::cout << bs.to_string() << std::endl;
-    }
+    }*/
     Timer<unitofmeassure> t1;
     t1.start();
     for(const auto& e: vec2) {
@@ -358,10 +358,25 @@ auto main(int argc, char** argv) -> int {
 
     t1.startover();
     for(const auto& e : vec2) {
-        Data::findInt2(packed2, size, e);
+        Data::findInt3(packed, size, e);
     }
     t1.stop();
-    std::cout << t1.duration().count() << std::endl;*/
+    std::cout << t1.duration().count() << std::endl;
+
+    t1.startover();
+    for(const auto& e: vec2) {
+        Data::findInt(packed, size, e);
+    }
+    t1.stop();
+    std::cout << t1.duration().count() << std::endl;
+
+    t1.startover();
+    for(const auto& e : vec2) {
+        Data::findInt3(packed, size, e);
+    }
+    t1.stop();
+    std::cout << t1.duration().count() << std::endl;
+
 
 
 

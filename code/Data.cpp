@@ -84,6 +84,23 @@ Data::findInt(const std::vector<uint>& input, int size, int pos) {
     return (number | number2);
 }
 
+uint
+Data::findInt3(const std::vector<uint>& input, int size, int pos) {
+    pos = pos*size;
+    int firstc = pos >> 5;
+    int ipos = pos & 31;
+    int end = ipos+size;
+    std::uint64_t t = input[firstc];
+
+    std::uint64_t num = (t << 32) | input[firstc+1];
+    std::uint64_t number = num >> (64-end);
+    number = number & ((1 << size)-1);
+
+    return number;
+}
+
+
+
 std::vector<uint>
 Data::packBits(const std::vector<uint>& input, int size) {
 

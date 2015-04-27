@@ -19,6 +19,7 @@ class Data {
         static std::vector<uint> packBits2(const std::vector<uint>& input, int size);
         static uint findInt(const std::vector<uint>& input, int size, int pos);
         static uint findInt2(const std::vector<uint>& input, int size, int pos);
+        static uint findInt3(const std::vector<uint>& input, int size, int pos);
 
 
 
