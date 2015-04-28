@@ -63,20 +63,22 @@ class Ort {
         void followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level);
         void initializeBinarySearches();
         void addAll(int nodepos, int lrank, int urank, int level, int amount);
-        std::vector<Point> easyQuery(Point lowerleft, Point upperright); 
+        std::vector<Point> easyQuery(Point lowerleft, Point upperright, int& jumpcount);
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
         qreturn bigJump(int level, int pos);
         int convertRangeToInt(std::vector<uint> vec, int start, int stop);
         void generateJumps();
         uint size(int t) const;
-        std::vector<Point> search(Region reg, int t);
+        std::vector<Point> search(Region reg, int& jumpcount);
+        std::vector<Point> search(Region reg);
         std::vector<LinearJumper> getJumps() { return linear; }
         std::vector<int> createLinkedList(int size);
 
     private:
         // type: 1 for no big jumps, 2 for expensive big jumps and 3 for linear big jumps
-        int type;
+        //int type;
         Point corner;
+        int internaljumpcount;
         int count;
         std::vector<std::vector<uint>> levels;
         std::vector<uint> bits;

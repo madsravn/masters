@@ -32,7 +32,9 @@ class Tester {
         void test_two_different_findints(std::string name);
 
         void how_much_faster_is_ort_vertical(std::string name);
-        void how_much_faster_is_ort_horizontal(std::string name);
+
+        template<typename T>
+        void how_much_faster_is_ort_horizontal(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, int k);
 
 
 
@@ -46,6 +48,8 @@ class Tester {
 
         std::tuple<Ort, KDTree> buildtrees(int n);
         void report(const std::vector<int>& vec, std::string name, std::string timename);
+
+        void report(const std::vector<int>& vec, std::string name, std::string timename, std::ofstream& writetome);
         void report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename);
 
         void run();

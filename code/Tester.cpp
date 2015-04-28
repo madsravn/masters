@@ -34,17 +34,6 @@ std::vector<int> numbers(std::vector<T> input, bool reverse = false) {
 }
 
 
-void
-Tester::run() {
-
-
-std::function<void(std::string)> foo_str = std::bind(&Tester::how_much_faster_is_ort_vertical,this, std::placeholders::_1);
-
-
-}
-
-
-
 
 
 template<typename T>
@@ -146,6 +135,35 @@ Tester::report(const std::vector<int>& vec, std::string name, std::string timena
 
 }
 
+
+void
+Tester::report(const std::vector<int>& vec, std::string name, std::string timename, std::ofstream& writetome) {
+    std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
+    std::cout << "Best = " << vec.at(0) << " " << timename << std::endl;
+    std::cout << "5% percentile = " << vec.at(1) << " " << timename << std::endl;
+    std::cout << "25% percentile = " << vec.at(2) << " " << timename << std::endl;
+    std::cout << "50% percentile = " << vec.at(3) << " " << timename << std::endl;
+    std::cout << "75% percentile = " << vec.at(4) << " " << timename << std::endl;
+    std::cout << "95% percentile = " << vec.at(5) << " " << timename << std::endl;
+    std::cout << "Worst = " << vec.at(6) << "  " << timename << std::endl;
+    std::cout << "Average = " << vec.at(7) << " " << timename << std::endl;
+    std::cout << "<=== === === === === === === === ===>" << std::endl;
+
+    writetome << std::endl << std::endl << "TESTING " << name << std::endl;
+    writetome << "Best = " << vec.at(0) << " " << timename << std::endl;
+    writetome << "5% percentile = " << vec.at(1) << " " << timename << std::endl;
+    writetome << "25% percentile = " << vec.at(2) << " " << timename << std::endl;
+    writetome << "50% percentile = " << vec.at(3) << " " << timename << std::endl;
+    writetome << "75% percentile = " << vec.at(4) << " " << timename << std::endl;
+    writetome << "95% percentile = " << vec.at(5) << " " << timename << std::endl;
+    writetome << "Worst = " << vec.at(6) << "  " << timename << std::endl;
+    writetome << "Average = " << vec.at(7) << " " << timename << std::endl;
+    writetome << "<=== === === === === === === === ===>" << std::endl;
+
+}
+
+
+
 void
 Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename) {
     std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
@@ -160,54 +178,124 @@ Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std:
 }
 
 
+
 void
-Tester::how_much_faster_is_ort_horizontal(std::string name) {
+Tester::run() {
+
+
+    //std::function<void(std::string)> foo_str = std::bind(&Tester::how_much_faster_is_ort_vertical,this, std::placeholders::_1);
+    //std::function<void(std::string)> bar_str = std::bind(&Tester::how_much_faster_is_ort_horizontal, this, std::placeholders::_1);
+
+
+    // IDE: SEND ORT OG KD TRÆ MED TIL FUNKTIONER. LAD DERES VECTORS VÆRE STYRET HERFRA OG SÅ RENSER VI DEM OGSÅ HER
+    //
+    //
+    //
+    // TODO: DYBDE I ORT TRÆER!
+
+    Timer<std::chrono::seconds> t2;
+    
+    auto now = std::chrono::system_clock::now();
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    auto secs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
+
+
+    std::string filename = "tests/kdtree_vs_ort_hori_" + std::to_string(secs.count());
+    std::uniform_int_distribution<> dis(7652, 8761238);
+    int random = dis(gen);
+    filename += "_" + std::to_string(random);
+    std::ofstream kdtreeorthori(filename);
+ 
+
+
     for(int k = 17; k < size_of_trees; ++k) {
+        t2.reset();
+        t2.start();
         int testSize = k;
-        Timer<unitofmeassure> t1;
         int amount = pow(2,testSize);
         int how_many = std::sqrt(amount)*1.5;
         int interval = 5;
         int jumps = how_many/interval;
+
+        // TEST1
         std::vector<std::vector<int>> timevector(jumps, std::vector<int> {});
         std::vector<std::vector<int>> timevector2(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> jumps_hori(jumps, std::vector<int> {});
+        std::string T1name = "How much faster is Ort than KDTree horizontal";
         for(int i = 0; i < 10; ++i) {
             std::tuple<Ort, KDTree> trees = buildtrees(testSize);
             Ort ort = std::get<0>(trees);
             KDTree kdtree = std::get<1>(trees);
-            for(int size = 1; size < jumps+1; ++size) {
-                for(int h = 0; h < 10; ++h) {
-                    for(int j = 0; j < 100; ++j) {
-                        t1.reset();
-                        t1.start();
-                        ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + size*interval}}, 3);
-                        t1.stop();
 
-                        timevector.at(size-1).push_back(t1.duration().count());
-
-                        t1.reset();
-                        t1.start();
-                        kdtree.search({{0, (amount/100)*j},{amount, (amount/100)*j + size*interval}});
-                        t1.stop();
-
-                        timevector2.at(size-1).push_back(t1.duration().count());
-                        
-                    }
-                }
-            }
+            // TEST1 
+            how_much_faster_is_ort_horizontal<unitofmeassure>(T1name, ort, kdtree, timevector, timevector2, jumps_hori, k);
         }
+        // For TEST1
         for(int i = 0; i < timevector.size(); ++i) {
+            Timer<unitofmeassure> t1;
             std::vector<int> rep = numbers(timevector.at(i));
-            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + name, t1.type());
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T1name, t1.type(), kdtreeorthori);
+            std::vector<int> jumprep  = numbers(jumps_hori.at(i));
+            report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T1name, "jumps", kdtreeorthori);
+            std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+            
             std::vector<int> rep2 = numbers(timevector2.at(i));
-            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + name, t1.type());
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T1name, t1.type(), kdtreeorthori);
         }
 
-
+        t2.stop();
+        kdtreeorthori.flush();
+        std::cout << "Round " << k << " took " << t2.duration().count() << " seconds." << std::endl;
     }
 
+    kdtreeorthori.close();
 
 
+}
+
+
+
+
+template<typename T>
+void
+Tester::how_much_faster_is_ort_horizontal(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, int k) {
+    
+    
+    int testSize = k;
+    int amount = pow(2,testSize);
+    int how_many = std::sqrt(amount)*1.5;
+    int interval = 5;
+    int jumps = how_many/interval;
+    int jumpcount = 0;
+
+
+
+    Timer<T> t1;
+    for(int size = 1; size < timevector.size()+1; ++size) {
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                jumpcount = 0;
+                Region reg {{0, (amount/100)*j},{amount, (amount/100)*j + size*interval}};
+                
+                t1.reset();
+                t1.start();
+                ort.search(reg, jumpcount);
+                t1.stop();
+
+                timevector.at(size-1).push_back(t1.duration().count());
+                jump_vector.at(size-1).push_back(jumpcount);
+
+                t1.reset();
+                t1.start();
+                kdtree.search(reg);
+                t1.stop();
+
+                timevector2.at(size-1).push_back(t1.duration().count());
+                
+            }
+        }
+    }
 }
 
 
@@ -233,7 +321,7 @@ Tester::how_much_faster_is_ort_vertical(std::string name) {
                     for(int j = 0; j < 100; ++j) {
                         t1.reset();
                         t1.start();
-                        ort.search({{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}}, 3);
+                        ort.search({{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}});
                         t1.stop();
 
                         timevector.at(size-1).push_back(t1.duration().count());
@@ -289,7 +377,7 @@ Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
             for(int j = 0; j < 100; ++j) {
                 t1.reset();
                 t1.start();
-                ort.search({{0, (amount/100)*h},{amount, (amount/100)*h + 100}}, 4);
+                ort.search({{0, (amount/100)*h},{amount, (amount/100)*h + 100}});
                 t1.stop();
 
                 times.push_back(t1.duration().count());
@@ -314,7 +402,7 @@ Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
             for(int j = 0; j < 100; ++j) {
                 t1.reset();
                 t1.start();
-                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 4);
+                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}});
                 t1.stop();
 
                 times.push_back(t1.duration().count());
@@ -339,7 +427,7 @@ Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
             for(int j = 0; j < 100; ++j) {
                 t1.reset();
                 t1.start();
-                ort.search({{0, (amount/100)*h},{amount, (amount/100)*h + 100}}, 3);
+                ort.search({{0, (amount/100)*h},{amount, (amount/100)*h + 100}});
                 t1.stop();
 
                 times.push_back(t1.duration().count());
@@ -364,7 +452,7 @@ Tester::CACHE_create_and_search_ort_type_three_different(std::string name) {
             for(int j = 0; j < 100; ++j) {
                 t1.reset();
                 t1.start();
-                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 3);
+                ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}});
                 t1.stop();
 
                 times.push_back(t1.duration().count());
@@ -400,7 +488,7 @@ Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
                 for(int j = 0; j < 100; ++j) {
                     t1.reset();
                     t1.start();
-                    ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}}, 3);
+                    ort.search({{0, (amount/100)*j},{amount, (amount/100)*j + 100}});
                     t1.stop();
 
                     times.push_back(t1.duration().count());
@@ -430,7 +518,7 @@ Tester::slices_of_100_vertical_independent_of_n(std::string name) {
                 for(int j = 0; j < 100; ++j) {
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + 100, amount}}, 3);
+                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + 100, amount}});
                     t1.stop();
 
                     times.push_back(t1.duration().count());
@@ -456,7 +544,7 @@ void Tester::cacheimportance(std::string name) {
                 for(int h = 0; h < 100; ++h) {
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + 20, amount}}, 3);
+                    ort.search({{(amount/100)*j, 0},{(amount/100)*j + 20, amount}});
                     t1.stop();
 
                     times.push_back(t1.duration().count());
@@ -475,7 +563,7 @@ void Tester::cacheimportance(std::string name) {
                 for(int h = 0; h < 100; ++h) {
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/100)*h, 0},{(amount/100)*h + 20, amount}}, 3);
+                    ort.search({{(amount/100)*h, 0},{(amount/100)*h + 20, amount}});
                     t1.stop();
 
                     times2.push_back(t1.duration().count());
@@ -503,7 +591,7 @@ Tester::ten_vertical_slices_have_same_performance(std::string name) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();
-                    ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}}, 3);
+                    ort.search({{(amount/10)*h, 0},{(amount/10)*h + 50, amount}});
                     t1.stop();
                     times.at(h).push_back(t1.duration().count());
 
@@ -555,7 +643,7 @@ Tester::ten_horizontal_slices_have_same_performance(std::string name) {
                 for(int h = 0; h < 10; ++h) {
                     t1.reset();
                     t1.start();
-                    ort.search({{0, (amount/10)*h},{amount, (amount/10)*h + 50}}, 3);
+                    ort.search({{0, (amount/10)*h},{amount, (amount/10)*h + 50}});
                     t1.stop();
                     times.at(h).push_back(t1.duration().count());
 
@@ -615,7 +703,7 @@ Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name)
 
                     t1.reset();
                     t1.start();
-                    ort.search(reg, 3);
+                    ort.search(reg);
                     t1.stop();
 
                     t2.reset();
@@ -633,7 +721,7 @@ Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name)
 
                         t1.reset();
                         t1.start();
-                        ort.search(reg, 3);
+                        ort.search(reg);
                         t1.stop();
 
                         t2.reset();
@@ -680,7 +768,7 @@ Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
 
                     t1.reset();
                     t1.start();
-                    ort.search(reg, 3);
+                    ort.search(reg);
                     t1.stop();
 
                     t2.reset();
@@ -697,7 +785,7 @@ Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
 
                         t1.reset();
                         t1.start();
-                        ort.search(reg, 3);
+                        ort.search(reg);
                         t1.stop();
 
                         t2.reset();

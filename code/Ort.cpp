@@ -40,11 +40,14 @@ Ort::makemask(uint range) {
 // <do we jump, character, rank, alphabet size>
 qreturn
 Ort::bigJump(int level, int pos) {
-    if(linear.at(level).jump == 1 || type == 1) {
+
+    // || type == 1
+    if(linear.at(level).jump == 1) {
         //std::cout << "Small steps" << std::endl;
         return {0,1,1,1};
     }
 
+    /*
     // Skift mellem at bruge jumps eller notsolinear
     if(type == 2) {
         //int character = jumps.at(level).targets.at(pos);
@@ -85,7 +88,7 @@ Ort::bigJump(int level, int pos) {
         }
 
         return {1,character, 0, size};
-    }
+    }*/
 
     // ELSE TYPE == 3
 
@@ -109,11 +112,22 @@ Ort::bigJump(int level, int pos) {
 }
 
 std::vector<Point> 
-Ort::search(Region reg, int t) {
-    type = t;
+Ort::search(Region reg, int& jumpcount) {
+    jumpcount = 0;
+    //type = t;
     //std::cout << "Searching with type = " << type << std::endl;
-    return easyQuery(reg.ll, reg.ur);
+    return easyQuery(reg.ll, reg.ur, jumpcount);
 }
+
+std::vector<Point> 
+Ort::search(Region reg) {
+    int jumpcount = 0;
+    //type = t;
+    //std::cout << "Searching with type = " << type << std::endl;
+    return easyQuery(reg.ll, reg.ur, jumpcount);
+}
+
+
 
 // Will return the size in the amount of 32-bits containers used (int, uint)
 uint
@@ -505,6 +519,7 @@ Point
 Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
 
     while(amount > 1) {
+        internaljumpcount++;
         qreturn big = bigJump(level, pos);
         if(big.jump == 1) {
             int size = pow(2, big.size);
@@ -671,7 +686,7 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
 
 
 
-    type = 3;
+    //type = 3;
     // Testing that all balls falls to their correct leaf
     /*bool all = true;
     for(int i = 0; i < points.size(); ++i) {
@@ -683,11 +698,11 @@ Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2
     initializeBinarySearches();
     linkedlists.clear();
     twodarray.clear();
-    type = 3;
+    //type = 3;
 }
 
 std::vector<Point>
-Ort::easyQuery(Point lowerleft, Point upperright) {
+Ort::easyQuery(Point lowerleft, Point upperright, int& jumpcount) {
     
     auto lx = std::lower_bound(std::begin(xb), std::end(xb), lowerleft.x);
     auto ux = std::upper_bound(std::begin(xb), std::end(xb), upperright.x);
@@ -717,6 +732,7 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     std::vector<Point> temp;
 
     // TODO: Find a better way to express amount of balls
+    internaljumpcount = 0;
     FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
     //std::cout << results << std::endl;
     /*bool all = true;
@@ -727,6 +743,8 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
 
 
     results.swap(temp);
+    jumpcount = internaljumpcount;
+    internaljumpcount = 0;
     return temp;
 }
 

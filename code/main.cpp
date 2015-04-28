@@ -156,7 +156,7 @@ std::map<int, Ort> ortmap;
                     Timer<unitofmeassure> t1;
                     t1.start();
                     for(int i = 0; i < count; ++i) {
-                        ort->second.search({ll,ur}, 1);
+                        ort->second.search({ll,ur});
                     }
                     t1.stop();
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
@@ -165,7 +165,7 @@ std::map<int, Ort> ortmap;
                     Timer<unitofmeassure> t2;
                     t2.start();
                     for(int i = 0; i < count; ++i) {
-                        ort->second.search({ll,ur}, 2);
+                        ort->second.search({ll,ur});
                     }
                     t2.stop();
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
@@ -174,13 +174,13 @@ std::map<int, Ort> ortmap;
                     Timer<unitofmeassure> t3;
                     t3.start();
                     for(int i = 0; i < count; ++i) {
-                        ort->second.search({ll,ur}, 3);
+                        ort->second.search({ll,ur});
                     }
                     t3.stop(); 
                     //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
                     std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
-                    a = ort->second.search({ll,ur},3);
-                    resultsize = ort->second.search({ll,ur},1).size();
+                    a = ort->second.search({ll,ur});
+                    resultsize = ort->second.search({ll,ur}).size();
 
                 }
                 else {
@@ -224,7 +224,7 @@ void testingRun() {
         for(int j = 0; j < 10000; ++j) {
             std::vector<Point> points = Data::randomPoints(gen, amount);
             //std::cout << "POINTS: " << points << std::endl;
-            std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
+            std::vector<Point> a = ort.search({points.at(0), points.at(1)});
             std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
             Region query = {points.at(0), points.at(1)};
             std::vector<Point> c = kdtree.search(query);
@@ -252,55 +252,9 @@ void testingRun() {
     }
 }
 
-
-
-
-
-
-
-auto main(int argc, char** argv) -> int {
-
-
-    //repl();
-    //Tester test(24);
-    /*    
-    test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
-    test.slices_of_100_horizontal_independent_of_n("Testing that slices of 100 horizontally is independent of n");
-
-    //test.cacheimportance("Showing cache difference");
-    
-    */
-    //test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
-    //test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
-    /*
-    
-
-    test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
-    test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
-    test.ten_vertical_slices_kdtree("Testing if vertical lines on kdtree agree");
-    test.ten_horizontal_slices_kdtree("Testing if horizontal lines on kdtree agree");
-    */
-
-    //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
-    //test.how_much_faster_is_ort_horizontal("Testing how much faster Ort is than KDTree horizontal");
-
-
-    //test.test_two_different_findints("Two different findints in ort");
-
-    /*int amount = pow(2,15);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    Ort ort(amount, Data::generate(amount));
-    std::vector<Point> points = Data::randomPoints(gen, amount);
-    std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 4);
-    std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
-    std::sort(std::begin(a), std::end(a), sortpointx);
-    std::sort(std::begin(b), std::end(b), sortpointx);
-    std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
-
-
-
+void measureTimeOfPackedInts() {
     std::vector<uint> vec;
+
     for(int i = 0; i < 8; ++i) {
         for(int j = 0; j < 10; ++j) {
             vec.push_back(i);
@@ -343,11 +297,6 @@ auto main(int argc, char** argv) -> int {
         std::cout << bs.to_string() << std::endl;
     }
 
-    /*std::cout << std::endl << "<<<<<=========>>>>>>>" <<std::endl << std::endl;
-    for(const auto& e : Data::packBits2(vec, size)) {
-        std::bitset<32> bs(e);
-        std::cout << bs.to_string() << std::endl;
-    }*/
     Timer<unitofmeassure> t1;
     t1.start();
     for(const auto& e: vec2) {
@@ -376,9 +325,63 @@ auto main(int argc, char** argv) -> int {
     }
     t1.stop();
     std::cout << t1.duration().count() << std::endl;
+}
+
+
+void TESTS() {
+    
+    Tester test(20);
+    test.run();
+
+    /*    
+    test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
+    test.slices_of_100_horizontal_independent_of_n("Testing that slices of 100 horizontally is independent of n");
+
+    //test.cacheimportance("Showing cache difference");
+    
+    */
+    //test.compare_vertical_slices_times_between_ort_and_kdtree("Compare vertical slices size between ort and kdtree");
+    //test.compare_horizontal_slices_times_between_ort_and_kdtree("Compare horizontal slices size between ort and kdtree");
+    /*
+    
+
+    test.ten_vertical_slices_have_same_performance("Testing if vertical lines agree");
+    test.ten_horizontal_slices_have_same_performance("Testing if horizontal lines agree");
+    test.ten_vertical_slices_kdtree("Testing if vertical lines on kdtree agree");
+    test.ten_horizontal_slices_kdtree("Testing if horizontal lines on kdtree agree");
+    */
+
+    //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
+    //test.how_much_faster_is_ort_horizontal("Testing how much faster Ort is than KDTree horizontal");
+
+
+    // NO LONGER RELEVANT!
+    //test.test_two_different_findints("Two different findints in ort");
+}
 
 
 
+
+
+auto main(int argc, char** argv) -> int {
+
+    TESTS();
+
+    //repl();
+    /*int amount = pow(2,15);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    Ort ort(amount, Data::generate(amount));
+    std::vector<Point> points = Data::randomPoints(gen, amount);
+    std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 4);
+    std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
+    std::sort(std::begin(a), std::end(a), sortpointx);
+    std::sort(std::begin(b), std::end(b), sortpointx);
+    std::cout << "Punkterne er ens: " << (a == b) << std::endl;*/
+
+
+
+    
 
 
     
