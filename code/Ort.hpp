@@ -63,13 +63,26 @@ class Ort {
         void followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level);
         void initializeBinarySearches();
         void addAll(int nodepos, int lrank, int urank, int level, int amount);
-        std::vector<Point> easyQuery(Point lowerleft, Point upperright, int& jumpcount);
+        std::vector<Point> easyQuery(Point lowerleft, Point upperright); //, int& jumpcount, int& maxdepth);
         std::vector<Point> actualQuery(Point lowerleft, Point upperright);
         qreturn bigJump(int level, int pos);
         int convertRangeToInt(std::vector<uint> vec, int start, int stop);
         void generateJumps();
         uint size(int t) const;
-        std::vector<Point> search(Region reg, int& jumpcount);
+        std::vector<Point> search(Region reg, int& jumpcount, int& maxdepth);
+        
+        
+        // TO FIND DEPTH
+        void DepthFindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level);
+        void DepthfollowPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level);
+
+        void DepthaddAll(int nodepos, int lrank, int urank, int level, int amount);
+        std::vector<Point> DeptheasyQuery(Point lowerleft, Point upperright, int& jumpcount, int& maxdepth, int& startlevel);
+        std::vector<Point> Depthsearch(Region reg, int& jumpcount, int& maxdepth, int& startlevel);
+        
+        Point Depthwhilefollowball(int level, int nodepos, int pos, int amount);
+        
+        
         std::vector<Point> search(Region reg);
         std::vector<LinearJumper> getJumps() { return linear; }
         std::vector<int> createLinkedList(int size);
@@ -79,6 +92,8 @@ class Ort {
         //int type;
         Point corner;
         int internaljumpcount;
+        int internalmaxdepth;
+        int internalstartlevel;
         int count;
         std::vector<std::vector<uint>> levels;
         std::vector<uint> bits;
@@ -91,10 +106,10 @@ class Ort {
         int current;
         std::vector<std::vector<uint>> linkedlists;
         std::vector<std::vector<uint>> twodarray;
-        std::vector<Jumper> jumps;
-        std::vector<LinearJumper> notsolinear;
+        //std::vector<Jumper> jumps;
+        //std::vector<LinearJumper> notsolinear;
         std::vector<LinearJumper> linear;
-        std::vector<LinearJumper> lineargarb;
+        //std::vector<LinearJumper> lineargarb;
         std::vector<Point> results;
 
 

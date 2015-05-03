@@ -330,8 +330,8 @@ void measureTimeOfPackedInts() {
 
 void TESTS() {
     
-    Tester test(20);
-    test.run();
+    Tester test(21);
+    //test.run();
 
     /*    
     test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
@@ -365,9 +365,9 @@ void TESTS() {
 
 auto main(int argc, char** argv) -> int {
 
-    TESTS();
+    //TESTS();
 
-    //repl();
+    repl();
     /*int amount = pow(2,15);
     std::random_device rd;
     std::mt19937 gen(rd());

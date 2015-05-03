@@ -1,0 +1,156 @@
+
+
+TESTING 17 = When is KDTree just as fast as Ort horizontal
+Best = 140 times
+5% percentile = 110 times
+25% percentile = 105 times
+50% percentile = 100 times
+75% percentile = 95 times
+95% percentile = 90 times
+Worst = 0  times
+Average = 100 times
+<=== === === === === === === === ===>
+
+
+TESTING 17 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 25 jumps
+5% percentile = 33 jumps
+25% percentile = 89 jumps
+50% percentile = 158 jumps
+75% percentile = 227 jumps
+95% percentile = 285 jumps
+Worst = 398  jumps
+Average = 159 jumps
+<=== === === === === === === === ===>
+That is 1.59 jumps per result.
+With a max jump of 3 and an average of 3
+
+
+TESTING 18 = When is KDTree just as fast as Ort horizontal
+Best = 175 times
+5% percentile = 140 times
+25% percentile = 135 times
+50% percentile = 130 times
+75% percentile = 125 times
+95% percentile = 115 times
+Worst = 20  times
+Average = 129 times
+<=== === === === === === === === ===>
+
+
+TESTING 18 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 31 jumps
+5% percentile = 53 jumps
+25% percentile = 137 jumps
+50% percentile = 241 jumps
+75% percentile = 348 jumps
+95% percentile = 441 jumps
+Worst = 600  jumps
+Average = 242 jumps
+<=== === === === === === === === ===>
+That is 1.87597 jumps per result.
+With a max jump of 4 and an average of 4
+
+
+TESTING 19 = When is KDTree just as fast as Ort horizontal
+Best = 425 times
+5% percentile = 390 times
+25% percentile = 355 times
+50% percentile = 340 times
+75% percentile = 305 times
+95% percentile = 230 times
+Worst = 40  times
+Average = 327 times
+<=== === === === === === === === ===>
+
+
+TESTING 19 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 13 jumps
+5% percentile = 52 jumps
+25% percentile = 195 jumps
+50% percentile = 372 jumps
+75% percentile = 553 jumps
+95% percentile = 726 jumps
+Worst = 926  jumps
+Average = 377 jumps
+<=== === === === === === === === ===>
+That is 1.15291 jumps per result.
+With a max jump of 4 and an average of 3
+
+
+TESTING 20 = When is KDTree just as fast as Ort horizontal
+Best = 825 times
+5% percentile = 755 times
+25% percentile = 705 times
+50% percentile = 670 times
+75% percentile = 550 times
+95% percentile = 400 times
+Worst = 25  times
+Average = 628 times
+<=== === === === === === === === ===>
+
+
+TESTING 20 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 15 jumps
+5% percentile = 82 jumps
+25% percentile = 345 jumps
+50% percentile = 673 jumps
+75% percentile = 1017 jumps
+95% percentile = 1365 jumps
+Worst = 1707  jumps
+Average = 690 jumps
+<=== === === === === === === === ===>
+That is 1.09873 jumps per result.
+With a max jump of 4 and an average of 3
+
+
+TESTING 21 = When is KDTree just as fast as Ort horizontal
+Best = 980 times
+5% percentile = 905 times
+25% percentile = 865 times
+50% percentile = 835 times
+75% percentile = 670 times
+95% percentile = 515 times
+Worst = 50  times
+Average = 769 times
+<=== === === === === === === === ===>
+
+
+TESTING 21 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 16 jumps
+5% percentile = 95 jumps
+25% percentile = 409 jumps
+50% percentile = 803 jumps
+75% percentile = 1212 jumps
+95% percentile = 1642 jumps
+Worst = 2005  jumps
+Average = 824 jumps
+<=== === === === === === === === ===>
+That is 1.07152 jumps per result.
+With a max jump of 4 and an average of 3
+
+
+TESTING 22 = When is KDTree just as fast as Ort horizontal
+Best = 1190 times
+5% percentile = 1080 times
+25% percentile = 1050 times
+50% percentile = 990 times
+75% percentile = 815 times
+95% percentile = 655 times
+Worst = 105  times
+Average = 930 times
+<=== === === === === === === === ===>
+
+
+TESTING 22 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 20 jumps
+5% percentile = 137 jumps
+25% percentile = 604 jumps
+50% percentile = 1188 jumps
+75% percentile = 1792 jumps
+95% percentile = 2430 jumps
+Worst = 3005  jumps
+Average = 1217 jumps
+<=== === === === === === === === ===>
+That is 1.3086 jumps per result.
+With a max jump of 4 and an average of 3

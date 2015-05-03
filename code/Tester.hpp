@@ -32,9 +32,25 @@ class Tester {
         void test_two_different_findints(std::string name);
 
         void how_much_faster_is_ort_vertical(std::string name);
+        void how_much_faster_is_ort_horizontal(std::string name);
+
+        
+        
+        template<typename T>
+        void how_much_faster_is_ort_horizontal(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
+        template<typename T>
+        void how_much_faster_is_ort_vertical(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
 
         template<typename T>
-        void how_much_faster_is_ort_horizontal(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, int k);
+        void how_much_faster_is_ort_horizontal_small(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
+        template<typename T>
+        void how_much_faster_is_ort_vertical_small(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
+
+
+
+
+        void compare_vertical_slices_times_between_ort_and_kdtree(std::string name, Ort& ort, KDTree& kdtree, std::vector<int>& times, std::vector<int>& jumps_vector, std::vector<int>& max_jumps, int k);
+        void compare_horizontal_slices_times_between_ort_and_kdtree(std::string name, Ort& ort, KDTree& kdtree, std::vector<int>& times, std::vector<int>& jumps_vector, std::vector<int>& max_jumps, int k);
 
 
 
