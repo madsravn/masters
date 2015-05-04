@@ -236,20 +236,17 @@ Ort::createLinkedList(int size) {
         }
     }
         
-    //jumplist.at(8) = 9;
-    //jumplist.at(9) = 10;
     
     std::reverse(std::begin(jumplist), std::end(jumplist));
 
     
-    for(int i = 0; i < jumplist.size(); ++i) {
+    /*for(int i = 0; i < jumplist.size(); ++i) {
         // Is the jump close to just hitting the end? Then let it
         if(i+jumplist.at(i) > jumplist.size() - 4) {
             // TODO: Better semantics
             jumplist.at(i) = jumplist.size()+3;
         }
-    }
-    //std::cout << jumplist << std::endl;
+    }*/
     return jumplist;
 }
 
