@@ -1,0 +1,4320 @@
+
+
+TESTING 17 and 5 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 2971 nanoseconds
+5% percentile = 3225 nanoseconds
+25% percentile = 3388 nanoseconds
+50% percentile = 3547 nanoseconds
+75% percentile = 3813 nanoseconds
+95% percentile = 7462 nanoseconds
+Worst = 72251  nanoseconds
+Average = 4073 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 5 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 11 jumps
+5% percentile = 14 jumps
+25% percentile = 15 jumps
+50% percentile = 16 jumps
+75% percentile = 17 jumps
+95% percentile = 18 jumps
+Worst = 18  jumps
+Average = 15.7488 jumps
+<=== === === === === === === === ===>
+That is 2.62479 jumps per result.
+With a max jump of 3 and a average of 2.99891
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 5 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 20929 nanoseconds
+5% percentile = 24817 nanoseconds
+25% percentile = 26523 nanoseconds
+50% percentile = 27298 nanoseconds
+75% percentile = 28180 nanoseconds
+95% percentile = 32654 nanoseconds
+Worst = 87218  nanoseconds
+Average = 27776 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 10 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 3975 nanoseconds
+5% percentile = 4361 nanoseconds
+25% percentile = 4625 nanoseconds
+50% percentile = 4947 nanoseconds
+75% percentile = 6094 nanoseconds
+95% percentile = 9648 nanoseconds
+Worst = 36770  nanoseconds
+Average = 5719 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 10 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 23 jumps
+5% percentile = 26 jumps
+25% percentile = 28 jumps
+50% percentile = 29 jumps
+75% percentile = 30 jumps
+95% percentile = 32 jumps
+Worst = 33  jumps
+Average = 28.7514 jumps
+<=== === === === === === === === ===>
+That is 2.61376 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 10 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 21145 nanoseconds
+5% percentile = 25273 nanoseconds
+25% percentile = 27036 nanoseconds
+50% percentile = 27905 nanoseconds
+75% percentile = 29337 nanoseconds
+95% percentile = 45845 nanoseconds
+Worst = 100095  nanoseconds
+Average = 29988 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 15 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 4890 nanoseconds
+5% percentile = 5308 nanoseconds
+25% percentile = 5611 nanoseconds
+50% percentile = 5918 nanoseconds
+75% percentile = 6498 nanoseconds
+95% percentile = 8910 nanoseconds
+Worst = 65074  nanoseconds
+Average = 6365 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 15 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 34 jumps
+5% percentile = 38 jumps
+25% percentile = 40 jumps
+50% percentile = 42 jumps
+75% percentile = 43 jumps
+95% percentile = 45 jumps
+Worst = 47  jumps
+Average = 41.7793 jumps
+<=== === === === === === === === ===>
+That is 2.61121 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 15 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 21375 nanoseconds
+5% percentile = 25452 nanoseconds
+25% percentile = 27171 nanoseconds
+50% percentile = 27985 nanoseconds
+75% percentile = 28966 nanoseconds
+95% percentile = 33940 nanoseconds
+Worst = 99138  nanoseconds
+Average = 28781 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 20 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 6038 nanoseconds
+5% percentile = 6488 nanoseconds
+25% percentile = 6834 nanoseconds
+50% percentile = 7208 nanoseconds
+75% percentile = 7860 nanoseconds
+95% percentile = 10044 nanoseconds
+Worst = 69589  nanoseconds
+Average = 7628 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 20 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 48 jumps
+5% percentile = 51 jumps
+25% percentile = 53 jumps
+50% percentile = 55 jumps
+75% percentile = 56 jumps
+95% percentile = 58 jumps
+Worst = 61  jumps
+Average = 54.8427 jumps
+<=== === === === === === === === ===>
+That is 2.61156 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 20 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 21528 nanoseconds
+5% percentile = 25823 nanoseconds
+25% percentile = 27585 nanoseconds
+50% percentile = 28478 nanoseconds
+75% percentile = 29562 nanoseconds
+95% percentile = 33249 nanoseconds
+Worst = 100595  nanoseconds
+Average = 29022 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 25 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 6850 nanoseconds
+5% percentile = 7453 nanoseconds
+25% percentile = 7871 nanoseconds
+50% percentile = 8247 nanoseconds
+75% percentile = 8811 nanoseconds
+95% percentile = 11233 nanoseconds
+Worst = 65487  nanoseconds
+Average = 8647 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 25 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 60 jumps
+5% percentile = 64 jumps
+25% percentile = 66 jumps
+50% percentile = 68 jumps
+75% percentile = 70 jumps
+95% percentile = 72 jumps
+Worst = 74  jumps
+Average = 67.9619 jumps
+<=== === === === === === === === ===>
+That is 2.61392 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 25 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 21625 nanoseconds
+5% percentile = 26120 nanoseconds
+25% percentile = 27821 nanoseconds
+50% percentile = 28717 nanoseconds
+75% percentile = 29782 nanoseconds
+95% percentile = 32731 nanoseconds
+Worst = 97049  nanoseconds
+Average = 29137 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 30 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 7771 nanoseconds
+5% percentile = 8428 nanoseconds
+25% percentile = 8875 nanoseconds
+50% percentile = 9347 nanoseconds
+75% percentile = 10147 nanoseconds
+95% percentile = 13031 nanoseconds
+Worst = 78189  nanoseconds
+Average = 9894 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 30 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 73 jumps
+5% percentile = 76 jumps
+25% percentile = 79 jumps
+50% percentile = 81 jumps
+75% percentile = 83 jumps
+95% percentile = 85 jumps
+Worst = 89  jumps
+Average = 81.0987 jumps
+<=== === === === === === === === ===>
+That is 2.61609 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 30 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 22015 nanoseconds
+5% percentile = 26293 nanoseconds
+25% percentile = 28061 nanoseconds
+50% percentile = 29046 nanoseconds
+75% percentile = 30244 nanoseconds
+95% percentile = 34209 nanoseconds
+Worst = 106250  nanoseconds
+Average = 29589 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 35 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 8777 nanoseconds
+5% percentile = 9592 nanoseconds
+25% percentile = 10085 nanoseconds
+50% percentile = 10561 nanoseconds
+75% percentile = 11236 nanoseconds
+95% percentile = 13887 nanoseconds
+Worst = 82809  nanoseconds
+Average = 10969 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 35 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 86 jumps
+5% percentile = 89 jumps
+25% percentile = 92 jumps
+50% percentile = 94 jumps
+75% percentile = 96 jumps
+95% percentile = 99 jumps
+Worst = 102  jumps
+Average = 94.2112 jumps
+<=== === === === === === === === ===>
+That is 2.61698 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 35 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 22345 nanoseconds
+5% percentile = 26663 nanoseconds
+25% percentile = 28463 nanoseconds
+50% percentile = 29450 nanoseconds
+75% percentile = 30653 nanoseconds
+95% percentile = 33798 nanoseconds
+Worst = 96787  nanoseconds
+Average = 29952 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 40 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 9807 nanoseconds
+5% percentile = 10577 nanoseconds
+25% percentile = 11139 nanoseconds
+50% percentile = 11704 nanoseconds
+75% percentile = 12595 nanoseconds
+95% percentile = 16007 nanoseconds
+Worst = 78698  nanoseconds
+Average = 12293 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 40 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 97 jumps
+5% percentile = 102 jumps
+25% percentile = 105 jumps
+50% percentile = 107 jumps
+75% percentile = 109 jumps
+95% percentile = 112 jumps
+Worst = 116  jumps
+Average = 107.328 jumps
+<=== === === === === === === === ===>
+That is 2.61776 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 40 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 22505 nanoseconds
+5% percentile = 26908 nanoseconds
+25% percentile = 28719 nanoseconds
+50% percentile = 29799 nanoseconds
+75% percentile = 31172 nanoseconds
+95% percentile = 35244 nanoseconds
+Worst = 115531  nanoseconds
+Average = 30413 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 45 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 10612 nanoseconds
+5% percentile = 11537 nanoseconds
+25% percentile = 12105 nanoseconds
+50% percentile = 12650 nanoseconds
+75% percentile = 13583 nanoseconds
+95% percentile = 16990 nanoseconds
+Worst = 84509  nanoseconds
+Average = 13265 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 45 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 110 jumps
+5% percentile = 115 jumps
+25% percentile = 118 jumps
+50% percentile = 120 jumps
+75% percentile = 123 jumps
+95% percentile = 126 jumps
+Worst = 130  jumps
+Average = 120.394 jumps
+<=== === === === === === === === ===>
+That is 2.61725 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 45 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 22463 nanoseconds
+5% percentile = 27104 nanoseconds
+25% percentile = 28917 nanoseconds
+50% percentile = 29977 nanoseconds
+75% percentile = 31305 nanoseconds
+95% percentile = 35165 nanoseconds
+Worst = 92459  nanoseconds
+Average = 30525 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 50 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 11486 nanoseconds
+5% percentile = 12518 nanoseconds
+25% percentile = 13143 nanoseconds
+50% percentile = 13739 nanoseconds
+75% percentile = 14671 nanoseconds
+95% percentile = 18065 nanoseconds
+Worst = 78448  nanoseconds
+Average = 14319 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 50 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 121 jumps
+5% percentile = 127 jumps
+25% percentile = 131 jumps
+50% percentile = 134 jumps
+75% percentile = 136 jumps
+95% percentile = 139 jumps
+Worst = 145  jumps
+Average = 133.392 jumps
+<=== === === === === === === === ===>
+That is 2.61554 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 50 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23039 nanoseconds
+5% percentile = 27350 nanoseconds
+25% percentile = 29163 nanoseconds
+50% percentile = 30251 nanoseconds
+75% percentile = 31590 nanoseconds
+95% percentile = 35193 nanoseconds
+Worst = 94835  nanoseconds
+Average = 30821 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 55 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 12490 nanoseconds
+5% percentile = 13576 nanoseconds
+25% percentile = 14265 nanoseconds
+50% percentile = 14966 nanoseconds
+75% percentile = 16289 nanoseconds
+95% percentile = 19809 nanoseconds
+Worst = 83306  nanoseconds
+Average = 15722 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 55 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 134 jumps
+5% percentile = 140 jumps
+25% percentile = 144 jumps
+50% percentile = 147 jumps
+75% percentile = 149 jumps
+95% percentile = 152 jumps
+Worst = 158  jumps
+Average = 146.453 jumps
+<=== === === === === === === === ===>
+That is 2.61523 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 55 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23246 nanoseconds
+5% percentile = 27636 nanoseconds
+25% percentile = 29434 nanoseconds
+50% percentile = 30588 nanoseconds
+75% percentile = 32227 nanoseconds
+95% percentile = 36294 nanoseconds
+Worst = 99997  nanoseconds
+Average = 31233 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 60 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 13232 nanoseconds
+5% percentile = 14523 nanoseconds
+25% percentile = 15223 nanoseconds
+50% percentile = 15930 nanoseconds
+75% percentile = 17135 nanoseconds
+95% percentile = 21024 nanoseconds
+Worst = 89702  nanoseconds
+Average = 16686 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 60 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 146 jumps
+5% percentile = 153 jumps
+25% percentile = 157 jumps
+50% percentile = 160 jumps
+75% percentile = 162 jumps
+95% percentile = 166 jumps
+Worst = 170  jumps
+Average = 159.483 jumps
+<=== === === === === === === === ===>
+That is 2.61448 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 60 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23208 nanoseconds
+5% percentile = 27758 nanoseconds
+25% percentile = 29589 nanoseconds
+50% percentile = 30773 nanoseconds
+75% percentile = 32340 nanoseconds
+95% percentile = 36541 nanoseconds
+Worst = 103224  nanoseconds
+Average = 31428 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 65 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 14350 nanoseconds
+5% percentile = 15887 nanoseconds
+25% percentile = 16675 nanoseconds
+50% percentile = 17372 nanoseconds
+75% percentile = 18528 nanoseconds
+95% percentile = 22212 nanoseconds
+Worst = 97071  nanoseconds
+Average = 18048 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 65 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 157 jumps
+5% percentile = 165 jumps
+25% percentile = 170 jumps
+50% percentile = 173 jumps
+75% percentile = 175 jumps
+95% percentile = 179 jumps
+Worst = 183  jumps
+Average = 172.562 jumps
+<=== === === === === === === === ===>
+That is 2.61458 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 65 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23695 nanoseconds
+5% percentile = 28411 nanoseconds
+25% percentile = 30261 nanoseconds
+50% percentile = 31442 nanoseconds
+75% percentile = 32993 nanoseconds
+95% percentile = 36623 nanoseconds
+Worst = 99255  nanoseconds
+Average = 32006 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 70 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 15839 nanoseconds
+5% percentile = 17018 nanoseconds
+25% percentile = 17762 nanoseconds
+50% percentile = 18477 nanoseconds
+75% percentile = 19933 nanoseconds
+95% percentile = 24136 nanoseconds
+Worst = 90277  nanoseconds
+Average = 19404 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 70 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 171 jumps
+5% percentile = 178 jumps
+25% percentile = 183 jumps
+50% percentile = 186 jumps
+75% percentile = 189 jumps
+95% percentile = 192 jumps
+Worst = 197  jumps
+Average = 185.66 jumps
+<=== === === === === === === === ===>
+That is 2.61493 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 70 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23631 nanoseconds
+5% percentile = 28679 nanoseconds
+25% percentile = 30564 nanoseconds
+50% percentile = 31786 nanoseconds
+75% percentile = 33444 nanoseconds
+95% percentile = 37830 nanoseconds
+Worst = 101696  nanoseconds
+Average = 32512 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 75 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 16657 nanoseconds
+5% percentile = 18078 nanoseconds
+25% percentile = 18889 nanoseconds
+50% percentile = 19674 nanoseconds
+75% percentile = 21050 nanoseconds
+95% percentile = 25466 nanoseconds
+Worst = 88769  nanoseconds
+Average = 20523 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 75 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 183 jumps
+5% percentile = 191 jumps
+25% percentile = 196 jumps
+50% percentile = 199 jumps
+75% percentile = 202 jumps
+95% percentile = 206 jumps
+Worst = 211  jumps
+Average = 198.679 jumps
+<=== === === === === === === === ===>
+That is 2.6142 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 75 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23927 nanoseconds
+5% percentile = 28859 nanoseconds
+25% percentile = 30787 nanoseconds
+50% percentile = 32122 nanoseconds
+75% percentile = 33749 nanoseconds
+95% percentile = 38075 nanoseconds
+Worst = 99536  nanoseconds
+Average = 32785 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 80 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 17761 nanoseconds
+5% percentile = 19023 nanoseconds
+25% percentile = 19867 nanoseconds
+50% percentile = 20765 nanoseconds
+75% percentile = 22614 nanoseconds
+95% percentile = 27046 nanoseconds
+Worst = 95814  nanoseconds
+Average = 21767 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 80 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 195 jumps
+5% percentile = 204 jumps
+25% percentile = 209 jumps
+50% percentile = 212 jumps
+75% percentile = 215 jumps
+95% percentile = 219 jumps
+Worst = 226  jumps
+Average = 211.776 jumps
+<=== === === === === === === === ===>
+That is 2.61452 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 80 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 23941 nanoseconds
+5% percentile = 29052 nanoseconds
+25% percentile = 31001 nanoseconds
+50% percentile = 32360 nanoseconds
+75% percentile = 34204 nanoseconds
+95% percentile = 38861 nanoseconds
+Worst = 110540  nanoseconds
+Average = 33130 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 85 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 18495 nanoseconds
+5% percentile = 20059 nanoseconds
+25% percentile = 21018 nanoseconds
+50% percentile = 22004 nanoseconds
+75% percentile = 23759 nanoseconds
+95% percentile = 28251 nanoseconds
+Worst = 88957  nanoseconds
+Average = 22932 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 85 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 208 jumps
+5% percentile = 217 jumps
+25% percentile = 222 jumps
+50% percentile = 225 jumps
+75% percentile = 228 jumps
+95% percentile = 232 jumps
+Worst = 239  jumps
+Average = 224.813 jumps
+<=== === === === === === === === ===>
+That is 2.6141 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 85 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 25452 nanoseconds
+5% percentile = 29275 nanoseconds
+25% percentile = 31275 nanoseconds
+50% percentile = 32657 nanoseconds
+75% percentile = 34475 nanoseconds
+95% percentile = 39040 nanoseconds
+Worst = 103178  nanoseconds
+Average = 33438 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 90 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 19358 nanoseconds
+5% percentile = 20900 nanoseconds
+25% percentile = 21912 nanoseconds
+50% percentile = 23029 nanoseconds
+75% percentile = 25208 nanoseconds
+95% percentile = 29966 nanoseconds
+Worst = 93933  nanoseconds
+Average = 24129 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 90 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 220 jumps
+5% percentile = 229 jumps
+25% percentile = 235 jumps
+50% percentile = 238 jumps
+75% percentile = 241 jumps
+95% percentile = 245 jumps
+Worst = 254  jumps
+Average = 237.891 jumps
+<=== === === === === === === === ===>
+That is 2.61419 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 90 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 25266 nanoseconds
+5% percentile = 29404 nanoseconds
+25% percentile = 31428 nanoseconds
+50% percentile = 32845 nanoseconds
+75% percentile = 34844 nanoseconds
+95% percentile = 39975 nanoseconds
+Worst = 107238  nanoseconds
+Average = 33660 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 95 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 20588 nanoseconds
+5% percentile = 21895 nanoseconds
+25% percentile = 22967 nanoseconds
+50% percentile = 24087 nanoseconds
+75% percentile = 26177 nanoseconds
+95% percentile = 30170 nanoseconds
+Worst = 93871  nanoseconds
+Average = 25055 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 95 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 235 jumps
+5% percentile = 243 jumps
+25% percentile = 248 jumps
+50% percentile = 251 jumps
+75% percentile = 254 jumps
+95% percentile = 258 jumps
+Worst = 268  jumps
+Average = 250.944 jumps
+<=== === === === === === === === ===>
+That is 2.614 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 95 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 25392 nanoseconds
+5% percentile = 29573 nanoseconds
+25% percentile = 31636 nanoseconds
+50% percentile = 33066 nanoseconds
+75% percentile = 34969 nanoseconds
+95% percentile = 39589 nanoseconds
+Worst = 105352  nanoseconds
+Average = 33806 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 100 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 21671 nanoseconds
+5% percentile = 23008 nanoseconds
+25% percentile = 24031 nanoseconds
+50% percentile = 25070 nanoseconds
+75% percentile = 27081 nanoseconds
+95% percentile = 31504 nanoseconds
+Worst = 91042  nanoseconds
+Average = 26077 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 100 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 249 jumps
+5% percentile = 255 jumps
+25% percentile = 261 jumps
+50% percentile = 264 jumps
+75% percentile = 267 jumps
+95% percentile = 272 jumps
+Worst = 280  jumps
+Average = 264.009 jumps
+<=== === === === === === === === ===>
+That is 2.61395 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 100 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 25584 nanoseconds
+5% percentile = 29784 nanoseconds
+25% percentile = 31793 nanoseconds
+50% percentile = 33256 nanoseconds
+75% percentile = 35151 nanoseconds
+95% percentile = 39709 nanoseconds
+Worst = 104445  nanoseconds
+Average = 33971 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 105 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 22490 nanoseconds
+5% percentile = 24033 nanoseconds
+25% percentile = 25060 nanoseconds
+50% percentile = 26152 nanoseconds
+75% percentile = 28121 nanoseconds
+95% percentile = 32904 nanoseconds
+Worst = 91562  nanoseconds
+Average = 27157 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 105 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 262 jumps
+5% percentile = 268 jumps
+25% percentile = 274 jumps
+50% percentile = 277 jumps
+75% percentile = 281 jumps
+95% percentile = 285 jumps
+Worst = 294  jumps
+Average = 277.096 jumps
+<=== === === === === === === === ===>
+That is 2.61411 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 105 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 25227 nanoseconds
+5% percentile = 29923 nanoseconds
+25% percentile = 32016 nanoseconds
+50% percentile = 33475 nanoseconds
+75% percentile = 35385 nanoseconds
+95% percentile = 40161 nanoseconds
+Worst = 103026  nanoseconds
+Average = 34224 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 110 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 23579 nanoseconds
+5% percentile = 25048 nanoseconds
+25% percentile = 26069 nanoseconds
+50% percentile = 27104 nanoseconds
+75% percentile = 29299 nanoseconds
+95% percentile = 34640 nanoseconds
+Worst = 92754  nanoseconds
+Average = 28285 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 110 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 274 jumps
+5% percentile = 281 jumps
+25% percentile = 287 jumps
+50% percentile = 290 jumps
+75% percentile = 294 jumps
+95% percentile = 299 jumps
+Worst = 308  jumps
+Average = 290.164 jumps
+<=== === === === === === === === ===>
+That is 2.61409 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 110 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 26039 nanoseconds
+5% percentile = 30068 nanoseconds
+25% percentile = 32224 nanoseconds
+50% percentile = 33700 nanoseconds
+75% percentile = 35612 nanoseconds
+95% percentile = 40566 nanoseconds
+Worst = 104177  nanoseconds
+Average = 34445 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 115 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 24464 nanoseconds
+5% percentile = 25976 nanoseconds
+25% percentile = 27076 nanoseconds
+50% percentile = 28262 nanoseconds
+75% percentile = 30705 nanoseconds
+95% percentile = 35750 nanoseconds
+Worst = 103644  nanoseconds
+Average = 29444 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 115 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 286 jumps
+5% percentile = 294 jumps
+25% percentile = 300 jumps
+50% percentile = 303 jumps
+75% percentile = 307 jumps
+95% percentile = 312 jumps
+Worst = 323  jumps
+Average = 303.242 jumps
+<=== === === === === === === === ===>
+That is 2.61415 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 115 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 25995 nanoseconds
+5% percentile = 30180 nanoseconds
+25% percentile = 32443 nanoseconds
+50% percentile = 33920 nanoseconds
+75% percentile = 35980 nanoseconds
+95% percentile = 40927 nanoseconds
+Worst = 108924  nanoseconds
+Average = 34715 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 120 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 25343 nanoseconds
+5% percentile = 26983 nanoseconds
+25% percentile = 28266 nanoseconds
+50% percentile = 29627 nanoseconds
+75% percentile = 32534 nanoseconds
+95% percentile = 37711 nanoseconds
+Worst = 110236  nanoseconds
+Average = 30948 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 120 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 299 jumps
+5% percentile = 307 jumps
+25% percentile = 313 jumps
+50% percentile = 316 jumps
+75% percentile = 320 jumps
+95% percentile = 325 jumps
+Worst = 338  jumps
+Average = 316.293 jumps
+<=== === === === === === === === ===>
+That is 2.61399 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 120 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 27140 nanoseconds
+5% percentile = 30458 nanoseconds
+25% percentile = 32732 nanoseconds
+50% percentile = 34291 nanoseconds
+75% percentile = 36487 nanoseconds
+95% percentile = 41955 nanoseconds
+Worst = 106969  nanoseconds
+Average = 35135 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 125 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 26361 nanoseconds
+5% percentile = 28070 nanoseconds
+25% percentile = 29403 nanoseconds
+50% percentile = 31058 nanoseconds
+75% percentile = 33723 nanoseconds
+95% percentile = 38154 nanoseconds
+Worst = 97854  nanoseconds
+Average = 32078 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 125 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 312 jumps
+5% percentile = 320 jumps
+25% percentile = 326 jumps
+50% percentile = 329 jumps
+75% percentile = 333 jumps
+95% percentile = 338 jumps
+Worst = 349  jumps
+Average = 329.373 jumps
+<=== === === === === === === === ===>
+That is 2.61407 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 125 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 27279 nanoseconds
+5% percentile = 30593 nanoseconds
+25% percentile = 32949 nanoseconds
+50% percentile = 34533 nanoseconds
+75% percentile = 36830 nanoseconds
+95% percentile = 42104 nanoseconds
+Worst = 105714  nanoseconds
+Average = 35406 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 130 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 27577 nanoseconds
+5% percentile = 29335 nanoseconds
+25% percentile = 30687 nanoseconds
+50% percentile = 31951 nanoseconds
+75% percentile = 34461 nanoseconds
+95% percentile = 39198 nanoseconds
+Worst = 112403  nanoseconds
+Average = 33122 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 130 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 324 jumps
+5% percentile = 333 jumps
+25% percentile = 339 jumps
+50% percentile = 343 jumps
+75% percentile = 347 jumps
+95% percentile = 352 jumps
+Worst = 362  jumps
+Average = 342.451 jumps
+<=== === === === === === === === ===>
+That is 2.61413 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 130 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 27714 nanoseconds
+5% percentile = 31029 nanoseconds
+25% percentile = 33339 nanoseconds
+50% percentile = 34929 nanoseconds
+75% percentile = 37004 nanoseconds
+95% percentile = 41809 nanoseconds
+Worst = 108580  nanoseconds
+Average = 35677 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 135 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 28853 nanoseconds
+5% percentile = 30465 nanoseconds
+25% percentile = 31777 nanoseconds
+50% percentile = 33257 nanoseconds
+75% percentile = 36257 nanoseconds
+95% percentile = 41216 nanoseconds
+Worst = 102715  nanoseconds
+Average = 34577 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 135 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 338 jumps
+5% percentile = 346 jumps
+25% percentile = 352 jumps
+50% percentile = 356 jumps
+75% percentile = 360 jumps
+95% percentile = 365 jumps
+Worst = 375  jumps
+Average = 355.547 jumps
+<=== === === === === === === === ===>
+That is 2.61431 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 135 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 27653 nanoseconds
+5% percentile = 31216 nanoseconds
+25% percentile = 33646 nanoseconds
+50% percentile = 35335 nanoseconds
+75% percentile = 37464 nanoseconds
+95% percentile = 42849 nanoseconds
+Worst = 109370  nanoseconds
+Average = 36122 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 140 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 29536 nanoseconds
+5% percentile = 31350 nanoseconds
+25% percentile = 32621 nanoseconds
+50% percentile = 34108 nanoseconds
+75% percentile = 37175 nanoseconds
+95% percentile = 41805 nanoseconds
+Worst = 115553  nanoseconds
+Average = 35438 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 140 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 350 jumps
+5% percentile = 359 jumps
+25% percentile = 365 jumps
+50% percentile = 369 jumps
+75% percentile = 373 jumps
+95% percentile = 378 jumps
+Worst = 388  jumps
+Average = 368.672 jumps
+<=== === === === === === === === ===>
+That is 2.61469 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 140 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 27631 nanoseconds
+5% percentile = 31435 nanoseconds
+25% percentile = 33778 nanoseconds
+50% percentile = 35391 nanoseconds
+75% percentile = 37487 nanoseconds
+95% percentile = 42700 nanoseconds
+Worst = 103711  nanoseconds
+Average = 36169 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 145 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 30570 nanoseconds
+5% percentile = 32421 nanoseconds
+25% percentile = 33686 nanoseconds
+50% percentile = 35415 nanoseconds
+75% percentile = 38349 nanoseconds
+95% percentile = 42764 nanoseconds
+Worst = 111883  nanoseconds
+Average = 36622 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 145 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 362 jumps
+5% percentile = 372 jumps
+25% percentile = 378 jumps
+50% percentile = 382 jumps
+75% percentile = 386 jumps
+95% percentile = 391 jumps
+Worst = 402  jumps
+Average = 381.799 jumps
+<=== === === === === === === === ===>
+That is 2.61506 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 145 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 28082 nanoseconds
+5% percentile = 31569 nanoseconds
+25% percentile = 33981 nanoseconds
+50% percentile = 35632 nanoseconds
+75% percentile = 37803 nanoseconds
+95% percentile = 42922 nanoseconds
+Worst = 115352  nanoseconds
+Average = 36433 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 150 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 31467 nanoseconds
+5% percentile = 33463 nanoseconds
+25% percentile = 34861 nanoseconds
+50% percentile = 36513 nanoseconds
+75% percentile = 39418 nanoseconds
+95% percentile = 43759 nanoseconds
+Worst = 115871  nanoseconds
+Average = 37693 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 150 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 376 jumps
+5% percentile = 385 jumps
+25% percentile = 391 jumps
+50% percentile = 395 jumps
+75% percentile = 399 jumps
+95% percentile = 404 jumps
+Worst = 415  jumps
+Average = 394.911 jumps
+<=== === === === === === === === ===>
+That is 2.61531 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 150 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 28452 nanoseconds
+5% percentile = 31752 nanoseconds
+25% percentile = 34210 nanoseconds
+50% percentile = 35831 nanoseconds
+75% percentile = 38099 nanoseconds
+95% percentile = 43166 nanoseconds
+Worst = 126814  nanoseconds
+Average = 36624 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 155 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 32436 nanoseconds
+5% percentile = 34411 nanoseconds
+25% percentile = 35883 nanoseconds
+50% percentile = 37806 nanoseconds
+75% percentile = 40813 nanoseconds
+95% percentile = 45639 nanoseconds
+Worst = 111231  nanoseconds
+Average = 38882 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 155 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 389 jumps
+5% percentile = 398 jumps
+25% percentile = 404 jumps
+50% percentile = 408 jumps
+75% percentile = 412 jumps
+95% percentile = 418 jumps
+Worst = 429  jumps
+Average = 407.934 jumps
+<=== === === === === === === === ===>
+That is 2.61496 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 155 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 27968 nanoseconds
+5% percentile = 31965 nanoseconds
+25% percentile = 34364 nanoseconds
+50% percentile = 36070 nanoseconds
+75% percentile = 38375 nanoseconds
+95% percentile = 43861 nanoseconds
+Worst = 112389  nanoseconds
+Average = 36905 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 160 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 33522 nanoseconds
+5% percentile = 35552 nanoseconds
+25% percentile = 36969 nanoseconds
+50% percentile = 38782 nanoseconds
+75% percentile = 41879 nanoseconds
+95% percentile = 46971 nanoseconds
+Worst = 113990  nanoseconds
+Average = 40122 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 160 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 401 jumps
+5% percentile = 410 jumps
+25% percentile = 417 jumps
+50% percentile = 421 jumps
+75% percentile = 425 jumps
+95% percentile = 431 jumps
+Worst = 443  jumps
+Average = 421.046 jumps
+<=== === === === === === === === ===>
+That is 2.61519 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 160 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 28499 nanoseconds
+5% percentile = 32020 nanoseconds
+25% percentile = 34560 nanoseconds
+50% percentile = 36299 nanoseconds
+75% percentile = 38547 nanoseconds
+95% percentile = 44199 nanoseconds
+Worst = 110471  nanoseconds
+Average = 37158 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 165 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 34659 nanoseconds
+5% percentile = 36484 nanoseconds
+25% percentile = 37941 nanoseconds
+50% percentile = 39758 nanoseconds
+75% percentile = 43003 nanoseconds
+95% percentile = 48115 nanoseconds
+Worst = 118704  nanoseconds
+Average = 41167 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 165 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 413 jumps
+5% percentile = 423 jumps
+25% percentile = 430 jumps
+50% percentile = 434 jumps
+75% percentile = 438 jumps
+95% percentile = 444 jumps
+Worst = 456  jumps
+Average = 434.142 jumps
+<=== === === === === === === === ===>
+That is 2.61531 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 165 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29034 nanoseconds
+5% percentile = 32144 nanoseconds
+25% percentile = 34726 nanoseconds
+50% percentile = 36453 nanoseconds
+75% percentile = 38724 nanoseconds
+95% percentile = 44346 nanoseconds
+Worst = 111052  nanoseconds
+Average = 37346 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 170 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 35292 nanoseconds
+5% percentile = 37313 nanoseconds
+25% percentile = 38668 nanoseconds
+50% percentile = 40224 nanoseconds
+75% percentile = 43375 nanoseconds
+95% percentile = 48730 nanoseconds
+Worst = 113726  nanoseconds
+Average = 41659 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 170 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 426 jumps
+5% percentile = 436 jumps
+25% percentile = 443 jumps
+50% percentile = 447 jumps
+75% percentile = 451 jumps
+95% percentile = 458 jumps
+Worst = 469  jumps
+Average = 447.158 jumps
+<=== === === === === === === === ===>
+That is 2.61496 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 170 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29176 nanoseconds
+5% percentile = 32174 nanoseconds
+25% percentile = 34769 nanoseconds
+50% percentile = 36423 nanoseconds
+75% percentile = 38606 nanoseconds
+95% percentile = 43994 nanoseconds
+Worst = 117178  nanoseconds
+Average = 37279 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 175 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 35871 nanoseconds
+5% percentile = 38503 nanoseconds
+25% percentile = 40085 nanoseconds
+50% percentile = 42301 nanoseconds
+75% percentile = 45477 nanoseconds
+95% percentile = 51110 nanoseconds
+Worst = 120337  nanoseconds
+Average = 43641 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 175 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 438 jumps
+5% percentile = 449 jumps
+25% percentile = 456 jumps
+50% percentile = 461 jumps
+75% percentile = 465 jumps
+95% percentile = 471 jumps
+Worst = 484  jumps
+Average = 460.213 jumps
+<=== === === === === === === === ===>
+That is 2.61484 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 175 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 28608 nanoseconds
+5% percentile = 32483 nanoseconds
+25% percentile = 35150 nanoseconds
+50% percentile = 36934 nanoseconds
+75% percentile = 39287 nanoseconds
+95% percentile = 45199 nanoseconds
+Worst = 113723  nanoseconds
+Average = 37891 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 180 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 37186 nanoseconds
+5% percentile = 39512 nanoseconds
+25% percentile = 41233 nanoseconds
+50% percentile = 43366 nanoseconds
+75% percentile = 46511 nanoseconds
+95% percentile = 51730 nanoseconds
+Worst = 117085  nanoseconds
+Average = 44562 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 180 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 449 jumps
+5% percentile = 462 jumps
+25% percentile = 469 jumps
+50% percentile = 474 jumps
+75% percentile = 478 jumps
+95% percentile = 484 jumps
+Worst = 495  jumps
+Average = 473.248 jumps
+<=== === === === === === === === ===>
+That is 2.61463 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 180 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29568 nanoseconds
+5% percentile = 32620 nanoseconds
+25% percentile = 35331 nanoseconds
+50% percentile = 37131 nanoseconds
+75% percentile = 39542 nanoseconds
+95% percentile = 45548 nanoseconds
+Worst = 112315  nanoseconds
+Average = 38137 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 185 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 38312 nanoseconds
+5% percentile = 40499 nanoseconds
+25% percentile = 41918 nanoseconds
+50% percentile = 43557 nanoseconds
+75% percentile = 46913 nanoseconds
+95% percentile = 52366 nanoseconds
+Worst = 118419  nanoseconds
+Average = 45108 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 185 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 462 jumps
+5% percentile = 475 jumps
+25% percentile = 482 jumps
+50% percentile = 487 jumps
+75% percentile = 491 jumps
+95% percentile = 497 jumps
+Worst = 508  jumps
+Average = 486.343 jumps
+<=== === === === === === === === ===>
+That is 2.61474 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 185 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29300 nanoseconds
+5% percentile = 32687 nanoseconds
+25% percentile = 35348 nanoseconds
+50% percentile = 37063 nanoseconds
+75% percentile = 39318 nanoseconds
+95% percentile = 44844 nanoseconds
+Worst = 108364  nanoseconds
+Average = 37945 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 190 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 39143 nanoseconds
+5% percentile = 41584 nanoseconds
+25% percentile = 43129 nanoseconds
+50% percentile = 45293 nanoseconds
+75% percentile = 48859 nanoseconds
+95% percentile = 54520 nanoseconds
+Worst = 129737  nanoseconds
+Average = 46767 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 190 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 473 jumps
+5% percentile = 487 jumps
+25% percentile = 495 jumps
+50% percentile = 500 jumps
+75% percentile = 504 jumps
+95% percentile = 510 jumps
+Worst = 522  jumps
+Average = 499.433 jumps
+<=== === === === === === === === ===>
+That is 2.61483 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 190 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29451 nanoseconds
+5% percentile = 32842 nanoseconds
+25% percentile = 35614 nanoseconds
+50% percentile = 37447 nanoseconds
+75% percentile = 39908 nanoseconds
+95% percentile = 45764 nanoseconds
+Worst = 126755  nanoseconds
+Average = 38372 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 195 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 40214 nanoseconds
+5% percentile = 42293 nanoseconds
+25% percentile = 43803 nanoseconds
+50% percentile = 45484 nanoseconds
+75% percentile = 48612 nanoseconds
+95% percentile = 54695 nanoseconds
+Worst = 118710  nanoseconds
+Average = 46993 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 195 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 486 jumps
+5% percentile = 500 jumps
+25% percentile = 508 jumps
+50% percentile = 513 jumps
+75% percentile = 517 jumps
+95% percentile = 523 jumps
+Worst = 535  jumps
+Average = 512.449 jumps
+<=== === === === === === === === ===>
+That is 2.61453 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 195 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29415 nanoseconds
+5% percentile = 32903 nanoseconds
+25% percentile = 35645 nanoseconds
+50% percentile = 37382 nanoseconds
+75% percentile = 39639 nanoseconds
+95% percentile = 45243 nanoseconds
+Worst = 115759  nanoseconds
+Average = 38233 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 200 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 41256 nanoseconds
+5% percentile = 43559 nanoseconds
+25% percentile = 45372 nanoseconds
+50% percentile = 47876 nanoseconds
+75% percentile = 51153 nanoseconds
+95% percentile = 57351 nanoseconds
+Worst = 137089  nanoseconds
+Average = 49134 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 200 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 500 jumps
+5% percentile = 514 jumps
+25% percentile = 521 jumps
+50% percentile = 526 jumps
+75% percentile = 530 jumps
+95% percentile = 537 jumps
+Worst = 548  jumps
+Average = 525.562 jumps
+<=== === === === === === === === ===>
+That is 2.61474 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 200 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29888 nanoseconds
+5% percentile = 33186 nanoseconds
+25% percentile = 36044 nanoseconds
+50% percentile = 37951 nanoseconds
+75% percentile = 40475 nanoseconds
+95% percentile = 46791 nanoseconds
+Worst = 125018  nanoseconds
+Average = 38958 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 205 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 41659 nanoseconds
+5% percentile = 44323 nanoseconds
+25% percentile = 45942 nanoseconds
+50% percentile = 47656 nanoseconds
+75% percentile = 50921 nanoseconds
+95% percentile = 56986 nanoseconds
+Worst = 131099  nanoseconds
+Average = 49234 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 205 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 512 jumps
+5% percentile = 526 jumps
+25% percentile = 534 jumps
+50% percentile = 539 jumps
+75% percentile = 543 jumps
+95% percentile = 550 jumps
+Worst = 562  jumps
+Average = 538.617 jumps
+<=== === === === === === === === ===>
+That is 2.61465 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 205 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29189 nanoseconds
+5% percentile = 33172 nanoseconds
+25% percentile = 35982 nanoseconds
+50% percentile = 37774 nanoseconds
+75% percentile = 40067 nanoseconds
+95% percentile = 45781 nanoseconds
+Worst = 108642  nanoseconds
+Average = 38583 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 210 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 43246 nanoseconds
+5% percentile = 45432 nanoseconds
+25% percentile = 47242 nanoseconds
+50% percentile = 49960 nanoseconds
+75% percentile = 53380 nanoseconds
+95% percentile = 59193 nanoseconds
+Worst = 127084  nanoseconds
+Average = 51207 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 210 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 526 jumps
+5% percentile = 539 jumps
+25% percentile = 547 jumps
+50% percentile = 552 jumps
+75% percentile = 556 jumps
+95% percentile = 563 jumps
+Worst = 576  jumps
+Average = 551.722 jumps
+<=== === === === === === === === ===>
+That is 2.6148 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 210 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30409 nanoseconds
+5% percentile = 33383 nanoseconds
+25% percentile = 36302 nanoseconds
+50% percentile = 38232 nanoseconds
+75% percentile = 40767 nanoseconds
+95% percentile = 46767 nanoseconds
+Worst = 113640  nanoseconds
+Average = 39177 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 215 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 44069 nanoseconds
+5% percentile = 46064 nanoseconds
+25% percentile = 47532 nanoseconds
+50% percentile = 49320 nanoseconds
+75% percentile = 53292 nanoseconds
+95% percentile = 59328 nanoseconds
+Worst = 130638  nanoseconds
+Average = 51141 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 215 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 539 jumps
+5% percentile = 553 jumps
+25% percentile = 560 jumps
+50% percentile = 565 jumps
+75% percentile = 569 jumps
+95% percentile = 576 jumps
+Worst = 589  jumps
+Average = 564.755 jumps
+<=== === === === === === === === ===>
+That is 2.61461 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 215 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 29562 nanoseconds
+5% percentile = 33398 nanoseconds
+25% percentile = 36257 nanoseconds
+50% percentile = 38000 nanoseconds
+75% percentile = 40332 nanoseconds
+95% percentile = 46067 nanoseconds
+Worst = 115581  nanoseconds
+Average = 38921 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 220 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 44630 nanoseconds
+5% percentile = 47214 nanoseconds
+25% percentile = 49106 nanoseconds
+50% percentile = 51457 nanoseconds
+75% percentile = 55049 nanoseconds
+95% percentile = 60730 nanoseconds
+Worst = 146010  nanoseconds
+Average = 52900 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 220 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 554 jumps
+5% percentile = 565 jumps
+25% percentile = 573 jumps
+50% percentile = 578 jumps
+75% percentile = 583 jumps
+95% percentile = 589 jumps
+Worst = 601  jumps
+Average = 577.883 jumps
+<=== === === === === === === === ===>
+That is 2.61485 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 220 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30578 nanoseconds
+5% percentile = 33560 nanoseconds
+25% percentile = 36513 nanoseconds
+50% percentile = 38414 nanoseconds
+75% percentile = 40889 nanoseconds
+95% percentile = 46788 nanoseconds
+Worst = 116683  nanoseconds
+Average = 39334 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 225 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 45410 nanoseconds
+5% percentile = 48035 nanoseconds
+25% percentile = 49850 nanoseconds
+50% percentile = 52473 nanoseconds
+75% percentile = 56157 nanoseconds
+95% percentile = 61786 nanoseconds
+Worst = 135582  nanoseconds
+Average = 53885 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 225 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 568 jumps
+5% percentile = 578 jumps
+25% percentile = 586 jumps
+50% percentile = 591 jumps
+75% percentile = 596 jumps
+95% percentile = 603 jumps
+Worst = 615  jumps
+Average = 591.012 jumps
+<=== === === === === === === === ===>
+That is 2.6151 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 225 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30160 nanoseconds
+5% percentile = 33706 nanoseconds
+25% percentile = 36677 nanoseconds
+50% percentile = 38598 nanoseconds
+75% percentile = 40983 nanoseconds
+95% percentile = 46919 nanoseconds
+Worst = 112703  nanoseconds
+Average = 39460 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 230 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 46431 nanoseconds
+5% percentile = 49235 nanoseconds
+25% percentile = 50962 nanoseconds
+50% percentile = 53365 nanoseconds
+75% percentile = 57071 nanoseconds
+95% percentile = 62550 nanoseconds
+Worst = 135571  nanoseconds
+Average = 54826 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 230 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 580 jumps
+5% percentile = 591 jumps
+25% percentile = 599 jumps
+50% percentile = 604 jumps
+75% percentile = 609 jumps
+95% percentile = 616 jumps
+Worst = 628  jumps
+Average = 604.043 jumps
+<=== === === === === === === === ===>
+That is 2.6149 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 230 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30184 nanoseconds
+5% percentile = 33803 nanoseconds
+25% percentile = 36802 nanoseconds
+50% percentile = 38737 nanoseconds
+75% percentile = 41234 nanoseconds
+95% percentile = 47139 nanoseconds
+Worst = 115923  nanoseconds
+Average = 39685 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 235 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 47328 nanoseconds
+5% percentile = 50152 nanoseconds
+25% percentile = 52062 nanoseconds
+50% percentile = 54713 nanoseconds
+75% percentile = 58043 nanoseconds
+95% percentile = 63988 nanoseconds
+Worst = 165643  nanoseconds
+Average = 56047 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 235 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 594 jumps
+5% percentile = 605 jumps
+25% percentile = 612 jumps
+50% percentile = 617 jumps
+75% percentile = 622 jumps
+95% percentile = 629 jumps
+Worst = 643  jumps
+Average = 617.125 jumps
+<=== === === === === === === === ===>
+That is 2.61494 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 235 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30312 nanoseconds
+5% percentile = 34000 nanoseconds
+25% percentile = 37014 nanoseconds
+50% percentile = 38941 nanoseconds
+75% percentile = 41400 nanoseconds
+95% percentile = 47714 nanoseconds
+Worst = 112349  nanoseconds
+Average = 39894 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 240 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 48199 nanoseconds
+5% percentile = 50881 nanoseconds
+25% percentile = 52663 nanoseconds
+50% percentile = 54898 nanoseconds
+75% percentile = 58674 nanoseconds
+95% percentile = 64911 nanoseconds
+Worst = 138568  nanoseconds
+Average = 56554 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 240 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 605 jumps
+5% percentile = 617 jumps
+25% percentile = 625 jumps
+50% percentile = 630 jumps
+75% percentile = 635 jumps
+95% percentile = 642 jumps
+Worst = 658  jumps
+Average = 630.191 jumps
+<=== === === === === === === === ===>
+That is 2.6149 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 240 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30647 nanoseconds
+5% percentile = 34119 nanoseconds
+25% percentile = 37012 nanoseconds
+50% percentile = 38935 nanoseconds
+75% percentile = 41328 nanoseconds
+95% percentile = 47370 nanoseconds
+Worst = 117116  nanoseconds
+Average = 39847 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 245 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 48801 nanoseconds
+5% percentile = 52150 nanoseconds
+25% percentile = 54031 nanoseconds
+50% percentile = 56319 nanoseconds
+75% percentile = 60304 nanoseconds
+95% percentile = 69021 nanoseconds
+Worst = 133431  nanoseconds
+Average = 58455 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 245 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 619 jumps
+5% percentile = 630 jumps
+25% percentile = 638 jumps
+50% percentile = 643 jumps
+75% percentile = 649 jumps
+95% percentile = 656 jumps
+Worst = 673  jumps
+Average = 643.305 jumps
+<=== === === === === === === === ===>
+That is 2.61506 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 245 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30817 nanoseconds
+5% percentile = 34366 nanoseconds
+25% percentile = 37336 nanoseconds
+50% percentile = 39220 nanoseconds
+75% percentile = 41737 nanoseconds
+95% percentile = 48404 nanoseconds
+Worst = 117398  nanoseconds
+Average = 40310 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 250 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 50455 nanoseconds
+5% percentile = 53203 nanoseconds
+25% percentile = 55530 nanoseconds
+50% percentile = 59056 nanoseconds
+75% percentile = 63549 nanoseconds
+95% percentile = 70585 nanoseconds
+Worst = 143620  nanoseconds
+Average = 60554 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 250 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 633 jumps
+5% percentile = 643 jumps
+25% percentile = 651 jumps
+50% percentile = 657 jumps
+75% percentile = 662 jumps
+95% percentile = 669 jumps
+Worst = 684  jumps
+Average = 656.416 jumps
+<=== === === === === === === === ===>
+That is 2.6152 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 250 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 30587 nanoseconds
+5% percentile = 34551 nanoseconds
+25% percentile = 37607 nanoseconds
+50% percentile = 39666 nanoseconds
+75% percentile = 42542 nanoseconds
+95% percentile = 49305 nanoseconds
+Worst = 116882  nanoseconds
+Average = 40800 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 255 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 51290 nanoseconds
+5% percentile = 53846 nanoseconds
+25% percentile = 56015 nanoseconds
+50% percentile = 59643 nanoseconds
+75% percentile = 64173 nanoseconds
+95% percentile = 71441 nanoseconds
+Worst = 135511  nanoseconds
+Average = 61034 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 255 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 644 jumps
+5% percentile = 656 jumps
+25% percentile = 664 jumps
+50% percentile = 670 jumps
+75% percentile = 675 jumps
+95% percentile = 682 jumps
+Worst = 697  jumps
+Average = 669.442 jumps
+<=== === === === === === === === ===>
+That is 2.61501 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 255 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31078 nanoseconds
+5% percentile = 34786 nanoseconds
+25% percentile = 37656 nanoseconds
+50% percentile = 39658 nanoseconds
+75% percentile = 42433 nanoseconds
+95% percentile = 49352 nanoseconds
+Worst = 114147  nanoseconds
+Average = 40827 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 260 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 52468 nanoseconds
+5% percentile = 55066 nanoseconds
+25% percentile = 57299 nanoseconds
+50% percentile = 60199 nanoseconds
+75% percentile = 65302 nanoseconds
+95% percentile = 77727 nanoseconds
+Worst = 144099  nanoseconds
+Average = 62666 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 260 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 657 jumps
+5% percentile = 669 jumps
+25% percentile = 677 jumps
+50% percentile = 683 jumps
+75% percentile = 688 jumps
+95% percentile = 695 jumps
+Worst = 712  jumps
+Average = 682.492 jumps
+<=== === === === === === === === ===>
+That is 2.61491 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 260 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31256 nanoseconds
+5% percentile = 35238 nanoseconds
+25% percentile = 38100 nanoseconds
+50% percentile = 40139 nanoseconds
+75% percentile = 42908 nanoseconds
+95% percentile = 51029 nanoseconds
+Worst = 115363  nanoseconds
+Average = 41371 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 265 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 53001 nanoseconds
+5% percentile = 56230 nanoseconds
+25% percentile = 58214 nanoseconds
+50% percentile = 60827 nanoseconds
+75% percentile = 64897 nanoseconds
+95% percentile = 71895 nanoseconds
+Worst = 138607  nanoseconds
+Average = 62600 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 265 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 670 jumps
+5% percentile = 682 jumps
+25% percentile = 690 jumps
+50% percentile = 696 jumps
+75% percentile = 701 jumps
+95% percentile = 709 jumps
+Worst = 726  jumps
+Average = 695.614 jumps
+<=== === === === === === === === ===>
+That is 2.61509 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 265 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31437 nanoseconds
+5% percentile = 35305 nanoseconds
+25% percentile = 38209 nanoseconds
+50% percentile = 40085 nanoseconds
+75% percentile = 42610 nanoseconds
+95% percentile = 49145 nanoseconds
+Worst = 112613  nanoseconds
+Average = 41057 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 270 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 54370 nanoseconds
+5% percentile = 57263 nanoseconds
+25% percentile = 59607 nanoseconds
+50% percentile = 62716 nanoseconds
+75% percentile = 66402 nanoseconds
+95% percentile = 72927 nanoseconds
+Worst = 148747  nanoseconds
+Average = 64071 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 270 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 682 jumps
+5% percentile = 695 jumps
+25% percentile = 703 jumps
+50% percentile = 709 jumps
+75% percentile = 714 jumps
+95% percentile = 722 jumps
+Worst = 740  jumps
+Average = 708.679 jumps
+<=== === === === === === === === ===>
+That is 2.61505 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 270 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31157 nanoseconds
+5% percentile = 35451 nanoseconds
+25% percentile = 38430 nanoseconds
+50% percentile = 40432 nanoseconds
+75% percentile = 43072 nanoseconds
+95% percentile = 49775 nanoseconds
+Worst = 111288  nanoseconds
+Average = 41401 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 275 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 55041 nanoseconds
+5% percentile = 58098 nanoseconds
+25% percentile = 60441 nanoseconds
+50% percentile = 63272 nanoseconds
+75% percentile = 67117 nanoseconds
+95% percentile = 73716 nanoseconds
+Worst = 153145  nanoseconds
+Average = 64787 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 275 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 696 jumps
+5% percentile = 708 jumps
+25% percentile = 716 jumps
+50% percentile = 722 jumps
+75% percentile = 727 jumps
+95% percentile = 735 jumps
+Worst = 753  jumps
+Average = 721.735 jumps
+<=== === === === === === === === ===>
+That is 2.61498 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 275 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31385 nanoseconds
+5% percentile = 35555 nanoseconds
+25% percentile = 38530 nanoseconds
+50% percentile = 40500 nanoseconds
+75% percentile = 43083 nanoseconds
+95% percentile = 49631 nanoseconds
+Worst = 123776  nanoseconds
+Average = 41517 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 280 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 55674 nanoseconds
+5% percentile = 58800 nanoseconds
+25% percentile = 61001 nanoseconds
+50% percentile = 64199 nanoseconds
+75% percentile = 68057 nanoseconds
+95% percentile = 74164 nanoseconds
+Worst = 141661  nanoseconds
+Average = 65560 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 280 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 708 jumps
+5% percentile = 721 jumps
+25% percentile = 729 jumps
+50% percentile = 735 jumps
+75% percentile = 740 jumps
+95% percentile = 748 jumps
+Worst = 766  jumps
+Average = 734.757 jumps
+<=== === === === === === === === ===>
+That is 2.61479 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 280 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31577 nanoseconds
+5% percentile = 35556 nanoseconds
+25% percentile = 38586 nanoseconds
+50% percentile = 40570 nanoseconds
+75% percentile = 43151 nanoseconds
+95% percentile = 49485 nanoseconds
+Worst = 119489  nanoseconds
+Average = 41561 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 285 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 57356 nanoseconds
+5% percentile = 59794 nanoseconds
+25% percentile = 61832 nanoseconds
+50% percentile = 65022 nanoseconds
+75% percentile = 68909 nanoseconds
+95% percentile = 75318 nanoseconds
+Worst = 138376  nanoseconds
+Average = 66441 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 285 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 722 jumps
+5% percentile = 734 jumps
+25% percentile = 742 jumps
+50% percentile = 748 jumps
+75% percentile = 754 jumps
+95% percentile = 761 jumps
+Worst = 778  jumps
+Average = 747.806 jumps
+<=== === === === === === === === ===>
+That is 2.61471 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 285 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31443 nanoseconds
+5% percentile = 35773 nanoseconds
+25% percentile = 38673 nanoseconds
+50% percentile = 40647 nanoseconds
+75% percentile = 43234 nanoseconds
+95% percentile = 49530 nanoseconds
+Worst = 130280  nanoseconds
+Average = 41566 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 290 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 57399 nanoseconds
+5% percentile = 60867 nanoseconds
+25% percentile = 63188 nanoseconds
+50% percentile = 66607 nanoseconds
+75% percentile = 70482 nanoseconds
+95% percentile = 77243 nanoseconds
+Worst = 155713  nanoseconds
+Average = 67975 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 290 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 735 jumps
+5% percentile = 747 jumps
+25% percentile = 755 jumps
+50% percentile = 761 jumps
+75% percentile = 767 jumps
+95% percentile = 774 jumps
+Worst = 790  jumps
+Average = 760.852 jumps
+<=== === === === === === === === ===>
+That is 2.61461 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 290 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31577 nanoseconds
+5% percentile = 35930 nanoseconds
+25% percentile = 38899 nanoseconds
+50% percentile = 40944 nanoseconds
+75% percentile = 43586 nanoseconds
+95% percentile = 50396 nanoseconds
+Worst = 122491  nanoseconds
+Average = 41920 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 295 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 58919 nanoseconds
+5% percentile = 61600 nanoseconds
+25% percentile = 63639 nanoseconds
+50% percentile = 66507 nanoseconds
+75% percentile = 70747 nanoseconds
+95% percentile = 77512 nanoseconds
+Worst = 153348  nanoseconds
+Average = 68255 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 295 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 748 jumps
+5% percentile = 759 jumps
+25% percentile = 768 jumps
+50% percentile = 774 jumps
+75% percentile = 780 jumps
+95% percentile = 787 jumps
+Worst = 804  jumps
+Average = 774.006 jumps
+<=== === === === === === === === ===>
+That is 2.61489 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 295 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31599 nanoseconds
+5% percentile = 36071 nanoseconds
+25% percentile = 38904 nanoseconds
+50% percentile = 40890 nanoseconds
+75% percentile = 43369 nanoseconds
+95% percentile = 49652 nanoseconds
+Worst = 121684  nanoseconds
+Average = 41810 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 300 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 59773 nanoseconds
+5% percentile = 62732 nanoseconds
+25% percentile = 64966 nanoseconds
+50% percentile = 68062 nanoseconds
+75% percentile = 71723 nanoseconds
+95% percentile = 78047 nanoseconds
+Worst = 145446  nanoseconds
+Average = 69420 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 300 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 763 jumps
+5% percentile = 772 jumps
+25% percentile = 781 jumps
+50% percentile = 788 jumps
+75% percentile = 793 jumps
+95% percentile = 800 jumps
+Worst = 819  jumps
+Average = 787.054 jumps
+<=== === === === === === === === ===>
+That is 2.6148 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 300 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31651 nanoseconds
+5% percentile = 36222 nanoseconds
+25% percentile = 39104 nanoseconds
+50% percentile = 41121 nanoseconds
+75% percentile = 43638 nanoseconds
+95% percentile = 50213 nanoseconds
+Worst = 113943  nanoseconds
+Average = 42113 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 305 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 60730 nanoseconds
+5% percentile = 63739 nanoseconds
+25% percentile = 65939 nanoseconds
+50% percentile = 69161 nanoseconds
+75% percentile = 73193 nanoseconds
+95% percentile = 80145 nanoseconds
+Worst = 156680  nanoseconds
+Average = 70731 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 305 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 774 jumps
+5% percentile = 786 jumps
+25% percentile = 794 jumps
+50% percentile = 800 jumps
+75% percentile = 806 jumps
+95% percentile = 813 jumps
+Worst = 832  jumps
+Average = 800.079 jumps
+<=== === === === === === === === ===>
+That is 2.61464 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 305 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31729 nanoseconds
+5% percentile = 36476 nanoseconds
+25% percentile = 39269 nanoseconds
+50% percentile = 41323 nanoseconds
+75% percentile = 43878 nanoseconds
+95% percentile = 50982 nanoseconds
+Worst = 132446  nanoseconds
+Average = 42404 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 310 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 61519 nanoseconds
+5% percentile = 64592 nanoseconds
+25% percentile = 66869 nanoseconds
+50% percentile = 69785 nanoseconds
+75% percentile = 74203 nanoseconds
+95% percentile = 81441 nanoseconds
+Worst = 141457  nanoseconds
+Average = 71635 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 310 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 786 jumps
+5% percentile = 799 jumps
+25% percentile = 807 jumps
+50% percentile = 813 jumps
+75% percentile = 819 jumps
+95% percentile = 827 jumps
+Worst = 844  jumps
+Average = 813.157 jumps
+<=== === === === === === === === ===>
+That is 2.61465 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 310 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31659 nanoseconds
+5% percentile = 36518 nanoseconds
+25% percentile = 39298 nanoseconds
+50% percentile = 41338 nanoseconds
+75% percentile = 43904 nanoseconds
+95% percentile = 50527 nanoseconds
+Worst = 117100  nanoseconds
+Average = 42378 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 315 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 62283 nanoseconds
+5% percentile = 65452 nanoseconds
+25% percentile = 67510 nanoseconds
+50% percentile = 70389 nanoseconds
+75% percentile = 74786 nanoseconds
+95% percentile = 82319 nanoseconds
+Worst = 162767  nanoseconds
+Average = 72193 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 315 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 798 jumps
+5% percentile = 812 jumps
+25% percentile = 820 jumps
+50% percentile = 826 jumps
+75% percentile = 832 jumps
+95% percentile = 840 jumps
+Worst = 855  jumps
+Average = 826.227 jumps
+<=== === === === === === === === ===>
+That is 2.61464 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 315 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31938 nanoseconds
+5% percentile = 36645 nanoseconds
+25% percentile = 39407 nanoseconds
+50% percentile = 41431 nanoseconds
+75% percentile = 43968 nanoseconds
+95% percentile = 50553 nanoseconds
+Worst = 105081  nanoseconds
+Average = 42319 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 320 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 62940 nanoseconds
+5% percentile = 66449 nanoseconds
+25% percentile = 68666 nanoseconds
+50% percentile = 71621 nanoseconds
+75% percentile = 76045 nanoseconds
+95% percentile = 83422 nanoseconds
+Worst = 168653  nanoseconds
+Average = 73358 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 320 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 811 jumps
+5% percentile = 825 jumps
+25% percentile = 833 jumps
+50% percentile = 839 jumps
+75% percentile = 845 jumps
+95% percentile = 854 jumps
+Worst = 868  jumps
+Average = 839.289 jumps
+<=== === === === === === === === ===>
+That is 2.61461 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 320 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31927 nanoseconds
+5% percentile = 36784 nanoseconds
+25% percentile = 39511 nanoseconds
+50% percentile = 41602 nanoseconds
+75% percentile = 44182 nanoseconds
+95% percentile = 50934 nanoseconds
+Worst = 121824  nanoseconds
+Average = 42623 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 325 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 64371 nanoseconds
+5% percentile = 67387 nanoseconds
+25% percentile = 69663 nanoseconds
+50% percentile = 72962 nanoseconds
+75% percentile = 77051 nanoseconds
+95% percentile = 84233 nanoseconds
+Worst = 158079  nanoseconds
+Average = 74333 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 325 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 822 jumps
+5% percentile = 837 jumps
+25% percentile = 846 jumps
+50% percentile = 853 jumps
+75% percentile = 858 jumps
+95% percentile = 867 jumps
+Worst = 882  jumps
+Average = 852.355 jumps
+<=== === === === === === === === ===>
+That is 2.61458 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 325 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31763 nanoseconds
+5% percentile = 36884 nanoseconds
+25% percentile = 39699 nanoseconds
+50% percentile = 41778 nanoseconds
+75% percentile = 44394 nanoseconds
+95% percentile = 50725 nanoseconds
+Worst = 118150  nanoseconds
+Average = 42691 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 330 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 65460 nanoseconds
+5% percentile = 68192 nanoseconds
+25% percentile = 70411 nanoseconds
+50% percentile = 73298 nanoseconds
+75% percentile = 77516 nanoseconds
+95% percentile = 84972 nanoseconds
+Worst = 155743  nanoseconds
+Average = 74984 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 330 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 837 jumps
+5% percentile = 850 jumps
+25% percentile = 859 jumps
+50% percentile = 866 jumps
+75% percentile = 871 jumps
+95% percentile = 880 jumps
+Worst = 894  jumps
+Average = 865.408 jumps
+<=== === === === === === === === ===>
+That is 2.61453 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 330 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31944 nanoseconds
+5% percentile = 36998 nanoseconds
+25% percentile = 39776 nanoseconds
+50% percentile = 41780 nanoseconds
+75% percentile = 44297 nanoseconds
+95% percentile = 50849 nanoseconds
+Worst = 112109  nanoseconds
+Average = 42727 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 335 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 65653 nanoseconds
+5% percentile = 69148 nanoseconds
+25% percentile = 71399 nanoseconds
+50% percentile = 74363 nanoseconds
+75% percentile = 78792 nanoseconds
+95% percentile = 86994 nanoseconds
+Worst = 161559  nanoseconds
+Average = 76191 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 335 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 850 jumps
+5% percentile = 863 jumps
+25% percentile = 872 jumps
+50% percentile = 879 jumps
+75% percentile = 884 jumps
+95% percentile = 894 jumps
+Worst = 906  jumps
+Average = 878.446 jumps
+<=== === === === === === === === ===>
+That is 2.61442 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 335 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31761 nanoseconds
+5% percentile = 37183 nanoseconds
+25% percentile = 39881 nanoseconds
+50% percentile = 41893 nanoseconds
+75% percentile = 44482 nanoseconds
+95% percentile = 51026 nanoseconds
+Worst = 119387  nanoseconds
+Average = 42877 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 340 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 67224 nanoseconds
+5% percentile = 70199 nanoseconds
+25% percentile = 72712 nanoseconds
+50% percentile = 76317 nanoseconds
+75% percentile = 80546 nanoseconds
+95% percentile = 87387 nanoseconds
+Worst = 156324  nanoseconds
+Average = 77658 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 340 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 864 jumps
+5% percentile = 876 jumps
+25% percentile = 885 jumps
+50% percentile = 892 jumps
+75% percentile = 898 jumps
+95% percentile = 907 jumps
+Worst = 920  jumps
+Average = 891.565 jumps
+<=== === === === === === === === ===>
+That is 2.61456 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 340 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32330 nanoseconds
+5% percentile = 37389 nanoseconds
+25% percentile = 40117 nanoseconds
+50% percentile = 42232 nanoseconds
+75% percentile = 44874 nanoseconds
+95% percentile = 51508 nanoseconds
+Worst = 132225  nanoseconds
+Average = 43199 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 345 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 67808 nanoseconds
+5% percentile = 70982 nanoseconds
+25% percentile = 73265 nanoseconds
+50% percentile = 76685 nanoseconds
+75% percentile = 81136 nanoseconds
+95% percentile = 88612 nanoseconds
+Worst = 160777  nanoseconds
+Average = 78294 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 345 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 876 jumps
+5% percentile = 889 jumps
+25% percentile = 898 jumps
+50% percentile = 905 jumps
+75% percentile = 911 jumps
+95% percentile = 920 jumps
+Worst = 933  jumps
+Average = 904.589 jumps
+<=== === === === === === === === ===>
+That is 2.61442 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 345 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 31316 nanoseconds
+5% percentile = 37526 nanoseconds
+25% percentile = 40166 nanoseconds
+50% percentile = 42227 nanoseconds
+75% percentile = 44889 nanoseconds
+95% percentile = 51581 nanoseconds
+Worst = 117988  nanoseconds
+Average = 43228 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 350 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 68418 nanoseconds
+5% percentile = 71863 nanoseconds
+25% percentile = 74005 nanoseconds
+50% percentile = 76712 nanoseconds
+75% percentile = 81341 nanoseconds
+95% percentile = 89114 nanoseconds
+Worst = 171955  nanoseconds
+Average = 78687 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 350 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 889 jumps
+5% percentile = 901 jumps
+25% percentile = 911 jumps
+50% percentile = 918 jumps
+75% percentile = 924 jumps
+95% percentile = 933 jumps
+Worst = 947  jumps
+Average = 917.701 jumps
+<=== === === === === === === === ===>
+That is 2.61453 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 350 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32085 nanoseconds
+5% percentile = 37499 nanoseconds
+25% percentile = 40184 nanoseconds
+50% percentile = 42158 nanoseconds
+75% percentile = 44760 nanoseconds
+95% percentile = 51069 nanoseconds
+Worst = 108341  nanoseconds
+Average = 43075 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 355 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 70132 nanoseconds
+5% percentile = 72914 nanoseconds
+25% percentile = 75257 nanoseconds
+50% percentile = 78493 nanoseconds
+75% percentile = 82976 nanoseconds
+95% percentile = 90124 nanoseconds
+Worst = 161734  nanoseconds
+Average = 80137 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 355 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 903 jumps
+5% percentile = 915 jumps
+25% percentile = 925 jumps
+50% percentile = 930 jumps
+75% percentile = 937 jumps
+95% percentile = 946 jumps
+Worst = 960  jumps
+Average = 930.754 jumps
+<=== === === === === === === === ===>
+That is 2.61448 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 355 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32184 nanoseconds
+5% percentile = 37648 nanoseconds
+25% percentile = 40340 nanoseconds
+50% percentile = 42433 nanoseconds
+75% percentile = 45062 nanoseconds
+95% percentile = 51539 nanoseconds
+Worst = 126305  nanoseconds
+Average = 43318 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 360 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 70844 nanoseconds
+5% percentile = 74102 nanoseconds
+25% percentile = 76696 nanoseconds
+50% percentile = 80524 nanoseconds
+75% percentile = 84779 nanoseconds
+95% percentile = 92994 nanoseconds
+Worst = 170611  nanoseconds
+Average = 82053 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 360 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 914 jumps
+5% percentile = 927 jumps
+25% percentile = 937 jumps
+50% percentile = 944 jumps
+75% percentile = 950 jumps
+95% percentile = 959 jumps
+Worst = 975  jumps
+Average = 943.756 jumps
+<=== === === === === === === === ===>
+That is 2.61428 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 360 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32297 nanoseconds
+5% percentile = 37817 nanoseconds
+25% percentile = 40592 nanoseconds
+50% percentile = 42688 nanoseconds
+75% percentile = 45435 nanoseconds
+95% percentile = 52549 nanoseconds
+Worst = 115566  nanoseconds
+Average = 43744 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 365 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 70650 nanoseconds
+5% percentile = 74643 nanoseconds
+25% percentile = 76914 nanoseconds
+50% percentile = 79721 nanoseconds
+75% percentile = 84237 nanoseconds
+95% percentile = 92304 nanoseconds
+Worst = 183122  nanoseconds
+Average = 81653 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 365 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 926 jumps
+5% percentile = 940 jumps
+25% percentile = 951 jumps
+50% percentile = 957 jumps
+75% percentile = 964 jumps
+95% percentile = 972 jumps
+Worst = 988  jumps
+Average = 956.848 jumps
+<=== === === === === === === === ===>
+That is 2.61434 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 365 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32299 nanoseconds
+5% percentile = 37826 nanoseconds
+25% percentile = 40468 nanoseconds
+50% percentile = 42538 nanoseconds
+75% percentile = 45210 nanoseconds
+95% percentile = 51702 nanoseconds
+Worst = 117724  nanoseconds
+Average = 43516 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 370 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 72282 nanoseconds
+5% percentile = 75594 nanoseconds
+25% percentile = 77962 nanoseconds
+50% percentile = 81303 nanoseconds
+75% percentile = 86272 nanoseconds
+95% percentile = 95078 nanoseconds
+Worst = 185671  nanoseconds
+Average = 83340 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 370 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 939 jumps
+5% percentile = 953 jumps
+25% percentile = 964 jumps
+50% percentile = 970 jumps
+75% percentile = 977 jumps
+95% percentile = 986 jumps
+Worst = 1001  jumps
+Average = 969.917 jumps
+<=== === === === === === === === ===>
+That is 2.61433 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 370 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32045 nanoseconds
+5% percentile = 37887 nanoseconds
+25% percentile = 40620 nanoseconds
+50% percentile = 42757 nanoseconds
+75% percentile = 45482 nanoseconds
+95% percentile = 52347 nanoseconds
+Worst = 123342  nanoseconds
+Average = 43707 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 375 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 73415 nanoseconds
+5% percentile = 76690 nanoseconds
+25% percentile = 79236 nanoseconds
+50% percentile = 82832 nanoseconds
+75% percentile = 87383 nanoseconds
+95% percentile = 95259 nanoseconds
+Worst = 173285  nanoseconds
+Average = 84452 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 375 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 952 jumps
+5% percentile = 966 jumps
+25% percentile = 977 jumps
+50% percentile = 983 jumps
+75% percentile = 990 jumps
+95% percentile = 999 jumps
+Worst = 1014  jumps
+Average = 982.96 jumps
+<=== === === === === === === === ===>
+That is 2.61426 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 375 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32570 nanoseconds
+5% percentile = 38070 nanoseconds
+25% percentile = 40790 nanoseconds
+50% percentile = 42945 nanoseconds
+75% percentile = 45698 nanoseconds
+95% percentile = 52548 nanoseconds
+Worst = 133320  nanoseconds
+Average = 43917 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 380 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 73903 nanoseconds
+5% percentile = 77410 nanoseconds
+25% percentile = 79865 nanoseconds
+50% percentile = 82812 nanoseconds
+75% percentile = 87060 nanoseconds
+95% percentile = 95559 nanoseconds
+Worst = 191363  nanoseconds
+Average = 84616 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 380 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 965 jumps
+5% percentile = 979 jumps
+25% percentile = 990 jumps
+50% percentile = 996 jumps
+75% percentile = 1003 jumps
+95% percentile = 1012 jumps
+Worst = 1027  jumps
+Average = 996.003 jumps
+<=== === === === === === === === ===>
+That is 2.61418 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 380 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32280 nanoseconds
+5% percentile = 38110 nanoseconds
+25% percentile = 40849 nanoseconds
+50% percentile = 42959 nanoseconds
+75% percentile = 45569 nanoseconds
+95% percentile = 52358 nanoseconds
+Worst = 115716  nanoseconds
+Average = 43906 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 385 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 74701 nanoseconds
+5% percentile = 78436 nanoseconds
+25% percentile = 80760 nanoseconds
+50% percentile = 84244 nanoseconds
+75% percentile = 88874 nanoseconds
+95% percentile = 97055 nanoseconds
+Worst = 167815  nanoseconds
+Average = 86041 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 385 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 977 jumps
+5% percentile = 992 jumps
+25% percentile = 1003 jumps
+50% percentile = 1009 jumps
+75% percentile = 1016 jumps
+95% percentile = 1025 jumps
+Worst = 1040  jumps
+Average = 1009.07 jumps
+<=== === === === === === === === ===>
+That is 2.61416 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 385 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32316 nanoseconds
+5% percentile = 38227 nanoseconds
+25% percentile = 40994 nanoseconds
+50% percentile = 43135 nanoseconds
+75% percentile = 45798 nanoseconds
+95% percentile = 52776 nanoseconds
+Worst = 110144  nanoseconds
+Average = 44099 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 390 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 76313 nanoseconds
+5% percentile = 79526 nanoseconds
+25% percentile = 82367 nanoseconds
+50% percentile = 86153 nanoseconds
+75% percentile = 90182 nanoseconds
+95% percentile = 98221 nanoseconds
+Worst = 193930  nanoseconds
+Average = 87578 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 390 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 990 jumps
+5% percentile = 1005 jumps
+25% percentile = 1015 jumps
+50% percentile = 1022 jumps
+75% percentile = 1029 jumps
+95% percentile = 1038 jumps
+Worst = 1055  jumps
+Average = 1022.14 jumps
+<=== === === === === === === === ===>
+That is 2.61417 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 390 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32306 nanoseconds
+5% percentile = 38335 nanoseconds
+25% percentile = 41144 nanoseconds
+50% percentile = 43379 nanoseconds
+75% percentile = 46223 nanoseconds
+95% percentile = 53322 nanoseconds
+Worst = 114729  nanoseconds
+Average = 44428 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 395 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 76752 nanoseconds
+5% percentile = 79948 nanoseconds
+25% percentile = 82503 nanoseconds
+50% percentile = 85808 nanoseconds
+75% percentile = 90125 nanoseconds
+95% percentile = 97612 nanoseconds
+Worst = 173243  nanoseconds
+Average = 87398 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 395 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1005 jumps
+5% percentile = 1018 jumps
+25% percentile = 1029 jumps
+50% percentile = 1035 jumps
+75% percentile = 1042 jumps
+95% percentile = 1051 jumps
+Worst = 1068  jumps
+Average = 1035.28 jumps
+<=== === === === === === === === ===>
+That is 2.61434 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 395 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32070 nanoseconds
+5% percentile = 38429 nanoseconds
+25% percentile = 41108 nanoseconds
+50% percentile = 43282 nanoseconds
+75% percentile = 45970 nanoseconds
+95% percentile = 52676 nanoseconds
+Worst = 119760  nanoseconds
+Average = 44256 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 400 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 78080 nanoseconds
+5% percentile = 81228 nanoseconds
+25% percentile = 83783 nanoseconds
+50% percentile = 87404 nanoseconds
+75% percentile = 91999 nanoseconds
+95% percentile = 99644 nanoseconds
+Worst = 201395  nanoseconds
+Average = 89076 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 400 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1017 jumps
+5% percentile = 1032 jumps
+25% percentile = 1042 jumps
+50% percentile = 1048 jumps
+75% percentile = 1055 jumps
+95% percentile = 1065 jumps
+Worst = 1083  jumps
+Average = 1048.39 jumps
+<=== === === === === === === === ===>
+That is 2.61445 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 400 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32488 nanoseconds
+5% percentile = 38476 nanoseconds
+25% percentile = 41292 nanoseconds
+50% percentile = 43540 nanoseconds
+75% percentile = 46309 nanoseconds
+95% percentile = 53179 nanoseconds
+Worst = 122184  nanoseconds
+Average = 44465 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 405 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 77143 nanoseconds
+5% percentile = 82068 nanoseconds
+25% percentile = 84870 nanoseconds
+50% percentile = 88382 nanoseconds
+75% percentile = 92748 nanoseconds
+95% percentile = 100167 nanoseconds
+Worst = 191512  nanoseconds
+Average = 89898 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 405 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1029 jumps
+5% percentile = 1045 jumps
+25% percentile = 1055 jumps
+50% percentile = 1061 jumps
+75% percentile = 1068 jumps
+95% percentile = 1078 jumps
+Worst = 1094  jumps
+Average = 1061.42 jumps
+<=== === === === === === === === ===>
+That is 2.61433 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 405 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32403 nanoseconds
+5% percentile = 38543 nanoseconds
+25% percentile = 41409 nanoseconds
+50% percentile = 43604 nanoseconds
+75% percentile = 46500 nanoseconds
+95% percentile = 53365 nanoseconds
+Worst = 125380  nanoseconds
+Average = 44690 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 410 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 79066 nanoseconds
+5% percentile = 82844 nanoseconds
+25% percentile = 85412 nanoseconds
+50% percentile = 89365 nanoseconds
+75% percentile = 94029 nanoseconds
+95% percentile = 109238 nanoseconds
+Worst = 190595  nanoseconds
+Average = 91516 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 410 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1043 jumps
+5% percentile = 1057 jumps
+25% percentile = 1068 jumps
+50% percentile = 1074 jumps
+75% percentile = 1081 jumps
+95% percentile = 1091 jumps
+Worst = 1105  jumps
+Average = 1074.41 jumps
+<=== === === === === === === === ===>
+That is 2.61415 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 410 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32385 nanoseconds
+5% percentile = 38646 nanoseconds
+25% percentile = 41475 nanoseconds
+50% percentile = 43785 nanoseconds
+75% percentile = 46705 nanoseconds
+95% percentile = 54440 nanoseconds
+Worst = 120929  nanoseconds
+Average = 44904 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 415 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 80414 nanoseconds
+5% percentile = 83932 nanoseconds
+25% percentile = 86635 nanoseconds
+50% percentile = 90240 nanoseconds
+75% percentile = 95667 nanoseconds
+95% percentile = 121736 nanoseconds
+Worst = 177937  nanoseconds
+Average = 93903 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 415 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1056 jumps
+5% percentile = 1071 jumps
+25% percentile = 1080 jumps
+50% percentile = 1087 jumps
+75% percentile = 1094 jumps
+95% percentile = 1105 jumps
+Worst = 1118  jumps
+Average = 1087.47 jumps
+<=== === === === === === === === ===>
+That is 2.6141 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 415 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32441 nanoseconds
+5% percentile = 38949 nanoseconds
+25% percentile = 41712 nanoseconds
+50% percentile = 44064 nanoseconds
+75% percentile = 47249 nanoseconds
+95% percentile = 57413 nanoseconds
+Worst = 111211  nanoseconds
+Average = 45474 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 420 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 80781 nanoseconds
+5% percentile = 84611 nanoseconds
+25% percentile = 87301 nanoseconds
+50% percentile = 91361 nanoseconds
+75% percentile = 96994 nanoseconds
+95% percentile = 112062 nanoseconds
+Worst = 185964  nanoseconds
+Average = 93836 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 420 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1068 jumps
+5% percentile = 1083 jumps
+25% percentile = 1093 jumps
+50% percentile = 1100 jumps
+75% percentile = 1107 jumps
+95% percentile = 1118 jumps
+Worst = 1131  jumps
+Average = 1100.53 jumps
+<=== === === === === === === === ===>
+That is 2.61408 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 420 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32313 nanoseconds
+5% percentile = 38936 nanoseconds
+25% percentile = 41752 nanoseconds
+50% percentile = 44032 nanoseconds
+75% percentile = 47016 nanoseconds
+95% percentile = 55358 nanoseconds
+Worst = 110583  nanoseconds
+Average = 45149 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 425 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 82244 nanoseconds
+5% percentile = 85591 nanoseconds
+25% percentile = 88170 nanoseconds
+50% percentile = 91216 nanoseconds
+75% percentile = 95624 nanoseconds
+95% percentile = 104895 nanoseconds
+Worst = 197544  nanoseconds
+Average = 93127 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 425 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1078 jumps
+5% percentile = 1096 jumps
+25% percentile = 1106 jumps
+50% percentile = 1114 jumps
+75% percentile = 1120 jumps
+95% percentile = 1131 jumps
+Worst = 1144  jumps
+Average = 1113.57 jumps
+<=== === === === === === === === ===>
+That is 2.61401 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 425 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32122 nanoseconds
+5% percentile = 38991 nanoseconds
+25% percentile = 41776 nanoseconds
+50% percentile = 43888 nanoseconds
+75% percentile = 46607 nanoseconds
+95% percentile = 53438 nanoseconds
+Worst = 120282  nanoseconds
+Average = 44872 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 430 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 82628 nanoseconds
+5% percentile = 86577 nanoseconds
+25% percentile = 89470 nanoseconds
+50% percentile = 93096 nanoseconds
+75% percentile = 97711 nanoseconds
+95% percentile = 107430 nanoseconds
+Worst = 210414  nanoseconds
+Average = 95074 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 430 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1091 jumps
+5% percentile = 1109 jumps
+25% percentile = 1120 jumps
+50% percentile = 1127 jumps
+75% percentile = 1133 jumps
+95% percentile = 1144 jumps
+Worst = 1157  jumps
+Average = 1126.66 jumps
+<=== === === === === === === === ===>
+That is 2.61406 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 430 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32473 nanoseconds
+5% percentile = 39049 nanoseconds
+25% percentile = 41971 nanoseconds
+50% percentile = 44202 nanoseconds
+75% percentile = 47093 nanoseconds
+95% percentile = 54493 nanoseconds
+Worst = 125385  nanoseconds
+Average = 45306 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 435 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 84216 nanoseconds
+5% percentile = 87316 nanoseconds
+25% percentile = 89819 nanoseconds
+50% percentile = 93260 nanoseconds
+75% percentile = 97853 nanoseconds
+95% percentile = 106838 nanoseconds
+Worst = 202628  nanoseconds
+Average = 95193 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 435 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1104 jumps
+5% percentile = 1123 jumps
+25% percentile = 1133 jumps
+50% percentile = 1140 jumps
+75% percentile = 1147 jumps
+95% percentile = 1158 jumps
+Worst = 1170  jumps
+Average = 1139.82 jumps
+<=== === === === === === === === ===>
+That is 2.61427 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 435 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32219 nanoseconds
+5% percentile = 39196 nanoseconds
+25% percentile = 41960 nanoseconds
+50% percentile = 44095 nanoseconds
+75% percentile = 46944 nanoseconds
+95% percentile = 53993 nanoseconds
+Worst = 129642  nanoseconds
+Average = 45189 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 440 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 83824 nanoseconds
+5% percentile = 88434 nanoseconds
+25% percentile = 91225 nanoseconds
+50% percentile = 94942 nanoseconds
+75% percentile = 99378 nanoseconds
+95% percentile = 108044 nanoseconds
+Worst = 207848  nanoseconds
+Average = 96591 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 440 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1117 jumps
+5% percentile = 1136 jumps
+25% percentile = 1146 jumps
+50% percentile = 1153 jumps
+75% percentile = 1160 jumps
+95% percentile = 1171 jumps
+Worst = 1182  jumps
+Average = 1152.94 jumps
+<=== === === === === === === === ===>
+That is 2.61438 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 440 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32491 nanoseconds
+5% percentile = 39327 nanoseconds
+25% percentile = 42140 nanoseconds
+50% percentile = 44356 nanoseconds
+75% percentile = 47248 nanoseconds
+95% percentile = 54215 nanoseconds
+Worst = 118607  nanoseconds
+Average = 45429 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 445 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 85549 nanoseconds
+5% percentile = 89410 nanoseconds
+25% percentile = 92089 nanoseconds
+50% percentile = 95961 nanoseconds
+75% percentile = 100840 nanoseconds
+95% percentile = 109221 nanoseconds
+Worst = 195186  nanoseconds
+Average = 97768 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 445 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1131 jumps
+5% percentile = 1149 jumps
+25% percentile = 1159 jumps
+50% percentile = 1166 jumps
+75% percentile = 1173 jumps
+95% percentile = 1184 jumps
+Worst = 1195  jumps
+Average = 1166.03 jumps
+<=== === === === === === === === ===>
+That is 2.61442 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 445 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32194 nanoseconds
+5% percentile = 39424 nanoseconds
+25% percentile = 42249 nanoseconds
+50% percentile = 44458 nanoseconds
+75% percentile = 47320 nanoseconds
+95% percentile = 54247 nanoseconds
+Worst = 121613  nanoseconds
+Average = 45551 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 450 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 85381 nanoseconds
+5% percentile = 89951 nanoseconds
+25% percentile = 92324 nanoseconds
+50% percentile = 95564 nanoseconds
+75% percentile = 100672 nanoseconds
+95% percentile = 109460 nanoseconds
+Worst = 219279  nanoseconds
+Average = 97628 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 450 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1146 jumps
+5% percentile = 1161 jumps
+25% percentile = 1172 jumps
+50% percentile = 1179 jumps
+75% percentile = 1187 jumps
+95% percentile = 1197 jumps
+Worst = 1209  jumps
+Average = 1179.12 jumps
+<=== === === === === === === === ===>
+That is 2.61445 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 450 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32336 nanoseconds
+5% percentile = 39414 nanoseconds
+25% percentile = 42196 nanoseconds
+50% percentile = 44369 nanoseconds
+75% percentile = 47209 nanoseconds
+95% percentile = 54015 nanoseconds
+Worst = 138858  nanoseconds
+Average = 45442 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 455 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 86994 nanoseconds
+5% percentile = 91123 nanoseconds
+25% percentile = 93896 nanoseconds
+50% percentile = 97633 nanoseconds
+75% percentile = 102607 nanoseconds
+95% percentile = 111938 nanoseconds
+Worst = 201166  nanoseconds
+Average = 99563 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 455 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1160 jumps
+5% percentile = 1174 jumps
+25% percentile = 1185 jumps
+50% percentile = 1192 jumps
+75% percentile = 1199 jumps
+95% percentile = 1210 jumps
+Worst = 1223  jumps
+Average = 1192.22 jumps
+<=== === === === === === === === ===>
+That is 2.61452 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 455 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32123 nanoseconds
+5% percentile = 39624 nanoseconds
+25% percentile = 42376 nanoseconds
+50% percentile = 44637 nanoseconds
+75% percentile = 47574 nanoseconds
+95% percentile = 54355 nanoseconds
+Worst = 137648  nanoseconds
+Average = 45712 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 460 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 88954 nanoseconds
+5% percentile = 91843 nanoseconds
+25% percentile = 94681 nanoseconds
+50% percentile = 98797 nanoseconds
+75% percentile = 103784 nanoseconds
+95% percentile = 112663 nanoseconds
+Worst = 208960  nanoseconds
+Average = 100500 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 460 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1173 jumps
+5% percentile = 1187 jumps
+25% percentile = 1198 jumps
+50% percentile = 1205 jumps
+75% percentile = 1212 jumps
+95% percentile = 1224 jumps
+Worst = 1237  jumps
+Average = 1205.3 jumps
+<=== === === === === === === === ===>
+That is 2.61453 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 460 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32331 nanoseconds
+5% percentile = 39730 nanoseconds
+25% percentile = 42471 nanoseconds
+50% percentile = 44740 nanoseconds
+75% percentile = 47678 nanoseconds
+95% percentile = 54781 nanoseconds
+Worst = 121791  nanoseconds
+Average = 45851 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 465 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 89138 nanoseconds
+5% percentile = 92760 nanoseconds
+25% percentile = 95288 nanoseconds
+50% percentile = 98460 nanoseconds
+75% percentile = 103862 nanoseconds
+95% percentile = 113258 nanoseconds
+Worst = 204336  nanoseconds
+Average = 100802 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 465 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1184 jumps
+5% percentile = 1200 jumps
+25% percentile = 1211 jumps
+50% percentile = 1218 jumps
+75% percentile = 1226 jumps
+95% percentile = 1237 jumps
+Worst = 1249  jumps
+Average = 1218.38 jumps
+<=== === === === === === === === ===>
+That is 2.61456 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 465 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32373 nanoseconds
+5% percentile = 39734 nanoseconds
+25% percentile = 42449 nanoseconds
+50% percentile = 44683 nanoseconds
+75% percentile = 47634 nanoseconds
+95% percentile = 54563 nanoseconds
+Worst = 118608  nanoseconds
+Average = 45770 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 470 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 90198 nanoseconds
+5% percentile = 93696 nanoseconds
+25% percentile = 96297 nanoseconds
+50% percentile = 99927 nanoseconds
+75% percentile = 105250 nanoseconds
+95% percentile = 115514 nanoseconds
+Worst = 234025  nanoseconds
+Average = 102135 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 470 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1197 jumps
+5% percentile = 1213 jumps
+25% percentile = 1224 jumps
+50% percentile = 1231 jumps
+75% percentile = 1239 jumps
+95% percentile = 1250 jumps
+Worst = 1263  jumps
+Average = 1231.54 jumps
+<=== === === === === === === === ===>
+That is 2.61474 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 470 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32439 nanoseconds
+5% percentile = 39885 nanoseconds
+25% percentile = 42617 nanoseconds
+50% percentile = 44865 nanoseconds
+75% percentile = 47831 nanoseconds
+95% percentile = 54932 nanoseconds
+Worst = 122869  nanoseconds
+Average = 45995 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 475 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 89880 nanoseconds
+5% percentile = 94884 nanoseconds
+25% percentile = 97867 nanoseconds
+50% percentile = 101542 nanoseconds
+75% percentile = 106065 nanoseconds
+95% percentile = 115960 nanoseconds
+Worst = 204112  nanoseconds
+Average = 103393 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 475 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1212 jumps
+5% percentile = 1226 jumps
+25% percentile = 1237 jumps
+50% percentile = 1244 jumps
+75% percentile = 1252 jumps
+95% percentile = 1263 jumps
+Worst = 1278  jumps
+Average = 1244.72 jumps
+<=== === === === === === === === ===>
+That is 2.61495 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 475 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32395 nanoseconds
+5% percentile = 40059 nanoseconds
+25% percentile = 42752 nanoseconds
+50% percentile = 45037 nanoseconds
+75% percentile = 48015 nanoseconds
+95% percentile = 55111 nanoseconds
+Worst = 128224  nanoseconds
+Average = 46195 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 480 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 92049 nanoseconds
+5% percentile = 95491 nanoseconds
+25% percentile = 98378 nanoseconds
+50% percentile = 102387 nanoseconds
+75% percentile = 106904 nanoseconds
+95% percentile = 116155 nanoseconds
+Worst = 204677  nanoseconds
+Average = 104058 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 480 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1226 jumps
+5% percentile = 1239 jumps
+25% percentile = 1250 jumps
+50% percentile = 1258 jumps
+75% percentile = 1265 jumps
+95% percentile = 1277 jumps
+Worst = 1292  jumps
+Average = 1257.81 jumps
+<=== === === === === === === === ===>
+That is 2.61499 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 480 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32324 nanoseconds
+5% percentile = 40132 nanoseconds
+25% percentile = 42844 nanoseconds
+50% percentile = 45123 nanoseconds
+75% percentile = 48109 nanoseconds
+95% percentile = 55253 nanoseconds
+Worst = 137645  nanoseconds
+Average = 46276 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 485 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 92880 nanoseconds
+5% percentile = 96765 nanoseconds
+25% percentile = 99774 nanoseconds
+50% percentile = 103821 nanoseconds
+75% percentile = 108330 nanoseconds
+95% percentile = 117591 nanoseconds
+Worst = 215290  nanoseconds
+Average = 105514 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 485 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1239 jumps
+5% percentile = 1252 jumps
+25% percentile = 1263 jumps
+50% percentile = 1271 jumps
+75% percentile = 1278 jumps
+95% percentile = 1289 jumps
+Worst = 1307  jumps
+Average = 1270.84 jumps
+<=== === === === === === === === ===>
+That is 2.61489 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 485 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32338 nanoseconds
+5% percentile = 40273 nanoseconds
+25% percentile = 42915 nanoseconds
+50% percentile = 45291 nanoseconds
+75% percentile = 48234 nanoseconds
+95% percentile = 55412 nanoseconds
+Worst = 129900  nanoseconds
+Average = 46398 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 490 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 93404 nanoseconds
+5% percentile = 97293 nanoseconds
+25% percentile = 100088 nanoseconds
+50% percentile = 103935 nanoseconds
+75% percentile = 108827 nanoseconds
+95% percentile = 118336 nanoseconds
+Worst = 232307  nanoseconds
+Average = 105801 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 490 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1252 jumps
+5% percentile = 1265 jumps
+25% percentile = 1276 jumps
+50% percentile = 1284 jumps
+75% percentile = 1292 jumps
+95% percentile = 1302 jumps
+Worst = 1319  jumps
+Average = 1283.93 jumps
+<=== === === === === === === === ===>
+That is 2.61493 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 490 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32180 nanoseconds
+5% percentile = 40323 nanoseconds
+25% percentile = 42943 nanoseconds
+50% percentile = 45320 nanoseconds
+75% percentile = 48276 nanoseconds
+95% percentile = 55326 nanoseconds
+Worst = 127265  nanoseconds
+Average = 46439 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 495 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 94682 nanoseconds
+5% percentile = 98166 nanoseconds
+25% percentile = 101028 nanoseconds
+50% percentile = 104914 nanoseconds
+75% percentile = 109904 nanoseconds
+95% percentile = 119886 nanoseconds
+Worst = 199231  nanoseconds
+Average = 106871 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 495 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1266 jumps
+5% percentile = 1278 jumps
+25% percentile = 1289 jumps
+50% percentile = 1297 jumps
+75% percentile = 1305 jumps
+95% percentile = 1316 jumps
+Worst = 1332  jumps
+Average = 1296.97 jumps
+<=== === === === === === === === ===>
+That is 2.61486 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 495 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32305 nanoseconds
+5% percentile = 40461 nanoseconds
+25% percentile = 43057 nanoseconds
+50% percentile = 45395 nanoseconds
+75% percentile = 48406 nanoseconds
+95% percentile = 55774 nanoseconds
+Worst = 144271  nanoseconds
+Average = 46540 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 500 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 94748 nanoseconds
+5% percentile = 99001 nanoseconds
+25% percentile = 101788 nanoseconds
+50% percentile = 105633 nanoseconds
+75% percentile = 110742 nanoseconds
+95% percentile = 120729 nanoseconds
+Worst = 215986  nanoseconds
+Average = 107711 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 500 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1279 jumps
+5% percentile = 1291 jumps
+25% percentile = 1302 jumps
+50% percentile = 1310 jumps
+75% percentile = 1318 jumps
+95% percentile = 1329 jumps
+Worst = 1344  jumps
+Average = 1310.03 jumps
+<=== === === === === === === === ===>
+That is 2.61482 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 500 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 32167 nanoseconds
+5% percentile = 40592 nanoseconds
+25% percentile = 43172 nanoseconds
+50% percentile = 45549 nanoseconds
+75% percentile = 48453 nanoseconds
+95% percentile = 55837 nanoseconds
+Worst = 116685  nanoseconds
+Average = 46632 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 505 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 95601 nanoseconds
+5% percentile = 99934 nanoseconds
+25% percentile = 102813 nanoseconds
+50% percentile = 106678 nanoseconds
+75% percentile = 112064 nanoseconds
+95% percentile = 122286 nanoseconds
+Worst = 206350  nanoseconds
+Average = 108907 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 505 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1293 jumps
+5% percentile = 1304 jumps
+25% percentile = 1316 jumps
+50% percentile = 1323 jumps
+75% percentile = 1331 jumps
+95% percentile = 1342 jumps
+Worst = 1357  jumps
+Average = 1323.13 jumps
+<=== === === === === === === === ===>
+That is 2.61488 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 505 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 36116 nanoseconds
+5% percentile = 40718 nanoseconds
+25% percentile = 43276 nanoseconds
+50% percentile = 45647 nanoseconds
+75% percentile = 48575 nanoseconds
+95% percentile = 56211 nanoseconds
+Worst = 117679  nanoseconds
+Average = 46778 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 510 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 97037 nanoseconds
+5% percentile = 100797 nanoseconds
+25% percentile = 103647 nanoseconds
+50% percentile = 107202 nanoseconds
+75% percentile = 112788 nanoseconds
+95% percentile = 123394 nanoseconds
+Worst = 213038  nanoseconds
+Average = 109581 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 510 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1304 jumps
+5% percentile = 1318 jumps
+25% percentile = 1329 jumps
+50% percentile = 1336 jumps
+75% percentile = 1344 jumps
+95% percentile = 1355 jumps
+Worst = 1372  jumps
+Average = 1336.23 jumps
+<=== === === === === === === === ===>
+That is 2.61494 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 510 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 36110 nanoseconds
+5% percentile = 40750 nanoseconds
+25% percentile = 43384 nanoseconds
+50% percentile = 45659 nanoseconds
+75% percentile = 48692 nanoseconds
+95% percentile = 56149 nanoseconds
+Worst = 110557  nanoseconds
+Average = 46787 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 515 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 98386 nanoseconds
+5% percentile = 102067 nanoseconds
+25% percentile = 104977 nanoseconds
+50% percentile = 108715 nanoseconds
+75% percentile = 113818 nanoseconds
+95% percentile = 124633 nanoseconds
+Worst = 200354  nanoseconds
+Average = 110810 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 515 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1316 jumps
+5% percentile = 1331 jumps
+25% percentile = 1342 jumps
+50% percentile = 1349 jumps
+75% percentile = 1357 jumps
+95% percentile = 1368 jumps
+Worst = 1384  jumps
+Average = 1349.29 jumps
+<=== === === === === === === === ===>
+That is 2.6149 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 515 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 36920 nanoseconds
+5% percentile = 41308 nanoseconds
+25% percentile = 43823 nanoseconds
+50% percentile = 46114 nanoseconds
+75% percentile = 49084 nanoseconds
+95% percentile = 56586 nanoseconds
+Worst = 117896  nanoseconds
+Average = 47254 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 520 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 98527 nanoseconds
+5% percentile = 103362 nanoseconds
+25% percentile = 106490 nanoseconds
+50% percentile = 110580 nanoseconds
+75% percentile = 115494 nanoseconds
+95% percentile = 126258 nanoseconds
+Worst = 211369  nanoseconds
+Average = 112572 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 520 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1329 jumps
+5% percentile = 1343 jumps
+25% percentile = 1355 jumps
+50% percentile = 1362 jumps
+75% percentile = 1370 jumps
+95% percentile = 1381 jumps
+Worst = 1399  jumps
+Average = 1362.41 jumps
+<=== === === === === === === === ===>
+That is 2.615 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 520 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 37616 nanoseconds
+5% percentile = 41494 nanoseconds
+25% percentile = 43985 nanoseconds
+50% percentile = 46398 nanoseconds
+75% percentile = 49293 nanoseconds
+95% percentile = 57116 nanoseconds
+Worst = 139921  nanoseconds
+Average = 47564 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 525 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 100313 nanoseconds
+5% percentile = 104086 nanoseconds
+25% percentile = 107064 nanoseconds
+50% percentile = 111044 nanoseconds
+75% percentile = 116176 nanoseconds
+95% percentile = 126382 nanoseconds
+Worst = 229320  nanoseconds
+Average = 113098 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 525 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1342 jumps
+5% percentile = 1356 jumps
+25% percentile = 1368 jumps
+50% percentile = 1375 jumps
+75% percentile = 1383 jumps
+95% percentile = 1395 jumps
+Worst = 1411  jumps
+Average = 1375.48 jumps
+<=== === === === === === === === ===>
+That is 2.61497 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 525 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 37201 nanoseconds
+5% percentile = 41536 nanoseconds
+25% percentile = 43981 nanoseconds
+50% percentile = 46444 nanoseconds
+75% percentile = 49290 nanoseconds
+95% percentile = 56883 nanoseconds
+Worst = 115037  nanoseconds
+Average = 47487 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 530 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 101587 nanoseconds
+5% percentile = 105051 nanoseconds
+25% percentile = 107987 nanoseconds
+50% percentile = 111833 nanoseconds
+75% percentile = 116997 nanoseconds
+95% percentile = 127173 nanoseconds
+Worst = 229487  nanoseconds
+Average = 114034 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 530 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1355 jumps
+5% percentile = 1369 jumps
+25% percentile = 1381 jumps
+50% percentile = 1388 jumps
+75% percentile = 1396 jumps
+95% percentile = 1408 jumps
+Worst = 1425  jumps
+Average = 1388.52 jumps
+<=== === === === === === === === ===>
+That is 2.61492 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 530 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 37237 nanoseconds
+5% percentile = 41716 nanoseconds
+25% percentile = 44176 nanoseconds
+50% percentile = 46616 nanoseconds
+75% percentile = 49447 nanoseconds
+95% percentile = 57003 nanoseconds
+Worst = 137813  nanoseconds
+Average = 47712 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 535 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 101473 nanoseconds
+5% percentile = 105716 nanoseconds
+25% percentile = 108577 nanoseconds
+50% percentile = 112401 nanoseconds
+75% percentile = 117518 nanoseconds
+95% percentile = 128110 nanoseconds
+Worst = 218988  nanoseconds
+Average = 114605 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 535 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1369 jumps
+5% percentile = 1382 jumps
+25% percentile = 1393 jumps
+50% percentile = 1401 jumps
+75% percentile = 1410 jumps
+95% percentile = 1421 jumps
+Worst = 1438  jumps
+Average = 1401.59 jumps
+<=== === === === === === === === ===>
+That is 2.6149 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 535 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 36949 nanoseconds
+5% percentile = 41827 nanoseconds
+25% percentile = 44227 nanoseconds
+50% percentile = 46609 nanoseconds
+75% percentile = 49430 nanoseconds
+95% percentile = 56702 nanoseconds
+Worst = 140949  nanoseconds
+Average = 47658 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 540 = (ORT) How much faster is Ort than KDTree horizontal
+Best = 102585 nanoseconds
+5% percentile = 106767 nanoseconds
+25% percentile = 109721 nanoseconds
+50% percentile = 113516 nanoseconds
+75% percentile = 118891 nanoseconds
+95% percentile = 128939 nanoseconds
+Worst = 246040  nanoseconds
+Average = 115787 nanoseconds
+<=== === === === === === === === ===>
+
+
+TESTING 17 and 540 = (JUMPS) How much faster is Ort than KDTree horizontal
+Best = 1382 jumps
+5% percentile = 1395 jumps
+25% percentile = 1407 jumps
+50% percentile = 1415 jumps
+75% percentile = 1423 jumps
+95% percentile = 1434 jumps
+Worst = 1452  jumps
+Average = 1414.66 jumps
+<=== === === === === === === === ===>
+That is 2.6149 jumps per result.
+With a max jump of 3 and a average of 2.99991
+startlevel max of 17 and a average of 17.0013 and a minimum of 17
+tens 0
+
+
+TESTING 17 and 540 = (KDTREE) How much faster is Ort than KDTree horizontal
+Best = 37328 nanoseconds
+5% percentile = 41945 nanoseconds
+25% percentile = 44298 nanoseconds
+50% percentile = 46732 nanoseconds
+75% percentile = 49646 nanoseconds
+95% percentile = 57143 nanoseconds
+Worst = 150548  nanoseconds
+Average = 47893 nanoseconds
+<=== === === === === === === === ===>

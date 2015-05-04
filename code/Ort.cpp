@@ -231,7 +231,7 @@ Ort::createLinkedList(int size) {
     int B = 2;
     for(int i = 1; i < std::ceil(std::log2(size+1)); ++i) {
         int skiplevels = pow(B, i);
-        for(int j = 0; j < size; j+= skiplevels) {
+        for(int j = skiplevels-1; j < size; j+= skiplevels) {
             jumplist.at(j) = skiplevels;
         }
     }

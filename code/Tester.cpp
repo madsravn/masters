@@ -33,7 +33,15 @@ std::vector<T> numbers(std::vector<int> input, bool reverse = false) {
     return ret;
 }
 
-
+int counttens(const std::vector<int>& vec) {
+    int amount = 0;
+    for(const auto& e : vec) {
+        if(e == 10) {
+            ++amount;
+        }
+    }
+    return amount;
+}
 
 
 template<typename T>
@@ -341,6 +349,7 @@ Tester::run() {
 
             kdtreeorthori << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
             
+            kdtreeorthori << "tens " << counttens(startlevels_hori.at(i)) << std::endl;
 
             
             std::vector<int> rep2 = numbers<int>(timevector2.at(i));
@@ -366,6 +375,9 @@ Tester::run() {
             std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
 
             kdtreeortvert << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
+
+
+            kdtreeortvert << "tens " << counttens(startlevels_vert.at(i)) << std::endl;
             
             std::vector<int> rep2 = numbers<int>(timevector2_vert.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T2name, t1.type(), kdtreeortvert);
