@@ -1,0 +1,104 @@
+
+
+TESTING 17 = When is KDTree just as fast as Ort horizontal
+Best = 135 times
+5% percentile = 130 times
+25% percentile = 100 times
+50% percentile = 95 times
+75% percentile = 95 times
+95% percentile = 90 times
+Worst = 0  times
+Average = 97 times
+<=== === === === === === === === ===>
+
+
+TESTING 17 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 25 jumps
+5% percentile = 33 jumps
+25% percentile = 88 jumps
+50% percentile = 154 jumps
+75% percentile = 218 jumps
+95% percentile = 273 jumps
+Worst = 390  jumps
+Average = 154 jumps
+<=== === === === === === === === ===>
+That is 1.58763 jumps per result.
+With a max jump of 3 and an average of 2
+
+
+TESTING 18 = When is KDTree just as fast as Ort horizontal
+Best = 165 times
+5% percentile = 135 times
+25% percentile = 130 times
+50% percentile = 125 times
+75% percentile = 120 times
+95% percentile = 110 times
+Worst = 20  times
+Average = 123 times
+<=== === === === === === === === ===>
+
+
+TESTING 18 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 31 jumps
+5% percentile = 51 jumps
+25% percentile = 128 jumps
+50% percentile = 231 jumps
+75% percentile = 333 jumps
+95% percentile = 420 jumps
+Worst = 569  jumps
+Average = 232 jumps
+<=== === === === === === === === ===>
+That is 1.88618 jumps per result.
+With a max jump of 4 and an average of 4
+
+
+TESTING 19 = When is KDTree just as fast as Ort horizontal
+Best = 455 times
+5% percentile = 420 times
+25% percentile = 370 times
+50% percentile = 350 times
+75% percentile = 330 times
+95% percentile = 240 times
+Worst = 15  times
+Average = 341 times
+<=== === === === === === === === ===>
+
+
+TESTING 19 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 14 jumps
+5% percentile = 56 jumps
+25% percentile = 204 jumps
+50% percentile = 391 jumps
+75% percentile = 585 jumps
+95% percentile = 762 jumps
+Worst = 958  jumps
+Average = 398 jumps
+<=== === === === === === === === ===>
+That is 1.16716 jumps per result.
+With a max jump of 4 and an average of 4
+
+
+TESTING 20 = When is KDTree just as fast as Ort horizontal
+Best = 830 times
+5% percentile = 770 times
+25% percentile = 725 times
+50% percentile = 695 times
+75% percentile = 590 times
+95% percentile = 410 times
+Worst = 25  times
+Average = 649 times
+<=== === === === === === === === ===>
+
+
+TESTING 20 (JUMPS) When is KDTree just as fast as Ort vertical
+Best = 16 jumps
+5% percentile = 85 jumps
+25% percentile = 356 jumps
+50% percentile = 700 jumps
+75% percentile = 1058 jumps
+95% percentile = 1414 jumps
+Worst = 1775  jumps
+Average = 716 jumps
+<=== === === === === === === === ===>
+That is 1.10324 jumps per result.
+With a max jump of 4 and an average of 3
