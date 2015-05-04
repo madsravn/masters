@@ -330,7 +330,7 @@ void measureTimeOfPackedInts() {
 
 void TESTS() {
     
-    Tester test(18);
+    Tester test(19);
     test.run();
 
     /*    

@@ -39,7 +39,6 @@ int main(int argc, char** argv) {
         int level_min;
         int kd_avg;
         int size;
-        int tens;
         std::ofstream output;
         if (myfile.is_open()) {
             while ( myfile.good()) {
@@ -73,7 +72,7 @@ int main(int argc, char** argv) {
                         }
                         if(placement == 2) {
                             kd_avg = std::stoi(tokens.at(2));
-                            output << size << " " << ort_avg << " " << kd_avg << " " << avg_jump << " " << max_jump << " " << level_avg << " " << level_max << " " << level_min << " " << tens << std::endl;
+                            output << size << " " << ort_avg << " " << kd_avg << " " << avg_jump << " " << max_jump << " " << level_avg << " " << level_max << " " << level_min  << std::endl;
                         }
                     }
                     if(tokens.at(0) == "That") {
@@ -86,9 +85,6 @@ int main(int argc, char** argv) {
                         level_avg = std::stof(tokens.at(8));
                         level_max = std::stoi(tokens.at(3));
                         level_min = std::stoi(tokens.at(13));
-                    }
-                    if(tokens.at(0) == "tens") {
-                        tens = std::stoi(tokens.at(1));
                     }
 
                 }

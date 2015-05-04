@@ -236,6 +236,8 @@ Ort::createLinkedList(int size) {
         }
     }
         
+    //jumplist.at(8) = 9;
+    //jumplist.at(9) = 10;
     
     std::reverse(std::begin(jumplist), std::end(jumplist));
 

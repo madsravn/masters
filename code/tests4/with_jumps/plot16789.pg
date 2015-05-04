@@ -16,4 +16,4 @@ set style data lines
 
 set offsets 1,1,1,1
 
-plot filename using 1:6 t name1, filename using 1:7 t name2, filename using 1:8 t name3, filename using 1:($9/$1) t name4
+plot filename using 1:6 t name1, filename using 1:7 t name2, filename using 1:8 t name3
