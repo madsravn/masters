@@ -201,7 +201,7 @@ Data::generate(int amount) {
     std::vector<int> x(amount);
     std::vector<int> y(amount);
 
-    std::generate(std::begin(x), std::end(x), [&] { return ++n;});
+    std::generate(std::begin(x), std::end(x), [&] { return n++;});
     std::copy(std::begin(x), std::end(x), std::begin(y));
 
     std::random_device rd;

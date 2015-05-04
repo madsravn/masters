@@ -239,6 +239,7 @@ Ort::createLinkedList(int size) {
     
     std::reverse(std::begin(jumplist), std::end(jumplist));
 
+    
     for(int i = 0; i < jumplist.size(); ++i) {
         // Is the jump close to just hitting the end? Then let it
         if(i+jumplist.at(i) > jumplist.size() - 4) {
@@ -1041,7 +1042,7 @@ Ort::DepthFindPoints(int leftchild, int rightchild, int ly_index, int uy_index, 
             return;
         }
     }
-    internalstartlevel = level;
+    internalstartlevel = levels.size() - level;
     DepthfollowPoint(leftchild,ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, LEFT, level+1);
     DepthfollowPoint(rightchild,nodepos+amount/2+lrank,nodepos+amount/2+urank, bit+1, nodepos+amount/2, amount/2, RIGHT, level+1);
 }

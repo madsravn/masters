@@ -9,8 +9,8 @@ using unitofmeassure = std::chrono::nanoseconds;
 
 
 template<typename T>
-std::vector<int> numbers(std::vector<T> input, bool reverse = false) {
-    std::vector<int> ret;
+std::vector<T> numbers(std::vector<int> input, bool reverse = false) {
+    std::vector<T> ret;
     if(reverse) {
         std::sort(std::begin(input), std::end(input), std::greater<T>());
     } else {
@@ -37,10 +37,10 @@ std::vector<int> numbers(std::vector<T> input, bool reverse = false) {
 
 
 template<typename T>
-std::vector<std::vector<int>> numbers2(std::vector<std::vector<T>> vecs, bool reverse = false) {
-    std::vector<std::vector<int>> rret;
+std::vector<std::vector<T>> numbers2(std::vector<std::vector<int>> vecs, bool reverse = false) {
+    std::vector<std::vector<T>> rret;
     for(auto& input : vecs) {
-        std::vector<int> ret;
+        std::vector<T> ret;
         if(reverse) {
             std::sort(std::begin(input), std::end(input), std::greater<T>());
         } else {
@@ -109,8 +109,9 @@ Tester::buildtrees(int n) {
 //TODO: REWRITE SIZE OG A
 //TODO: REWRITE TIL AT FINDE MELLEM A OG B HVOR ORT ER BEDRE END KD I STEDET FOR BARE OP TIL
 
+template<typename T>
 void
-Tester::report(const std::vector<int>& vec, std::string name, std::string timename) {
+Tester::report(const std::vector<T>& vec, std::string name, std::string timename) {
     std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
     std::cout << "Best = " << vec.at(0) << " " << timename << std::endl;
     std::cout << "5% percentile = " << vec.at(1) << " " << timename << std::endl;
@@ -135,9 +136,9 @@ Tester::report(const std::vector<int>& vec, std::string name, std::string timena
 
 }
 
-
+template<typename T>
 void
-Tester::report(const std::vector<int>& vec, std::string name, std::string timename, std::ofstream& writetome) {
+Tester::report(const std::vector<T>& vec, std::string name, std::string timename, std::ofstream& writetome) {
     std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
     std::cout << "Best = " << vec.at(0) << " " << timename << std::endl;
     std::cout << "5% percentile = " << vec.at(1) << " " << timename << std::endl;
@@ -164,8 +165,9 @@ Tester::report(const std::vector<int>& vec, std::string name, std::string timena
 
 
 
+template<typename T>
 void
-Tester::report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename) {
+Tester::report2(const std::vector<std::vector<T>>& vec, std::string name, std::string timename) {
     std::cout << std::endl << std::endl << "TESTING " << name << std::endl;
     output << std::endl << std::endl << "TESTING " << name << std::endl;
     std::cout << "< 5%, 50%, 95%, average >" << std::endl;
@@ -302,10 +304,10 @@ Tester::run() {
             how_much_faster_is_ort_vertical<unitofmeassure>(T2name, ort, kdtree, timevector_vert, timevector2_vert, jumps_vert, max_jumps_vert, startlevels_vert, k);
 
             // TEST3
-            compare_vertical_slices_times_between_ort_and_kdtree(T3name, ort, kdtree, times_compare_vert, jumps_compare_vert, max_jumps_compare_vert, k);
+            //compare_vertical_slices_times_between_ort_and_kdtree(T3name, ort, kdtree, times_compare_vert, jumps_compare_vert, max_jumps_compare_vert, k);
 
             // TEST4
-            compare_horizontal_slices_times_between_ort_and_kdtree(T4name, ort, kdtree, times_compare_hori, jumps_compare_hori, max_jumps_compare_hori, k);
+            //compare_horizontal_slices_times_between_ort_and_kdtree(T4name, ort, kdtree, times_compare_hori, jumps_compare_hori, max_jumps_compare_hori, k);
 
             // TEST5 
             //how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
@@ -318,79 +320,81 @@ Tester::run() {
         }
 
         
+        
         // For TEST1
         for(int i = 0; i < timevector.size(); ++i) {
             Timer<unitofmeassure> t1;
-            std::vector<int> rep = numbers(timevector.at(i));
+            std::vector<int> rep = numbers<int>(timevector.at(i));
             report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T1name, t1.type(), kdtreeorthori);
-            std::vector<int> jumprep  = numbers(jumps_hori.at(i));
+            std::vector<float> jumprep  = numbers<float>(jumps_hori.at(i));
             report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T1name, "jumps", kdtreeorthori);
             std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
 
             kdtreeorthori << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
-            std::vector<int> max_jumps_rep = numbers(max_jumps_hori.at(i));
+            std::vector<float> max_jumps_rep = numbers<float>(max_jumps_hori.at(i));
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
             kdtreeorthori << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
 
-            std::vector<int> startlevels_rep = numbers(startlevels_hori.at(i));
-            std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
+            std::vector<float> startlevels_rep = numbers<float>(startlevels_hori.at(i));
+            std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
 
-            kdtreeorthori << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
+            kdtreeorthori << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
             
 
             
-            std::vector<int> rep2 = numbers(timevector2.at(i));
+            std::vector<int> rep2 = numbers<int>(timevector2.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T1name, t1.type(), kdtreeorthori);
         }
 
         // For TEST2
         for(int i = 0; i < timevector.size(); ++i) {
             Timer<unitofmeassure> t1;
-            std::vector<int> rep = numbers(timevector_vert.at(i));
+            std::vector<int> rep = numbers<int>(timevector_vert.at(i));
             report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T2name, t1.type(), kdtreeortvert);
-            std::vector<int> jumprep  = numbers(jumps_vert.at(i));
+            std::vector<float> jumprep  = numbers<float>(jumps_vert.at(i));
             report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T2name, "jumps", kdtreeortvert);
             std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
             kdtreeortvert << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
 
-            std::vector<int> max_jumps_rep = numbers(max_jumps_vert.at(i));
+            std::vector<float> max_jumps_rep = numbers<float>(max_jumps_vert.at(i));
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
             kdtreeortvert << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
 
-            std::vector<int> startlevels_rep = numbers(startlevels_vert.at(i));
-            std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
+            std::vector<float> startlevels_rep = numbers<float>(startlevels_vert.at(i));
+            std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
 
-            kdtreeortvert << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
+            kdtreeortvert << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
             
-            std::vector<int> rep2 = numbers(timevector2_vert.at(i));
+            std::vector<int> rep2 = numbers<int>(timevector2_vert.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T2name, t1.type(), kdtreeortvert);
         }
 
+        /*
         {
-            std::vector<int> rep = numbers(times_compare_vert, true);
+            std::vector<int> rep = numbers<int>(times_compare_vert, true);
             report(rep, std::to_string(k) + " = " + T3name, "times", compare_vert_stream);
 
-            std::vector<int> jumprep = numbers(jumps_compare_vert);
+            std::vector<int> jumprep = numbers<int>(jumps_compare_vert);
             report(jumprep, std::to_string(k) + " (JUMPS) " + T3name, "jumps", compare_vert_stream);
             std::cout << "That is " << float(jumprep.at(7))/rep.at(7) << " jumps per result." << std::endl;
             compare_vert_stream << "That is " << float(jumprep.at(7))/rep.at(7) << " jumps per result." << std::endl;
-            std::vector<int> max_jumps_rep = numbers(max_jumps_compare_vert);
+            std::vector<int> max_jumps_rep = numbers<int>(max_jumps_compare_vert);
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and an average of " << max_jumps_rep.at(7) << std::endl;
 
             compare_vert_stream << "With a max jump of " << max_jumps_rep.at(6) << " and an average of " << max_jumps_rep.at(7) << std::endl;
         }
 
         {
-            std::vector<int> rep = numbers(times_compare_hori, true);
+            std::vector<int> rep = numbers<int>(times_compare_hori, true);
             report(rep, std::to_string(k) + " = " + T4name, "times", compare_hori_stream);
 
-            std::vector<int> jumprep = numbers(jumps_compare_hori);
+            std::vector<int> jumprep = numbers<int>(jumps_compare_hori);
             report(jumprep, std::to_string(k) + " (JUMPS) " + T3name, "jumps", compare_hori_stream);
             std::cout << "That is " << float(jumprep.at(7))/rep.at(7) << " jumps per result." << std::endl;
             compare_hori_stream << "That is " << float(jumprep.at(7))/rep.at(7) << " jumps per result." << std::endl;
-            std::vector<int> max_jumps_rep = numbers(max_jumps_compare_hori);
+            std::vector<int> max_jumps_rep = numbers<int>(max_jumps_compare_hori);
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and an average of " << max_jumps_rep.at(7) << std::endl;
 
             compare_hori_stream << "With a max jump of " << max_jumps_rep.at(6) << " and an average of " << max_jumps_rep.at(7) << std::endl;
@@ -398,55 +402,54 @@ Tester::run() {
 
         }
 
-/*
         // For TEST5
         for(int i = 0; i < smalltimevector.size(); ++i) {
             Timer<unitofmeassure> t1;
-            std::vector<int> rep = numbers(smalltimevector.at(i));
-            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T5name, t1.type(), smallkdtreeorthori);
-            std::vector<int> jumprep  = numbers(smalljumps_hori.at(i));
-            report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T5name, "jumps", smallkdtreeorthori);
-            std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
-            smallkdtreeorthori << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+            std::vector<int> rep = numbers<int>(smalltimevector.at(i));
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)) + " = (ORT) " + T5name, t1.type(), smallkdtreeorthori);
+            std::vector<int> jumprep  = numbers<int>(smalljumps_hori.at(i));
+            report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)) + " = (JUMPS) " + T5name, "jumps", smallkdtreeorthori);
+            std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)) << " jumps per result." << std::endl;
+            smallkdtreeorthori << "That is " << float(jumprep.at(7))/(1+(i+1)) << " jumps per result." << std::endl;
 
-            std::vector<int> max_jumps_rep = numbers(smallmax_jumps_hori.at(i));
+            std::vector<int> max_jumps_rep = numbers<int>(smallmax_jumps_hori.at(i));
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
             smallkdtreeorthori << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
 
-            std::vector<int> startlevels_rep = numbers(smallstartlevels_hori.at(i));
+            std::vector<int> startlevels_rep = numbers<int>(smallstartlevels_hori.at(i));
             std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
 
             smallkdtreeorthori << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
             
 
             
-            std::vector<int> rep2 = numbers(smalltimevector2.at(i));
-            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T5name, t1.type(), kdtreeorthori);
+            std::vector<int> rep2 = numbers<int>(smalltimevector2.at(i));
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T5name, t1.type(), kdtreeorthori);
         }
 
         // For TEST6
         for(int i = 0; i < smalltimevector.size(); ++i) {
             Timer<unitofmeassure> t1;
-            std::vector<int> rep = numbers(smalltimevector_vert.at(i));
-            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T6name, t1.type(), smallkdtreeortvert);
-            std::vector<int> jumprep  = numbers(smalljumps_vert.at(i));
-            report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T6name, "jumps", smallkdtreeortvert);
-            std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
-            smallkdtreeortvert << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+            std::vector<int> rep = numbers<int>(smalltimevector_vert.at(i));
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)) + " = (ORT) " + T6name, t1.type(), smallkdtreeortvert);
+            std::vector<int> jumprep  = numbers<int>(smalljumps_vert.at(i));
+            report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)) + " = (JUMPS) " + T6name, "jumps", smallkdtreeortvert);
+            std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)) << " jumps per result." << std::endl;
+            smallkdtreeortvert << "That is " << float(jumprep.at(7))/(1+(i+1)) << " jumps per result." << std::endl;
 
-            std::vector<int> max_jumps_rep = numbers(smallmax_jumps_vert.at(i));
+            std::vector<int> max_jumps_rep = numbers<int>(smallmax_jumps_vert.at(i));
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
             smallkdtreeortvert << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
 
-            std::vector<int> startlevels_rep = numbers(smallstartlevels_vert.at(i));
+            std::vector<int> startlevels_rep = numbers<int>(smallstartlevels_vert.at(i));
             std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
 
             smallkdtreeortvert << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
             
-            std::vector<int> rep2 = numbers(smalltimevector2_vert.at(i));
-            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T6name, t1.type(), kdtreeortvert);
+            std::vector<int> rep2 = numbers<int>(smalltimevector2_vert.at(i));
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T6name, t1.type(), kdtreeortvert);
         }
 */
 
@@ -495,13 +498,15 @@ Tester::how_much_faster_is_ort_vertical_small(std::string name, Ort& ort, KDTree
 
 
     Timer<T> t1;
-    for(int size = 0; size < timevector.size(); ++size) {
+    for(int size = 1; size < timevector.size()+1; ++size) {
         for(int h = 0; h < 10; ++h) {
             for(int j = 0; j < 100; ++j) {
                 jumpcount = 0;
                 max_jump = 0;
                 startlevel = 0;
                 Region reg {{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}};
+                std::cout << reg << std::endl;
+                std::cout << size*interval << std::endl << std::endl;
                 
                 t1.reset();
                 t1.start();
@@ -510,10 +515,10 @@ Tester::how_much_faster_is_ort_vertical_small(std::string name, Ort& ort, KDTree
 
                 ort.Depthsearch(reg, jumpcount, max_jump, startlevel);
 
-                timevector.at(size).push_back(t1.duration().count());
-                jump_vector.at(size).push_back(jumpcount);
-                max_jumps.at(size).push_back(max_jump);
-                startlevels.at(size).push_back(startlevel);
+                timevector.at(size-1).push_back(t1.duration().count());
+                jump_vector.at(size-1).push_back(jumpcount);
+                max_jumps.at(size-1).push_back(max_jump);
+                startlevels.at(size-1).push_back(startlevel);
 
 
 
@@ -522,7 +527,7 @@ Tester::how_much_faster_is_ort_vertical_small(std::string name, Ort& ort, KDTree
                 kdtree.search(reg);
                 t1.stop();
 
-                timevector2.at(size).push_back(t1.duration().count());
+                timevector2.at(size-1).push_back(t1.duration().count());
                 
             }
         }
@@ -549,7 +554,7 @@ Tester::how_much_faster_is_ort_horizontal_small(std::string name, Ort& ort, KDTr
 
 
     Timer<T> t1;
-    for(int size = 0; size < timevector.size(); ++size) {
+    for(int size = 1; size < timevector.size()+1; ++size) {
         for(int h = 0; h < 10; ++h) {
             for(int j = 0; j < 100; ++j) {
                 jumpcount = 0;
@@ -563,10 +568,10 @@ Tester::how_much_faster_is_ort_horizontal_small(std::string name, Ort& ort, KDTr
                 t1.stop();
 
                 ort.Depthsearch(reg, jumpcount, max_jump, startlevel);
-                timevector.at(size).push_back(t1.duration().count());
-                startlevels.at(size).push_back(startlevel);
-                jump_vector.at(size).push_back(jumpcount);
-                max_jumps.at(size).push_back(max_jump);
+                timevector.at(size-1).push_back(t1.duration().count());
+                startlevels.at(size-1).push_back(startlevel);
+                jump_vector.at(size-1).push_back(jumpcount);
+                max_jumps.at(size-1).push_back(max_jump);
 
 
 
@@ -575,7 +580,7 @@ Tester::how_much_faster_is_ort_horizontal_small(std::string name, Ort& ort, KDTr
                 kdtree.search(reg);
                 t1.stop();
 
-                timevector2.at(size).push_back(t1.duration().count());
+                timevector2.at(size-1).push_back(t1.duration().count());
                 
             }
         }
@@ -744,24 +749,24 @@ Tester::how_much_faster_is_ort_horizontal(std::string name) {
             }
         }
         for(int i = 0; i < timevector.size(); ++i) {
-            std::vector<int> rep = numbers(timevector.at(i));
+            std::vector<int> rep = numbers<int>(timevector.at(i));
             report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + name, t1.type());
             
             
-            std::vector<int> jumprep  = numbers(jump_vector.at(i));
+            std::vector<int> jumprep  = numbers<int>(jump_vector.at(i));
             report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + name, "jumps");
 
             std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
             output << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
 
-            std::vector<int> max_jumps_rep = numbers(max_jumps.at(i));
+            std::vector<int> max_jumps_rep = numbers<int>(max_jumps.at(i));
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
             output << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
 
 
-            std::vector<int> rep2 = numbers(timevector2.at(i));
+            std::vector<int> rep2 = numbers<int>(timevector2.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + name, t1.type());
         }
 
@@ -824,16 +829,16 @@ Tester::how_much_faster_is_ort_vertical(std::string name) {
             }
         }
         for(int i = 0; i < timevector.size(); ++i) {
-            std::vector<int> rep = numbers(timevector.at(i));
+            std::vector<int> rep = numbers<int>(timevector.at(i));
             report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + name, t1.type());
 
-            std::vector<int> jumprep  = numbers(jump_vector.at(i));
+            std::vector<int> jumprep  = numbers<int>(jump_vector.at(i));
             report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + name, "jumps");
 
             std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
             output << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
 
-            std::vector<int> max_jumps_rep = numbers(max_jumps.at(i));
+            std::vector<int> max_jumps_rep = numbers<int>(max_jumps.at(i));
             std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
             
             output << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
@@ -842,7 +847,7 @@ Tester::how_much_faster_is_ort_vertical(std::string name) {
 
 
 
-            std::vector<int> rep2 = numbers(timevector2.at(i));
+            std::vector<int> rep2 = numbers<int>(timevector2.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + name, t1.type());
         }
 
@@ -886,7 +891,7 @@ Tester::CACHE_create_and_search_ort_type_four_same(std::string name) {
                 
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -911,7 +916,7 @@ Tester::CACHE_create_and_search_ort_type_four_different(std::string name) {
                 
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -936,7 +941,7 @@ Tester::CACHE_create_and_search_ort_type_three_same(std::string name) {
                 
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -961,7 +966,7 @@ Tester::CACHE_create_and_search_ort_type_three_different(std::string name) {
                 
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -998,7 +1003,7 @@ Tester::slices_of_100_horizontal_independent_of_n(std::string name) {
                 }
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 
@@ -1028,7 +1033,7 @@ Tester::slices_of_100_vertical_independent_of_n(std::string name) {
                 }
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
     }
 
@@ -1054,7 +1059,7 @@ void Tester::cacheimportance(std::string name) {
                 }
             }
         }
-        std::vector<int> rep = numbers(times);
+        std::vector<int> rep = numbers<int>(times);
         report(rep, std::to_string(k) + " = " + name, t1.type());
         
 
@@ -1074,7 +1079,7 @@ void Tester::cacheimportance(std::string name) {
             }
         }
 
-        std::vector<int> rep2 = numbers(times2);
+        std::vector<int> rep2 = numbers<int>(times2);
         report(rep2, std::to_string(k) + " = " + name, t1.type());
     }
 
@@ -1100,7 +1105,7 @@ Tester::ten_vertical_slices_have_same_performance(std::string name) {
                 }
             }
         }
-        std::vector<std::vector<int>> rep = numbers2(times);
+        std::vector<std::vector<int>> rep = numbers2<int>(times);
         report2(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -1125,7 +1130,7 @@ Tester::ten_vertical_slices_kdtree(std::string name) {
                 }
             }
         }
-        std::vector<std::vector<int>> rep = numbers2(times);
+        std::vector<std::vector<int>> rep = numbers2<int>(times);
         report2(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -1152,7 +1157,7 @@ Tester::ten_horizontal_slices_have_same_performance(std::string name) {
                 }
             }
         }
-        std::vector<std::vector<int>> rep = numbers2(times);
+        std::vector<std::vector<int>> rep = numbers2<int>(times);
         report2(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -1177,7 +1182,7 @@ Tester::ten_horizontal_slices_kdtree(std::string name) {
                 }
             }
         }
-        std::vector<std::vector<int>> rep = numbers2(times);
+        std::vector<std::vector<int>> rep = numbers2<int>(times);
         report2(rep, std::to_string(k) + " = " + name, t1.type());
     }
 }
@@ -1380,7 +1385,7 @@ Tester::compare_horizontal_slices_times_between_ort_and_kdtree(std::string name)
                 }
             }
         }
-        std::vector<int> rep = numbers(times, true);
+        std::vector<int> rep = numbers<int>(times, true);
         report(rep, std::to_string(k) + " = " + name, "times");
     }
 
@@ -1440,7 +1445,7 @@ Tester::compare_vertical_slices_times_between_ort_and_kdtree(std::string name) {
                 }
             }
         }
-        std::vector<int> rep = numbers(times, true);
+        std::vector<int> rep = numbers<int>(times, true);
         report(rep, std::to_string(k) + " = " + name, "times");
     }
 

@@ -63,10 +63,14 @@ class Tester {
         void ten_horizontal_slices_kdtree(std::string name);
 
         std::tuple<Ort, KDTree> buildtrees(int n);
-        void report(const std::vector<int>& vec, std::string name, std::string timename);
 
-        void report(const std::vector<int>& vec, std::string name, std::string timename, std::ofstream& writetome);
-        void report2(const std::vector<std::vector<int>>& vec, std::string name, std::string timename);
+        template<typename T>
+        void report(const std::vector<T>& vec, std::string name, std::string timename);
+
+        template<typename T>
+        void report(const std::vector<T>& vec, std::string name, std::string timename, std::ofstream& writetome);
+        template<typename T>
+        void report2(const std::vector<std::vector<T>>& vec, std::string name, std::string timename);
 
         void run();
 
