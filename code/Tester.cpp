@@ -308,10 +308,10 @@ Tester::run() {
             compare_horizontal_slices_times_between_ort_and_kdtree(T4name, ort, kdtree, times_compare_hori, jumps_compare_hori, max_jumps_compare_hori, k);
 
             // TEST5 
-            how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
+            //how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
 
             // TEST6
-            how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
+            //how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
 
 
 
@@ -398,7 +398,7 @@ Tester::run() {
 
         }
 
-
+/*
         // For TEST5
         for(int i = 0; i < smalltimevector.size(); ++i) {
             Timer<unitofmeassure> t1;
@@ -448,7 +448,7 @@ Tester::run() {
             std::vector<int> rep2 = numbers(smalltimevector2_vert.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T6name, t1.type(), kdtreeortvert);
         }
-
+*/
 
 
 
