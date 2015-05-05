@@ -46,7 +46,7 @@ struct qreturn {
 
 class Ort {
     public:
-        Ort(int amount, std::vector<Point> input);
+        Ort(int amount, std::vector<Point> input, int _B = 2, bool _hybrid = false);
         void divide(int level, int pos, std::vector<Point> points);
         void setBit(int level, int pos, int value);
         void outputLevels();
@@ -90,6 +90,8 @@ class Ort {
     private:
         // type: 1 for no big jumps, 2 for expensive big jumps and 3 for linear big jumps
         //int type;
+        int B;
+        bool hybrid;
         Point corner;
         int internaljumpcount;
         int internalmaxdepth;

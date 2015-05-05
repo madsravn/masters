@@ -182,16 +182,13 @@ Tester::report2(const std::vector<std::vector<T>>& vec, std::string name, std::s
 void
 Tester::run() {
 
-
-    //std::function<void(std::string)> foo_str = std::bind(&Tester::how_much_faster_is_ort_vertical,this, std::placeholders::_1);
-    //std::function<void(std::string)> bar_str = std::bind(&Tester::how_much_faster_is_ort_horizontal, this, std::placeholders::_1);
-
-
-    // IDE: SEND ORT OG KD TRÆ MED TIL FUNKTIONER. LAD DERES VECTORS VÆRE STYRET HERFRA OG SÅ RENSER VI DEM OGSÅ HER
+    //TODO: 8 TESTS NATTEN OVER
+    //B = {2,3}, hybrid = {true, false} og ekstra_information = {true, false}.
     //
-    //
-    //
-    // TODO: DYBDE I ORT TRÆER!
+    // Vi er interesserede i, at se om indsamling af ekstra information giver anledning til langsommere kørsel.
+    // Det gør ikke noget hvis det er, de ekstra informationer skal bare hjælpe med at beskrive hvad der sker. 
+    // Kørselstiden skal bare give gode resultater.
+
 
     Timer<std::chrono::seconds> t2;
     

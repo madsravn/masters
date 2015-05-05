@@ -228,7 +228,6 @@ Ort::createLinkedList(int size) {
     // Another idea could be to find the middle level and let that jump to the end
     // All levels above it considers the middle as the actual goal. Then we have split it in half
     
-    int B = 2;
     for(int i = 1; i < std::ceil(std::log2(size+1)); ++i) {
         int skiplevels = pow(B, i);
         for(int j = skiplevels-1; j < size; j+= skiplevels) {
@@ -240,11 +239,13 @@ Ort::createLinkedList(int size) {
     std::reverse(std::begin(jumplist), std::end(jumplist));
 
     
-    for(int i = 0; i < jumplist.size(); ++i) {
-        // Is the jump close to just hitting the end? Then let it
-        if(i+jumplist.at(i) > jumplist.size() - 4) {
-            // TODO: Better semantics
-            jumplist.at(i) = jumplist.size()+3;
+    if(hybrid) {
+        for(int i = 0; i < jumplist.size(); ++i) {
+            // Is the jump close to just hitting the end? Then let it
+            if(i+jumplist.at(i) > jumplist.size() - 4) {
+                // TODO: Better semantics
+                jumplist.at(i) = jumplist.size()+3;
+            }
         }
     }
     return jumplist;
@@ -660,9 +661,8 @@ Ort::initializeBinarySearches() {
     std::sort(std::begin(yb), std::end(yb));
 }
 
-
 // Generates $amount$ of points with unique x-coordinates and unique y-coordinates
-Ort::Ort(int amount, std::vector<Point> input) : balls(amount), levels(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0)) {
+Ort::Ort(int amount, std::vector<Point> input, int _B, bool _hybrid) : B(_B), hybrid(_hybrid), balls(amount), levels(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0)) {
 
     /*
     std::vector<int> x(amount);
