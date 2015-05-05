@@ -8,7 +8,7 @@
 uint 
 Ort::rank(uint number) {
     uint first = number >> 16;
-    uint last = number & 65'535;
+    uint last = number & 65535;
 
     uint answer = inttobin[first] + inttobin[last];
     return answer;
@@ -41,56 +41,11 @@ Ort::makemask(uint range) {
 qreturn
 Ort::bigJump(int level, int pos) {
 
-    // || type == 1
     if(linear.at(level).jump == 1) {
         //std::cout << "Small steps" << std::endl;
         return {0,1,1,1};
     }
 
-    /*
-    // Skift mellem at bruge jumps eller notsolinear
-    if(type == 2) {
-        //int character = jumps.at(level).targets.at(pos);
-        //int rank = jumps.at(level).entries.at(pos);
-        //int size = jumps.at(level).jump;
-        int character = notsolinear.at(level).entries.at(pos);
-        int size = notsolinear.at(level).jump;
-        int end = notsolinear.at(level).end;
-        if(end == 0) {
-
-            int major_size = pow(2, size);
-            int div = notsolinear.at(level).div;
-            int major = notsolinear.at(level).major.at((pos/div)*major_size + character);
-            int minor =  notsolinear.at(level).minor.at(pos);
-            int rank = major + minor;
-        
-            return {1, character, rank, size};
-        }
-        return {1,character, 0, size};
-    }
-    
-    
-    // New type with a little garbage at the end of every uint
-    if(type == 4) {
-        int character = Data::findInt2(lineargarb.at(level).entries, lineargarb.at(level).entrieskey, pos);
-        int size = lineargarb.at(level).jump;
-        int end = lineargarb.at(level).end;
-
-        if(end == 0) {
-
-            int major_size = pow(2, size);
-            int div = lineargarb.at(level).div;
-            int major = Data::findInt2(lineargarb.at(level).major, lineargarb.at(level).majorkey, (pos/div)*major_size + character);
-            int minor =  Data::findInt2(lineargarb.at(level).minor, lineargarb.at(level).minorkey, pos);
-            int rank = major + minor;
-        
-            return {1, character, rank, size};
-        }
-
-        return {1,character, 0, size};
-    }*/
-
-    // ELSE TYPE == 3
 
     int character = Data::findInt(linear.at(level).entries, linear.at(level).entrieskey, pos);
     int size = linear.at(level).jump;
@@ -158,15 +113,6 @@ Ort::size(int t) const {
         return storage;
     }
 
-    // One of the expensive big jumps
-    /*if(t == 2) {
-        for(const auto& e : notsolinear) {
-            storage += 4; // jump, majorkey, minorkey, div
-            storage += e.major.size();
-            storage += e.minor.size();
-            storage += e.entries.size();
-        }
-    }*/
 
     // The packed big jumps
     if(t == 3) {
@@ -185,8 +131,8 @@ uint
 Ort::findRank(int level, int nodepos, int pos) {
 
     // Simple version expanded
-    int pos_i = pos/32;
-    int pos_a = pos % 32;
+    int pos_i = pos >> 5;
+    int pos_a = pos & 31;
     uint mask = makemask(pos_a);
     if(pos_i == levels.at(level).size()) {
         return (ranks.at(level)).at(pos_i);
@@ -221,12 +167,8 @@ Ort::convertRangeToInt(std::vector<uint> vec, int start, int stop) {
 
 std::vector<int>
 Ort::createLinkedList(int size) {
+
     std::vector<int> jumplist(size, 1);
-    // Calculate the budget.
-    // TODO!
-    //
-    // Another idea could be to find the middle level and let that jump to the end
-    // All levels above it considers the middle as the actual goal. Then we have split it in half
     
     for(int i = 1; i < std::ceil(std::log2(size+1)); ++i) {
         int skiplevels = pow(B, i);
@@ -243,11 +185,12 @@ Ort::createLinkedList(int size) {
         for(int i = 0; i < jumplist.size(); ++i) {
             // Is the jump close to just hitting the end? Then let it
             if(i+jumplist.at(i) > jumplist.size() - 4) {
-                // TODO: Better semantics
+
                 jumplist.at(i) = jumplist.size()+3;
             }
         }
     }
+
     return jumplist;
 }
 
@@ -292,8 +235,6 @@ Ort::generateJumps() {
             end = 1;
         }
 
-        //Jumper jump;
-        //jump.jump = skiplevels;
         if(skiplevels > 1) {
             std::vector<uint> targets;
             for(int j = 0; j < linkedlists.size(); ++j) {
@@ -302,8 +243,6 @@ Ort::generateJumps() {
                 targets.push_back(target);
             }
 
-            //std::cout << "targets: " << targets << std::endl;
-            //jump.targets = targets;
             std::vector<uint> alph(pow(2,skiplevels), 0);
             std::vector<uint> entries(targets.size(), 0);
 
@@ -313,12 +252,6 @@ Ort::generateJumps() {
                 alph.at(entry)++;
             }
 
-            //std::cout << "entries: " << entries << std::endl;
-            //jump.entries = entries;
-            //jump.end = false;
-            //jumps.at(i) = jump;
-
-            // Converting to linear representation
             // TODO : TARGETS OG ENTRIES HEDDER DET FORKERTE. TJEK DATAEN FRA BIGJUMP OG FIND UD AF HVAD DET GØR
             std::vector<std::vector<uint>> majorcheckpoints; //(std::log2(balls.size()) + 2, std::vector<uint>(pow(2,skiplevels), 0));
             std::vector<uint> minor;
@@ -349,17 +282,6 @@ Ort::generateJumps() {
             minor.shrink_to_fit();
             targets.shrink_to_fit();
 
-            //LinearJumper notsolinearjump;
-            //notsolinearjump.jump = skiplevels;
-
-            //notsolinearjump.div = div;
-            //if(end == 0) {
-            //    notsolinearjump.major = major;
-            //    notsolinearjump.minor = minor;
-            //}
-            //notsolinearjump.entries = targets;
-            //notsolinearjump.end = end;
-            //notsolinear.at(i) = notsolinearjump;
 
 
             LinearJumper linearjump;
@@ -383,9 +305,6 @@ Ort::generateJumps() {
                 linearjump.majorkey = std::ceil(std::log2(majorkey+1));
                 linearjump.major = Data::packBits(major, linearjump.majorkey);
 
-                //lineargarbjump.majorkey = std::ceil(std::log2(majorkey+1));
-                //lineargarbjump.major = Data::packBits2(major, lineargarbjump.majorkey);
-
 
                 auto minorkeyindex = std::max_element(std::begin(minor), std::end(minor));
                 uint minorkey = minor.at(std::distance(std::begin(minor), minorkeyindex));
@@ -397,16 +316,10 @@ Ort::generateJumps() {
                 linearjump.minorkey = std::ceil(std::log2(minorkey+1));
                 linearjump.minor = Data::packBits(minor, linearjump.minorkey);
 
-                //lineargarbjump.minorkey = std::ceil(std::log2(minorkey+1));
-                //lineargarbjump.minor = Data::packBits2(minor, lineargarbjump.minorkey);
-
                 linearjump.div = div;
                 linearjump.major.shrink_to_fit();
                 linearjump.minor.shrink_to_fit();
 
-                //lineargarbjump.div = div;
-                //lineargarbjump.major.shrink_to_fit();
-                //lineargarbjump.minor.shrink_to_fit();
             }
 
             auto entrieskeyindex = std::max_element(std::begin(targets), std::end(targets));
@@ -419,17 +332,10 @@ Ort::generateJumps() {
             linearjump.entrieskey = std::ceil(std::log2(entrieskey+1));
             linearjump.entries = Data::packBits(targets, linearjump.entrieskey);
 
-            //lineargarbjump.entrieskey = std::ceil(std::log2(entrieskey+1));
-            //lineargarbjump.entries = Data::packBits2(targets, lineargarbjump.entrieskey);
-
-
             linearjump.entries.shrink_to_fit();
             linearjump.end = end;
             linear.at(i) = linearjump;
 
-            //lineargarbjump.entries.shrink_to_fit();
-            //lineargarbjump.end = end;
-            //lineargarb.at(i) = lineargarbjump;
         }
     }
 
@@ -440,7 +346,6 @@ Point
 Ort::buildfollowball(int level, int nodepos, int pos, int amount) {
     if(amount > 1) {
     
-        // TODO: Refactor this piece of code
         uint irank = findRank(level, nodepos, pos) - nodepos/2;
         uint mask = bits.at(pos%32);
         uint num = (levels.at(level)).at(pos/32) & mask;
@@ -468,7 +373,6 @@ Ort::buildfollowball(int level, int nodepos, int pos, int amount) {
         }
     } 
 
-    // Nodepos and pos should be equal now - since amount == 1
     return balls.at(nodepos);
 }
 
@@ -580,26 +484,25 @@ Point
 Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
 
 
-    //int tempjumps = 0;
     while(amount > 1) {
-        //++internaljumpcount;
-        //++tempjumps;
+
         qreturn big = bigJump(level, pos);
+
         if(big.jump == 1) {
-            int size = pow(2, big.size);
+            int size = 1 << big.size;
 
             level += big.size;
             // If bottom is hit, the (big.rank - nodepos/size) will be 0. Thus we can save away the entire rank storage
             int tlong = (ulon(amount)*ulon(big.character))/size;
             pos = tlong + nodepos + (big.rank - nodepos/size);
             nodepos += tlong;
-            amount = amount/size;
+            amount = amount >> big.size;
 
         } else {
 
             uint irank = findRank(level, nodepos, pos) - nodepos/2;
-            uint mask = bits.at(pos%32);
-            uint num = (levels.at(level)).at(pos/32) & mask;
+            uint mask = bits.at(pos & 31);
+            uint num = (levels.at(level)).at(pos>>5) & mask;
             uint dir = rank(num);
 
             
@@ -607,14 +510,14 @@ Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
 
                 ++level;
                 pos = pos - irank;
-                amount = amount/2;
+                amount = amount>>1;
 
             } else if(dir == 1) {
 
                 ++level;
-                pos = nodepos + amount/2 + irank;
-                nodepos += amount/2;
-                amount = amount/2;
+                pos = nodepos + (amount>>1) + irank;
+                nodepos += amount>>1;
+                amount = amount>>1;
 
             } else {
 
@@ -624,9 +527,6 @@ Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
         }
 
     }
-    /*if(tempjumps > internalmaxdepth) {
-        internalmaxdepth = tempjumps;
-    }*/
     return balls.at(nodepos);
 }
 
@@ -664,23 +564,6 @@ Ort::initializeBinarySearches() {
 // Generates $amount$ of points with unique x-coordinates and unique y-coordinates
 Ort::Ort(int amount, std::vector<Point> input, int _B, bool _hybrid) : B(_B), hybrid(_hybrid), balls(amount), levels(std::log2(amount), std::vector<uint>(std::ceil(float(amount)/32), 0)) {
 
-    /*
-    std::vector<int> x(amount);
-    std::vector<int> y(amount);
-
-    int n {0};
-    std::generate(std::begin(x), std::end(x), [&]{ return ++n;});
-    std::copy(std::begin(x), std::end(x), std::begin(y));
-    
-    std::random_device rd;
-    std::mt19937 g(rd());
-
-    std::shuffle(std::begin(x), std::end(x), g);
-    std::shuffle(std::begin(y), std::end(y), g);
-
-    for(int i = 0; i < x.size(); ++i) {
-        points.push_back({x[i], y[i]});
-    }*/
 
     std::vector<Point> points;
     points = input;
@@ -693,10 +576,6 @@ Ort::Ort(int amount, std::vector<Point> input, int _B, bool _hybrid) : B(_B), hy
     
     // Distribute the balls using the ball-inheritance
     divide(0,0,points);
-
-    // Output the levels so we can see how the ball-inheritance has distributed
-    //outputLevels();
-
 
     // Now let's precalculate the rank sums
     std::vector<std::vector<uint>> vvs(std::log2(amount), std::vector<uint>());
@@ -720,51 +599,21 @@ Ort::Ort(int amount, std::vector<Point> input, int _B, bool _hybrid) : B(_B), hy
     twodarray = temparray;
     //twodarray.insert(std::begin(twodarray), levels.size(), std::vector<int>(points.size(), -1));
     
-    //Jumper tempjump;
-    //tempjump.jump = 1;
-    //std::vector<Jumper> tjumps(levels.size(), tempjump);
-    //jumps = tjumps;
-
     LinearJumper templinearjump;
     templinearjump.jump = 1;
     templinearjump.end = 0;
     std::vector<LinearJumper> tlinearjumps(levels.size(), templinearjump);
-    //notsolinear = tlinearjumps;
     linear = tlinearjumps;
-    //lineargarb = tlinearjumps;
 
 
 
     
     generateJumps();
-    // GenerateJumps debug output
-    /*for(const auto& l : linkedlists) {
-        std::cout << l << std::endl;
-    }
-    //std::cout << points << std::endl;
 
-    for(const auto& l : twodarray) {
-        std::cout << l << std::endl;
-    }
-    for(const auto& e : jumps) {
-        std::cout << e.jump << std::endl;
-    }*/
-
-
-
-    //type = 3;
-    // Testing that all balls falls to their correct leaf
-    /*bool all = true;
-    for(int i = 0; i < points.size(); ++i) {
-        all = all & (points.at(i) == whilefollowball(0,0,i,points.size()));
-    }
-
-    std::cout << "ALL WAS " << all << std::endl;*/
 
     initializeBinarySearches();
     linkedlists.clear();
     twodarray.clear();
-    //type = 3;
 }
 
 std::vector<Point>
@@ -775,8 +624,6 @@ Ort::DeptheasyQuery(Point lowerleft, Point upperright, int& jumpcount, int& maxd
     int lx_index = std::distance(std::begin(xb), lx);
     int ux_index = std::distance(std::begin(xb), ux) - 1;
 
-    //std::cout << "lx_index: " << lx_index << std::endl;
-    //std::cout << "ux_index: " << ux_index << std::endl;
 
     auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
     auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
@@ -819,8 +666,6 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     int lx_index = std::distance(std::begin(xb), lx);
     int ux_index = std::distance(std::begin(xb), ux) - 1;
 
-    //std::cout << "lx_index: " << lx_index << std::endl;
-    //std::cout << "ux_index: " << ux_index << std::endl;
 
     auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
     auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
@@ -828,36 +673,17 @@ Ort::easyQuery(Point lowerleft, Point upperright) {
     //TODO: HVORFOR SKAL DEN HER IKKE HAVE - 1 ? 
     int uy_index = std::distance(std::begin(yb), uy);
 
-    //std::cout << "ly_index: " << ly_index << std::endl;
-    //std::cout << "uy_index: " << uy_index << std::endl;
     
     Point x{lowerleft.y, upperright.y};
     corner = x;
 
-    //TODO: Skal vi bruge det her?
-    //int dist = std::max(ux_index-lx_index, uy_index-ly_index);
-    //results.clear();
-    //results.reserve(dist);
     
     std::vector<Point> temp;
 
-    // TODO: Find a better way to express amount of balls
-    //internaljumpcount = 0;
-    //internalmaxdepth = 0;
     FindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
-    //std::cout << results << std::endl;
-    /*bool all = true;
-    for(const auto& e : results) {
-        all = all & (lowerleft.x <= e.x && e.x <= upperright.x && lowerleft.y <= e.y && e.y <= upperright.y);
-    }*/
-    //std::cout << "AGAIN, ALL WAS " << all << " and the size is: " << results.size() << std::endl;
 
 
     results.swap(temp);
-    /*maxdepth = internalmaxdepth;
-    jumpcount = internaljumpcount;
-    internalmaxdepth = 0;
-    internaljumpcount = 0;*/
     return temp;
 }
 
@@ -881,8 +707,9 @@ Ort::actualQuery(Point lowerleft, Point upperright) {
 void
 Ort::setBit(int level, int pos, int value) {
     if(value != 0) {
-        int pos_i = pos/32;
-        int pos_a = pos%32;
+
+        int pos_a = pos & 31;
+        int pos_i = pos >> 5;
         (levels.at(level)).at(pos_i) += bits.at(pos_a);
 
     }
@@ -1058,9 +885,6 @@ Ort::FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int b
 
     uint lrank = findRank(level, nodepos, ly_index) - nodepos/2;
     uint urank = findRank(level, nodepos, uy_index) - nodepos/2;
-    //std::cout << std::endl << "FINDPOINTS ======> " << std::endl;
-    //std::cout << "ly_rank = " << ly_index << " og lrank = " << lrank << std::endl;
-    //std::cout << "uy_rank = " << uy_index << " og urank = " << urank << std::endl;
 
 
     if(amount < 1) {

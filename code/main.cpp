@@ -332,6 +332,7 @@ void TESTS() {
     
     Tester test(23);
     test.run();
+    test.run2();
 
     /*    
     test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
@@ -431,11 +432,12 @@ auto main(int argc, char** argv) -> int {
     std::cout << "Differs by factor: " << float(t1.duration().count())/float(t2.duration().count()) << std::endl;
     */
 
+
     /*
     for(int i = 0; i < 100000; ++i) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(17,20);
+        std::uniform_int_distribution<> dis(16,18);
 
         int amount = pow(2,dis(gen));
         std::cout << "AMOUNT IS " << amount << std::endl;
@@ -445,7 +447,7 @@ auto main(int argc, char** argv) -> int {
         for(int j = 0; j < 10000; ++j) {
             std::vector<Point> points = Data::randomPoints(gen, amount);
             //std::cout << "POINTS: " << points << std::endl;
-            std::vector<Point> a = ort.search({points.at(0), points.at(1)}, 3);
+            std::vector<Point> a = ort.search({points.at(0), points.at(1)});
             std::vector<Point> b = ort.actualQuery(points.at(0), points.at(1));
             Region query = {points.at(0), points.at(1)};
             std::vector<Point> c = kdtree.search(query);

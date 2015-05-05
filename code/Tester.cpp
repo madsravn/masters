@@ -177,7 +177,97 @@ Tester::report2(const std::vector<std::vector<T>>& vec, std::string name, std::s
     }
 }
 
+void
+Tester::run2() {
 
+    Timer<std::chrono::seconds> t2;
+    
+    auto now = std::chrono::system_clock::now();
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    auto secs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
+
+
+    std::string filename = "tests4/kdtree_vs_ort_hori_nofuss_" + std::to_string(secs.count());
+    std::uniform_int_distribution<> dis(7652, 8761238);
+    int random = dis(gen);
+    filename += "_" + std::to_string(random);
+    std::ofstream kdtreeorthori(filename);
+
+    filename = "tests4/kdtree_vs_ort_vert_nofuss_" + std::to_string(secs.count());
+    filename += "_" + std::to_string(random);
+    std::ofstream kdtreeortvert(filename);
+
+ 
+
+
+    for(int k = 17; k < size_of_trees; ++k) {
+        t2.reset();
+        t2.start();
+        int testSize = k;
+        int amount = pow(2,testSize);
+        int how_many = std::sqrt(amount)*1.5;
+        int interval = 5;
+        int jumps = how_many/interval;
+
+        // TEST1
+        std::vector<std::vector<int>> timevector(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector2(jumps, std::vector<int> {});
+        std::string T1name = "How much faster is Ort than KDTree horizontal";
+
+        // TEST2
+        std::vector<std::vector<int>> timevector_vert(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector2_vert(jumps, std::vector<int> {});
+        std::string T2name = "How much faster is Ort than KDTree vertical";
+
+
+        for(int i = 0; i < 10; ++i) {
+            std::tuple<Ort, KDTree> trees = buildtrees(testSize);
+            Ort ort = std::get<0>(trees);
+            KDTree kdtree = std::get<1>(trees);
+
+            // TEST1 
+            how_much_faster_is_ort_horizontal<unitofmeassure>(T1name, ort, kdtree, timevector, timevector2, k);
+
+            // TEST2
+            how_much_faster_is_ort_vertical<unitofmeassure>(T2name, ort, kdtree, timevector_vert, timevector2_vert, k);
+
+
+        }
+
+        
+        
+        // For TEST1
+        for(int i = 0; i < timevector.size(); ++i) {
+            Timer<unitofmeassure> t1;
+            std::vector<int> rep = numbers<int>(timevector.at(i));
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T1name, t1.type(), kdtreeorthori);
+            std::vector<int> rep2 = numbers<int>(timevector2.at(i));
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T1name, t1.type(), kdtreeorthori);
+        }
+
+        // For TEST2
+        for(int i = 0; i < timevector.size(); ++i) {
+            Timer<unitofmeassure> t1;
+            std::vector<int> rep = numbers<int>(timevector_vert.at(i));
+            report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T2name, t1.type(), kdtreeortvert);
+            std::vector<int> rep2 = numbers<int>(timevector2_vert.at(i));
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T2name, t1.type(), kdtreeortvert);
+        }
+
+
+        t2.stop();
+        kdtreeorthori.flush();
+
+        kdtreeortvert.flush();
+
+        std::cout << "Round " << k << " took " << t2.duration().count() << " seconds." << std::endl;
+    }
+
+    kdtreeorthori.close();
+    kdtreeortvert.close();
+
+}
 
 void
 Tester::run() {
@@ -569,6 +659,87 @@ Tester::how_much_faster_is_ort_horizontal_small(std::string name, Ort& ort, KDTr
                 max_jumps.at(size-1).push_back(max_jump);
 
 
+
+                t1.reset();
+                t1.start();
+                kdtree.search(reg);
+                t1.stop();
+
+                timevector2.at(size-1).push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
+template<typename T>
+void
+Tester::how_much_faster_is_ort_vertical(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, int k) {
+    
+    
+    int testSize = k;
+    int amount = pow(2,testSize);
+    int how_many = std::sqrt(amount)*1.5;
+    int interval = 5;
+    int jumps = how_many/interval;
+
+
+
+    Timer<T> t1;
+    for(int size = 1; size < timevector.size()+1; ++size) {
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                Region reg {{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}};
+                
+                t1.reset();
+                t1.start();
+                ort.search(reg);
+                t1.stop();
+
+
+                timevector.at(size-1).push_back(t1.duration().count());
+
+
+                t1.reset();
+                t1.start();
+                kdtree.search(reg);
+                t1.stop();
+
+                timevector2.at(size-1).push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
+
+
+
+template<typename T>
+void
+Tester::how_much_faster_is_ort_horizontal(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, int k) {
+    
+    
+    int testSize = k;
+    int amount = pow(2,testSize);
+    int how_many = std::sqrt(amount)*1.5;
+    int interval = 5;
+    int jumps = how_many/interval;
+
+
+
+    Timer<T> t1;
+    for(int size = 1; size < timevector.size()+1; ++size) {
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                Region reg {{0, (amount/100)*j},{amount, (amount/100)*j + size*interval}};
+                
+                t1.reset();
+                t1.start();
+                ort.search(reg);
+                t1.stop();
+
+                timevector.at(size-1).push_back(t1.duration().count());
 
                 t1.reset();
                 t1.start();

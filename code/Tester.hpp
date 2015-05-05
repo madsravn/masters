@@ -42,6 +42,13 @@ class Tester {
         void how_much_faster_is_ort_vertical(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
 
         template<typename T>
+        void how_much_faster_is_ort_horizontal(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, int k);
+        template<typename T>
+        void how_much_faster_is_ort_vertical(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, int k);
+
+
+
+        template<typename T>
         void how_much_faster_is_ort_horizontal_small(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
         template<typename T>
         void how_much_faster_is_ort_vertical_small(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, int k);
@@ -73,6 +80,7 @@ class Tester {
         void report2(const std::vector<std::vector<T>>& vec, std::string name, std::string timename);
 
         void run();
+        void run2();
 
     private:
         std::ofstream output;
