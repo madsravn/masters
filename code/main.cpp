@@ -330,9 +330,11 @@ void measureTimeOfPackedInts() {
 
 void TESTS() {
     
-    Tester test(21);
+    Tester test(24);
+
+    test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
     test.run();
-    test.run2();
+    //test.run2();
 
     /*    
     test.slices_of_100_vertical_independent_of_n("Testing that slices of 100 is independent of n");
@@ -352,7 +354,6 @@ void TESTS() {
     test.ten_horizontal_slices_kdtree("Testing if horizontal lines on kdtree agree");
     */
 
-    //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
     //test.how_much_faster_is_ort_horizontal("Testing how much faster Ort is than KDTree horizontal");
 
 
