@@ -4,8 +4,8 @@
 #include <ratio>
 #include <functional>
 
-using unitofmeassure = std::chrono::microseconds;
-//using unitofmeassure = std::chrono::nanoseconds;
+//using unitofmeassure = std::chrono::microseconds;
+using unitofmeassure = std::chrono::nanoseconds;
 
 
 template<typename T>
