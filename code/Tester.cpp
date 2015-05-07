@@ -509,7 +509,7 @@ Tester::run() {
 
             
             std::vector<int> rep2 = numbers<int>(smalltimevector2.at(i));
-            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T5name, t1.type(), kdtreeorthori);
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T5name, t1.type(), smallkdtreeorthori);
         }
 
         // For TEST6
@@ -533,7 +533,7 @@ Tester::run() {
             smallkdtreeortvert << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << std::endl;
             
             std::vector<int> rep2 = numbers<int>(smalltimevector2_vert.at(i));
-            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T6name, t1.type(), kdtreeortvert);
+            report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T6name, t1.type(), smallkdtreeortvert);
         }
 
 
