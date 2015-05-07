@@ -2,7 +2,7 @@
 
 \section{Language}
 
-C++11 was chosen to implement the $SRS$ data structure and the kd-tree. C++11 is a recent release of C++. C++11 combines the advantages of a modern programming language with the stability and support of a mature language which have been around for more than three decades. C++11 was chosen for several reason: It does not have garbage collection, it is a high level language with support for low level operation and contains libraries for everything needed in this project. The chrono header gives access to a high resolution clock to meassure time. The vector class of the standard template library is very straight-forward container to work with and the underlying structure is a continuous block of memory making it ideal for cache purposes. The algorithm header gives access to convenience functions for generating and sorting data.
+C++11 was chosen to implement the $SRS$ data structure and the kd-tree. C++11 is a recent release of C++. C++11 combines the advantages of a modern programming language with the stability and support of a mature language which have been around for more than three decades. C++11 was chosen for several reason: It does not have garbage collection, it is a high level language with support for low level operation and contains libraries for everything needed in this project. The chrono header gives access to a high resolution clock to meassure time. The vector class of the standard template library is very straight-forward container to work with and the underlying structure is a continuous block of memory making it ideal for cache purposes. The algorithm header gives access to convenience functions for generating and sorting data. The random header gives access to random numbers through a Mersenne twister engine with uniform integer distribution. The random numbers are used to generate the input data for the two data structures, thus giving a different data set every time.
 
 \section{Design choices}
 
@@ -30,7 +30,7 @@ In subsection~\ref{ssection:fasterqueries} we saw how we could speed up the ball
   entry &= n \lg \Sigma
 \end{align*}
 
-When a jump reaches a leaf, the rank of the ball is not needed and thus, we can do with the two checkpoints. This way we can save a lot of space. The space has already been budgetted for, and thus we can use it allow for bigger jumps or even add smaller jumps at other levels.\todo{Tilføj ulighed - Vis at et hop kan blive til to på samme plads eller mindre}
+When a jump reaches a leaf, the rank of the ball is not needed and thus, we can do without the two checkpoints. This way we can save a lot of space. The space has already been budgetted for, and thus we can use it to extend the size of the jumps or even add smaller jumps at other levels.\todo{Tilføj ulighed - Vis at et hop kan blive til to på samme plads eller mindre}
 
 We have already looked at the space complexity of the both the kd-tree and the SRS, but if we look a little closer we can argue about the constants hidden away in $\mathcal{O}(n)$. \todo{noget med 32 vs 64 bits - plus at $n\lg n$ i ball inheritance ikke er $n$ words. Det er nemlig pakket og derfor bare boundet af $n$}.
 
