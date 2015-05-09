@@ -333,7 +333,9 @@ void TESTS() {
     Tester test(22);
 
     //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
-    test.run();
+    test.run(2,0);
+    test.run(2,1);
+    test.run(3,0);
     //test.run2();
 
     /*    

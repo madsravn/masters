@@ -69,7 +69,7 @@ class Tester {
         void ten_vertical_slices_kdtree(std::string name);
         void ten_horizontal_slices_kdtree(std::string name);
 
-        std::tuple<Ort, KDTree> buildtrees(int n);
+        std::tuple<Ort, KDTree> buildtrees(int n, int B = 2, int hybrid = 1);
 
         template<typename T>
         void report(const std::vector<T>& vec, std::string name, std::string timename);
@@ -79,7 +79,7 @@ class Tester {
         template<typename T>
         void report2(const std::vector<std::vector<T>>& vec, std::string name, std::string timename);
 
-        void run();
+        void run(int B, int hybrid);
         void run2();
 
     private:

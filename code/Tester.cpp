@@ -91,13 +91,13 @@ Tester::~Tester() {
 }
 
 std::tuple<Ort, KDTree>
-Tester::buildtrees(int n) {
+Tester::buildtrees(int n, int B, int hybrid) {
     int amount = pow(2,n);
     std::random_device rd;
     std::mt19937 gen(rd());
     std::vector<Point> points = Data::generate(amount);
 
-    Ort ort(amount, points);
+    Ort ort(amount, points, B, hybrid);
     KDTree kdtree(amount, points);
 
     return std::make_tuple(ort, kdtree);
@@ -270,7 +270,7 @@ Tester::run2() {
 }
 
 void
-Tester::run() {
+Tester::run(int B, int hybrid) {
 
     //TODO: 8 TESTS NATTEN OVER
     //B = {2,3}, hybrid = {true, false} og ekstra_information = {true, false}.
@@ -288,32 +288,32 @@ Tester::run() {
     auto secs = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
 
 
-    std::string filename = "tests4/kdtree_vs_ort_hori_" + std::to_string(secs.count());
+    std::string filename = "tests4/kdtree_vs_ort_hori_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_" + std::to_string(secs.count());
     std::uniform_int_distribution<> dis(7652, 8761238);
     int random = dis(gen);
     filename += "_" + std::to_string(random);
     std::ofstream kdtreeorthori(filename);
 
-    filename = "tests4/kdtree_vs_ort_vert_" + std::to_string(secs.count());
+    filename = "tests4/kdtree_vs_ort_vert_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_"+ std::to_string(secs.count());
     filename += "_" + std::to_string(random);
     std::ofstream kdtreeortvert(filename);
 
-    filename = "tests4/compare_times_vert_" + std::to_string(secs.count());
+    /*filename = "tests4/compare_times_vert_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_"+ std::to_string(secs.count());
     filename += "_" + std::to_string(random);
     std::ofstream compare_vert_stream(filename);
 
-    filename = "tests4/compare_times_hori_" + std::to_string(secs.count());
+    filename = "tests4/compare_times_hori_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_"+ std::to_string(secs.count());
     filename += "_" + std::to_string(random);
     std::ofstream compare_hori_stream(filename);
 
 
-    filename = "tests4/small_kdtree_vs_ort_vert_" + std::to_string(secs.count());
+    filename = "tests4/small_kdtree_vs_ort_vert_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_" + std::to_string(secs.count());
     filename += "_" + std::to_string(random);
     std::ofstream smallkdtreeortvert(filename);
 
-    filename = "tests4/small_kdtree_vs_ort_hori_" + std::to_string(secs.count());
+    filename = "tests4/small_kdtree_vs_ort_hori_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_" + std::to_string(secs.count());
     filename += "_" + std::to_string(random);
-    std::ofstream smallkdtreeorthori(filename);
+    std::ofstream smallkdtreeorthori(filename);*/
 
 
  
@@ -378,7 +378,7 @@ Tester::run() {
 
 
         for(int i = 0; i < 10; ++i) {
-            std::tuple<Ort, KDTree> trees = buildtrees(testSize);
+            std::tuple<Ort, KDTree> trees = buildtrees(testSize, B, hybrid);
             Ort ort = std::get<0>(trees);
             KDTree kdtree = std::get<1>(trees);
 
@@ -395,10 +395,10 @@ Tester::run() {
             //compare_horizontal_slices_times_between_ort_and_kdtree(T4name, ort, kdtree, times_compare_hori, jumps_compare_hori, max_jumps_compare_hori, k);
 
             // TEST5 
-            how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
+            //how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
 
             // TEST6
-            how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
+            //how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
 
 
 
@@ -484,7 +484,7 @@ Tester::run() {
             compare_hori_stream << "With a max jump of " << max_jumps_rep.at(6) << " and an average of " << max_jumps_rep.at(7) << std::endl;
 
 
-        }*/
+        }
 
         // For TEST5
         for(int i = 0; i < smalltimevector.size(); ++i) {
@@ -534,30 +534,30 @@ Tester::run() {
             
             std::vector<int> rep2 = numbers<int>(smalltimevector2_vert.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T6name, t1.type(), smallkdtreeortvert);
-        }
+        }*/
 
 
         t2.stop();
         kdtreeorthori.flush();
-        smallkdtreeorthori.flush();
+        //smallkdtreeorthori.flush();
 
         kdtreeortvert.flush();
-        smallkdtreeortvert.flush();
+        //smallkdtreeortvert.flush();
 
-        compare_hori_stream.flush();
-        compare_vert_stream.flush();
+        //compare_hori_stream.flush();
+        //compare_vert_stream.flush();
         std::cout << "Round " << k << " took " << t2.duration().count() << " seconds." << std::endl;
     }
 
     kdtreeorthori.close();
     kdtreeortvert.close();
 
-    smallkdtreeorthori.close();
-    smallkdtreeortvert.close();
+    //smallkdtreeorthori.close();
+    //smallkdtreeortvert.close();
 
 
-    compare_hori_stream.close();
-    compare_hori_stream.close();
+    //compare_hori_stream.close();
+    //compare_hori_stream.close();
 
 }
 
