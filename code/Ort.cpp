@@ -199,6 +199,7 @@ Ort::createLinkedList(int size) {
 void
 Ort::generateJumps() {
     
+    //TODO: DEN HER KAN LAVES OM TIL NOGET MERE PLADS-BESPARENDE
     for(current = 0; current < balls.size(); ++current) {
         linkedlists.push_back(std::vector<uint>{});
         buildfollowball(0,0,current,balls.size());
@@ -493,6 +494,8 @@ Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
 
             level += big.size;
             // If bottom is hit, the (big.rank - nodepos/size) will be 0. Thus we can save away the entire rank storage
+
+            // TODO: static_cast<std::int32_t>(static_cast<std::int64_t>(amount)*static_cast<std::int64_t>(big.character))/size;
             int tlong = (ulon(amount)*ulon(big.character))/size;
             pos = tlong + nodepos + (big.rank - nodepos/size);
             nodepos += tlong;

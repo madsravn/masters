@@ -1,0 +1,19 @@
+#!/usr/bin/gnuplot
+reset
+set terminal png
+
+set xlabel xtitle
+set ylabel ytitle
+
+set key font "Verdana,10"
+
+set title toptitle
+set grid
+
+#set style data linespoints
+set key on
+set style data lines
+
+set offsets 1,1,1,1
+
+plot filename using 1:4 t name1, filename using 1:5 t name2
