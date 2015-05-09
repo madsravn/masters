@@ -6,9 +6,102 @@ In order to compare these two data structure random data will be generated and g
 
 
 \section{Vertical and horizontal slices}
-The first thing to be tested is how big the vertical and horizontal slices can become before the SRS data structure performs worse than the kd-tree. We are going to look at the horizontal slices first. Below are some graphs showing the running time of a search query to both the SRS and the kd-tree dependent on the size of the slice.
 
-Before introducing the graphs, we are going to look at the run-time of a search query to the kd-tree and the SRS data structure. A search query to the kd-tree has a run-time of $\mathcal{O}(\sqrt{n}+k)$ and a search query to the SRS data structure has a run-time of $\mathcal{O}(\lg n + k \cdot \lg^\epsilon n)$. When increasing the size of a slice, we expect the run-time of the two search queries to be roughly equal at $k \approx \frac{sqrt{n}}{lg^\epsilon n}$ stemming from $\sqrt{n} + k = \lg n + k \cdot \lg^\epsilon n \Leftrightarrows k = \frac{\sqrt{n} - \lg n}{\lg^\epsilon n - 1}$. The $\mathcal{O}(\lg^\epsilon n)$ describes the amount of jumps needed to perform in order to find the identity of a leaf given the identity of a ball in the ball inheritance structure. Thus, the size of $\mathcal{O}(\lg^\epsilon n)$ on how $B$ is chosen in \todo{ref} and which other meassures have been taken in order to lessen the amount of jumps. \todo{Skriv om at vi har målt dem også, og at de er sat ind på en graf - det er de værste hop vi kigger på? eller er det gennemsnittet? Hvad med grafen der viser $\frac{Skæringspunkt}{\frac{\sqrt{n}{lg^\epsilon n}}$ - skal det være worst $\lg^\epsilon n$ eller gennemsnittet?}
+Before introducing the graphs, we are going to look at the theoretical run-time of a search query to the kd-tree and the SRS data structure. A search query to the kd-tree has a run-time of $\mathcal{O}(\sqrt{n}+k)$ and a search query to the SRS data structure has a run-time of $\mathcal{O}(\lg n + k \cdot \lg^\epsilon n)$. When increasing the size of a slice, we expect the run-time of the two search queries to be roughly equal at $k \approx \frac{sqrt{n}}{lg^\epsilon n}$ stemming from $\sqrt{n} + k = \lg n + k \cdot \lg^\epsilon n \Leftrightarrow k = \frac{\sqrt{n} - \lg n}{\lg^\epsilon n - 1}$. The $\mathcal{O}(\lg^\epsilon n)$ describes the amount of jumps needed to perform in order to find the identity of a leaf given the identity of a ball in the ball inheritance structure. Thus, the size of $\mathcal{O}(\lg^\epsilon n)$ on how $B$ is chosen in \todo{ref} and which other meassures have been taken in order to lessen the amount of jumps. \todo{Skriv om at vi har målt dem også, og at de er sat ind på en graf - det er de værste hop vi kigger på? eller er det gennemsnittet? Hvad med grafen der viser $\frac{Skæringspunkt}{\frac{\sqrt{n}}{lg^\epsilon n}}$ - skal det være worst $\lg^\epsilon n$ eller gennemsnittet?}
+
+Recall that the SRS data structure treats the two dimensions very differently. Given a rank space search query $\hat{q} = [\hat{x_1}, \hat{x_2}] \times [\hat{y_1}, \hat{y_2}]$, the search algorithm will find the least common ancestor of $\hat{x_1}$ and $\hat{x_2}$. From there, it will find the path to both $\hat{x_1}$ and $\hat{x_2}$ and all leaves between them will be in the range $[x_1, x_2]$. The search algorithm now has to determine which of these leaves contain a point with y-coordinate in $[y_1, y_2]$. This is done by using the ball inheritance structure from each of the fully contained nodes which were found on the path from the least common ancestor to $\hat{x_1}$ and $\hat{x_2}$.
+
+This means that a horizontal slice and a vertical slice will be treated differently by the SRS data structure. The search query of a horizontal slice includes all x-coordinates of the search space, and thus the least common ancestor of $[\hat{x_1}, \hat{x_2}]$ will be the root of the tree. The path from the least common ancestor to $\hat{x_1}$ will only go left which means each level will give a fully contained node. The path from the least common ancestor to $\hat{x_2}$ will only go right, also yielding a fully contained node per level. The tests are to measure how big a slice can become before the kd-tree performs just as well. This means that a slice will start out being very small, $k=5$. Thus, many of the fully contained nodes will have no ball inheritance work. As the slice grows, eventually each node will have one or more balls to follow. The amount of ball inheritance each node is responsible for varies a lot, and therefore the ball inheritance will become somewhat sporadic.
+
+On the other hand we have the vertical slice. The vertical slice includes all y-coordinates of the search space, and thus the location least common ancestor of $[\hat{x_1}, \hat{x_2}]$ varies a lot dependent on the search query. But the nodes which are marked as fully contained on the path from the least common ancestor to $\hat{x_1}$ and $\hat{x_2}$ will all only contain leaves with points with y-coordinates in $[y_1, y_2]$ which means we have to do ball inheritance on all the balls belonging to fully contained nodes. Thus, the ball inheritance in vertical slices are much more batched together. Comparing a vertical and horizontal slice of the same size, the vertical slice will have good chances of being faster than the horizontal slice. With a lower LCA, the ball inheritance in the vertical slice will have to jump from a lower level than the ball inheritance in the horizontal and the balls are more batched together in the vertical. 
+
+The first thing to be tested is how big the vertical and horizontal slices can become before the SRS data structure performs worse than the kd-tree. We are going to look at the vertical slices first. Below are some graphs showing the running time of a search query to both the SRS and the kd-tree dependent on the size of the slice. Recall from section \todo{ref} that the parameter $B$ could be set such that we could fix the size of the alphabet (and the jumps) in the ball inheritance tree. The graphs below shows results from a SRS data structure configured with $B=2$. 
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_17.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{17}$}\label{fig:vert_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_18.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{18}$}\label{fig:vert_18}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_19.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{19}$}\label{fig:vert_19}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_20.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{20}$}\label{fig:vert_20}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_21.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{21}$}\label{fig:vert_21}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_22.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{22}$}\label{fig:vert_22}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_23.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:vert_23}
+\end{figure}
+
+\clearpage
+
+Across these graphs, there is a very noticable change in slope at around $k=256$ for the running time of a search query to the SRS data structure. Since $B=2$, we have a big jump at level $8$ which allows the ball inheritance to jump from level $8$ to a leaf in one jump. This means that the average amount of jumps per result will decrease and thus the running time will not increase as fast as before. At around $k=512$ the running-time resumes its normal behaviour. On average, the ball inheritance structure does not use the big jump at level $8$ directly anymore, resulting in a couple of steps before reaching level $8$. Since the graph shows the average run-time of different configurations of the same slice on different data sets, not all the searches will hit level $8$ at $k=256$, but the main tedency is to. \todo{forklar tidligere - at vi snakker om main tendency, ikke hvad den er garanteret at gøre}. This tendency is described at figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20}. We see how the graph has a local maximum at around $k=256$ and then the average amount of jumps per result decreases until $k=512$ where it starts increasing at steady level again. Figure~\ref{fig:level_vert_17} and figure~\ref{fig:level_vert_20} describes the highest level of a fully contained node. We see between $k=256$ and $k=512$ that the maximum is level $8$ and the minimum is level $7$ and that the average level increases meaning more and more fully contained node starts using level $8$. Since we $B=2$, there is a $2$-jump every $2$ levels, a $4$-jump every $4$ levels, a $8$-jump every $8$ levels and a $16$-jump every $16$ levels. This means that level $7$ the ball inheritance structure needs $3$ jumps to reach a leaf. This is why such a noticable local maximum exits on figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20}. The jumps per results eases off because from level $8$ there is $1$ jump, from level $9$ there are $2$ jumps and from level $10$ there are $2$ jumps. Levels $11, 13, 14$ have $3$ jumps, and at level $15$ another local maximum is going to be found with $4$ jumps, just before level $16$ with $1$ jump to the leaves. However, $k=2^{16}=65,536$ is not likely to be a place where the SRS data structure performs better than the kd-tree unless we have a enormous data set \todo{regn på det}. \todo{Sæt grafer ind for større $n$}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_vert_17.png}
+    \caption{Size of jumps - data set size of $n=2^{17}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_vert_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_vert_20.png}
+    \caption{Size of jumps - data set size of $n=2^{20}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_vert_20}
+\end{figure}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/level_vert_17.png}
+    \caption{Level of first fully contained node - data set size of $n=2^{17}$.}\label{fig:level_vert_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/level_vert_20.png}
+    \caption{Level of first fully contained node - data set size of $n=2^{20}$.}\label{fig:level_vert_20}
+\end{figure}
+
+
+To summarize these graphs, there is a graph of the size of the slice at the point of intersection between the SRS and the kd-tree for each $n$ tested.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert.png}
+    \caption{Vertical slices, intersection between running time of SRS and kd-tree}\label{fig:vert_intersection}
+\end{figure}
+
+
 
 \begin{figure}[h]
     \centering
@@ -16,13 +109,11 @@ Before introducing the graphs, we are going to look at the run-time of a search 
     \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{17}$}\label{fig:hori_17}
 \end{figure}
 
-
 \begin{figure}[h]
     \centering
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori_18.png}
     \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{18}$}\label{fig:hori_18}
 \end{figure}
-
 
 \begin{figure}[h]
     \centering
@@ -30,13 +121,11 @@ Before introducing the graphs, we are going to look at the run-time of a search 
     \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{19}$}\label{fig:hori_19}
 \end{figure}
 
-
 \begin{figure}[h]
     \centering
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori_20.png}
     \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{20}$}\label{fig:hori_20}
 \end{figure}
-
 
 \begin{figure}[h]
     \centering
@@ -65,5 +154,4 @@ To summarize these graphs, there is a graph of the size of the slice at the inte
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori.png}
     \caption{Horizontal slices, intersection between running time of SRS and kd-tree}\label{fig:hori_intersection}
 \end{figure}
-
 
