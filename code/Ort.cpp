@@ -895,8 +895,13 @@ Ort::FindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int b
     uint urank = findRank(level, nodepos, uy_index) - nodepos/2;
 
 
-    if(amount < 1) {
-        std::cout << "FEJL i FindPoints" << std::endl;
+
+    if(amount == 1) {
+        Point last = balls.at(nodepos);
+        if(corner.x <= last.y && last.y <= corner.y) { 
+            results.push_back(balls.at(nodepos));
+        }
+        return;
     }
 
     // Are they going to the same child? 

@@ -269,6 +269,37 @@ Tester::run2() {
 
 }
 
+
+
+void
+Tester::report_run(const std::vector<std::vector<int>>& timevector, const std::vector<std::vector<int>>& timevector2, const std::vector<std::vector<int>>& jump_vector, const std::vector<std::vector<int>>& max_jumps, const std::vector<std::vector<int>>& startlevels, int k, std::ofstream& treeconf, std::string T1name, int interval) {
+    for(int i = 0; i < timevector.size(); ++i) {
+        Timer<unitofmeassure> t1;
+        std::vector<int> rep = numbers<int>(timevector.at(i));
+        report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T1name, t1.type(), treeconf);
+
+        std::vector<float> jumprep  = numbers<float>(jump_vector.at(i));
+        report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T1name, "jumps", treeconf);
+        std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+
+        treeconf << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+        std::vector<float> max_jumps_rep = numbers<float>(max_jumps.at(i));
+        std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
+        
+        treeconf << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
+
+        std::vector<float> startlevels_rep = numbers<float>(startlevels.at(i));
+        std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
+
+        treeconf << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
+        
+        
+        std::vector<int> rep2 = numbers<int>(timevector2.at(i));
+        report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T1name, t1.type(), treeconf);
+    }
+}
+
+
 void
 Tester::run(int B, int hybrid) {
 
@@ -305,6 +336,7 @@ Tester::run(int B, int hybrid) {
     filename = "tests4/compare_times_hori_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_"+ std::to_string(secs.count());
     filename += "_" + std::to_string(random);
     std::ofstream compare_hori_stream(filename);
+    */
 
 
     filename = "tests4/small_kdtree_vs_ort_vert_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_" + std::to_string(secs.count());
@@ -313,7 +345,7 @@ Tester::run(int B, int hybrid) {
 
     filename = "tests4/small_kdtree_vs_ort_hori_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_" + std::to_string(secs.count());
     filename += "_" + std::to_string(random);
-    std::ofstream smallkdtreeorthori(filename);*/
+    std::ofstream smallkdtreeorthori(filename);
 
 
  
@@ -395,17 +427,26 @@ Tester::run(int B, int hybrid) {
             //compare_horizontal_slices_times_between_ort_and_kdtree(T4name, ort, kdtree, times_compare_hori, jumps_compare_hori, max_jumps_compare_hori, k);
 
             // TEST5 
-            //how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
+            how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
 
             // TEST6
-            //how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
+            how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
 
 
 
         }
+        report_run(timevector, timevector2, jumps_hori, max_jumps_hori, startlevels_hori, k, kdtreeorthori, T1name, interval);
 
+        report_run(timevector_vert, timevector2_vert, jumps_vert, max_jumps_vert, startlevels_vert, k, kdtreeortvert, T2name, interval);
+
+
+        report_run(smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k, smallkdtreeorthori, T5name, 1);
+
+
+        report_run(smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k, smallkdtreeortvert, T6name, 1);
         
         
+        /*
         // For TEST1
         for(int i = 0; i < timevector.size(); ++i) {
             Timer<unitofmeassure> t1;
@@ -455,7 +496,6 @@ Tester::run(int B, int hybrid) {
             std::vector<int> rep2 = numbers<int>(timevector2_vert.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T2name, t1.type(), kdtreeortvert);
         }
-/*
         {
             std::vector<int> rep = numbers<int>(times_compare_vert, true);
             report(rep, std::to_string(k) + " = " + T3name, "times", compare_vert_stream);
@@ -534,15 +574,16 @@ Tester::run(int B, int hybrid) {
             
             std::vector<int> rep2 = numbers<int>(smalltimevector2_vert.at(i));
             report(rep2, std::to_string(k) + " and " + std::to_string((i+1)) + " = (KDTREE) " + T6name, t1.type(), smallkdtreeortvert);
-        }*/
+        }
+        */
 
 
         t2.stop();
         kdtreeorthori.flush();
-        //smallkdtreeorthori.flush();
+        smallkdtreeorthori.flush();
 
         kdtreeortvert.flush();
-        //smallkdtreeortvert.flush();
+        smallkdtreeortvert.flush();
 
         //compare_hori_stream.flush();
         //compare_vert_stream.flush();
@@ -552,8 +593,8 @@ Tester::run(int B, int hybrid) {
     kdtreeorthori.close();
     kdtreeortvert.close();
 
-    //smallkdtreeorthori.close();
-    //smallkdtreeortvert.close();
+    smallkdtreeorthori.close();
+    smallkdtreeortvert.close();
 
 
     //compare_hori_stream.close();
