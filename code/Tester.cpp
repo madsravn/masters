@@ -275,20 +275,29 @@ void
 Tester::report_run(const std::vector<std::vector<int>>& timevector, const std::vector<std::vector<int>>& timevector2, const std::vector<std::vector<int>>& jump_vector, const std::vector<std::vector<int>>& max_jumps, const std::vector<std::vector<int>>& startlevels, int k, std::ofstream& treeconf, std::string T1name, int interval) {
     for(int i = 0; i < timevector.size(); ++i) {
         Timer<unitofmeassure> t1;
+
         std::vector<int> rep = numbers<int>(timevector.at(i));
         report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T1name, t1.type(), treeconf);
+
 
         std::vector<float> jumprep  = numbers<float>(jump_vector.at(i));
         report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T1name, "jumps", treeconf);
         std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
 
         treeconf << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+
+
+
         std::vector<float> max_jumps_rep = numbers<float>(max_jumps.at(i));
         std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
         
         treeconf << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
 
+
+
+
         std::vector<float> startlevels_rep = numbers<float>(startlevels.at(i));
+
         std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
 
         treeconf << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
@@ -627,8 +636,8 @@ Tester::how_much_faster_is_ort_vertical_small(std::string name, Ort& ort, KDTree
                 max_jump = 0;
                 startlevel = 0;
                 Region reg {{(amount/100)*j, 0},{(amount/100)*j + size*interval, amount}};
-                std::cout << reg << std::endl;
-                std::cout << size*interval << std::endl << std::endl;
+                //std::cout << reg << std::endl;
+                //std::cout << size*interval << std::endl << std::endl;
                 
                 t1.reset();
                 t1.start();

@@ -159,28 +159,9 @@ std::map<int, Ort> ortmap;
                         ort->second.search({ll,ur});
                     }
                     t1.stop();
-                    //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-                    std::cout << "Ort search with NO big jumps took: " << t1.duration().count() << " " << t1.type() << std::endl;
-
-                    Timer<unitofmeassure> t2;
-                    t2.start();
-                    for(int i = 0; i < count; ++i) {
-                        ort->second.search({ll,ur});
-                    }
-                    t2.stop();
-                    //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-                    std::cout << "Ort search with big-space big jumps took: " << t2.duration().count() << " " << t2.type() << std::endl;
-
-                    Timer<unitofmeassure> t3;
-                    t3.start();
-                    for(int i = 0; i < count; ++i) {
-                        ort->second.search({ll,ur});
-                    }
-                    t3.stop(); 
-                    //std::cout << ort->second.easyQuery(ll, ur) << std::endl;
-                    std::cout << "Ort search with linear-space big jumps took: " << t3.duration().count() << " ms." << std::endl;
+                    std::cout << "Ort search with linear-space big jumps took: " << t1.duration().count() << " ms." << std::endl;
                     a = ort->second.search({ll,ur});
-                    resultsize = ort->second.search({ll,ur}).size();
+                    resultsize = a.size();
 
                 }
                 else {
@@ -330,7 +311,7 @@ void measureTimeOfPackedInts() {
 
 void TESTS() {
     
-    Tester test(23);
+    Tester test(25);
 
     //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
     test.run(2,0);

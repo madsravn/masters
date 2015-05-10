@@ -67,16 +67,6 @@ Ort::bigJump(int level, int pos) {
 }
 
 std::vector<Point> 
-Ort::Depthsearch(Region reg, int& jumpcount, int& maxdepth, int& startlevel) {
-    startlevel = 0;
-    jumpcount = 0;
-    maxdepth = 0;
-    //type = t;
-    //std::cout << "Searching with type = " << type << std::endl;
-    return DeptheasyQuery(reg.ll, reg.ur, jumpcount, maxdepth, startlevel);
-}
-
-std::vector<Point> 
 Ort::search(Region reg) {
     //int jumpcount = 0;
     //int maxdepth = 0;
@@ -424,67 +414,13 @@ Ort::followball(int level, int nodepos, int pos, int amount) {
     
 }
 
-Point
-Ort::Depthwhilefollowball(int level, int nodepos, int pos, int amount) {
-
-
-    int tempjumps = 0;
-    while(amount > 1) {
-        ++internaljumpcount;
-        ++tempjumps;
-        qreturn big = bigJump(level, pos);
-        if(big.jump == 1) {
-            int size = pow(2, big.size);
-
-            level += big.size;
-            // If bottom is hit, the (big.rank - nodepos/size) will be 0. Thus we can save away the entire rank storage
-            int tlong = (ulon(amount)*ulon(big.character))/size;
-            pos = tlong + nodepos + (big.rank - nodepos/size);
-            nodepos += tlong;
-            amount = amount/size;
-
-        } else {
-
-            uint irank = findRank(level, nodepos, pos) - nodepos/2;
-            uint mask = bits.at(pos%32);
-            uint num = (levels.at(level)).at(pos/32) & mask;
-            uint dir = rank(num);
-
-            
-            if(dir == 0) {
-
-                ++level;
-                pos = pos - irank;
-                amount = amount/2;
-
-            } else if(dir == 1) {
-
-                ++level;
-                pos = nodepos + amount/2 + irank;
-                nodepos += amount/2;
-                amount = amount/2;
-
-            } else {
-
-                std::cout << "error" << std::endl;
-
-            }
-        }
-
-    }
-    if(tempjumps > internalmaxdepth) {
-        internalmaxdepth = tempjumps;
-    }
-    return balls.at(nodepos);
-}
-
-
 
 
 Point
 Ort::whilefollowball(int level, int nodepos, int pos, int amount) {
 
 
+    //std::cout << "Jumping from " << levels.size() - level << " nodepos = " << nodepos << " and pos = " << pos << std::endl;
     while(amount > 1) {
 
         qreturn big = bigJump(level, pos);
@@ -620,48 +556,6 @@ Ort::Ort(int amount, std::vector<Point> input, int _B, bool _hybrid) : B(_B), hy
 }
 
 std::vector<Point>
-Ort::DeptheasyQuery(Point lowerleft, Point upperright, int& jumpcount, int& maxdepth, int& startlevel) {
-    
-    auto lx = std::lower_bound(std::begin(xb), std::end(xb), lowerleft.x);
-    auto ux = std::upper_bound(std::begin(xb), std::end(xb), upperright.x);
-    int lx_index = std::distance(std::begin(xb), lx);
-    int ux_index = std::distance(std::begin(xb), ux) - 1;
-
-
-    auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
-    auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
-    int ly_index = std::distance(std::begin(yb), ly);
-    //TODO: HVORFOR SKAL DEN HER IKKE HAVE - 1 ? 
-    int uy_index = std::distance(std::begin(yb), uy);
-
-    //std::cout << "ly_index: " << ly_index << std::endl;
-    //std::cout << "uy_index: " << uy_index << std::endl;
-    
-    Point x{lowerleft.y, upperright.y};
-    corner = x;
-
-    std::vector<Point> temp;
-
-    // TODO: Find a better way to express amount of balls
-    internaljumpcount = 0;
-    internalmaxdepth = 0;
-    internalstartlevel = 0;
-    DepthFindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
-
-
-    results.swap(temp);
-    maxdepth = internalmaxdepth;
-    jumpcount = internaljumpcount;
-    startlevel = internalstartlevel;
-    internalstartlevel = 0;
-    internalmaxdepth = 0;
-    internaljumpcount = 0;
-    return temp;
-}
-
-
-
-std::vector<Point>
 Ort::easyQuery(Point lowerleft, Point upperright) {
     
     auto lx = std::lower_bound(std::begin(xb), std::end(xb), lowerleft.x);
@@ -725,75 +619,6 @@ Ort::addAll(int nodepos, int lrank, int urank, int level, int amount) {
     }
 }
 
-void
-Ort::DepthaddAll(int nodepos, int lrank, int urank, int level, int amount) {
-
-    int temp = levels.size() - level;
-    if(temp > internalstartlevel) {
-        internalstartlevel = temp;
-    }
-
-    for(int i = lrank-nodepos; i < urank-nodepos; ++i) {
-        results.push_back(Depthwhilefollowball(level, nodepos, nodepos+i, amount));
-    }
-}
-
-
-
-
-void
-Ort::DepthfollowPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level) {
-
-    if(amount < 1) {
-        std::cout << "FEJL i followPoint" << std::endl;
-    }
-    
-    //std::cout << "Hver for sig" << std::endl;
-
-    if(amount > 1) {
-        uint num = bits.at(bit);
-        uint dir = child & num;
-        uint lrank = findRank(level, nodepos, lyrank) - nodepos/2;
-        uint urank = findRank(level, nodepos, uyrank) - nodepos/2;
-
-
-        if(dir == 0) {
-            if(d == LEFT) {
-                // We now add all the points from the right subtree
-                //std::cout << "Vi tager hele højre undertræ" << std::endl;
-                DepthaddAll(nodepos + amount/2, nodepos + amount/2+lrank, nodepos + amount/2 + urank, level+1, amount/2);
-
-            }
-
-            DepthfollowPoint(child, lyrank-lrank, uyrank-urank, bit+1, nodepos, amount/2, d, level+1);
-            return;
-
-        } else {
-            if(d == RIGHT) {
-                // We now add all the points from the left subtree
-                //std::cout << "Vi tager hele venstre undertræ" << std::endl;
-                DepthaddAll(nodepos, lyrank-lrank, uyrank-urank, level+1, amount/2);
-
-            }
-
-            DepthfollowPoint(child, nodepos+amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, d, level+1);
-            return;
-
-        }
-
-    }
-
-    // There might only be one point in amount
-    // TODO: Is this assumption correct? 
-    Point last = balls.at(nodepos);
-    if(corner.x <= last.y && last.y <= corner.y) { 
-        results.push_back(balls.at(nodepos));
-    }
-
-}
-
-
-
 // DIRECTION d indicates which subtree of the LCA we are walking in
 void
 Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level) {
@@ -845,42 +670,6 @@ Ort::followPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int am
     }
 
 }
-
-
-void
-Ort::DepthFindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level) {
-    // TODO: What to do if the number of balls are greater than 2^32? 
-    // Lav en vektor med større.
-    uint num = bits.at(bit);
-    uint left = leftchild & num;
-    uint right = rightchild & num;
-
-    uint lrank = findRank(level, nodepos, ly_index) - nodepos/2;
-    uint urank = findRank(level, nodepos, uy_index) - nodepos/2;
-    //std::cout << std::endl << "FINDPOINTS ======> " << std::endl;
-    //std::cout << "ly_rank = " << ly_index << " og lrank = " << lrank << std::endl;
-    //std::cout << "uy_rank = " << uy_index << " og urank = " << urank << std::endl;
-
-
-    if(amount < 1) {
-        std::cout << "FEJL i FindPoints" << std::endl;
-    }
-
-    // Are they going to the same child? 
-    if(left == right) {
-        //std::cout << "Sammen" << std::endl;
-        if(left == 0) {
-            DepthFindPoints(leftchild, rightchild, ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, level+1);
-            return;
-        } else {
-            DepthFindPoints(leftchild, rightchild, nodepos + amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, level+1);
-            return;
-        }
-    }
-    DepthfollowPoint(leftchild,ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, LEFT, level+1);
-    DepthfollowPoint(rightchild,nodepos+amount/2+lrank,nodepos+amount/2+urank, bit+1, nodepos+amount/2, amount/2, RIGHT, level+1);
-}
-
 
 
 void
@@ -970,4 +759,219 @@ Ort::divide(int level, int pos, std::vector<Point> points) {
     }
 
 }
+
+
+std::vector<Point> 
+Ort::Depthsearch(Region reg, int& jumpcount, int& maxdepth, int& startlevel) {
+    startlevel = 0;
+    jumpcount = 0;
+    maxdepth = 0;
+    //type = t;
+    //std::cout << "Searching with type = " << type << std::endl;
+    return DeptheasyQuery(reg.ll, reg.ur, jumpcount, maxdepth, startlevel);
+}
+
+
+
+std::vector<Point>
+Ort::DeptheasyQuery(Point lowerleft, Point upperright, int& jumpcount, int& maxdepth, int& startlevel) {
+    
+    auto lx = std::lower_bound(std::begin(xb), std::end(xb), lowerleft.x);
+    auto ux = std::upper_bound(std::begin(xb), std::end(xb), upperright.x);
+    int lx_index = std::distance(std::begin(xb), lx);
+    int ux_index = std::distance(std::begin(xb), ux) - 1;
+
+
+    auto ly = std::lower_bound(std::begin(yb), std::end(yb), lowerleft.y);
+    auto uy = std::upper_bound(std::begin(yb), std::end(yb), upperright.y);
+    int ly_index = std::distance(std::begin(yb), ly);
+    //TODO: HVORFOR SKAL DEN HER IKKE HAVE - 1 ? 
+    int uy_index = std::distance(std::begin(yb), uy);
+
+    //std::cout << "ly_index: " << ly_index << std::endl;
+    //std::cout << "uy_index: " << uy_index << std::endl;
+    
+    Point x{lowerleft.y, upperright.y};
+    corner = x;
+
+    std::vector<Point> temp;
+
+    // TODO: Find a better way to express amount of balls
+    internaljumpcount = 0;
+    internalmaxdepth = 0;
+    internalstartlevel = 0;
+    DepthFindPoints(lx_index, ux_index, ly_index, uy_index, 32-std::ceil(std::log2(balls.size())), 0, balls.size(), 0);
+
+
+    results.swap(temp);
+    maxdepth = internalmaxdepth;
+    jumpcount = internaljumpcount;
+    startlevel = internalstartlevel;
+    internalstartlevel = 0;
+    internalmaxdepth = 0;
+    internaljumpcount = 0;
+    return temp;
+}
+
+
+Point
+Ort::Depthwhilefollowball(int level, int nodepos, int pos, int amount) {
+
+
+    int tempjumps = 0;
+    while(amount > 1) {
+        ++internaljumpcount;
+        ++tempjumps;
+        qreturn big = bigJump(level, pos);
+        if(big.jump == 1) {
+            int size = pow(2, big.size);
+
+            level += big.size;
+            // If bottom is hit, the (big.rank - nodepos/size) will be 0. Thus we can save away the entire rank storage
+            int tlong = (ulon(amount)*ulon(big.character))/size;
+            pos = tlong + nodepos + (big.rank - nodepos/size);
+            nodepos += tlong;
+            amount = amount/size;
+
+        } else {
+
+            uint irank = findRank(level, nodepos, pos) - nodepos/2;
+            uint mask = bits.at(pos%32);
+            uint num = (levels.at(level)).at(pos/32) & mask;
+            uint dir = rank(num);
+
+            
+            if(dir == 0) {
+
+                ++level;
+                pos = pos - irank;
+                amount = amount/2;
+
+            } else if(dir == 1) {
+
+                ++level;
+                pos = nodepos + amount/2 + irank;
+                nodepos += amount/2;
+                amount = amount/2;
+
+            } else {
+
+                std::cout << "error" << std::endl;
+
+            }
+        }
+
+    }
+    if(tempjumps > internalmaxdepth) {
+        internalmaxdepth = tempjumps;
+    }
+    return balls.at(nodepos);
+}
+
+
+
+void
+Ort::DepthaddAll(int nodepos, int lrank, int urank, int level, int amount) {
+
+    int temp = levels.size() - level;
+    if(temp > internalstartlevel) {
+        internalstartlevel = temp;
+    }
+
+    for(int i = lrank-nodepos; i < urank-nodepos; ++i) {
+        results.push_back(Depthwhilefollowball(level, nodepos, nodepos+i, amount));
+    }
+}
+
+
+
+
+void
+Ort::DepthfollowPoint(int child, int lyrank, int uyrank, int bit, int nodepos, int amount, DIRECTION d, int level) {
+
+    if(amount < 1) {
+        std::cout << "FEJL i followPoint" << std::endl;
+    }
+    
+    //std::cout << "Hver for sig" << std::endl;
+
+    if(amount > 1) {
+        uint num = bits.at(bit);
+        uint dir = child & num;
+        uint lrank = findRank(level, nodepos, lyrank) - nodepos/2;
+        uint urank = findRank(level, nodepos, uyrank) - nodepos/2;
+
+
+        if(dir == 0) {
+            if(d == LEFT) {
+                // We now add all the points from the right subtree
+                //std::cout << "Vi tager hele højre undertræ" << std::endl;
+                DepthaddAll(nodepos + amount/2, nodepos + amount/2+lrank, nodepos + amount/2 + urank, level+1, amount/2);
+
+            }
+
+            DepthfollowPoint(child, lyrank-lrank, uyrank-urank, bit+1, nodepos, amount/2, d, level+1);
+            return;
+
+        } else {
+            if(d == RIGHT) {
+                // We now add all the points from the left subtree
+                //std::cout << "Vi tager hele venstre undertræ" << std::endl;
+                DepthaddAll(nodepos, lyrank-lrank, uyrank-urank, level+1, amount/2);
+
+            }
+
+            DepthfollowPoint(child, nodepos+amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, d, level+1);
+            return;
+
+        }
+
+    }
+
+    // There might only be one point in amount
+    // TODO: Is this assumption correct? 
+    Point last = balls.at(nodepos);
+    if(corner.x <= last.y && last.y <= corner.y) { 
+        results.push_back(balls.at(nodepos));
+    }
+
+}
+
+
+void
+Ort::DepthFindPoints(int leftchild, int rightchild, int ly_index, int uy_index, int bit, int nodepos, int amount, int level) {
+    // TODO: What to do if the number of balls are greater than 2^32? 
+    // Lav en vektor med større.
+    uint num = bits.at(bit);
+    uint left = leftchild & num;
+    uint right = rightchild & num;
+
+    uint lrank = findRank(level, nodepos, ly_index) - nodepos/2;
+    uint urank = findRank(level, nodepos, uy_index) - nodepos/2;
+    //std::cout << std::endl << "FINDPOINTS ======> " << std::endl;
+    //std::cout << "ly_rank = " << ly_index << " og lrank = " << lrank << std::endl;
+    //std::cout << "uy_rank = " << uy_index << " og urank = " << urank << std::endl;
+
+
+    if(amount < 1) {
+        std::cout << "FEJL i FindPoints" << std::endl;
+    }
+
+    // Are they going to the same child? 
+    if(left == right) {
+        //std::cout << "Sammen" << std::endl;
+        if(left == 0) {
+            DepthFindPoints(leftchild, rightchild, ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, level+1);
+            return;
+        } else {
+            DepthFindPoints(leftchild, rightchild, nodepos + amount/2 + lrank, nodepos + amount/2 + urank, bit+1, nodepos+amount/2, amount/2, level+1);
+            return;
+        }
+    }
+    DepthfollowPoint(leftchild,ly_index-lrank, uy_index-urank, bit+1, nodepos, amount/2, LEFT, level+1);
+    DepthfollowPoint(rightchild,nodepos+amount/2+lrank,nodepos+amount/2+urank, bit+1, nodepos+amount/2, amount/2, RIGHT, level+1);
+}
+
+
+
 
