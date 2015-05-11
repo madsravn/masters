@@ -166,6 +166,12 @@ Ort::createLinkedList(int size) {
             jumplist.at(j) = skiplevels;
         }
     }
+    // Trying something new for hori
+    for(int i = 0; i < jumplist.size(); ++i) {
+        if(jumplist.at(i) == 8) {
+            jumplist.at(i) = 1;
+        }
+    }
         
     
     std::reverse(std::begin(jumplist), std::end(jumplist));
