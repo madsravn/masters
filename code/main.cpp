@@ -311,7 +311,7 @@ void measureTimeOfPackedInts() {
 
 void TESTS() {
     
-    Tester test(25);
+    Tester test(23);
 
     //test.how_much_faster_is_ort_vertical("Testing how much faster Ort is than KDTree vertical");
     test.run(2,0);
