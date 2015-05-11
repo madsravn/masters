@@ -10,3 +10,10 @@ So the root node will contain a look-up table of both x and y: from coordinate t
 Remeber the B^i point. We can traverse max B times B^i before we hit a multiple of B^{i+1} and then we begin traversing the B^{i+1} instead. Same with B^{i+1} to B^{i+2} - B times. And we always pick the bigger one. But these "jumps" only reside on levels that are multiple of whatever step they make. Read what "level" actually meant. It seemed Kasper inferred they were horizontal.
 
 kd-tree : http://libkdtree.alioth.debian.org/
+
+
+Møde: Kasper sagde at jeg bare skulle fokusere på at vise at ORT rent faktisk bare er bedre. Tendenser kan blive forklaret senere. Så et kapitel hvor jeg viser at det er bedre. Et kapitel hvor jeg viser at kd-træet måske egentlig ikke er så dårligt når vi ikke decideret giver den dårlige queries og så et kapitel hvor jeg beskriver tendenserne. Du skal ikke fokusere så meget på hvorfor hori har det der knæk. Du kan prøve at forklare det senere, hvis du har tid til det. Kasper er på ferie fra torsdag og kommer hjem d. 22, så der kan han måske nok svare på mails fra.
+
+Lav og fokuser på tests for B=2. Derefter lav for B=3 og B=4. Og husk at nævne plads-forbruget. Og hvordan vi også kunne skrue ned for pladsforbruget ved at rykke succint rank-and-select query checkpoints længere fra hinanden. 64 eller 128 bits imellem i stedet for 32.
+
+Hovedarbejdet er ikke at beskrive hvad der foregår. Det er at vise hvor meget hurtigere vi er. "Hey, se på os - vi er hurtige og seje!" er hvad der skal foregå!
