@@ -18,7 +18,7 @@ Each section will start with a \emph{preliminaries} subsection. This subsection 
 
 This section will introduce the primary work of this thesis. It will show how the SRS data structure is built and how range reporting is done using the data structure. The data structure uses $\mathcal{O}(n)$ space and supports search queries in $\mathcal{O}(\lg n + (1+k)\cdot \lg^\epsilon n)$ time. This is the same space complexity as the kd-tree. The query time is different in that $\mathcal{O}(\lg n)$ is smaller than $\mathcal{O}(\sqrt{n})$, but there is a cost of $\mathcal{O}(\lg^\epsilon n)$ per point reported. 
 
-The SRS data structure relies heavily on the \emph{ball-inheritance} data structure. The ball-inheritance structure is a tree with $n$ labelled balls at the root. In $\lg n$ steps it will distribute the balls from the root of the tree to $n$ leaves in the tree. Solving the ball-inheritance problem is to follow a ball from any given node to its leaf. We formally define the problem below \todo{ref?}. Succint rank queries are an important part of this chapter, playing a key role in solving the \emph{ball-inheritance problem}.
+The SRS data structure relies heavily on the \emph{ball-inheritance} data structure. The ball-inheritance structure is a tree with $n$ labelled balls at the root. In $\lg n$ steps it will distribute the balls from the root of the tree to $n$ leaves in the tree. Solving the ball-inheritance problem is to follow a ball from any given node to its leaf. We formally define the problem below in section \todo{ref}. Succint rank queries are an important part of data structure, playing a key role in solving the \emph{ball-inheritance problem}.
 
 
 \subsection{Preliminaries}
