@@ -416,6 +416,9 @@ Tester::run(int B, int hybrid) {
         int testSize = k;
         int amount = pow(2,testSize);
         int how_many = std::sqrt(amount)*1.5;
+        int how_many_sqrtn = std::sqrt(amount)*0.5;
+        int interval_sqrtn = 5;
+        int sqrtn_jumps = how_many_sqrtn/interval_sqrtn;
         int interval = 5;
         int jumps = how_many/interval;
         int smalljumps = 200;
@@ -466,12 +469,12 @@ Tester::run(int B, int hybrid) {
 
 
         // TEST7
-        std::vector<std::vector<int>> timevector_sqrtn(jumps, std::vector<int> {});
-        std::vector<std::vector<int>> timevector2_sqrtn(jumps, std::vector<int> {});
-        std::vector<std::vector<int>> jumps_sqrtn(jumps, std::vector<int> {});
-        std::vector<std::vector<int>> max_jumps_sqrtn(jumps, std::vector<int> {});
-        std::vector<std::vector<int>> startlevels_sqrtn(jumps, std::vector<int> {});
-        std::vector<std::vector<int>> result_size_sqrtn(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector_sqrtn(sqrtn_jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector2_sqrtn(sqrtn_jumps, std::vector<int> {});
+        std::vector<std::vector<int>> jumps_sqrtn(sqrtn_jumps, std::vector<int> {});
+        std::vector<std::vector<int>> max_jumps_sqrtn(sqrtn_jumps, std::vector<int> {});
+        std::vector<std::vector<int>> startlevels_sqrtn(sqrtn_jumps, std::vector<int> {});
+        std::vector<std::vector<int>> result_size_sqrtn(sqrtn_jumps, std::vector<int> {});
         std::string T7name = "How much faster is Ort than KDTree sqrtn";
 
 
@@ -920,7 +923,7 @@ Tester::how_much_faster_is_ort_sqrtn(std::string name, Ort& ort, KDTree& kdtree,
     int testSize = k;
     int amount = pow(2,testSize);
     int how_many = std::sqrt(amount)*0.5;
-    int interval = 2;
+    int interval = 5;
     int jumps = how_many/interval;
     int jumpcount = 0;
     int max_jump = 0;
