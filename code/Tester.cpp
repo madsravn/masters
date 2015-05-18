@@ -270,6 +270,50 @@ Tester::run2() {
 }
 
 
+void
+Tester::report_run_sqrtn(const std::vector<std::vector<int>>& timevector, const std::vector<std::vector<int>>& timevector2, const std::vector<std::vector<int>>& jump_vector, const std::vector<std::vector<int>>& max_jumps, const std::vector<std::vector<int>>& startlevels, const std::vector<std::vector<int>>& result_sizes, int k, std::ofstream& treeconf, std::string T1name, int interval) {
+    for(int i = 0; i < timevector.size(); ++i) {
+        Timer<unitofmeassure> t1;
+
+        std::vector<int> rep = numbers<int>(timevector.at(i));
+        report(rep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (ORT) " + T1name, t1.type(), treeconf);
+
+
+        std::vector<float> jumprep  = numbers<float>(jump_vector.at(i));
+        report(jumprep, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (JUMPS) " + T1name, "jumps", treeconf);
+        std::cout << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+
+        treeconf << "That is " << float(jumprep.at(7))/(1+(i+1)*interval) << " jumps per result." << std::endl;
+
+
+
+        std::vector<float> max_jumps_rep = numbers<float>(max_jumps.at(i));
+        std::cout << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
+        
+        treeconf << "With a max jump of " << max_jumps_rep.at(6) << " and a average of " << max_jumps_rep.at(7) << std::endl;
+
+
+
+
+        std::vector<float> startlevels_rep = numbers<float>(startlevels.at(i));
+
+        std::cout << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
+
+        treeconf << "startlevel max of " << startlevels_rep.at(6) << " and a average of " << startlevels_rep.at(7) << " and a minimum of " << startlevels_rep.at(0) << std::endl;
+        
+        
+        std::vector<int> rep2 = numbers<int>(timevector2.at(i));
+        report(rep2, std::to_string(k) + " and " + std::to_string((i+1)*interval) + " = (KDTREE) " + T1name, t1.type(), treeconf);
+
+        std::vector<int> sizes = numbers<int>(result_sizes.at(i));
+        std::cout << "Resultsize average of: " << sizes.at(7) << std::endl;
+
+        treeconf << "Resultsize average of: " << sizes.at(7) << std::endl;
+    }
+}
+
+
+
 
 void
 Tester::report_run(const std::vector<std::vector<int>>& timevector, const std::vector<std::vector<int>>& timevector2, const std::vector<std::vector<int>>& jump_vector, const std::vector<std::vector<int>>& max_jumps, const std::vector<std::vector<int>>& startlevels, int k, std::ofstream& treeconf, std::string T1name, int interval) {
@@ -356,6 +400,12 @@ Tester::run(int B, int hybrid) {
     filename += "_" + std::to_string(random);
     std::ofstream smallkdtreeorthori(filename);
 
+     filename = "tests4/small_kdtree_vs_ort_sqrt_" + std::to_string(B) + "_" + std::to_string(hybrid) + "_" + std::to_string(secs.count());
+    filename += "_" + std::to_string(random);
+    std::ofstream kdtreeortsqrtn(filename);
+
+
+
 
  
 
@@ -415,6 +465,15 @@ Tester::run(int B, int hybrid) {
         std::string T6name = "How much faster is Ort than KDTree vertical small";
 
 
+        // TEST7
+        std::vector<std::vector<int>> timevector_sqrtn(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> timevector2_sqrtn(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> jumps_sqrtn(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> max_jumps_sqrtn(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> startlevels_sqrtn(jumps, std::vector<int> {});
+        std::vector<std::vector<int>> result_size_sqrtn(jumps, std::vector<int> {});
+        std::string T7name = "How much faster is Ort than KDTree sqrtn";
+
 
 
 
@@ -424,27 +483,25 @@ Tester::run(int B, int hybrid) {
             KDTree kdtree = std::get<1>(trees);
 
             // TEST1 
-            how_much_faster_is_ort_horizontal<unitofmeassure>(T1name, ort, kdtree, timevector, timevector2, jumps_hori, max_jumps_hori, startlevels_hori, k);
+            //how_much_faster_is_ort_horizontal<unitofmeassure>(T1name, ort, kdtree, timevector, timevector2, jumps_hori, max_jumps_hori, startlevels_hori, k);
 
             // TEST2
-            how_much_faster_is_ort_vertical<unitofmeassure>(T2name, ort, kdtree, timevector_vert, timevector2_vert, jumps_vert, max_jumps_vert, startlevels_vert, k);
-
-            // TEST3
-            //compare_vertical_slices_times_between_ort_and_kdtree(T3name, ort, kdtree, times_compare_vert, jumps_compare_vert, max_jumps_compare_vert, k);
-
-            // TEST4
-            //compare_horizontal_slices_times_between_ort_and_kdtree(T4name, ort, kdtree, times_compare_hori, jumps_compare_hori, max_jumps_compare_hori, k);
+            //how_much_faster_is_ort_vertical<unitofmeassure>(T2name, ort, kdtree, timevector_vert, timevector2_vert, jumps_vert, max_jumps_vert, startlevels_vert, k);
 
             // TEST5 
-            how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
+            //how_much_faster_is_ort_horizontal_small<unitofmeassure>(T5name, ort, kdtree, smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k);
 
             // TEST6
-            how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
+            //how_much_faster_is_ort_vertical_small<unitofmeassure>(T6name, ort, kdtree, smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k);
+
+
+            // TEST7
+            how_much_faster_is_ort_sqrtn<unitofmeassure>(T7name, ort, kdtree, timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k);
 
 
 
         }
-        report_run(timevector, timevector2, jumps_hori, max_jumps_hori, startlevels_hori, k, kdtreeorthori, T1name, interval);
+        /*report_run(timevector, timevector2, jumps_hori, max_jumps_hori, startlevels_hori, k, kdtreeorthori, T1name, interval);
 
         report_run(timevector_vert, timevector2_vert, jumps_vert, max_jumps_vert, startlevels_vert, k, kdtreeortvert, T2name, interval);
 
@@ -452,9 +509,10 @@ Tester::run(int B, int hybrid) {
         report_run(smalltimevector, smalltimevector2, smalljumps_hori, smallmax_jumps_hori, smallstartlevels_hori, k, smallkdtreeorthori, T5name, 1);
 
 
-        report_run(smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k, smallkdtreeortvert, T6name, 1);
+        report_run(smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k, smallkdtreeortvert, T6name, 1);*/
         
         
+        report_run_sqrtn(timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k, kdtreeortsqrtn, T7name, interval);
         /*
         // For TEST1
         for(int i = 0; i < timevector.size(); ++i) {
@@ -839,6 +897,67 @@ Tester::how_much_faster_is_ort_vertical(std::string name, Ort& ort, KDTree& kdtr
                 jump_vector.at(size-1).push_back(jumpcount);
                 max_jumps.at(size-1).push_back(max_jump);
                 startlevels.at(size-1).push_back(startlevel);
+
+
+
+                t1.reset();
+                t1.start();
+                kdtree.search(reg);
+                t1.stop();
+
+                timevector2.at(size-1).push_back(t1.duration().count());
+                
+            }
+        }
+    }
+}
+
+template<typename T>
+void
+Tester::how_much_faster_is_ort_sqrtn(std::string name, Ort& ort, KDTree& kdtree, std::vector<std::vector<int>>& timevector, std::vector<std::vector<int>>& timevector2, std::vector<std::vector<int>>& jump_vector, std::vector<std::vector<int>>& max_jumps, std::vector<std::vector<int>>& startlevels, std::vector<std::vector<int>>& result_size, int k) {
+    
+    
+    int testSize = k;
+    int amount = pow(2,testSize);
+    int how_many = std::sqrt(amount)*0.5;
+    int interval = 2;
+    int jumps = how_many/interval;
+    int jumpcount = 0;
+    int max_jump = 0;
+    int startlevel = 0;
+    int results = 0;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+
+
+    Timer<T> t1;
+    for(int size = 1; size < timevector.size()+1; ++size) {
+
+
+        int area = std::sqrt(amount)*std::sqrt(size*interval);
+        std::uniform_int_distribution<> dis(0, amount-1-area);
+        for(int h = 0; h < 10; ++h) {
+            for(int j = 0; j < 100; ++j) {
+                jumpcount = 0;
+                max_jump = 0;
+                startlevel = 0;
+                int xdisplacement = dis(gen);
+                int ydisplacement = dis(gen);
+                Region reg {{xdisplacement, ydisplacement}, {xdisplacement+area, ydisplacement+area}};
+                
+                t1.reset();
+                t1.start();
+                ort.search(reg);
+                t1.stop();
+                results = ort.search(reg).size();
+
+                ort.Depthsearch(reg, jumpcount, max_jump, startlevel);
+                timevector.at(size-1).push_back(t1.duration().count());
+                startlevels.at(size-1).push_back(startlevel);
+                jump_vector.at(size-1).push_back(jumpcount);
+                max_jumps.at(size-1).push_back(max_jump);
+                result_size.at(size-1).push_back(results);
 
 
 

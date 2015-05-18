@@ -33,6 +33,9 @@ class Tester {
 
         void how_much_faster_is_ort_vertical(std::string name);
         void how_much_faster_is_ort_horizontal(std::string name);
+
+
+        void report_run_sqrtn(const std::vector<std::vector<int>>& timevector, const std::vector<std::vector<int>>& timevector2, const std::vector<std::vector<int>>& jump_vector, const std::vector<std::vector<int>>& max_jumps, const std::vector<std::vector<int>>& startlevels, const std::vector<std::vector<int>>& result_sizes, int k, std::ofstream& treeconf, std::string T1name, int interval);
         
         void report_run(const std::vector<std::vector<int>>& timevector, const std::vector<std::vector<int>>& timevector2, const std::vector<std::vector<int>>& jump_vector, const std::vector<std::vector<int>>& max_jumps, const std::vector<std::vector<int>>& startlevels, int k, std::ofstream& treeconf, std::string T1name, int interval);
 
