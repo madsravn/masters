@@ -515,7 +515,7 @@ Tester::run(int B, int hybrid) {
         report_run(smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k, smallkdtreeortvert, T6name, 1);*/
         
         
-        report_run_sqrtn(timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k, kdtreeortsqrtn, T7name, interval);
+        report_run_sqrtn(timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k, kdtreeortsqrtn, T7name, interval_sqrtn);
         /*
         // For TEST1
         for(int i = 0; i < timevector.size(); ++i) {
@@ -654,6 +654,7 @@ Tester::run(int B, int hybrid) {
 
         kdtreeortvert.flush();
         smallkdtreeortvert.flush();
+        kdtreeortsqrtn.flush();
 
         //compare_hori_stream.flush();
         //compare_vert_stream.flush();
@@ -663,6 +664,7 @@ Tester::run(int B, int hybrid) {
     kdtreeorthori.close();
     kdtreeortvert.close();
 
+    kdtreeortsqrtn.close();
     smallkdtreeorthori.close();
     smallkdtreeortvert.close();
 
