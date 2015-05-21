@@ -20,12 +20,14 @@ The graphs below show the time of a search query to the SRS data structure compa
 
 Examining figure~\ref{fig:sqrt_20} with $n = 2^{20}$ the largest difference between the running time of a query to the two data structures is a factor $7$ with a query of size $\sqrt{510}\cdot\sqrt{2^{20}} \times \sqrt{510}\cdot\sqrt{2^{20}} = 23125 \times 23125$. This is a quite big window. Comparing it to the largest window size from figure~\ref{fig:sqrt_17} it is $\frac{23125^2}{4857^2} = 22.67$ times bigger, but only a factor $\frac{7}{3}$ worse.\todo{relatively}. If we look at the running times of the search query to the data structures with size $n = 2^{20}$ where the search query has the same area as we just looked at for $n = 2^{17}$, we can compare the running times of the same query to data structures of different sizes. $\sqrt{2^{17}}\cdot\sqrt{180} \times \sqrt{2^{17}}\cdot\sqrt{180} = 4857.26 \times 4857.26 = \sqrt{2^{20}}\cdot\sqrt{22.5} \times \sqrt{2^{20}}\cdot\sqrt{22.5}$. The average run time of a query with $size = 22.5$ to the SRS data structure with $n = 2^{20}$ points is $8.51$ microseconds and the average run time of a query with $size = 22.5$ to the kd-tree with $n = 2^{20}$ points is $3.69$ microseconds. This makes the search query to the SRS data structure a factor $2.31$ worse than the search query to the kd-tree. This is better than the factor $3$ found at figure~\ref{fig:sqrt_17} with a search query of the same size. However, this search window returns $180$ results at $n = 2^{17}$ and only $22.5$ at $n = 2^{20}$.
 
-Examining figure~\ref{fig:sqrt_25} with $n = 2^{25}$ the largest search window has become quite large with a size of $\sqrt{2^{25}}\cdot\sqrt{2895} \times sqrt{2^{25}}\cdot\sqrt{2895} = 311673 \times 311673$. bla bla bla om det.
+Examining figure~\ref{fig:sqrt_25} with $n = 2^{25}$ the largest search window has become quite large with a size of $\sqrt{2^{25}}\cdot\sqrt{2895} \times sqrt{2^{25}}\cdot\sqrt{2895} = 311673 \times 311673$. The biggest window now returns $2895$ points. A search query with this size to the SRS data structure and the search query to the kd-tree has a factor $\frac{386}{24} = 16.1$ difference. This a quite big difference in the search time, but it is also a big search query. \todo{mere om det}
 
 
 It is obvious from the graphs that the kd-tree performs better when the search queries are square windows. But they might not be that bad . . . \todo{lidt om det}
 
-\todo{Undersøg de forskellige grafer med en given fastsat størrelse, punkt-mængde eller prøv at divider hele grafen med antal punkter. 2'eren er nok sjovest}
+The biggest search query at $n = 2^{17}$ is $\sqrt{180}\cdot{n} \times \sqrt{180}\cdot\sqrt{n}$. We are going lock the $size$ variable to $180$ and see how the factor between the search query to the SRS data structure and kd-tree will evolve when $n$ grows. We see this on figure~\ref{fig:factdiffsqrt180}. The graph is growing and thus the running time of a search query to the SRS data structure returning the same amount of points when $n$ is growing increases faster than the same search query to the kd-tree.\todo{Har det en forklaring - måske at den indkluderer flere?}\todo{Andre ord for at sætte en variable fast}. Examining figure~\ref{fig:factdiffsqrt100} where $size = 100$ we see that factor difference is smaller, but increases roughly the same amount from $\lg n = 17$ to $\lg n = 25$ as figure~\ref{fig:factdiffsqrt180}. 
+
+\todo{Undersøg de forskellige grafer med en given fastsat størrelse, punkt-mængde eller prøv at divider hele grafen med antal punkter. 2'eren er nok sjovest. At undersøge 1'eren giver ikke så meget mening da $2^{25}$ og $2^{24}$ punkt-mængder da vil være mindre end $5$}
 
 
 
@@ -83,6 +85,20 @@ It is obvious from the graphs that the kd-tree performs better when the search q
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/sqrt_25.png}
     \caption{Square search on BIS and kd-tree. $n=2^{25}$. $\sqrt{n} = 5792.62$}\label{fig:sqrt_25}
 \end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/factor_difference_sqrtn_180.png}
+    \caption{Square search on BIS and kd-tree - factor difference with constant $size = 180$ and growing $n$}\label{fig:factdiffsqrt180}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/factor_difference_sqrtn_100.png}
+    \caption{Square search on BIS and kd-tree - factor difference with constant $size = 100$ and growing $n$}\label{fig:factdiffsqrt100}
+\end{figure}
+
 \clearpage
 
 
@@ -270,7 +286,7 @@ To summarize these graphs for horizontal slices, figure~\ref{fig:hori_intersecti
 \begin{figure}[h]
     \centering
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori_theory.png}
-    \caption{Horizontal slices, intersection between running time of SRS and kd-tree normalized by $k_{theoretical}$ with $\lg^\epsilon n$ being the average amount of jumps per result}\label{fig:vert_theory}
+    \caption{Horizontal slices, intersection between running time of SRS and kd-tree normalized by $k_{theoretical}$ with $\lg^\epsilon n$ being the average amount of jumps per result}\label{fig:hori_theory}
 \end{figure}
 
 

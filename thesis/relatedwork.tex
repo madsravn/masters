@@ -28,6 +28,20 @@ Alternating between focussing on the x-coordinates or the y-coordinates at each 
     \caption{The three different situations which can occur between a search query and the region of a node}\label{fig:kdsearchoverlap}
 \end{figure}
 
+START I reference til figur whatever, so for any given node and a search query the following gør sig gældende: Will apply, must apply
+
+3 cases.
+
+Hvis case 1, include all. 
+Hvis case 3, stop.
+If case 2 then for each child of $v$ we check which of the three cases holds. So if case 2 continues to hold we continue down the the leaves of the tree. At the leaf we check if the point is included in the search query and return it as part of the result if it is.
+
+The region of a node contains all the regions of the subnodes. Thus, if the search query contains the region of the node, it will also contain all the regions of the subnodes. And if the search query has no overlap with a region of a node, it will have no overlap with any of the regions of the subnodes.
+
+When searching a kd-tree with a search query, you apply the search query to the root first. If case 1 holds, all the points in the tree are returned as result. If case 3 holds nothings is returned. And if case 2 holds, each of the two children are checked to see which of the three cases fits them. Both case 1 and 3 stops, while case 2 continues the search while narrowing the region of the nodes. STOP!
+
+
+
 In order to search in this tree, we introduce the term \emph{region}. The region of the root node is smallest axis-aligned rectangle which contains all the points of the kd-tree. Given a node $v$ with the region $R$, the region of the children is $R$ restricted to one side of the splitting line at $v$. The root contains all points and has the biggest region. Since each node contains a line dividing its points between both of its children, we can use this line to decrease the size of the regions of both children. Doing this halves the amount of points lying within each child region. As shown on figure~\ref{fig:kdsearchoverlap}, given an axis-aligned rectangular search query $q = [x_1, x_2] \times [y_1, y_2]$ and a node in the kd-tree the following can occur:
 
 \begin{enumerate} 
