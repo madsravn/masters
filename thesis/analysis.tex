@@ -18,7 +18,7 @@ As expected, the average amount of points reported from a lot of search queries 
 
 The graphs below show the time of a search query to the SRS data structure compared to the time of a search query to the kd-tree. As described, the shape of the search query is a square. The variable $size$ increments in levels of $5$ per iteration of the test and will have a maximum of $\frac{\sqrt{n}}{2}$. The x-axis of the graphs describes the $size$ variable in the expression $A = \sqrt{n}\cdot\sqrt{size} \times \sqrt{n}\cdot\sqrt{size}$. Examining figure~\ref{fig:sqrt_17} we see that when the shape of the search query is a square, the search query to the kd-tree is always performing better than the search query to the SRS data structure. Looking closer at the figure we notice that while the search query to the SRS data structure performs worse, it is not that bad. At $size = 180$ we have window of size $\sqrt{2^{17}}\cdot\sqrt{180} \times \sqrt{2^{17}}\cdot\sqrt{180} = 4857.26 \times 4857.26$. The time to perform the search query on the SRS data structure at $size = 180$ is $15.9$ microseconds, while the search to the kd-tree takes $5.2$. This search query includes $180$ points which is $\frac{180}{131072}\cdot 100\% = 1.4\%$ of the $2^{17}$ points in the data structures. This is a relatively big query and the time to perform the search query on the SRS data structure is only a factor $3$ worse than the time of the search query on kd-tree.
 
-Examining figure~\ref{fig:sqrt_20} with $n = 2^{20}$ the largest difference between the running time of a query to the two data structures is a factor $7$ with a query of size $\sqrt{510}\cdot\sqrt{2^{20}} \times \sqrt{510}\cdot\sqrt{2^{20}} = 23125 \times 23125$. This is a quite big window. Comparing it to the largest window size from figure~\ref{fig:sqrt_17} it is $\frac{23125^2}{4857^2} = 22.67$ times bigger, but only a factor $\frac{7}{3}$ worse.\todo{relatively}. If we look at the running times of the search query to the data structures with size $n = 2^{20}$ where the search query has the same area as we just looked at for $n = 2^{17}$, we can compare the running times of the same query to data structures of different sizes. $\sqrt{2^{17}}\cdot\sqrt{180} \times \sqrt{2^{17}}\cdot\sqrt{180} = 4857.26 \times 4857.26 = \sqrt{2^{20}}\cdot\sqrt{22.5} \times \sqrt{2^{20}}\cdot\sqrt{22.5}$. The average run time of a query with $size = 22.5$ to the SRS data structure with $n = 2^{20}$ points is $8.51$ microseconds and the average run time of a query with $size = 22.5$ to the kd-tree with $n = 2^{20}$ points is $3.69$ microseconds. This makes the search query to the SRS data structure a factor $2.31$ worse than the search query to the kd-tree. This is better than the factor $3$ found at figure~\ref{fig:sqrt_17} with a search query of the same size. However, this search window returns $180$ results at $n = 2^{17}$ and only $22.5$ at $n = 2^{20}$.
+Examining figure~\ref{fig:sqrt_20} with $n = 2^{20}$ the largest difference between the running time of a query to the two data structures is a factor $7$ with a query of size $\sqrt{510}\cdot\sqrt{2^{20}} \times \sqrt{510}\cdot\sqrt{2^{20}} = 23125 \times 23125$. This is a quite big window. Comparing it to the largest window size from figure~\ref{fig:sqrt_17} it is $\frac{23125^2}{4857^2} = 22.67$ times bigger, but only a factor $\frac{7}{3}$ worse.\todo{relatively}. If we look at the running times of the search query to the data structures with size $n = 2^{20}$ where the search query has the same area as we just looked at for $n = 2^{17}$, we can compare the running times of the same query to data structures of different sizes. $\sqrt{2^{17}}\cdot\sqrt{180} \times \sqrt{2^{17}}\cdot\sqrt{180} = 4857.26 \times 4857.26 = \sqrt{2^{20}}\cdot\sqrt{22.5} \times \sqrt{2^{20}}\cdot\sqrt{22.5}$. The average run time of a query with $size = 22.5$ to the SRS data structure with $n = 2^{20}$ points is $8.51$ microseconds and the average run time of a query with $size = 22.5$ to the kd-tree with $n = 2^{20}$ points is $3.69$ microseconds. This makes the search query to the SRS data structure a factor $2.31$ worse than the search query to the kd-tree. This is better than the factor $3$ found at figure~\ref{fig:sqrt_17} with a search query of the same size. However, this search window returns $180$ results at $n = 2^{17}$ and only $22.5$ at $n = 2^{20}$. This can have something to do with the different ways the SRS data structure and the kd-tree behaves given a search query. The kd-tree uses the actual search query in its normal form, $[x_1, x_2] \times [y_1, y_2]$ and compares that with the region of each node the search encounters. The first things the SRS data structure does given a search is to translate it into rank space. In rank space we know precisely how many points are in $[\hat{x_1}, \hat{x_2}]$ and $[\hat{y_1}, \hat{y_2}]$ and thus the search query is dependent on how many points are in $[\hat{x_1}, \hat{x_2}]$ and $[\hat{y_1}, \hat{y_2}]$ rather than how big the search query is. \todo{Det er måske også en trend vi kan kigge på med slices}
 
 Examining figure~\ref{fig:sqrt_25} with $n = 2^{25}$ the largest search window has become quite large with a size of $\sqrt{2^{25}}\cdot\sqrt{2895} \times sqrt{2^{25}}\cdot\sqrt{2895} = 311673 \times 311673$. The biggest window now returns $2895$ points. A search query with this size to the SRS data structure and the search query to the kd-tree has a factor $\frac{386}{24} = 16.1$ difference. This a quite big difference in the search time, but it is also a big search query. \todo{mere om det}
 
@@ -157,6 +157,18 @@ The first thing to be tested is how big the vertical and horizontal slices can b
     \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:vert_23}
 \end{figure}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_24.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{24}$}\label{fig:vert_24}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_25.png}
+    \caption{vertical slice on SRS and kd-tree - data set size of $n=2^{25}$}\label{fig:vert_25}
+\end{figure}
+
 \clearpage
 
 Across these graphs, there is a very noticable change in slope at around $k=256$ for the running time of a search query to the SRS data structure. Since $B=2$, we have a big jump at level $2^3 = 8$ which allows the ball inheritance to jump from level $8$ to a leaf in one jump. This means that the average amount of jumps per result will decrease and thus the running time will not increase as fast as before. At around $k=512$ the running-time resumes its normal behaviour. On average, the ball inheritance structure does not use the big jump at level $8$ directly anymore, resulting in a couple of steps before reaching level $8$. Since the graph shows the average run-time of different configurations of the same slice on different data sets, not all of the searches will hit level $8$ from $k>256$, but the main tedency is to. \todo{forklar tidligere - at vi snakker om main tendency, ikke hvad den er garanteret at gøre}. This tendency is described at figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20}. We see how the graph has a local maximum at around $k=256$ and then the average amount of jumps per result decreases until $k=512$ where it starts increasing at steady level again. Figure~\ref{fig:level_vert_17} and figure~\ref{fig:level_vert_20} describes the highest level of a fully contained node. We see between $k=256$ and $k=512$ that the maximum is level $8$ and the minimum is level $7$ and that the average level increases meaning more and more fully contained node starts using level $8$. Since we $B=2$, there is a $2$-jump every $2$ levels, a $4$-jump every $4$ levels, a $8$-jump every $8$ levels and a $16$-jump every $16$ levels. This means that level $7$ the ball inheritance structure needs $3$ jumps to reach a leaf. This is why such a noticable local maximum exits on figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20}. The jumps per results eases off because from level $8$ there is $1$ jump, from level $9$ there are $2$ jumps and from level $10$ there are $2$ jumps. Levels $11, 13, 14$ have $3$ jumps, and at level $15$ another local maximum is going to be found with $4$ jumps, just before level $16$ with $1$ jump to the leaves. However, $k=2^{16}=65,536$ is not likely to be a place where the SRS data structure performs better than the kd-tree unless we have a enormous data set \todo{regn på det}. \todo{Sæt grafer ind for større $n$}
@@ -219,6 +231,7 @@ To summarize the graphs for vertical slices, figure~\ref{fig:vert_intersection} 
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/vert_theory_worst_jump.png}
     \caption{Vertical slices, intersection between running time of SRS and kd-tree normalized by $k_{theoretical}$ with $\lg^\epsilon n$ being the worst amount of jumps per result}\label{fig:vert_theory_worst_jump}
 \end{figure}
+\clearpage
 
 
 We are now going to look at the graphs for the horizontal slices. Recall that when a search query is a horizontal slice, the least common ancestor will be the root of the tree. In $[\hat{x_1}, \hat{x_2}]$, $\hat{x-1}$ will be the leftmost leaf and $\hat{x_2}$ will be the rightmost leaf. From the root to $\hat{x_1}$ and $\hat{x_2}$ there will many fully included nodes, $2$ per level to be exact, which means there will be many different nodes performing small amount of balls inheritance look-ups. Since the points are ordered by their y-coordinate in the root before distribution, and the fact that they keep this order while being distributed means that when increasing the range from $[y_1, y_2]$ to $[y_1, y_2 + 5]$ it is more likely that these $5$ new points will be found from a higher level where the range $[y_1, y_2]$ already had jumps from. It is much likely that a point is stored in a leaf which belongs to a fully included node from level $8$ with $256$ leaves than belonging to a node from level $2$ with $4$ leaves. But since the points are distributed to leaves according to their x-coordinates, it is hard to know the distribution of y-coordinates. When a search query is a horizontal slice, the position of $\hat{y_1}$ and $\hat{y_2}$ will be found on the bit vector of the root node. These position will be updated using the succint rank query while traveling from the root node to the leftmost leaf and the rightmost leaf in the tree.
@@ -265,6 +278,18 @@ We are now going to look at the graphs for the horizontal slices. Recall that wh
     \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:hori_23}
 \end{figure}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori_24.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{24}$}\label{fig:hori_24}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori_25.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{25}$}\label{fig:hori_25}
+\end{figure}
+
 \todo{Hvorfor knækker grafen mellem $512$ og $1024$? Hvorfor er kd-træet mærkeligt dårligt inden $k=10$? HORI}
 
 To summarize these graphs for horizontal slices, figure~\ref{fig:hori_intersection} shows the size of the slice at the point of intersection between the running-time of a search to the SRS and kd-tree for each $n$ tested.
@@ -293,13 +318,251 @@ To summarize these graphs for horizontal slices, figure~\ref{fig:hori_intersecti
 \begin{figure}[h]
     \centering
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/hori_theory_worst_jump.png}
-    \caption{Horizontal slices, intersection between running time of SRS and kd-tree normalized by $k_{theoretical}$ with $\lg^\epsilon n$ being the average amount of jumps per result}\label{fig:vert_theory}
+    \caption{Horizontal slices, intersection between running time of SRS and kd-tree normalized by $k_{theoretical}$ with $\lg^\epsilon n$ being the average amount of jumps per result}\label{fig:hori_theory_worst_jump}
 \end{figure}
+\clearpage
 
 \section{Vertical and horizontal slices explained}
 
 
 
-\section{Comparision of SRS and kd-tree with a constantly small $k$}
+\section{Comparision of SRS and kd-tree with a small $k$}
 
-Grafer kommer
+In this section we are going to look at vertical and horizontal slices with $k\leq 200$. We are interested in seeing how much faster the SRS data structure is than the kd-tree when looking at amounts of results which seems reasonable to user interaction.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_17.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{17}$}\label{fig:small_hori_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_18.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{18}$}\label{fig:small_hori_18}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_19.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{19}$}\label{fig:small_hori_19}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_20.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{20}$}\label{fig:small_hori_20}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_21.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{21}$}\label{fig:small_hori_21}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_22.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{22}$}\label{fig:small_hori_22}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_23.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:small_hori_23}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_24.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{24}$}\label{fig:small_hori_24}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_25.png}
+    \caption{Horizontal slice on SRS and kd-tree - data set size of $n=2^{25}$}\label{fig:small_hori_25}
+\end{figure}
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_17.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{17}$}\label{fig:small_vert_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_18.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{18}$}\label{fig:small_vert_18}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_19.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{19}$}\label{fig:small_vert_19}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_20.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{20}$}\label{fig:small_vert_20}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_21.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{21}$}\label{fig:small_vert_21}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_22.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{22}$}\label{fig:small_vert_22}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_23.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:small_vert_23}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_24.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{24}$}\label{fig:small_vert_24}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_25.png}
+    \caption{Vertical slice on SRS and kd-tree - data set size of $n=2^{25}$}\label{fig:small_vert_25}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_17.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{17}$}\label{fig:small_hori_fac_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_18.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{18}$}\label{fig:small_hori_fac_18}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_19.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{19}$}\label{fig:small_hori_fac_19}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_20.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{20}$}\label{fig:small_hori_fac_20}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_21.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{21}$}\label{fig:small_hori_fac_21}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_22.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{22}$}\label{fig:small_hori_fac_22}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_23.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:small_hori_fac_23}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_24.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{24}$}\label{fig:small_hori_fac_24}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/hori_fac_25.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{25}$}\label{fig:small_hori_fac_25}
+\end{figure}
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_17.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{17}$}\label{fig:small_vert_fac_17}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_18.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{18}$}\label{fig:small_vert_fac_18}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_19.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{19}$}\label{fig:small_vert_fac_19}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_20.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{20}$}\label{fig:small_vert_fac_20}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_21.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{21}$}\label{fig:small_vert_fac_21}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_22.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{22}$}\label{fig:small_vert_fac_22}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_23.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{23}$}\label{fig:small_vert_fac_23}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_24.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{24}$}\label{fig:small_vert_fac_24}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/smalls/vert_fac_25.png}
+    \caption{Factor difference between SRS and kd-tree - data set size of $n=2^{25}$}\label{fig:small_vert_fac_25}
+\end{figure}
+
+Looking back to the section about the square windows we remember that a window with the dimensions $\sqrt{n}\cdot{size} \times \sqrt{n}\cdot\sqrt{size}$ is expected to return $size$ points as result. This was based on the area of area of the search query. Thus, we can rewrite the expression as follows: $\sqrt{n}\cdot{size} \times \sqrt{n}\cdot\sqrt{size} = \sqrt{n}\cdot\sqrt{n} \times \sqrt{size}\cdot\sqrt{size} = n \times size$ which is exactly what vertical or horizontal slice looks like. Thus, we know that this query will return the same amount of points and we can therefore compare the square search query with a horizontal or vertical slice to see how much of an impact the shape of the search has for the SRS data structure. We could do the same for the kd-tree, but that we already see a big difference in the running time between figure~\ref{fig:sqrt_24} and figure~\ref{fig:small_vert_24} and that analysis falls outside the scope of this thesis. \todo{Show figures sqrt, small\_hori and small\_vert i en graf.} We have already seen that there is decent difference between a horizontal slice and a vertical slice, but it interesting to see how well the squared compares to those. \todo{sammenlign forskellen mellem sqrt og vert i både kd-træ og SRS - hvilken datastruktur bliver værre af at skifte form?}
+
+INDSÆT DE GRAFER!
+
+
+Lav også grafer med fast størrelse og lad $\lg n$ varierer. På den måde kan vi se om med en fastsat størrelse, bliver det så bedre eller dårligere når $\lg n$ bliver størrere. Hvad med sammenlignet med kd-træet?
+
+\section{Comparison of the different SRS data structures with $B$ varying}
+
+So far we have only looked at the SRS data structure with $B=2$. We have also not yet mentioned the important aspect of how much main memory the SRS data structure uses compared to the kd-tree. In this section we are going to show how much space the SRS data structure with $B={2,3,4}$ uses and compare it to the space used by the kd-tree. We will also look at how well the vertical and horizontal slices perform with $B={3,4}$ by looking at when the query time for a search query to SRS data structure instersects the query time for a search query to the kd-tree. \todo{Måske også kigge på hvordan k-theory-normalization ser ud}
+
+Her skal vi bare kigge på hvor graferne intersecter og hvad deres størrelser er.
+
+\section{Summary}
+
+Hvordan adskiller de forskellige shapes sig i SRS? Vi ser at kd-træet er meget afhængig af sin shape i praksis som den er i teori. Hvordan gælder det for SRS? Hvordan adskiller de forskellige shapes fra hinanden tidsmæssigt? 
