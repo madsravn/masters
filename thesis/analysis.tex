@@ -17,6 +17,7 @@ Recall from section~\ref{ssection:fasterqueries} that the parameter $B$ could be
 
 
 \section{Square search queries}
+\label{sect:squares}
 
 The kd-tree has a query time of $\mathcal{O}(\sqrt{n}+k)$. The $\sqrt{n}$ part is based on a pessimistic notion that an edge of a query will pass through the entire search area of the kd-tree. This is not always the case. We also note that when $k > \sqrt{n}$, $k$ will dominate the expression and thus the query time will increase linearly \todo{Det gør den jo alligevel}. In order to fairly compare the running time of a search query to both data structure, we are going to generate queries finding the points within an area of $\sqrt{size}\cdot\sqrt{n} \times \sqrt{size}\cdot\sqrt{n}$ where size will increase. This search query will be made with random offsets in order to query arbitrary places in the structures. So given two random numbers $x$ and $y$ a query will be $q = [x, x+\sqrt{size}\cdot\sqrt{n}] \times [y, y+\sqrt{size}\cdot\sqrt{n}]$. This kind of query will not invoke the worst-case scenario for the kd-tree and will thus give an idea of how the SRS data structure performs in contrast to the kd-tree under normal circumstances. The points generated for the data structures lie in the range of $[0,n-1] \times [0,n-1]$, which gives an area of $n^2$. If the search query has an area of $A$, each point has a $\frac{A}{n^2}$ chance of being in that search query. With $n$ points we thus expect to find $n\cdot \frac{A}{n^2}$ points in a search query with the area of $A$. In this test we set $A = \sqrt{n}\cdot\sqrt{size}\times\sqrt{n}\cdot\sqrt{size}$, where $n$ is contant to the data structure and $size$ will increase during the test. We then expect to find $n\cdot\frac{A}{n^2} = \frac{n\cdot n \cdot size}{n^2} = size$ points. This obviously depends a lot on how the points specfically are distributed in that specific case. When generating $10$ different data sets for each data structure in the tests and picking the displacements for the search query at random each search, we will expect the average amount of points returned by the search query $q = [x, x+\sqrt{size}\cdot\sqrt{n}] \times [y, y+\sqrt{size}\cdot\sqrt{n}]$ to be $size$.
 
@@ -349,7 +350,15 @@ Across the graphs showing the performance of the vertical slices to the BIS data
 
 Looking at figure~\ref{fig:level_vert_17} we see that when we reach $k=256$ the minimum highest level rises to $7$ and the maximum highest level rises to $8$. In order to write the sum of $256<k<512$ we will need to at least level $7$ because we need the two fully included nodes from level $7$ giving us $2*2^7 = 2^8 = 256$ nodes. If the least common ancestor is found at level $9$ the first fully contained node can be found at level $7$. If all the levels from level $7$ to level $1$ only have fully contained nodes, we get $k = 2*2^1 + 2*2^2 + \cdots + 2*2^7 = 508$. This is not enough to write $512$, and thus somewhere between $k=256$ and $k=512$, the search algorithm will begin using level $10$ as the least common ancestor. This is also very dependent on how the slice covers the subtrees of the least common ancestor. If the slice hits the least common ancestor right in the middle, such that the left subtree and the right subtree of the least common ancestor is of the exact same size, the level of the highest fully included node will be lower. If the slice hits the least common ancestor such there is an imbalance in the size between the left subtree and right subtree of the least common ancestor, the level of the highest fully included node will be higher, because now one subtree has to account for a bigger portion of the slice and will have to use bigger pieces. And when a subtree contains $2^8 = 256$ leaves it will have access to the jump at level $8$. The maximum level of figure~\ref{fig:level_vert_17} is explained by the fact that it is not possible to write the sum of $k<512$ using $512$ as a summand. Recall that a vertical slice conceptually only searches for the x-coordinates of the points. All the y-coordinates are already known to be included, Thus, when a node is fully included, we get all of points in its subtree.   \todo{Omformuler og sæt sammen med afsnittet fra før lige ovenover da du skriver nogenlunde det samme - bare i to forskellige tankegange}\todo{Lav en lignede figur som figur 3.2 til at forklare konceptet}
 
-As mentioned before, it is hard to argue about the tendencies of the graphs of the horizontal slices. When the least common ancestor of $x_1$ and $x_2$ is found at level $i$, the first node which is fully contained in a horizontal slice is located on level $i-2$. So from level $i-1$ to level $1$ we find $2$ fully contained nodes per level. The points are uniformly distributed which means that given one y-rank the chance to find it on level $i-2$ is $2\cdot\frac{1}{4} = \frac{1}{2}$. The chance to find it on level $i-3$ is half that, i.e. $\frac{1}{4}$. Thus, when we see the graphs of the horizontal slices..
+As mentioned before, it is hard to argue about the tendencies of the graphs of the horizontal slices. When the least common ancestor of $x_1$ and $x_2$ is found at level $i$, the first node which is fully contained in a horizontal slice is located on level $i-2$. So from level $i-1$ to level $1$ we find $2$ fully contained nodes per level. The points are uniformly distributed which means that given one y-rank the chance to find it on level $i-2$ is $2\cdot\frac{1}{4} = \frac{1}{2}$. The chance to find it on level $i-3$ is half that, i.e. $\frac{1}{4}$. Thus, when we see the graphs of the horizontal slices.. bla bla
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_hori_17.png}
+    \caption{Size of jumps - data set size of $n=2^{17}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_hori_17}
+\end{figure}
+
+Forklar konceptet med hvordan average jumps ser ud. This seemingly uninteresting graph shows us that the theory of the expected distribution is correct. We also had this confirmed in section~\ref{sect:squares} where we saw that square searches of size $\sqrt{n}\cdot\sqrt{k} \times \sqrt{n}\cdot\sqrt{k}]$ returned $k$ results. This was based on theory that assumed the distribution was uniform. If the y-coordinates are uniformly distributed amongst the x-coordinates to generate a point, we can see something interesting in figure~\ref{fig:jump_hori_17}. A BIS data structure with data set size $n = 2^{17}$ will have its first fully contained node at level $15$. For each y-coordinate we have to find, there is a $\frac{2}{4} = \frac{1}{2}$ chance that it will jump from level $15$. Then there is a $\frac{1}{4}$ chance that it will jump from level $14$ and so on. Given this information we can we can use table-something to see how many jumps a ball must take in order to get from a node at level $i$ to a leaf. Doing this we see that $\frac{4}{2} + \frac{3}{4} + \frac{3}{8} + \frac{2}{16} + \frac{3}{32} + \frac{2}{64} + \frac{2}{128} = 3.391$ which is the jumps per results depicted on figure~\ref{fig:jump_hori_17}. \todo{Kan jeg nu rent faktisk bruge det her til at forklare hvor hori tager de mærkelige svingninger?}
 
 SENERE: Kig på $size = 300$ for alle $\lg n$. Se hvordan det er dårlig ved $\lg n = 17$ for der er første hop med størst sandsynlighed på level 15 som er $1+2+4+8 = 15 => 4$ hop. Ved $\lg n = 18$ er den god for der er størst sandsynlighed for $16 => 1$ hop. Når vi kommer højere f.eks. $\lg n = 24$ er første hop ved level $22 = 2 + 4 + 16$ og andet hop er $1 + 4 + 16$. Så tre hop er $\frac{3}{4}$ sandsynlighed. Sammenlign det med en hvor der er $2$ og $3$, f.eks. $\lg n = 22$.
 \todo{Forklar om hvordan distribution af points og hvordan hvor vi ligger i forhold til level $15$ betyder noget. Kig også på grafen for figur~\ref{fig:hori_jumps_per_lgn}. Den viser netop at $\lg n = 17$ med LCA = level $15$ er noget skidt.}
@@ -632,7 +641,115 @@ So far we have only looked at the SRS data structure with $B=2$. We have also no
 
 As we briefly looked at in section\todo{ref} another aspect to investigate would be to have a search query of a fixed area performed to both data structures with a growing $\lg n$. However, based on the theory of how many points we expect to find in a given area based on the point-size and area of a data structure, this query would return less and less points. \todo{Er det overhovedet spændende at kigge på? Jeg tænker lidt det bare kommer til at vise det samme vi allerede ved. Med lidt snilde kan vi gøre det med eksisterende data da $\sqrt{2^17}*1.5 = 540$ og $\lg 540 \approx 9$ og $25-17 = 8$. Så vi har nok til at vi kan formindske det nedad.}
 
-Her skal vi bare kigge på hvor graferne intersecter og hvad deres størrelser er.
+We are going to briefly look at how the BIS data structure performs with $B=\{3,4\}$. We start by introducing figure~\ref{fig:b3_vert_intersection} and figure~\ref{fig:b3_hori_intersection} to see at what size the running time of vertical and horizontal slices to the BIS data structure with $B=3$ intersects with the running time of the same query to the kd-tree. Recall we have already seen these graphs for $B=2$ on figure~\ref{fig:vert_intersection} and figure~\ref{fig:hori_intersection}.
+
+We will also check if the intersection point is as we theoretically expect it. Thus, we normalize the time of the intersection with the theoretically expected  $k$. We see the graphs on figure~\ref{fig:b3_vert_theory}, figure~\ref{fig:b3_vert_theory_worst},  figure~\ref{fig:b3_hori_theory} and figure~\ref{fig:b3_hori_theory_worst}.We have also already seen this for $B=2$. 
+
+We are going to introduce the exact same graphs for $B=4$. These are seen on figures~\ref{fig:b4_vert_intersection} through ~\ref{fig:b4_hori_theory_worst}.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/threes/vert.png}
+    \caption{Intersection between running time of BIS with $B=3$ and kd-tree for vertical slices}\label{fig:b3_vert_intersection}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/threes/hori.png}
+    \caption{Intersection between running time of BIS with $B=3$ and kd-tree for horizontal slices}\label{fig:b3_hori_intersection}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/threes/vert_avg.png}
+    \caption{Intersection between running time of BIS with $B=3$ and kd-tree for vertical slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the average amount of jumps per result}\label{fig:b3_vert_theory}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/threes/vert_worst.png}
+    \caption{Intersection between running time BIS with $B=3$ and kd-tree for vertical slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the worst amount of jumps per result}\label{fig:b3_vert_theory_worst}
+\end{figure}
+\todo{FIKS WORST AMOUNT OF JUMPS PER RESULT TIL WORST-CASE lgn IN THE STRUCTURE}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/threes/hori_avg.png}
+    \caption{Intersection between running time of BIS with $B=3$ and kd-tree for horizontal slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the average amount of jumps per result}\label{fig:b3_hori_theory}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/threes/hori_worst.png}
+    \caption{Intersection between running time BIS with $B=3$ and kd-tree for horizontal slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the worst amount of jumps per result}\label{fig:b3_hori_theory_worst}
+\end{figure}
+\clearpage
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/fours/vert.png}
+    \caption{Intersection between running time of BIS with $B=4$ and kd-tree for vertical slices}\label{fig:b4_vert_intersection}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/fours/hori.png}
+    \caption{Intersection between running time of BIS with $B=4$ and kd-tree for horizontal slices}\label{fig:b4_hori_intersection}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/fours/vert_avg.png}
+    \caption{Intersection between running time of BIS with $B=4$ and kd-tree for vertical slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the average amount of jumps per result}\label{fig:b4_vert_theory}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/fours/vert_worst.png}
+    \caption{Intersection between running time BIS with $B=4$ and kd-tree for vertical slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the worst amount of jumps per result}\label{fig:b4_vert_theory_worst}
+\end{figure}
+\todo{FIKS WORST AMOUNT OF JUMPS PER RESULT TIL WORST-CASE lgn IN THE STRUCTURE}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/fours/hori_avg.png}
+    \caption{Intersection between running time of BIS with $B=4$ and kd-tree for horizontal slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the average amount of jumps per result}\label{fig:b4_hori_theory}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/fours/hori_worst.png}
+    \caption{Intersection between running time BIS with $B=4$ and kd-tree for horizontal slices normalized by $k_{theoretical}$ with $\lg n^\epsilon n$ being the worst amount of jumps per result}\label{fig:b4_hori_theory_worst}
+\end{figure}
+
+
+The most important reason why the range tree is not used as the standard range reporting data structure today is its space complexity. While we have shown theoretically that the space complexity of the BIS data structure is linear, we would also like to see it in practice. Figure~\ref{fig:sizes} shows the actual space usage of the BIS data structure with $B=\{2,3,4\}$ and the space usage of the kd-tree. The size has been normalized by the amount of points the data structure holds. Thus, the normalized size of the kd-tree is $2$, meaning that for each point in the kd-tree it uses $2\cdot 32$ bits - one $32$ bits integer for each coordinate.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.85\textwidth]{pictures/analysis/sizes.png}
+    \caption{The normalized sizes of the BIS data structure with $B=\{2,3,4\}$ and the kd-tree.}\label{fig:sizes}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Summary}
 
