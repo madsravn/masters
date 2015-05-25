@@ -15,11 +15,21 @@
 \usepackage{color}
 \usepackage{datetime}
 \usepackage{epstopdf} 
+
 \usepackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
     \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{epigraph}
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
 
 \renewcommand*\ttdefault{txtt}
 
