@@ -477,6 +477,9 @@ Tester::run(int B, int hybrid) {
         std::vector<std::vector<int>> result_size_sqrtn(sqrtn_jumps, std::vector<int> {});
         std::string T7name = "How much faster is Ort than KDTree sqrtn";
 
+        // TEST8
+        std::vector<float> kdsizes, ortsizes;
+
 
 
 
@@ -499,11 +502,18 @@ Tester::run(int B, int hybrid) {
 
 
             // TEST7
-            how_much_faster_is_ort_sqrtn<unitofmeassure>(T7name, ort, kdtree, timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k);
+            //how_much_faster_is_ort_sqrtn<unitofmeassure>(T7name, ort, kdtree, timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k);
+
+            kdsizes.push_back(float(kdtree.size())/amount);
+            ortsizes.push_back(float(ort.size(3))/amount);
 
 
 
         }
+
+        report(kdsizes, "KDTREE B = " + std::to_string(B) + std::to_string(testSize), "32 bits");
+        report(ortsizes, "ORT  = " + std::to_string(B) + std::to_string(testSize), "32 bits");
+
         /*report_run(timevector, timevector2, jumps_hori, max_jumps_hori, startlevels_hori, k, kdtreeorthori, T1name, interval);
 
         report_run(timevector_vert, timevector2_vert, jumps_vert, max_jumps_vert, startlevels_vert, k, kdtreeortvert, T2name, interval);
@@ -515,7 +525,7 @@ Tester::run(int B, int hybrid) {
         report_run(smalltimevector_vert, smalltimevector2_vert, smalljumps_vert, smallmax_jumps_vert, smallstartlevels_vert, k, smallkdtreeortvert, T6name, 1);*/
         
         
-        report_run_sqrtn(timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k, kdtreeortsqrtn, T7name, interval_sqrtn);
+        //report_run_sqrtn(timevector_sqrtn, timevector2_sqrtn, jumps_sqrtn, max_jumps_sqrtn, startlevels_sqrtn, result_size_sqrtn, k, kdtreeortsqrtn, T7name, interval_sqrtn);
         /*
         // For TEST1
         for(int i = 0; i < timevector.size(); ++i) {

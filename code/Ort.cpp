@@ -90,7 +90,7 @@ Ort::size(int t) const {
 
     storage += 2*balls.size();
     storage += bits.size();
-    storage += xb.size() + yb.size();
+    storage += yb.size();
     storage += masks.size();
     for(const auto& e : ranks) {
         storage += e.size();
@@ -560,6 +560,7 @@ Ort::Ort(int amount, std::vector<Point> input, int _B, bool _hybrid) : B(_B), hy
 std::vector<Point>
 Ort::easyQuery(Point lowerleft, Point upperright) {
     
+    //TODO: Make this to use balls instead with a custom comparison function object
     auto lx = std::lower_bound(std::begin(xb), std::end(xb), lowerleft.x);
     auto ux = std::upper_bound(std::begin(xb), std::end(xb), upperright.x);
     int lx_index = std::distance(std::begin(xb), lx);
