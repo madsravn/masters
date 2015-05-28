@@ -39,6 +39,27 @@ The biggest search query at $n = 2^{17}$ is $\sqrt{180}\cdot{n} \times \sqrt{180
 
 Another interesting thing to examine would be to fix $size$ and see how the time grows as a factor of $\lg n$. In section~\ref{sect:smallk} we introduce graphs for vertical and horizontal slices with $k \leq 200$ which makes for an interesting comparison of square window queries with a fixed $size$ and growing $\lg n$. \todo{skal jeg referere dem?}
 
+\begin{figure}[h]
+  \makebox[\linewidth][c]{
+    \centering
+    \begin{subfigure}[b]{0.68\textwidth}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pictures/analysis/sqrt_17.png}
+        \caption{$y=x$}
+        \label{fig:y equals x}
+    \end{subfigure}
+    %\hfill
+    \begin{subfigure}[b]{0.68\textwidth}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pictures/analysis/sqrt_18.png}
+        \caption{$y=5/x$}
+        \label{fig:five over x}
+    \end{subfigure}
+  }
+    \caption{Three simple graphs}
+    \label{fig:three graphs}
+  
+\end{figure}
 
 \begin{figure}[h]
     \centering
