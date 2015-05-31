@@ -163,30 +163,22 @@ In order to support predecessor (and successor) search for the y-rank in the dat
 
 The reason why this structure is necessary for the y-ranks and not the x-ranks, is because of the way the points have been distributed in the ball-inheritance tree: From left to right, the leaves have x-rank $1,2,..n$ so we can easily locate a given range in the x dimension, but in order to keep track of the y-dimensional range we need to follow the balls down the ball-inheritance structure. Adding this structure to each $\lg \lg n$ level saves us from going all the way from the root down to the $LCA$. \\
 
-In order to use this data structure to report points in the range of $q = [x_1, x_2] \times [y_1, y_2]$ we follow these steps:
+\noindent In order to use this data structure to report points in the range of $q = [x_1, x_2] \times [y_1, y_2]$ we follow these steps:
 \begin{enumerate}
   \item We find the rank space successor of $x_1$ and the rank space predecessor of $x_2$. We call them $\hat{x}_1$ and $\hat{x}_2$. We use these to find the lowest common ancestor of $\hat{x}_1$ and $\hat{x}_2$, $LCA(\hat{x}_1, \hat{x}_2)$. This is the lowest node in the tree whose subtree contains at least all the points between $x_1$ and $x_2$. By knowing $\hat{x}_1$ and $\hat{x}_2$, finding the lowest common ancestor is a constant time operation.   
   %\item As in step $1$ where we found the rank space of the x-coordinates, we find the rank space coordinates of the y-coordinates, $\hat{y}_1$ and $\hat{y}_2$, inside the left and right child of $LCA(\hat{x}_1, \hat{x}_2)$. We are only interested in the rank of $y_1$ and $y_2$ among the points stored in the left and right subtree of $LCA(\hat{x}_1, \hat{x}_2)$. This step is precisely what the rank space predecessor structure mentioned above supports.
-  \item From the least common ancestor of $x_1$ and $x_2$, we walk at most $\lg \lg n$ steps up to find the nearest parent with a predessecor search structure for the y-rank. We then translate $y_1$ and $y_2$ into rank space coordinates. We then walk down to the LCA again while maintaining the $\hat{y_1}$ and $\hat{y_2}$ at each step. The rank space coordinates are then translated into both the left and right child of the LCA. At each of the two children of the least common ancestor, this range indicates which balls have a y-coordinate between $y_1$ and $y_2$, i.e. which leaves that stores a point with a y-coordinate between $y_1$ and $y_2$.\todo{Kan jeg bruge superscript eller subscript til at indikere left og right? $[y^r_1, y^r_2]$}
+  \item From the least common ancestor of $x_1$ and $x_2$, we walk at most $\lg \lg n$ steps up to find the nearest parent with a predessecor search structure for the y-rank. We then translate $y_1$ and $y_2$ into rank space coordinates. We then walk down to the LCA again while maintaining the $\hat{y_1}$ and $\hat{y_2}$ at each step. The rank space coordinates are then translated into both the left and right child of the LCA. At each of the two children of the least common ancestor, this range indicates which balls have a y-coordinate between $y_1$ and $y_2$, i.e. which leaves that stores a point with a y-coordinate between $y_1$ and $y_2$. This step is illustrated on figure~\ref{fig:orstep2}
   \item We now descend into the right child of $LCA(\hat{x}_1, \hat{x}_2)$ and use the range minimum query structure at this node to the find the index $m$ (the y-rank) of the point with the smallest x-rank in the range $[\hat{y}_1, \hat{y}_2]$. The y-rank of a point at a node is exactly the identity of the ball going to the leaf storing the point. Knowing the identity of the ball we can use the ball-inheritance structure to follow the path to the leaf to find the actual x-coordinate of the point. If the x-coordinate is smaller than $x_2$ we return the point as a result and recurse into the ranges of $[\hat{y}_1, m-1]$ and $[m+1, \hat{y}_2]$ in order to find more points. Otherwise we terminate. When this is done we apply the same concept to the left child of $LCA(\hat{y}_1, \hat{x}_2)$ using the range maximum query to find points above $x_1$.
 \end{enumerate}
 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.95\textwidth]{pictures/ors_step2.eps}
-    \caption{Illustration of how step $2$ of the ORS works}
+    \includegraphics[width=0.65\textwidth]{pictures/ors_step2.eps}
+    \caption{Illustration of how step $2$ of the OBIS works.}
     \label{fig:orstep2}
 \end{figure}
 
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\textwidth]{pictures/ors_step3.eps}
-    \caption{Example of how ORS works conceptually}
-    \label{fig:orsearchfigure}
-\end{figure}
-\clearpage
 
 
 
@@ -196,9 +188,19 @@ In order to use this data structure to report points in the range of $q = [x_1, 
 
 The time complexity of step $3$ depends on the use of the ball-inheritance structure. The time to traverse this structure is dependent on the improvements made in \ref{ssection:solving-ball}. An empty range will result in two queries, one query to each child of $LCA(\hat{x}_1, \hat{x}_2)$. In the worst case the amount of queries to the ball-inheritance structure will be twice the number of results reported plus one. Each time a result is found, a recursion is made to both the left and right subrange of that result. If one of the sides constantly fails to find a result, at most two queries are made for each result found. For the final result found, two ranges are recursed into which reports no results.
 
-\todo{indsæt rigtig figur}Conceptually, $LCA(\hat{x}_1, \hat{x}_2)$ describes a point between $x_1$ and $x_2$. Step $3$ selects points that are in the range of $[y_1, y_2]$ moving outwards from the point of $LCA(\hat{x}_1, \hat{x}_2)$, always picking the point closest to $LCA(\hat{x}_1, \hat{x}_2)$ in its decreasing y-range. \todo{rephrase}
+Conceptually, $LCA(\hat{x}_1, \hat{x}_2)$ describes a point between $x_1$ and $x_2$, more precisely a point with an x-coordinate higher than all the points in the left child and higher than all the points in the right child. Step $3$ selects points that are in the range of $[y_1, y_2]$ moving outwards from the point of $LCA(\hat{x}_1, \hat{x}_2)$, always picking the point closest to $LCA(\hat{x}_1, \hat{x}_2)$ in its decreasing y-range. We can see an example of how step $3$ works on figure~\ref{fig:orsearchfigure}. Looking at the right child of the figure, the leftmost point in the range $[\hat{y_1}, \hat{y_2}]$ will be found first. If that point has an x-coordinate less or equal to $x_2$ it will be part of the result. Then we recurse into the ranges $[p_7, p_8]$ and $[p_9, p_9]$. When the leftmost point in a range has an x-coordinate which is greater than $x_2$ then all other points in that range will also have an x-coordinate greater than $x_2$. Thus, the recursion in that range stops. Symmetrically, same applies for the left child of the least common ancestor.
 
 Going back to Lemma $2.4$, we see that the time complexity fits: $\mathcal{O}(\lg \lg n)$ time is used for the predecessor search and $\mathcal{O}((1+k)\tau)$ time is used for walking from the children of the $LCA$ to the leaves solving the ball inheritance problem for the $k$ results.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{pictures/ors_step3.eps}
+    \caption{Illustration of how step $3$ of the OBIS works. The dotted line divides the points in the left and right child of the least common ancestor.}
+    \label{fig:orsearchfigure}
+\end{figure}
+\clearpage
+
 
 \section{Summary}
 \label{sect:summaryprim}
