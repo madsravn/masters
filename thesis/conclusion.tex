@@ -1,4 +1,14 @@
 \chapter{conclusion}
 \label{ch:conclusion}
 
-Something something
+In this thesis we have presented the theory and performance of the BIS data structure. We have compared the performance of the BIS data structure to that of the kd-tree. The BIS data structure gives a stable performance which is corresponds rather well the theoretical running time of $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$. It does not seem like the theoretical query time has any hidden big constants like we assumed the OBIS data structure had.
+
+We have seen that just like the kd-tree, that the BIS data structure has a worst-case search query and a best-case search query. The difference between the worst-case and best-case search query to the BIS data structure is much less than that of the kd-tree. We have seen that the search query to the BIS data structure performs much more stable than a search query to the kd-tree.
+
+Given a search query in the shape of slice, the BIS data structure will outperform the kd-tree up to good size. With $2^{17}$ points and a vertical search query, the BIS data structure will outperform the kd-tree when the result is less than $200$. With $2^{25}$ points and a vertical search query, the BIS data structure will outperform the kd-tree with the result is less than $4660$. For smaller sizes of $k$, a vertical query to the BIS data structure will be several times faster than the kd-tree. With $2^{17}$ points and a vertical search query, the BIS data structure will be $3.5$ times faster than the kd-tree when $k = 50$. With $2^{25}$ points the BIS data structure will be $42$ times faster than the kd-tree when $k = 50$. 
+
+There is a duality between the shapes of the search queries to the BIS data structure and the kd-tree. The BIS data structure performed best with slices and the kd-tree performed best with square searches. The BIS data structure performs worst with the square search and the kd-tree performs worst with a slice.
+
+We have seen that the BIS data structure actually does compete with the kd-tree. The BIS data structure could be a realistic alternative to the kd-tree in actual practice. By picking an $\epsilon$ and a $c$ for $B = c\cdot\lg^\epsilon n$ we are able to leverage the performance of the BIS data structure with the amount of main memory it should be able to use.
+
+The experiments show that the BIS data structure is a good competitor to the kd-tree and uses far less space than the range tree.
