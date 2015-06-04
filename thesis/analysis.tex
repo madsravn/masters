@@ -14,6 +14,9 @@ The tests have been performed on data structures with data sets of size $2^{\lg 
 In all the test we have chosen $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil$. Recall from section~\ref{ssection:fasterqueries} that $B = \Omega(\lg^\epsilon n)$. Thus, we have chosen $\epsilon = \frac{1}{3}$. Section~\ref{ssection:fasterqueries} also states that $B$ is responsible for the big jumps in the ball inheritance structure: where the jumps should be placed and how big they should be. Unless otherwise stated the graphs in this chapter show results from a BIS data structure configured with $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil$.
 
 
+The experiments were performed on a machine with an Intel i7-3770 CPU with 3.40GHz and with $32$ GB RAM. The machine was running Ubuntu 14.04.2 LTS with clang version 3.4. The machine was provided by MADALGO.
+
+
 
 \section{Square search queries}
 \label{sect:squares}
@@ -84,7 +87,7 @@ A search query to the kd-tree has a run-time of $\mathcal{O}(\sqrt{n}+k)$ and a 
 
 Recall that the BIS data structure treats the two dimensions very differently. Given a rank space search query $\hat{q} = [\hat{x_1}, \hat{x_2}] \times [\hat{y_1}, \hat{y_2}]$, the search algorithm will find the least common ancestor of $\hat{x_1}$ and $\hat{x_2}$. From there, it will find the path to both $\hat{x_1}$ and $\hat{x_2}$ and all leaves between them will be in the range $[x_1, x_2]$. The search algorithm now has to determine which of these leaves contain a point with y-coordinate in $[y_1, y_2]$. This is done by using the ball inheritance structure from each of the fully contained nodes which were found on the path from the least common ancestor to $\hat{x_1}$ and $\hat{x_2}$.
 
-This means that a horizontal slice and a vertical slice will be treated differently by the BIS data structure. The search query of a horizontal slice includes all x-coordinates of the search space, and thus the least common ancestor of $[\hat{x_1}, \hat{x_2}]$ will be the root of the tree. The path from the least common ancestor to $\hat{x_1}$ will only go left which means each level will have one fully contained node. The path from the least common ancestor to $\hat{x_2}$ will only go right, also yielding one fully contained node per level. The tests measure the difference in performance between the BIS data structure and the kd-tree when the search query is a slice. A slice will start out being very small, $k=5$. Thus, many of the fully contained nodes will have no ball inheritance work when the slice is a horizontal slice. As the slice grows, eventually more and more node will have one or more balls to follow. The amount of ball inheritance each node is responsible for varies a lot, and therefore the ball inheritance will become somewhat sporadic. But the nature of the ball distribution asserts that if node has two balls or more balls for ball inheritance, these balls will be right next to each.
+This means that a horizontal slice and a vertical slice will be treated differently by the BIS data structure. The search query of a horizontal slice includes all x-coordinates of the search space, and thus the least common ancestor of $[\hat{x_1}, \hat{x_2}]$ will be the root of the tree. The path from the least common ancestor to $\hat{x_1}$ will only go left which means each level will have one fully contained node. The path from the least common ancestor to $\hat{x_2}$ will only go right, also yielding one fully contained node per level. The tests measure the difference in performance between the BIS data structure and the kd-tree when the search query is a slice. A slice will start out being very small, $k=5$. Thus, many of the fully contained nodes will have no ball inheritance work when the slice is a horizontal slice. As the slice grows, eventually more and more node will have one or more balls to follow. The amount of ball inheritance each node is responsible for varies a lot, and therefore the ball inheritance will become somewhat sporadic. But the nature of the ball distribution asserts that if node has two or more balls for ball inheritance, these balls will be right next to each.
 
 On the other hand we have the vertical slices. The vertical slice includes all y-coordinates of the search space, and thus the location of the least common ancestor of $[\hat{x_1}, \hat{x_2}]$ varies a lot dependent on the search query. But the nodes which are marked as fully contained on the path from the least common ancestor to $\hat{x_1}$ and $\hat{x_2}$ will all only contain leaves with points with y-coordinates in $[y_1, y_2]$ which means we have to do ball inheritance on all the balls belonging to fully contained nodes. Thus, the ball inheritance in vertical slices are much more batched together. Comparing a vertical and horizontal slice of the same size, the vertical slice will have good chances of being faster than the horizontal slice. With a lower LCA, the ball inheritance in the vertical slice will have to jump from a lower level than the ball inheritance in the horizontal and the balls are more batched together in the vertical. \\
 
@@ -148,7 +151,7 @@ We just pointed out that the graphs on figure~\ref{fig:vert_17} intersect at $k 
 
 \subsection{Horizontal slices}
 
-We are now going to look at the graphs for the horizontal slices. Recall that when a search query is a horizontal slice, the least common ancestor will be the root of the tree. In $[\hat{x_1}, \hat{x_2}]$, $\hat{x_1}$ will be the leftmost leaf and $\hat{x_2}$ will be the rightmost leaf. From the root to $\hat{x_1}$ and $\hat{x_2}$ there will many fully contained nodes, $2$ per level to be exact, which means there will be many different nodes performing small amount of balls inheritance look-ups. The y-coordinates of the points are uniformly distributed. It is more likely that a point is stored in a leaf which belongs to a fully included node from level $8$ with $256$ leaves than it belongs to a node from level $2$ with $4$ leaves. When the least common ancestor of $\hat{x_1}$ and $\hat{x_2}$ is on level $i$, the highest possible level of a fully contained node is $i-2$. Given a y-rank of a point, the probability of finding the ball-inheritance for that point at level $i-2$ is $\frac{1}{2}$. The probability of finding it on level $i-3$ is $\frac{1}{4}$. Thus, unlike the vertical shape, we cannot say anything as definitively about where the ball-inheritance takes place. We are going to take a closer at this in section~\ref{sect:verthoriexp}. \todo{Kan skrives pænere - flyt eller slet. Det forvirrer nok mere end det hjælper. Det er jo ``setup''}
+We are now going to look at the graphs for the horizontal slices. Recall that when a search query is a horizontal slice, the least common ancestor will be the root of the tree. In $[\hat{x_1}, \hat{x_2}]$, $\hat{x_1}$ will be the leftmost leaf and $\hat{x_2}$ will be the rightmost leaf. From the root to $\hat{x_1}$ and $\hat{x_2}$ there will many fully contained nodes, $2$ per level to be exact, which means there will be many different nodes performing small amount of balls inheritance look-ups. The y-coordinates of the points are uniformly distributed. Thus, unlike the vertical shape, we cannot say anything as definitively about where the ball-inheritance takes place. We are going to take a closer at this in section~\ref{sect:verthoriexp}. \todo{Kan skrives pænere - flyt eller slet. Det forvirrer nok mere end det hjælper. Det er jo ``setup''}
 
 
 Figure~\ref{fig:hori_17} and figure~\ref{fig:hori_25} show the performance of a search query to the BIS data structure compared to a search query to the kd-tree, where the search query is a horizontal slice. Figure~\ref{fig:hori_17} shows that the BIS data structure is faster than the kd-tree until the size of the slice becomes $125$. While not as good as the vertical slice, it is still a decent size. At $k = 100$ the BIS data structure is only a factor $1.2$ faster than the kd-tree. On figure~\ref{fig:hori_25} we see that the BIS data structure is faster than the kd-tree up until $k = 2290$. At $k = 100$ the BIS data structure is $13$ times faster than the kd-tree, and at $k = 200$ it is $8$ times faster. Again, this is not as good as the vertical slice, but it is still pretty good. Given a query with $200$ results in a horizontal window, the BIS data structure outperforms the kd-tree by a factor of $8$. It is obvious for both the horizontal and the vertical slice, that the smaller the window, the better is ratio between the performance of the two data structures.
@@ -487,42 +490,60 @@ In this we are going to dive a deeper into the technical details of the results 
 \end{figure}
 
 
-
 \begin{figure}[h]
+  \makebox[\linewidth][c]{
     \centering
-    \includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_vert_17.png}
-    \caption{Size of jumps - data set size of $n=2^{17}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_vert_17}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_vert_20.png}
-    \caption{Size of jumps - data set size of $n=2^{20}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_vert_20}
-\end{figure}
-
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 0.85\textwidth]{pictures/analysis/level_vert_17.png}
-    \caption{Level of highest fully contained node - data set size of $n=2^{17}$.}\label{fig:level_vert_17}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 0.85\textwidth]{pictures/analysis/level_vert_20.png}
-    \caption{Level of highest fully contained node - data set size of $n=2^{20}$.}\label{fig:level_vert_20}
+    \begin{subfigure}[b]{0.68\textwidth}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pictures/analysis/jump_vert_17.png}
+        \caption{Data set with $size = 2^{17}$.}
+        \label{fig:jump_vert_17}
+    \end{subfigure}
+    %\hfill
+    \begin{subfigure}[b]{0.68\textwidth}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pictures/analysis/jump_vert_20.png}
+        \caption{Data set with $size = 2^{20}$.}
+        \label{fig:jump_vert_20}
+    \end{subfigure}
+  }
+  \caption{Size of jumps. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice.}
+  \label{fig:jump_vert}
+  
 \end{figure}
 
 
-Across the graphs showing the performance of the vertical slices to the BIS data structure, there is a very noticable change in slope at around $k=256$. Since $B=2$, we have a big jump at level $2^3 = 8$ which allows the ball inheritance structure to jump from level $8$ to a leaf in one jump. When jumping from level $8$ instead of $5$, $6$ or $7$ the ball reaches the leaf in one jump instead of two or three. This means that the average amount of jumps per result will decrease and thus the running time will not increase as fast as before.
 
-Figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20} show the average amount of jumps per result, i.e. the sum of all jumps divided by $k$. We see how the graph has a local maximum at around $k=256$ and then the average amount of jumps per result decreases until $k=512$ where it starts increasing at steady level again. Figure~\ref{fig:level_vert_17} and figure~\ref{fig:level_vert_20} describes the highest level of a fully contained node. We see between $k=256$ and $k=512$ that the maximum is level $8$ and the minimum is level $7$ and that the average level increases meaning more and more fully contained node starts using level $8$. Since we have $B=2$, there is a $2$-jump every $2$ levels, a $4$-jump every $4$ levels, an $8$-jump every $8$ levels and a $16$-jump every $16$ levels. This means that level $7$ the ball inheritance structure needs $3$ jumps to reach a leaf. This is why such a noticable local maximum exits on figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20}. The jumps per results eases off because from level $8$ there is $1$ jump, from level $9$ there are $2$ jumps and from level $10$ there are $2$ jumps. Levels $11, 13, 14$ have $3$ jumps, and at level $15$ another local maximum is going to be found with $4$ jumps, just before level $16$ with $1$ jump to the leaves. However, $k=2^{16}=65,536$ is not likely to be a place where the BIS data structure performs better than the kd-tree unless we have a enormous data set. The graph on figure~\ref{fig:jump_vert_17} also shows that when $2^i \leq k \leq k^{i+1}$ the maximum level of the highest fully contained node is $i$ and the minimum level of the highest fully contained node is $i-1$.
+\begin{figure}[h]
+  \makebox[\linewidth][c]{
+    \centering
+    \begin{subfigure}[b]{0.68\textwidth}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pictures/analysis/level_vert_17.png}
+        \caption{Data set with $size = 2^{17}$.}
+        \label{fig:level_vert_17}
+    \end{subfigure}
+    %\hfill
+    \begin{subfigure}[b]{0.68\textwidth}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pictures/analysis/level_vert_20.png}
+        \caption{Data set with $size = 2^{20}$.}
+        \label{fig:level_vert_20}
+    \end{subfigure}
+  }
+  \caption{Level of highest fully contained node.}
+  \label{fig:level_vert}
+  
+\end{figure}
+\clearpage
+
+On the graphs showing the performance of the vertical slices to the BIS data structure, there is a very noticable change in slope at around $k=256$. Since $B=2$, we have a big jump at level $2^3 = 8$ which allows the ball inheritance structure to jump from level $8$ to a leaf in one jump. When jumping from level $8$ instead of $5$, $6$ or $7$ the ball reaches the leaf in one jump instead of two or three. This means that the average amount of jumps per result will decrease and thus the running time will not increase as fast as before.
+
+Figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20} show the average amount of jumps per result, i.e. the sum of all jumps divided by $k$. We see how the graph has a local maximum at around $k=256$ and then the average amount of jumps per result decreases until $k=512$ where it starts increasing at steady level again. Figure~\ref{fig:level_vert_17} and figure~\ref{fig:level_vert_20} describes the highest level of a fully contained node. We see between $k=256$ and $k=512$ that the maximum is level $8$ and the minimum is level $7$ and that the average level increases meaning more and more fully contained node starts using level $8$. Since we have $B=2$, there is a $2$-jump every $2$ levels, a $4$-jump every $4$ levels, an $8$-jump every $8$ levels and a $16$-jump every $16$ levels. This means that at level $7$ the ball inheritance structure needs $3$ jumps to reach a leaf. This is why such a noticable local maximum exists on figure~\ref{fig:jump_vert_17} and figure~\ref{fig:jump_vert_20}. The jumps per results eases off because from level $8$ there is $1$ jump, from level $9$ there are $2$ jumps and from level $10$ there are $2$ jumps. The graph on figure~\ref{fig:jump_vert_17} also shows that when $2^i \leq k \leq 2^{i+1}$ the maximum level of the highest fully contained node is $i$ and the minimum level of the highest fully contained node is $i-1$. Recall that the way the vertical slices work means that if a node is fully contained that all of the balls in the node's list will be followed.
 
 
-In order to explain this relation between $k$ and the level of the highest fully contained node we look at figure~\ref{fig:level_vert_17}. We see that when we reach $k=256$ the minimum highest level rises to $7$ and the maximum highest level rises to $8$. In order to write the sum of $256<k<512$ we will need to at least level $7$ because we need the two fully included nodes from level $7$ giving us $2*2^7 = 2^8 = 256$ nodes. If the least common ancestor is found at level $9$ the first fully contained node can be found at level $7$. If all the levels from level $7$ to level $1$ only have fully contained nodes, we get $k = 2*2^1 + 2*2^2 + \cdots + 2*2^7 = 508 < 512$. This is not enough to write $512$, and thus somewhere between $k=256$ and $k=512$, the search algorithm will begin using level $10$ as the least common ancestor. This is also very dependent on how the slice covers the subtrees of the least common ancestor. If the slice hits the least common ancestor right in the middle, such that the left subtree and the right subtree of the least common ancestor is of the exact same size, the level of the highest fully included node will be lower. If the slice hits the least common ancestor such there is an imbalance in the size between the left subtree and right subtree of the least common ancestor, the level of the highest fully included node will be higher, because now one subtree has to account for a bigger portion of the slice and will have to use bigger pieces. And when a subtree contains $2^8 = 256$ leaves it will have access to the jump at level $8$. The maximum level of figure~\ref{fig:level_vert_17} is explained by the fact that it is not possible to write the sum of $k<512$ using $512$ as a summand. Recall that a vertical slice conceptually only searches for the x-coordinates of the points. All the y-coordinates are already known to be included, Thus, when a node is fully included, we get all of points in its subtree.
+In order to explain this relation between $k$ and the level of the highest fully contained node we look at figure~\ref{fig:level_vert_17}. We see that when we reach $k=256$ the minimum highest level rises to $7$ and the maximum highest level rises to $8$. In order to write the sum of $256<k<512$ we will need to at least level $7$ because we need the two fully contained nodes from level $7$ giving us $2*2^7 = 2^8 = 256$ nodes. If the least common ancestor is found at level $9$ the first fully contained node can be found at level $7$. If all the levels from level $7$ to level $1$ only have fully contained nodes, we get $k = 2*2^1 + 2*2^2 + \cdots + 2*2^7 = 508 < 512$ points. This is not enough to return $512$ points, and thus somewhere between $k=256$ and $k=512$, the search algorithm will begin using level $10$ as the least common ancestor. In a vertical slice, when a node is fully contained, we get all of points in its subtree.
 
-It is hard to argue about the tendencies of the graphs of the horizontal slices. When the least common ancestor of $x_1$ and $x_2$ is found at level $i$, the first node which is fully contained in a horizontal slice is located on level $i-2$. So from level $i-1$ to level $1$ we find $2$ fully contained nodes per level. The points are uniformly distributed which means that given one y-rank the chance to find it on level $i-2$ is $2\cdot\frac{1}{4} = \frac{1}{2}$. The chance to find it on level $i-3$ is half of that, i.e. $\frac{1}{4}$. Thus, when we see the graphs of the horizontal slices.. bla bla
 
 \begin{figure}[h]
     \centering
@@ -531,17 +552,11 @@ It is hard to argue about the tendencies of the graphs of the horizontal slices.
 \end{figure}
 \clearpage
 
-Forklar konceptet med hvordan average jumps ser ud. This seemingly uninteresting graph shows us that the theory of the expected distribution is correct. We also had this confirmed in section~\ref{sect:squares} where we saw that square searches of size $\sqrt{n}\cdot\sqrt{k} \times \sqrt{n}\cdot\sqrt{k}]$ returned $k$ results. This was based on theory that assumed the distribution was uniform. If the y-coordinates are uniformly distributed amongst the x-coordinates to generate a point, we can see something interesting in figure~\ref{fig:jump_hori_17}. A BIS data structure with data set size $n = 2^{17}$ will have its first fully contained node at level $15$. For each y-coordinate we have to find, there is a $\frac{2}{4} = \frac{1}{2}$ chance that it will jump from level $15$. Then there is a $\frac{1}{4}$ chance that it will jump from level $14$ and so on. Given this information we can we can use table-something to see how many jumps a ball must take in order to get from a node at level $i$ to a leaf. Doing this we see that $\frac{4}{2} + \frac{3}{4} + \frac{3}{8} + \frac{2}{16} + \frac{3}{32} + \frac{2}{64} + \frac{2}{128} = 3.391$ which is the jumps per results depicted on figure~\ref{fig:jump_hori_17}. \todo{Kan jeg nu rent faktisk bruge det her til at forklare hvor hori tager de mærkelige svingninger?}
+It is a little harder to argue about the horizontal slices. When the least common ancestor of $x_1$ and $x_2$ is found at the root at level $i$, the first node which is fully contained in a horizontal slice is located on level $i-2$. So from level $i-2$ to level $1$ we find $2$ fully contained nodes per level. The points are uniformly distributed which means that given one y-rank of a points, the probability of finding the ball pointing to the leaf of that point on level $i-2$ is $2\cdot\frac{1}{4} = \frac{1}{2}$. The chance to find it on level $i-3$ is half of that, i.e. $\frac{1}{4}$. This trend continues down to level $1$. Thus, we expect the graph of the horizontal slices to be linear because the average amount of jumps should always be same when $n$ is fixed. We can see this on figure~\ref{fig:jump_hori_17}. The figure shows the average amount of jumps divided by the amount of results. The same concept figure~\ref{fig:jump_vert_17} shows. 
 
-SENERE: Kig på $size = 300$ for alle $\lg n$. Se hvordan det er dårlig ved $\lg n = 17$ for der er første hop med størst sandsynlighed på level 15 som er $1+2+4+8 = 15 => 4$ hop. Ved $\lg n = 18$ er den god for der er størst sandsynlighed for $16 => 1$ hop. Når vi kommer højere f.eks. $\lg n = 24$ er første hop ved level $22 = 2 + 4 + 16$ og andet hop er $1 + 4 + 16$. Så tre hop er $\frac{3}{4}$ sandsynlighed. Sammenlign det med en hvor der er $2$ og $3$, f.eks. $\lg n = 22$.
-\todo{Forklar om hvordan distribution af points og hvordan hvor vi ligger i forhold til level $15$ betyder noget. Kig også på grafen for figur~\ref{fig:hori_jumps_per_lgn}. Den viser netop at $\lg n = 17$ med LCA = level $15$ er noget skidt.}
+This seemingly uninteresting graph shows us that the theory of the expected distribution is correct. We also had this confirmed in section~\ref{sect:squares} where we saw that square searches with the dimensions $[\sqrt{n}\cdot\sqrt{k} \times \sqrt{n}\cdot\sqrt{k}]$ returned $k$ results. This was based on theory that assumed the distribution was uniform. If the y-coordinates are uniformly distributed amongst the x-coordinates to generate a point, we can see something interesting in figure~\ref{fig:jump_hori_17}. A BIS data structure with data set size $n = 2^{17}$ will have its first fully contained node at level $15$. For each y-coordinate we have to find, there is a $\frac{2}{4} = \frac{1}{2}$ chance that it will jump from level $15$. Then there is a $\frac{1}{4}$ chance that it will jump from level $14$ and so on. Given this information we can multiply the probability of using a certain level with the amount of jumps that level uses to get to a leaf. For figure~\ref{fig:jump_hori_17} we start $2$ levels below the least common ancestor. This is level $15$. So the average amount of jumps per result should be $\frac{4}{2} + \frac{3}{4} + \frac{3}{8} + \frac{2}{16} + \frac{3}{32} + \frac{2}{64} + \frac{2}{128} = 3.391$ jumps. Looking at figure~\ref{fig:jump_hori_17} we can confirm this is correct. We omitted the last part of the sum, as $\frac{2}{128}$ is already small enough.
 
-
-\todo{Hvorfor knækker grafen mellem $512$ og $1024$? Hvorfor er kd-træet mærkeligt dårligt inden $k=10$? HORI}
-
-
-
-
+Comparing the internals of the BIS data structure with the kd-tree it is interesting to see that changing the orientation of the slice from vertical to horizontal has such a huge impact on how it is treated. With this information, we can now see why the vertical slice is better than the horizontal. Especially when the size of the slice is big enough for the search to hit the big jump at level $8$.
 
 \section{Summary}
 
@@ -551,7 +566,3 @@ The BIS data structure performs very well as a slice, most notably as a vertical
 
 The kd-tree is much more dependent on the shape of its search query than the BIS data structure. This is most notable by looking at the difference between figure~\ref{fig:all_100} and figure~\ref{fig:all_kdtree_100}.
 
-
-En spændende sammenhæng. Hvor kd-træet er dårlig er BIS god, og omvendt. kd-træet er dog stadig kun præcis lineær i tid, men BIS har en penalty pr point. Men i små punkt-mængder er BIS rent faktisk rigtig god. Forskellen mellem shapes er ikke så drastisk som kd-træet.
-
-Hvordan adskiller de forskellige shapes sig i BIS? Vi ser at kd-træet er meget afhængig af sin shape i praksis som den er i teori. Hvordan gælder det for BIS? Hvordan adskiller de forskellige shapes fra hinanden tidsmæssigt? 

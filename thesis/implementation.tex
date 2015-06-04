@@ -15,3 +15,7 @@ Given a position $i$ in the bit vector, the closest checkpoint previous to $i$ i
 
 However, we are seldomly interested in knowing how many $1$s there are in a bit vector between position $0$ and $i$. We want to know how many $1$s there are between $j$ and $i$, where $j$ is the start position of a node and $i$ is an entry in that node. We know that with the ball inheritance structure that each node gives each of its children half of its balls. Thus, half of the entries in the bit vector of a node are $1$s. And thus, if $j$ is the start position of a node in the unified bit vector, there will be $\frac{j}{2}$ entries in the bit vector between $0$ and $j$ which are $1$s. Since one of the ingredients for a virtual node is the start position in the unified bit vector, we already know $j$ when looking up the rank of $i$. Using the unified bit vectors instead of an actual tree then poses no problems.
 
+The source code for the BIS data structure will be made available on my website at http://www.madsravn.dk/BIS.
+
+
+

@@ -64,9 +64,10 @@ Using this concept, we pick $B$ such that $2 \leq B \leq m$, where $m = \lg n$ i
 
 % $\Sigma^{\lg_B \lg n}_i \frac{\lg n}{B^i} \cdot \mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$ 
 Storing the expanded alphabets at each level that is a multiple of $B^i$ costs $B^i$ bits per ball. The total cost is then 
-\begin{align*}
+\begin{align}
   \sum\limits_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i} \cdot \mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)
-\end{align*}
+  \label{eq:size}
+\end{align}
 
 
 \noindent bits per ball, summed over all levels. With $n$ balls, this is $\mathcal{O}(n \lg_B \lg n)$ words of space with query time of $\mathcal{O}(B \lg_B \lg n)$. If we pick a $B \geq \lg^\epsilon n$ we can reduce $\lg_B \lg n$ to $\lg_{\lg^\epsilon n} \lg n = \frac{1}{\epsilon}$. Thus, the space complexity for the ball-inheritance data structure is $\mathcal{O}(\frac{1}{\epsilon} \cdot n) = \mathcal{O}(n)$ words of space. By picking $B = \lg^{\epsilon / 2} n \geq \lg \lg n$ we can upper bound the query time as follows:
@@ -75,8 +76,7 @@ Storing the expanded alphabets at each level that is a multiple of $B^i$ costs $
   &= \mathcal{O}(\lg^{\epsilon / 2} n \cdot \lg^{\epsilon / 2} n) = \mathcal{O}(\lg^\epsilon n)
 \end{align*}
 
-\noindent The ball-inheritance problem can thus be solved in $\mathcal{O}(\lg^\epsilon n)$ time using $\mathcal{O}(n)$ words of space for an arbitrary small constant $\epsilon > 0$.
-\todo{Det er fordi $\lg_B \lg n$ er det største $i$ som beskriver $B^i \leq \lg n$ }
+\noindent The ball-inheritance problem can thus be solved in $\mathcal{O}(\lg^\epsilon n)$ time using $\mathcal{O}(n)$ words of space for an arbitrary small constant $\epsilon > 0$. The upper limit of $\lg_B \lg n$ in equation~\ref{eq:size} is chosen because that is the largest $i$ where $B^i \leq \lg n$.
 
 \subsection{Solving range reporting}
 
@@ -90,7 +90,7 @@ At the root of the BIS data structure we mark the positions of $\hat{y}_1$ and $
 
 Traversing from the root to the $LCA$, this y-range will be maintained accordingly. We know the positions of the leaves containing $\hat{x}_1$ and $\hat{x}_2$ so we can traverse from the $LCA$ down to each of them. Traversing to $\hat{x}_1$, the first stop is the left child of the $LCA$. From here, each time a node selects its left child as the path to $\hat{x}_1$ we know that the subtree contained in the right child only contains points with x-coordinates between $x_1$ and $x_2$. Symmetrically, the same applies when going right from the $LCA$: Each time a node selects a right child on the path to $\hat{x}_2$ the subtree contained in the left child only contains points between $x_1$ and $x_2$. Such a subtree is said to be fully contained. When a subtree is fully contained, we also say that the node at which the subtree is rooted is fully contained. This concept is seen on figure \ref{fig:LCA}. This is the same concept used with the range tree. \\
 
-Each time a fully contained node $v$ is found, we want to follow all the balls lying in the range of $\Gamma_v$ from the root of the subtree rooted at $v$ to their leaves. This is exactly what the solution to the ball-inheritance problem provides: We are given a list of ball identities and want to find which leaf stores the actual coordinates of the point we are looking for. Finding the coordinates of a ball takes $\mathcal{O}(\lg^\epsilon n)$ time per ball. The $\mathcal{O}(\lg^\epsilon n)$ thus describes how many jumps are needed from a node to a leaf.
+Each time a fully contained node $v$ is found, we want to follow all the balls lying in the y-range of the root of the subtree rooted at $v$ to their leaves. This is exactly what the solution to the ball-inheritance problem provides: We are given a list of ball identities and want to find which leaf stores the actual coordinates of the point we are looking for. Finding the coordinates of a ball takes $\mathcal{O}(\lg^\epsilon n)$ time per ball. The $\mathcal{O}(\lg^\epsilon n)$ thus describes how many jumps are needed from a node to a leaf.
 
 \begin{figure}[h]
     \centering
