@@ -11,7 +11,8 @@ We are mainly going to focus on two different kinds of experiments. First we are
 
 The experiments have been performed on data structures with data sets of size $2^{\lg n}$ where $\lg n = [17,25]$. $17$ was chosen as the smallest because it would still be big enough to show something interesting on the graphs. $25$ was chosen because the current initialization of the BIS data structure requires a bit of work and thus takes up nearly all of the main memory. Future work includes an idea for a faster and less memory requiring setup phase.\\
 
-In all the experiments we have chosen $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil$. Recall from section~\ref{ssection:fasterqueries} that we must have $B = \Omega(\lg^\epsilon n)$ to obtain linear space. Thus, we have chosen $\epsilon = \frac{1}{3}$. Section~\ref{ssection:fasterqueries} also states that $B$ is responsible for the big jumps in the ball inheritance structure: where the jumps should be placed and how big they should be. Unless otherwise stated the graphs in this chapter show results from a BIS data structure configured with $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil$. When $n \in [2^{17}, 2^{25}]$, $B$ will be $2$.
+In all the experiments we have chosen $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil$. Recall from section~\ref{ssection:fasterqueries} that we must have $B = \Omega(\lg^\epsilon n)$ to obtain linear space. Thus, we have chosen $\epsilon = \frac{1}{3}$. Section~\ref{ssection:fasterqueries} also states that $B$ is responsible for the big jumps in the ball inheritance structure: where the jumps should be placed and how big they should be. Unless otherwise stated the graphs in this chapter show results from a BIS data structure configured with $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil$. When $n \in [2^{17}, 2^{25}]$, $B$ will be $2$. We will use the variables $k$ and $size$ interchangeably in this analysis. The reason for this will be explained later.
+
 
 
 The experiments were performed on a machine with an Intel i7-3770 CPU with 3.40GHz and with $32$ GB RAM. The machine was running Ubuntu 14.04.2 LTS with clang version 3.4. The machine was provided by MADALGO.
@@ -70,7 +71,7 @@ The biggest search query at $n = 2^{17}$ is $\sqrt{180}\cdot{n} \times \sqrt{180
 \begin{figure}[h]
     \centering
     \includegraphics[width = 0.85\textwidth]{pictures/analysis/factor_difference_sqrtn_100.png}
-    \caption{Ratio between a square query to the kd-tree and BIS data structure with constant $size = 100$. Ratio describes how much better the kd-tree performs.}\label{fig:factdiffsqrt100}
+    \caption{Ratio between a square search query to the kd-tree and BIS data structure with constant $size = 100$. Ratio describes how much better the kd-tree performs.}\label{fig:factdiffsqrt100}
 \end{figure}
 
 \clearpage
@@ -87,7 +88,7 @@ A search query to the kd-tree has a query time of $\mathcal{O}(\sqrt{n}+k)$ and 
 
 Recall that the BIS data structure treats the two dimensions very differently. Given a rank space search query $q = [x_1, x_2] \times [y_1, y_2]$, the search query will find the least common ancestor of $x_1$ and $x_2$. From there, it will find the path to both $x_1$ and $x_2$ and all leaves between them will be in the range $[x_1, x_2]$. The search algorithm now has to determine which of these leaves contain a point with y-coordinate in $[y_1, y_2]$. This is done by using the ball inheritance structure from each of the fully contained nodes which were found on the path from the least common ancestor to $x_1$ and $x_2$.
 
-The search query of a horizontal slice includes all x-coordinates of the search space, and thus the least common ancestor of $[x_1, x_2]$ will be the root of the tree. The path from the least common ancestor to $x_1$ will only go left which means each level will have one fully contained node. The path from the least common ancestor to $x_2$ will only go right, also yielding one fully contained node per level. The experiments measure the difference in performance between the BIS data structure and the kd-tree when the search query is a slice. A slice will start out being very small, $k=5$. Thus, many of the fully contained nodes will have no ball inheritance work when the slice is a horizontal slice. As the slice grows, eventually more and more node will have one or more balls to follow. The amount of ball inheritance each node is responsible for varies a lot, and therefore the ball inheritance will become somewhat sporadic. But the nature of the ball distribution asserts that if node has two or more balls for ball inheritance, these balls will be right next to each other.
+A horizontal slice includes all x-coordinates of the search space, and thus the least common ancestor of $[x_1, x_2]$ will be the root of the tree. The path from the least common ancestor to $x_1$ will only go left which means each level will have one fully contained node. The path from the least common ancestor to $x_2$ will only go right, also yielding one fully contained node per level. The experiments measure the difference in performance between the BIS data structure and the kd-tree when the search query is a slice. A slice will start out being very small, $k=5$. Thus, many of the fully contained nodes will have no ball inheritance work when the slice is a horizontal slice. As the slice grows, eventually more and more node will have one or more balls to follow. The amount of ball inheritance each node is responsible for varies a lot, and therefore the ball inheritance will become somewhat sporadic. But the nature of the ball distribution asserts that if node has two or more balls for ball inheritance, these balls will be right next to each other.
 
 On the other hand we have the vertical slices. The vertical slice includes all y-coordinates of the search space, and thus the location of the least common ancestor of $[\hat{x_1}, \hat{x_2}]$ varies a lot dependent on the search query. But the nodes which are marked as fully contained on the path from the least common ancestor to $\hat{x_1}$ and $\hat{x_2}$ will all only contain leaves with points with y-coordinates in $[y_1, y_2]$ which means we have to do ball inheritance on all the balls belonging to fully contained nodes. Thus, the ball inheritance in vertical slices are much more batched together. Comparing a vertical and horizontal slice of the same size, the vertical slice will have good chances of being faster than the horizontal slice. With a least common ancestor closer to the leaves, the ball inheritance in the vertical slice will have to jump from a lower level than the ball inheritance in the horizontal and the balls are more batched together in the vertical. \\
 
@@ -121,7 +122,7 @@ Figure~\ref{fig:vert_17} and figure~\ref{fig:vert_25} show the performance of a 
 \end{figure}
 
 
-We just pointed out that the graphs on figure~\ref{fig:vert_17} intersect at $k = 200$ and the graphs on  figure~\ref{fig:vert_25} intersect at $k = 4660$. Figure~\ref{fig:vert_intersection} shows the size ($k$) of the slice at the point of intersection between the running-time of a search to the BIS and the kd-tree for each $n$ tested. Recall the theory above where it was described how the intersection point should theoretically be $k_t = \frac{\sqrt{n} - \lg n}{\lg^\epsilon n - 1}$. Figure~\ref{fig:vert_theory} shows $\frac{k_m}{k_t}$, where $k_m$ is the amount of results measured by the experiments. The graph is plotted using $\lg^\epsilon n$ as the average jumps per result as measured by the experiments. We want this graph to as close to a flat line as possible. It does not really matter where on the y-axis the flat line lies, because both the numerator and denominator of $k_t$ has hidden constants in the O-notation. We notice that the graph lies steadily around $1$ meaning that it is a stable relationship. Figure~\ref{fig:vert_intersection} has a exponential tendency. That is to expected since the x-axis is $\lg n$ which means that $n$ grows by a factor of $2$ each step on the x-axis and then the point of intersection between the two running times increases by approximately $\sqrt{2}$. This is because of the $\mathcal{O}(\sqrt{n})$ part from the running time of a search query to the kd-tree. Obviously, $\sqrt{n}$ grows by a factor of $\sqrt{2}$ when $n$ grows by a factor of $2$, which is exponential. A search query in the shape of a slice is the worst-case scenario for the kd-tree.
+We just pointed out that the graphs on figure~\ref{fig:vert_17} intersect at $k = 200$ and the graphs on  figure~\ref{fig:vert_25} intersect at $k = 4660$. Figure~\ref{fig:vert_intersection} shows the size ($k$) of the slice at the point of intersection between the running-time of a search to the BIS and the kd-tree for each $n$ tested. Recall the theory above where it was described how the intersection point should theoretically be $k_t = \frac{\sqrt{n} - \lg n}{\lg^\epsilon n - 1}$. Figure~\ref{fig:vert_theory} shows $\frac{k_m}{k_t}$, where $k_m$ is the amount of results measured by the experiments. The graph is plotted using $\lg^\epsilon n$ as the average jumps per result as measured by the experiments. We want this graph to as close to a flat line as possible. It does not really matter where on the y-axis the flat line lies, because both the numerator and denominator of $k_t$ has hidden constants in the O-notation. We notice that the graph lies steadily around $1$ meaning that it is a stable relationship. Figure~\ref{fig:vert_intersection} has a exponential tendency. That is to be expected since the x-axis is $\lg n$ which means that $n$ grows by a factor of $2$ each step on the x-axis and then the point of intersection between the two running times increases by approximately $\sqrt{2}$. This is because of the $\mathcal{O}(\sqrt{n})$ part from the running time of a search query to the kd-tree. Obviously, $\sqrt{n}$ grows by a factor of $\sqrt{2}$ when $n$ grows by a factor of $2$, which is exponential. A search query in the shape of a slice is the worst-case scenario for the kd-tree.
 
 \begin{figure}[h]
   \makebox[\linewidth][c]{
@@ -149,9 +150,9 @@ We just pointed out that the graphs on figure~\ref{fig:vert_17} intersect at $k 
 
 \subsection{Horizontal slices}
 
-We are now going to look at the graphs for the horizontal slices. Recall that when a search query is a horizontal slice, the least common ancestor will be the root of the tree. In $[\hat{x_1}, \hat{x_2}]$, $\hat{x_1}$ will be the leftmost leaf and $\hat{x_2}$ will be the rightmost leaf. From the root to $\hat{x_1}$ and $\hat{x_2}$ there will many fully contained nodes, $2$ per level to be exact, which means there will be many different nodes performing small amount of balls inheritance look-ups. The y-coordinates of the points are uniformly distributed. Thus, unlike the vertical shape, we cannot say anything as definitively about where the ball-inheritance takes place. 
+We are now going to look at the graphs for the horizontal slices. Recall that when a search query is a horizontal slice, the least common ancestor will be the root of the tree. In $[x_1, x_2]$, $x_1$ will be the leftmost leaf and $x_2$ will be the rightmost leaf. From the root to $x_1$ and $x_2$ there will many fully contained nodes, $2$ per level to be exact, which means there will be many different nodes performing small amount of balls inheritance look-ups. The y-coordinates of the points are uniformly distributed. Thus, unlike the vertical shape, we cannot say anything definitively about where the ball-inheritance takes place. 
 
-Figure~\ref{fig:hori_17} and figure~\ref{fig:hori_25} show the performance of a search query to the BIS data structure compared to a search query to the kd-tree, where the search query is a horizontal slice. Figure~\ref{fig:hori_17} shows that the BIS data structure is faster than the kd-tree until the size of the slice becomes $125$. While not as good as the vertical slice, it is still a decent size. At $k = 100$ the BIS data structure is only a factor $1.2$ faster than the kd-tree. On figure~\ref{fig:hori_25} we see that the BIS data structure is faster than the kd-tree up until $k = 2290$. At $k = 100$ the BIS data structure is $13$ times faster than the kd-tree, and at $k = 200$ it is $8$ times faster. Again, this is not as good as the vertical slice, but it is still quite significant. Given a query with $200$ results in a horizontal window, the BIS data structure outperforms the kd-tree by a factor of $8$. It is obvious for both the horizontal and the vertical slice, that the smaller the window, the better is ratio between the performance of the two data structures.
+Figure~\ref{fig:hori_17} and figure~\ref{fig:hori_25} show the performance of a search query to the BIS data structure compared to a search query to the kd-tree, where the search query is a horizontal slice. Figure~\ref{fig:hori_17} shows that the BIS data structure is faster than the kd-tree until the size of the slice becomes $125$. While not as good as the vertical slice, it is still a decent size. At $k = 100$ the BIS data structure is only a factor $1.2$ faster than the kd-tree. On figure~\ref{fig:hori_25} we see that the BIS data structure is faster than the kd-tree up until $k = 2290$. At $k = 100$ the BIS data structure is $13$ times faster than the kd-tree, and at $k = 200$ it is $8$ times faster. Again, this is not as good as the vertical slice, but it is still quite significant. Given a query with $200$ results in a horizontal slice, the BIS data structure outperforms the kd-tree by a factor of $8$. It is obvious for both the horizontal and the vertical slice, that the smaller the window, the bigger the ratio between the performance of the two data structures.
 
 
 \begin{figure}[h]
@@ -177,7 +178,7 @@ Figure~\ref{fig:hori_17} and figure~\ref{fig:hori_25} show the performance of a 
 \end{figure}
 
 
-Figure~\ref{fig:hori_intersection} shows the size ($k$) of the slice at the point of intersection between the running-time of a search to the BIS and kd-tree for each $n$ tested. Figure~\ref{fig:hori_intersection} is a little more messy than figure~\ref{fig:vert_intersection} which is a point we will address in section~\ref{sect:verthoriexp}. At figure~\ref{fig:hori_theory} the graph crosses above and below $1$, but keeps rather close to $1$ which is the point where the performance is as we would theoretically expect. Again, we are looking for a graph that is as flat as possible in order to show that is a stable relationship. In the big perspective, this graph certainly shows a stable relationship around $1$. Just as before, the $\lg^\epsilon n$ in $k_t$ is the average amount of jumps per result measured by the experiments. While the horizontal slice is not as good as the vertical slice, it is still very good. It definitely outperforms the kd-tree up to a good size.
+Figure~\ref{fig:hori_intersection} shows the size ($k$) of the slice at the point of intersection between the running-time of a search to the BIS and kd-tree for each $n$ tested. Figure~\ref{fig:hori_intersection} is a little more messy than figure~\ref{fig:vert_intersection}. At figure~\ref{fig:hori_theory} the graph crosses above and below $1$, but keeps rather close to $1$. Again, we are looking for a graph that is as flat as possible in order to show that is a stable relationship. In the big perspective, this graph certainly shows a stable relationship around $1$. Just as before, the $\lg^\epsilon n$ in $k_t$ is the average amount of jumps per result measured by the experiments. While the horizontal slice is not as good as the vertical slice, it is still very good. It definitely outperforms the kd-tree up to a good size.
 
 \begin{figure}[h]
   \makebox[\linewidth][c]{
@@ -230,7 +231,7 @@ In this section we are going to look at slices with $k\leq 200$. We will only fo
   
 \end{figure}
 
-The running time of a slice to the BIS data structure where $k \leq 200$ is noticeably better than the running time of a slice to the kd-tree. There is a great gap between the graph of the two running-times. The figures show that the BIS data structure always performs better when the size of the slice is below $200$. Seeing this tendency, we are then also interested in testing just how much better the BIS data structure performs. We are going to measure this by looking at the factor between the performance of the BIS data structure and the performance of the kd-tree. We see this on figure~\ref{fig:small_vert_fac_17} and figure~\ref{fig:small_vert_fac_25}. The ratios describes how much better the BIS data structure is than the kd-tree in terms of running time: Bigger is better. As mentioned in section~\ref{sect:slices}, the ratio between the performance of the BIS data structure and the kd-tree is strictly decreasing as the size of the slice is increasing. Thus, the smaller the slice, the bigger the ratio between performances of the data structures. On figure~\ref{fig:factdiffsqrt100} we plotted the ratio between a square query to the kd-tree and a square query to the BIS data structure in order to find out how much better the kd-tree performed. Now the roles are reversed.
+The running time of a slice to the BIS data structure where $k \leq 200$ is noticeably better than the running time of a slice to the kd-tree. There is a great gap between the graph of the two running-times. The figures show that the BIS data structure always performs better when the size of the slice is below $200$. Seeing this tendency, we are then also interested in testing just how much better the BIS data structure performs. We are going to measure this by looking at the ratio between the performance of the BIS data structure and the performance of the kd-tree. We see this on figure~\ref{fig:small_vert_fac_17} and figure~\ref{fig:small_vert_fac_25}. The ratios describes how much better the BIS data structure is than the kd-tree in terms of running time: Bigger is better. As mentioned in section~\ref{sect:slices}, the ratio between the performance of the BIS data structure and the kd-tree is strictly decreasing as the size of the slice is increasing. Thus, the smaller the slice, the bigger the ratio between performances of the data structures. On figure~\ref{fig:factdiffsqrt100} we plotted the ratio between a square query to the kd-tree and a square query to the BIS data structure in order to find out how much better the kd-tree performed. Now the roles are reversed.
 
 \begin{figure}[h]
   \makebox[\linewidth][c]{
@@ -256,7 +257,7 @@ The running time of a slice to the BIS data structure where $k \leq 200$ is noti
 
 Looking at figure~\ref{fig:small_vert_fac_17} and figure~\ref{fig:small_vert_fac_25} we notice that the ratio between the two running times at $size = 100$ increases from $2$ to $27$ as $n$ increases from $2^{17}$ to $2^{25}$. A factor of $27$ is the difference between the vertical slice to the BIS data structure and a vertical slice to the kd-tree with $size = 100$. With $size = 200$ the ratio between the two data structures increases from just above $1$ to $14$. A factor $14$ is a big difference. We see that when the size of the slice is constant and $n$ is growing, the ratio between a slice to the BIS data structure and the kd-tree increases. On figure~\ref{fig:small_vert_fac_25} we also notice that when $1 \leq k \leq 50$ the ratio is between $73$ and $42$. Thus, given a big data set and a small vertical slice the BIS data structure will significantly outperform the kd-tree. This fits well with the theory where the kd-tree has the worst-case of $\mathcal{O}(\sqrt{n})$ and the BIS data structure is more stable in respect to its shape. We will investigate this further.
 
-Looking back to the section about the square windows we remember that a window with the dimensions $\sqrt{n}\cdot{size} \times \sqrt{n}\cdot\sqrt{size}$ is expected to return $size$ points as result. This was based on the area of area of the search query. Thus, we can rewrite the expression as follows: $\sqrt{n}\cdot{size} \times \sqrt{n}\cdot\sqrt{size} = \sqrt{n}\cdot\sqrt{n} \times \sqrt{size}\cdot\sqrt{size} = n \times size$. This is exactly what vertical or horizontal slice looks like. Thus, we know that these two types of queries are expected to return the same amount of points and we can therefore compare the square search query with a horizontal or vertical slice to see how much of an impact the shape of the search has for the BIS data structure. Since both shapes of a search query is expected to return $size$ points when the size of the search query is $size$, we will use the variables $k$ and $size$ interchangeably in this analysis.
+Looking back to the section about the square windows we remember that a window with the dimensions $\sqrt{n}\cdot{size} \times \sqrt{n}\cdot\sqrt{size}$ is expected to return $size$ points as result. This was based on the area of area of the search query. Thus, we can rewrite the expression as follows: $\sqrt{n}\cdot{size} \times \sqrt{n}\cdot\sqrt{size} = \sqrt{n}\cdot\sqrt{n} \times \sqrt{size}\cdot\sqrt{size} = n \times size$. This is exactly what vertical or horizontal slice looks like. Thus, we know that these two types of queries are expected to return the same amount of points and we can therefore compare the square search query with a horizontal or vertical slice to see how much of an impact the shape of the search has for the BIS data structure. Since both shapes of a search query is expected to return $size$ points when the size of the search query is $size$, which is why we can use the variables $k$ and $size$ interchangeably in this analysis.
 
 We pick $size=\{50,100,150\}$ from both the square experiments and the slice experiments to see how changing the shape of the query affects the running time of the query to the BIS data structure. The graphs on figure~\ref{fig:all_50}, figure~\ref{fig:all_100} and figure~\ref{fig:all_150} show some similarities. The vertical slice is clearly the fastest. The horizontal slice performs worse than the vertical slice. The squared search query seems to be the worst-case scenario for the BIS data structure. But looking at only the squared search across the three graphs we see that it growing with a rather linear tendency. We would expect as much from the theory because if we fix $k$ in $\mathcal{O}(\lg n + k\cdot \lg^\epsilon n)$ we only have $\lg n$ and $\lg^\epsilon n$ growing. Since $\lg n$ increases by $1$ and $\mathcal{O}(lg^\epsilon n)$ is a bound for the amount of jumps performed, this ties rather well to the theory. Looking at these three graphs, we suspect that the square search is the worst case of a search query to the BIS data structure, while both the horizontal and vertical slice searches are special cases performing even better. Thus, when we fix $k$ and let $n$ grow, the time required to find $k$ points with a search query to the BIS data structure seems to be bound by the running time of the square search. 
 
@@ -278,7 +279,7 @@ We pick $size=\{50,100,150\}$ from both the square experiments and the slice exp
         \label{fig:all_kdtree_100}
     \end{subfigure}
   }
-  \caption{Comparison of shapes on BIS and KDtree.}
+  \caption{Comparison of shapes on BIS and kd-tree.}
   \label{fig:all_100_and_kdtree}
   
 \end{figure}
@@ -307,101 +308,101 @@ We pick $size=\{50,100,150\}$ from both the square experiments and the slice exp
 \clearpage
 
 
-We look at figure~\ref{fig:all_kdtree_100} in order to confirm that changing the shape from a square to a slice impacts the running time of the search query to kd-tree very much. Comparing figure~\ref{fig:all_100} and figure~\ref{fig:all_kdtree_100} we see that the difference between the two kinds of search queries are much, much bigger on the kd-tree than on the BIS data structure. The biggest ratio between the vertical slice and the square search on figure~\ref{fig:all_100} is around $4$ af $\lg n = 25$. The biggest ratio between he slice and square search on figure~\ref{fig:all_kdtree_100} is around $53$ at $\lg n = 25$. That is really a noticeable difference. Thus, when a search query is performed on the BIS data structure we can expect a much more stable running time. The BIS data structure is more resilient to the shape of the search query than the kd-tree. Figure~\ref{fig:all_50} and figure~\ref{fig:all_150} shows the same tendency as figure~\ref{fig:all_100}: A stable relationship between the square search and slice search with only around a factor $4$ in difference. \\
+We look at figure~\ref{fig:all_kdtree_100} in order to confirm that changing the shape from a square to a slice impacts the running time of the search query to kd-tree very much. Comparing figure~\ref{fig:all_100} and figure~\ref{fig:all_kdtree_100} we see that the difference between the two shapes of search queries are much, much bigger on the kd-tree than on the BIS data structure. The biggest ratio between the vertical slice and the square search on figure~\ref{fig:all_100} is around $4$ at $\lg n = 25$. The biggest ratio between he slice and square search on figure~\ref{fig:all_kdtree_100} is around $53$ at $\lg n = 25$. That is really a noticeable difference. Thus, when a search query is performed on the BIS data structure we can expect a much more stable running time. The BIS data structure is more resilient to changes in the shape of the search query than the kd-tree. Figure~\ref{fig:all_50} and figure~\ref{fig:all_150} shows the same tendency as figure~\ref{fig:all_100}: A stable relationship between the square search and slice search with only around a factor $4$ in difference. \\
 
-On figure~\ref{fig:small_vert_fac_17_25} we showed how much better a search query to the BIS data structure performed compared to a search query to the kd-tree, when the search query was a vertical slice. The graph has $\lg n$ fixed and $size$ varying. We will now look at it with $\lg n$ varying and $size$ fixed in order to see how much better a vertical slice with a fixed size performs on the BIS data structure compared to the kd-tree.
+%On figure~\ref{fig:small_vert_fac_17_25} we showed how much better a search query to the BIS data structure performed compared to a search query to the kd-tree, when the search query was a vertical slice. The graph has $\lg n$ fixed and $size$ varying. We will now look at it with $\lg n$ varying and $size$ fixed in order to see how much better a vertical slice with a fixed size performs on the BIS data structure compared to the kd-tree.
 
 
-\begin{figure}[h]
-  \makebox[\linewidth][c]{
-    \centering
-    \begin{subfigure}[b]{0.68\textwidth}
-        \centering
-        \includegraphics[width=0.99\textwidth]{pictures/analysis/factor_difference_vert_50.png}
-        \caption{Ratio with $size=50$.}
-        \label{fig:fact_diff_vert_50}
-    \end{subfigure}
+%\begin{figure}[h]
+  %\makebox[\linewidth][c]{
+    %\centering
+    %\begin{subfigure}[b]{0.68\textwidth}
+        %\centering
+        %\includegraphics[width=0.99\textwidth]{pictures/analysis/factor_difference_vert_50.png}
+        %\caption{Ratio with $size=50$.}
+        %\label{fig:fact_diff_vert_50}
+    %\end{subfigure}
+    %%\hfill
+    %\begin{subfigure}[b]{0.68\textwidth}
+        %\centering
+        %\includegraphics[width=0.99\textwidth]{pictures/analysis/factor_difference_vert_100.png}
+        %\caption{Ratio with $size=100$.}
+        %\label{fig:fact_diff_vert_100}
+    %\end{subfigure}
+  %}
+  %\caption{Ratio between BIS data structure and kd-tree with vertical slice. Describes how much better the BIS data structure performs compared to the kd-tree.}
+  %\label{fig:fact_diff_vert_50_100}
+%  
+%\end{figure}
+
+
+%\begin{figure}[h]
+    %\centering
+    %\includegraphics[width = 0.85\textwidth]{pictures/analysis/factor_difference_vert_150.png}
+    %\caption{Ratio between BIS data structure and kd-tree with $size=150$. Describes how much better the BIS data structure performs compared to the kd-tree.}\label{fig:fact_diff_vert_150}
+%\end{figure}
+%\clearpage
+
+
+%Figure~\ref{fig:fact_diff_vert_50}, figure~\ref{fig:fact_diff_vert_100} and figure~\ref{fig:fact_diff_vert_150} show the ratio between a vertical slice to the BIS data structure and the kd-tree, where the size of the slice is fixed. Figure~\ref{fig:fact_diff_vert_50} shows that the ratio between grows from $3.5$ to $42$ when $\lg n$ grows from $17$ to $25$. It seems rather reasonable to expect a result size of $50$ from a user interaction. And the more points the data structure holds, the better the ratio between the BIS data structure and the kd-tree. Already at $\lg n = 17$ with a performance increase of a factor of $3.5$ the amount of work saved on a server with many concurrent users is good. Anything above a factor of $10$ seems very, very good. Looking at figure~\ref{fig:fact_diff_vert_100} and figure~\ref{fig:fact_diff_vert_150} we see that the ratio at $\lg n = 25$ has decreased to $27$ and $19$, respectively. They have dropped a lot, but they are still huge factors. With this configuration the BIS data structure is obviously doing a lot better than the kd-tree.
+
+
+%\subsection{Worst-case versus best-case}
+%
+%
+%We have seen that when the search query is in the shape of a square it is the best-case search query for the kd-tree and the worst-case search query for the BIS data structure, and the other way around when the search query is in the shape of a slice. We are now interested in investigating the difference between the best-case shaped search query and the worst-case shaped search query to the same data structure and compare these two differences.
+%
+%\begin{figure}[h]
+  %\makebox[\linewidth][c]{
+    %\centering
+    %\begin{subfigure}[b]{0.68\textwidth}
+        %\centering
+        %\includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/kdtree_ratio_100.png}
+        %\caption{Ratio between square and slice search queries to the KDTree with $size=100$.}
+        %\label{fig:kdtree_ratio_100}
+    %\end{subfigure}
     %\hfill
-    \begin{subfigure}[b]{0.68\textwidth}
-        \centering
-        \includegraphics[width=0.99\textwidth]{pictures/analysis/factor_difference_vert_100.png}
-        \caption{Ratio with $size=100$.}
-        \label{fig:fact_diff_vert_100}
-    \end{subfigure}
-  }
-  \caption{Ratio between BIS data structure and kd-tree with vertical slice. Describes how much better the BIS data structure performs compared to the kd-tree.}
-  \label{fig:fact_diff_vert_50_100}
-  
-\end{figure}
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 0.85\textwidth]{pictures/analysis/factor_difference_vert_150.png}
-    \caption{Ratio between BIS data structure and kd-tree with $size=150$. Describes how much better the BIS data structure performs compared to the kd-tree.}\label{fig:fact_diff_vert_150}
-\end{figure}
-\clearpage
-
-
-Figure~\ref{fig:fact_diff_vert_50}, figure~\ref{fig:fact_diff_vert_100} and figure~\ref{fig:fact_diff_vert_150} show the ratio between a vertical slice to the BIS data structure and the kd-tree, where the size of the slice is fixed. Figure~\ref{fig:fact_diff_vert_50} shows that the ratio between grows from $3.5$ to $42$ when $\lg n$ grows from $17$ to $25$. It seems rather reasonable to expect a result size of $50$ from a user interaction. And the more points the data structure holds, the better the ratio between the BIS data structure and the kd-tree. Already at $\lg n = 17$ with a performance increase of a factor of $3.5$ the amount of work saved on a server with many concurrent users is good. Anything above a factor of $10$ seems very, very good. Looking at figure~\ref{fig:fact_diff_vert_100} and figure~\ref{fig:fact_diff_vert_150} we see that the ratio at $\lg n = 25$ has decreased to $27$ and $19$, respectively. They have dropped a lot, but they are still huge factors. With this configuration the BIS data structure is obviously doing a lot better than the kd-tree.
-
-
-\subsection{Worst-case versus best-case}
-
-
-We have seen that when the search query is in the shape of a square it is the best-case search query for the kd-tree and the worst-case search query for the BIS data structure, and the other way around when the search query is in the shape of a slice. We are now interested in investigating the difference between the best-case shaped search query and the worst-case shaped search query to the same data structure and compare these two differences.
-
-\begin{figure}[h]
-  \makebox[\linewidth][c]{
-    \centering
-    \begin{subfigure}[b]{0.68\textwidth}
-        \centering
-        \includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/kdtree_ratio_100.png}
-        \caption{Ratio between square and slice search queries to the KDTree with $size=100$.}
-        \label{fig:kdtree_ratio_100}
-    \end{subfigure}
+    %\begin{subfigure}[b]{0.68\textwidth}
+        %\centering
+        %\includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/bis_ratio_100.png}
+        %\caption{Ratio between square and slice search queries to the BIS with $size=100$.}
+        %\label{fig:bis_ratio_100}
+    %\end{subfigure}
+  %}
+  %\caption{Comparison of shapes on BIS and KDTree. Ratio describes best-case over worst-case time. KDTree ratio is square over slice and BIS is slice over square. Smaller is better}
+  %\label{fig:kdtree_bis_ratio_100}
+  %
+%\end{figure}
+%
+%\begin{figure}[h]
+  %\makebox[\linewidth][c]{
+    %\centering
+    %\begin{subfigure}[b]{0.68\textwidth}
+        %\centering
+        %\includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/kdtree_ratio_150.png}
+        %\caption{Ratio between square and slice search queries to the KDTree with $size = 150$.}
+        %\label{fig:kdtree_ratio_150}
+    %\end{subfigure}
     %\hfill
-    \begin{subfigure}[b]{0.68\textwidth}
-        \centering
-        \includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/bis_ratio_100.png}
-        \caption{Ratio between square and slice search queries to the BIS with $size=100$.}
-        \label{fig:bis_ratio_100}
-    \end{subfigure}
-  }
-  \caption{Comparison of shapes on BIS and KDTree. Ratio describes best-case over worst-case time. KDTree ratio is square over slice and BIS is slice over square. Smaller is better}
-  \label{fig:kdtree_bis_ratio_100}
-  
-\end{figure}
+    %\begin{subfigure}[b]{0.68\textwidth}
+        %\centering
+        %\includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/bis_ratio_150.png}
+        %\caption{Ratio between square and slice search queries to the BIS with $size = 150$.}
+        %\label{fig:bis_ratio_150}
+    %\end{subfigure}
+  %}
+  %\caption{Comparison of shapes on BIS and KDTree. Ratio describes worst-case over best-case time. BIS ratio is square over slice and KDTree is slice over square. Smaller is better}
+  %\label{fig:kdtree_bis_ratio_150}
+%\end{figure}
+%
+%
+%Figure~\ref{fig:kdtree_ratio_100} shows the ratio between a slice and a square search to the kd-tree. Figure~\ref{fig:bis_ratio_100} shows the ratio between a square and a slice search to the BIS data structure. This ratio describes the worst-case search query divided by the best-case search query. Optimistically we want this ratio to be as close to $1$ as possible. If it is $1$ there is no difference between the square and slice search query, and thus the data structure has a very stable performance. Looking at figure~\ref{fig:kdtree_ratio_100} we see that ratio at $\lg n = 17$ is $3.5$. As $n$ grows, the ratio grows. The ratio at $\lg n = 25$ is $53$. This is not a stable performance between the two shapes of search queries. Figure~\ref{fig:bis_ratio_100} shows that when $\lg n$ grows from $17$ to $25$ the ratio between the square search and the vertical slice search grows from $1.5$ to $3.65$. Thus, the BIS data structure is much more stable in its performance when $k = 100$.
 
-\begin{figure}[h]
-  \makebox[\linewidth][c]{
-    \centering
-    \begin{subfigure}[b]{0.68\textwidth}
-        \centering
-        \includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/kdtree_ratio_150.png}
-        \caption{Ratio between square and slice search queries to the KDTree with $size = 150$.}
-        \label{fig:kdtree_ratio_150}
-    \end{subfigure}
-    %\hfill
-    \begin{subfigure}[b]{0.68\textwidth}
-        \centering
-        \includegraphics[width=0.99\textwidth]{pictures/analysis/smalls/bis_ratio_150.png}
-        \caption{Ratio between square and slice search queries to the BIS with $size = 150$.}
-        \label{fig:bis_ratio_150}
-    \end{subfigure}
-  }
-  \caption{Comparison of shapes on BIS and KDTree. Ratio describes worst-case over best-case time. BIS ratio is square over slice and KDTree is slice over square. Smaller is better}
-  \label{fig:kdtree_bis_ratio_150}
-\end{figure}
+%Figure~\ref{fig:kdtree_ratio_150} and figure~\ref{fig:bis_ratio_150} show the ratio between the two search queries with $size = 150$. Looking at both figures, overall all the ratios have decreased. There is a slight decrease in the ratios on figure~\ref{fig:bis_ratio_150}. The ratio at $\lg n = 17$ is now $1.35$ and the ratio at $\lg n = 25$ is $3.45$. So not a huge drop. This is also a good sign that changing the size of search queries will not impact the ratio too much. Figure~\ref{fig:kdtree_ratio_150} shows that the ratio for the kd-tree has also dropped when the size of the search query has been increased. The ratio at $\lg n = 17$ is now $3.3$ and the ratio at $\lg n = 25$ is $47$. That is still a big difference. And big ratios. It seems that the BIS data structure has a much more stable performance when changing the shape of the search queries.
 
+%\clearpage
 
-Figure~\ref{fig:kdtree_ratio_100} shows the ratio between a slice and a square search to the kd-tree. Figure~\ref{fig:bis_ratio_100} shows the ratio between a square and a slice search to the BIS data structure. This ratio describes the worst-case search query divided by the best-case search query. Optimistically we want this ratio to be as close to $1$ as possible. If it is $1$ there is no difference between the square and slice search query, and thus the data structure has a very stable performance. Looking at figure~\ref{fig:kdtree_ratio_100} we see that ratio at $\lg n = 17$ is $3.5$. As $n$ grows, the ratio grows. The ratio at $\lg n = 25$ is $53$. This is not a stable performance between the two shapes of search queries. Figure~\ref{fig:bis_ratio_100} shows that when $\lg n$ grows from $17$ to $25$ the ratio between the square search and the vertical slice search grows from $1.5$ to $3.65$. Thus, the BIS data structure is much more stable in its performance when $k = 100$.
-
-Figure~\ref{fig:kdtree_ratio_150} and figure~\ref{fig:bis_ratio_150} show the ratio between the two search queries with $size = 150$. Looking at both figures, overall all the ratios have decreased. There is a slight decrease in the ratios on figure~\ref{fig:bis_ratio_150}. The ratio at $\lg n = 17$ is now $1.35$ and the ratio at $\lg n = 25$ is $3.45$. So not a huge drop. This is also a good sign that changing the size of search queries will not impact the ratio too much. Figure~\ref{fig:kdtree_ratio_150} shows that the ratio for the kd-tree has also dropped when the size of the search query has been increased. The ratio at $\lg n = 17$ is now $3.3$ and the ratio at $\lg n = 25$ is $47$. That is still a big difference. And big ratios. It seems that the BIS data structure has a much more stable performance when changing the shape of the search queries.
-
-\clearpage
-
-\todo{Fiks captions og titles til de her grafer}
+%\todo{Fiks captions og titles til de her grafer}
  
 
 \section{Different BIS data structures with $B$ varying}
@@ -414,25 +415,25 @@ So far we have only looked at the BIS data structure with $B = \lceil \frac{1}{2
     \begin{subfigure}[b]{0.68\textwidth}
         \centering
         \includegraphics[width=0.99\textwidth]{pictures/analysis/comparing_BIS_50.png}
-        \caption{BIS with $size = 50$.}
+        \caption{Vertical query with $size = 50$.}
         \label{fig:BIS_50}
     \end{subfigure}
     %\hfill
     \begin{subfigure}[b]{0.68\textwidth}
         \centering
         \includegraphics[width=0.99\textwidth]{pictures/analysis/comparing_BIS_100.png}
-        \caption{BIS with $size = 100$.}
+        \caption{Vertical query with $size = 100$.}
         \label{fig:BIS_100}
     \end{subfigure}
   }
-  \caption{BIS with $B = \{2,3,4\}$. Comparing vertical slices to each}
+  \caption{BIS with $B = \{2,3,4\}$.}
   \label{fig:comparing_BIS}
   
 \end{figure}
 
 Figure~\ref{fig:BIS_50} and figure~\ref{fig:BIS_100} show how $B$ impacts the running time of a vertical slice query to the BIS data structure with $size$ fixed. Since $B$ directly impacts where in the ball-inheritance structure big jumps will be located and how big the jumps are, we expect the query time to be slower when $B$ grows. However, both graphs show that the query time of a vertical slice is faster when $B = 4$ than when $B = 3$. This is probably due to the big jump at level $4$. But in general, when $B$ grows, the average amount of jumps per result is expected to grow. When $\lg^\epsilon n$ grows, the time to find $k$ results grows.
 
-The most important reason why the range tree is not used as the standard range reporting data structure today is its space complexity. While we have shown theoretically that the space complexity of the BIS data structure is linear, we would also like to see it in practice. Figure~\ref{fig:sizes} shows the actual space usage of the BIS data structure with $B=\{2,3,4\}$ and the space usage of the kd-tree. The size has been normalized by the amount of points the data structure holds. Thus, the normalized size of the kd-tree is $2$, meaning that for each point in the kd-tree it uses $2\cdot 32$ bits - one $32$ bits integer for each coordinate.
+The most important reason why the range tree is not used as the standard range reporting data structure today is its space complexity. While we have shown theoretically that the space complexity of the BIS data structure is linear, we would also like to see it in practice. Figure~\ref{fig:sizes} shows the actual space usage of the BIS data structure with $B=\{2,3,4\}$ and the space usage of the kd-tree. The size has been normalized by the amount of points the data structure holds. Thus, the normalized size of the kd-tree is $2$, meaning that for each point in the kd-tree it uses $2\cdot 32$ bits - one $32$ bits integer for each coordinate. As we expected, the size of the BIS data structure decreases when $B$ grows.
 
 \begin{figure}[h]
     \centering
@@ -444,13 +445,13 @@ The most important reason why the range tree is not used as the standard range r
 
 An interesting thing to remember is that the size of the kd-tree is entirely dependent on the data type used to represent each coordinate. In our experiments we have used a $32$ bit unsigned integer. If we were to change that to a $64$ bit unsigned integer, the size of the kd-tree would increase by a factor of $2$. As the kd-tree, the BIS data structure uses $2$ words per point to store the coordinates. The BIS data structure also uses $1$ word per point to store the y-coordinates in a sorted list as to allow for binary search to find $\hat{y_1}$ and $\hat{y_2}$. The rest of the BIS data structure are no dependent on the data type used to represent the coordinates. Thus, changing the data type from a $32$ bit integer to a $64$ bit integer would only increase the total space usage by $3$ $32$-bit integers per point. On figure~\ref{fig:sizes} the size of the BIS data structure with $B=2$ and $\lg n = 25$ is $8$. Increasing that to $11$ would increase the space usage of the BIS data structure by a factor of $\frac{11}{8} = 1.375$.
 
-The BIS data structure With $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil = 2$ and $\lg n \leq 25$, we get a good performance with certain queries and a better stability when changing the shapes compared to the kd-tree. 
+The BIS data structure with $B = \lceil \frac{1}{2}\lg^{\frac{1}{3}} n \rceil = 2$ and $\lg n \leq 25$, we get a good performance with certain queries and a better stability when changing the shapes of the search queries compared to the kd-tree. 
 
 
 \section{Vertical slices explained}
 \label{sect:verthoriexp}
 
-In this we are going to dive a deeper into the technical details of the results seen in some of the previous sections. The figures depicting the performance of the vertical slices showed some interesting tendencies. This is the last section before the summary.
+In this section we are going to dive a deeper into the technical details of the results seen in some of the previous sections. The figures depicting the performance of the vertical slices showed some interesting tendencies. This is the last section before the summary.
 
 \begin{figure}[h]
     \centering
@@ -515,12 +516,12 @@ We have omitted the technical details of the horizontal slices since that would 
 %In order to explain this relation between $k$ and the level of the highest fully contained node we look at figure~\ref{fig:level_vert_17}. We see that when we reach $k=256$ the minimum highest level rises to $7$ and the maximum highest level rises to $8$. In order to write the sum of $256<k<512$ we will need to at least level $7$ because we need the two fully contained nodes from level $7$ giving us $2*2^7 = 2^8 = 256$ nodes. If the least common ancestor is found at level $9$ the first fully contained node can be found at level $7$. If all the levels from level $7$ to level $1$ only have fully contained nodes, we get $k = 2*2^1 + 2*2^2 + \cdots + 2*2^7 = 508 < 512$ points. This is not enough to return $512$ points, and thus somewhere between $k=256$ and $k=512$, the search algorithm will begin using level $10$ as the least common ancestor. In a vertical slice, when a node is fully contained, we get all of points in its subtree.
 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_hori_17.png}
-    \caption{Size of jumps - data set size of $n=2^{17}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_hori_17}
-\end{figure}
-\clearpage
+%\begin{figure}[h]
+    %\centering
+    %\includegraphics[width = 0.85\textwidth]{pictures/analysis/jump_hori_17.png}
+    %\caption{Size of jumps - data set size of $n=2^{17}$. 'Average jumps' is the average of all the jumps performed normalized by the size of the slice}\label{fig:jump_hori_17}
+%\end{figure}
+%\clearpage
 
 %It is a little harder to argue about the horizontal slices. When the least common ancestor of $x_1$ and $x_2$ is found at the root at level $i$, the first node which is fully contained in a horizontal slice is located on level $i-2$. So from level $i-2$ to level $1$ we find $2$ fully contained nodes per level. The points are uniformly distributed which means that given one y-rank of a points, the probability of finding the ball pointing to the leaf of that point on level $i-2$ is $2\cdot\frac{1}{4} = \frac{1}{2}$. The chance to find it on level $i-3$ is half of that, i.e. $\frac{1}{4}$. This trend continues down to level $1$. Thus, we expect the graph of the horizontal slices to be linear because the average amount of jumps should always be same when $n$ is fixed. We can see this on figure~\ref{fig:jump_hori_17}. The figure shows the average amount of jumps divided by the amount of results. The same concept figure~\ref{fig:jump_vert_17} shows. 
 
