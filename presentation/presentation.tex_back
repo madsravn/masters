@@ -1,0 +1,75 @@
+\documentclass[pdf]{beamer}
+\mode<presentation>{}
+\usetheme{Warsaw}
+ 
+\usepackage[utf8]{inputenc}
+
+
+
+ \AtBeginSection[]
+{
+\begin{frame}<beamer>{Outline}
+\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+}
+ 
+%Information to be included in the title page:
+\title{Orthogonal Range Searching in $2$D\\ using Ball Inheritance}
+\author{Mads Ravn}
+\institute{Computer Science, Aarhus University}
+\date{2015}
+ 
+ 
+ 
+\begin{document}
+ 
+\begin{frame}
+    \titlepage
+  \end{frame}
+
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+ 
+  \section{Introduction}
+  \subsection{Actual introduction}
+\begin{frame}
+\frametitle{Sample frame title}
+This is a text in first frame. This is a text in first frame. This is a text in first frame.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{There Is No Largest Prime Number}
+\framesubtitle{The proof uses \textit{reductio ad absurdum}.}
+\begin{theorem}
+There is no largest prime number.
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item<1-| alert@1> Suppose $p$ were the largest prime number.
+\item<2-> Let $q$ be the product of the first $p$ numbers.
+\item<3-> Then $q+1$ is not divisible by any of them.
+\item<1-> But $q + 1$ is greater than $1$, thus divisible by some prime
+number not in the first $p$ numbers.\qedhere
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+
+\section{Next section}
+\subsection{Et voila}
+\begin{frame}
+
+
+  tra la la 
+
+\end{frame}
+
+\subsection{And new}
+
+\begin{frame}
+  This is where the magic happens
+\end{frame}
+ 
+\end{document}
