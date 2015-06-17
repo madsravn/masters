@@ -343,9 +343,6 @@ INPUT ./pictures/search_query_overlap.png
 INPUT ./pictures/search_query_overlap.png
 INPUT presentation.toc
 INPUT presentation.toc
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmss9.tfm
-INPUT presentation.toc
-INPUT presentation.toc
 INPUT presentation.toc
 INPUT presentation.toc
 OUTPUT presentation.nav
@@ -355,10 +352,10 @@ INPUT presentation.aux
 INPUT ./presentation.out
 INPUT ./presentation.out
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb
-INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb

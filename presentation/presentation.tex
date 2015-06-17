@@ -130,106 +130,61 @@
 
 \begin{frame}{Søgning}
   \frametitle{Søgning i kd-træ}
-  \includegraphics[scale=0.75]{pictures/search_query_overlap.png}
+  \begin{center}
+    \includegraphics[scale=0.75]{pictures/search_query_overlap.png}
+  \end{center}
 \end{frame}
 
 
 % Section and subsections will appear in the presentation overview
 % and table of contents.
 
-\subsection{First Subsection}
+\section{Ball Inheritance Search}
+\begin{frame}{BISintro}
+  Ball Inheritance Search, BIS, er en datastruktur bygget som en simplificering af den datastruktur chanetal laver i ARTIKEL
 
-\begin{frame}{First Slide Title}{Optional Subtitle}
-  \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
-  \end{itemize}
 \end{frame}
 
-\subsection{Ball Inheritance}
 
-% You can reveal the parts of a slide one at a time
-% with the \pause command:
+\subsection{Ball Inheritance Problem}
+
 \begin{frame}{Ball Inheritance}
-  Given a perfect balanced binary tree, each ball include a list of the balls passing through. Consider each ball to have $\lg n$ copies - one for each level in the tree.
-\end{frame}
 
-\section{Second Main Section}
-
-\subsection{Another Subsection}
-
-\begin{frame}{Blocks}
-\begin{block}{Block Title}
-You can also highlight sections of your presentation in a block, with it's own title
-\end{block}
-\begin{theorem}
-There are separate environments for theorems, examples, definitions and proofs.
-\end{theorem}
-\begin{example}
-Here is an example of an example block.
-\end{example}
-\end{frame}
-
-% Placing a * after \section means it will not show in the
-% outline or table of contents.
-\section*{Summary}
-
-\begin{frame}{Summary}
   \begin{itemize}
-  \item
-    The \alert{first main message} of your talk in one or two lines.
-  \item
-    The \alert{second main message} of your talk in one or two lines.
-  \item
-    Perhaps a \alert{third message}, but not more than that.
-  \end{itemize}
-  
-  \begin{itemize}
-  \item
-    Outlook
-    \begin{itemize}
-    \item
-      Something you haven't solved.
-    \item
-      Something else you haven't solved.
-    \end{itemize}
+    \item Vi er givet et perfekt balanceret søgetræ.
+      \pause
+    \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt.
+      \pause
+    \item Hver knude har en liste over hvilke af de bolde der er gået igennem den som er blevet givet til venstre og højre barn.
+      \pause
+    \item Vi kan nu følge en bold fra en knude til et blad med $\mathcal{O}(\lg n)$ skridt.
+      \pause
+    \item Det er $n \cdot \lg n$ bits plads.
+      \pause
+    \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved? Vi kan følge bolden 
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Faster Queries}
+  Vi ønsker at gøre antallet skridt fra en knude til et blad mindre. Vi udvider alfabetet på udvalgte niveauer.
+  Vis koncept, tid og plads her
+\end{frame}
 
+\begin{frame}{LCA}
+  Vis hvordan LCA virker og hvordan vi går ned og hvordan vi finder alle punkter mellem $[x_1, x_2]$.
+\end{frame}
 
-% All of the following is optional and typically not needed. 
-\appendix
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{For Further Reading}
+\begin{frame}{yrange}
+  Vis hvordan vi finder den korrekt y-range. Og hov, det her er jo netop det information vi skal bruge for at løse ball inheritance
+\end{frame}
 
-\begin{frame}[allowframebreaks]
-  \frametitle<presentation>{For Further Reading}
-    
-  \begin{thebibliography}{10}
-    
-  \beamertemplatebookbibitems
-  % Start with overview books.
-
-  \bibitem{Author1990}
-    A.~Author.
-    \newblock {\em Handbook of Everything}.
-    \newblock Some Press, 1990.
- 
-    
-  \beamertemplatearticlebibitems
-  % Followed by interesting articles. Keep the list short. 
-
-  \bibitem{Someone2000}
-    S.~Someone.
-    \newblock On this and that.
-    \newblock {\em Journal of This and That}, 2(1):50--100,
-    2000.
-  \end{thebibliography}
+\subsection{Ball Inheritance Search Data Structure}
+\begin{frame}{Ball Inheritance Search}
+  \textbf{Ball Inheritance Search Data Structure}
+  \begin{itemize}
+    \item $\mathcal{O}(n)$ plads
+    \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ tid, hvor $\epsilon > 0$ er en arbitrær lille konstant
+  \end{itemize}
 \end{frame}
 
 \end{document}
