@@ -33,7 +33,7 @@
 %\usetheme{Boadilla}
 %\usetheme{boxes}
 %\usetheme{CambridgeUS}
-%\usetheme{Copenhagen}
+\usetheme{Copenhagen}
 %\usetheme{Darmstadt}
 %\usetheme{default}
 %\usetheme{Frankfurt}
@@ -51,8 +51,8 @@
 %\usetheme{Rochester}
 %\usetheme{Singapore}
 %\usetheme{Szeged}
-\usetheme{Warsaw}
-
+%\usetheme{Warsaw}
+%\usecolortheme{seahorse}
 
 
 \title{Orthogonal Range Searching in $2$D\\ using Ball Inheritance}
@@ -107,6 +107,7 @@
   \frametitle{Orthogonal Range Searching}
 
   Vi er givet $n$ punkter fra $\mathbb{R}^2$ som vi ønsker at indsætte i en datastruktur sådan at vi kan svare effektivt på forespørgslen $q = [x_1, x_2] \times [y_1, y_2]$.
+  Et punkt $p = (p_x, p_y)$ ligger i $q = [x_1, x_2] \times [y_1, y_2]$ hvis $p_x \in [x_1, x_2]$ og $p_y \in [y_1, y_2]$. Man kunne derfor sige at et 2-dimensionelt query består af to 1-dimensional sub-queries. Kommer til at virke for alle tre datastrukturer.
 \end{frame}
 
 \subsection{Previous data structures}
