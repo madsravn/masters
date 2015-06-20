@@ -223,12 +223,31 @@
 \end{frame}
 
 \begin{frame}{Små hop}
-  bla bla om pladsen og constant time query
+  Hvert niveau gemmer $n$ bits som indikerer om bolden er gået til højre eller venstre. Hvert $32$ bit gemmer vi et $32$ bit major checkpoint. Precomputed tabel med $16$ bit tal som tæller antal $1$-entries. $\mathcal{O}(n)$ bits per level.
 \end{frame}
 
-\begin{frame}{store hop}
-  bla bla om pladsen
+\begin{frame}{Store hop}
+  $\mathcal{O}(\lg \Sigma)$ per entry. $\Sigma = 2^{B^i}$. Så plads er $\mathcal{O}(B^i)$ bits per entry.\\
+
+  Det er $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ for hele kæden.
 \end{frame}
+
+\begin{frame}{Store hop}
+  Tid for store hop
+\end{frame}
+
+\section{Resultater}
+
+\begin{frame}{Squared}
+
+\end{frame}
+
+
+\begin{frame}{vertical}
+
+\end{frame}
+
+
 
 \end{document}
 
