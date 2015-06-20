@@ -114,12 +114,12 @@
 
 \begin{frame}{kd-træ}
   \frametitle{kd-træ}
-  \textbf{kd-træ}
+
+  Givet $n$ punkter: Punkterne bliver sorteret efter $x$ eller $y$ på skift. Median bliver fundet og punkterne mindre end medianen bliver givet til venstre barn og punkterne højere end medianen bliver givet til højre barn. Et punkt per blad i træet.
   \begin{itemize}
     \item $\mathcal{O}(n)$ plads
     \item $\mathcal{O}(\sqrt{n} + k)$ tid
   \end{itemize}
-  Givet $n$ punkter: Punkterne bliver sorteret efter $x$ eller $y$ på skift. Median bliver fundet og punkterne mindre end medianen bliver givet til venstre barn og punkterne højere end medianen bliver givet til højre barn. Et punkt per blad i træet.
 \end{frame}
 
 \begin{frame}{Opbygning}
@@ -142,7 +142,7 @@
 
 \section{Ball Inheritance Search}
 \begin{frame}{BISintro}
-  Ball Inheritance Search, BIS, er en datastruktur bygget som en simplificering af den datastruktur chanetal laver i ARTIKEL
+  Ball Inheritance Search (BIS) er en datastruktur bygget som en simplificering af den datastruktur Chan et al laver.
 
 \end{frame}
 
@@ -152,40 +152,82 @@
 \begin{frame}{Ball Inheritance}
 
   \begin{itemize}
-    \item Vi er givet et perfekt balanceret søgetræ.
+    \item Vi er givet et perfekt binært træ.
       \pause
-    \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt.
+    \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt. Elementerne i roden er sorteret.
       \pause
-    \item Hver knude har en liste over hvilke af de bolde der er gået igennem den som er blevet givet til venstre og højre barn.
-      \pause
-    \item Vi kan nu følge en bold fra en knude til et blad med $\mathcal{O}(\lg n)$ skridt.
-      \pause
-    \item Det er $n \cdot \lg n$ bits plads.
-      \pause
+    \item Hver knude har en liste over hvilke bolder der går igennem den. De bolde ender så i træet med rod i den knude. Boldene i knudens liste har samme rækkefølge som boldene i forældre-knudens liste.
+     \pause
     \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved? Vi kan følge bolden 
+     \pause
+    \item Vi kan nu følge en bold fra en knude til et blad med $\mathcal{O}(\lg n)$ skridt.
+
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Faster Queries}
   Vi ønsker at gøre antallet skridt fra en knude til et blad mindre. Vi udvider alfabetet på udvalgte niveauer.
+  Det bruger
+  \begin{itemize}
+    \item $\mathcal{O}(\frac{n}{\epsilon}) = \mathcal{O}(n)$ plads
+    \item $\mathcal{O}(\lg^\epsilon n)$ tid
+  \end{itemize}
+  hvor $\epsilon > 0$ er en arbitrær lille konstant. Space-time tradeoff.
   Vis koncept, tid og plads her
-\end{frame}
-
-\begin{frame}{LCA}
-  Vis hvordan LCA virker og hvordan vi går ned og hvordan vi finder alle punkter mellem $[x_1, x_2]$.
-\end{frame}
-
-\begin{frame}{yrange}
-  Vis hvordan vi finder den korrekt y-range. Og hov, det her er jo netop det information vi skal bruge for at løse ball inheritance
 \end{frame}
 
 \subsection{Ball Inheritance Search Data Structure}
 \begin{frame}{Ball Inheritance Search}
-  \textbf{Ball Inheritance Search Data Structure}
   \begin{itemize}
     \item $\mathcal{O}(n)$ plads
     \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ tid, hvor $\epsilon > 0$ er en arbitrær lille konstant
   \end{itemize}
+\end{frame}
+
+\begin{frame}{x range}
+  \frametitle{x-range}
+  \begin{itemize}
+    \item Vi oversætter vores query til rank space $[x_1, x_2] \times [y_1, y_2] \Rightarrow [\hat{x}_1, \hat{x}_2] \times [\hat{y}_1, \hat{y}_2]$.
+      \pause
+
+    \item Vi går ned til least common ancestor af $\hat{x}_1$ og $\hat{x}_2$ og herfra ned til $\hat{x}_1$ og $\hat{x}_2$. På den måde finder vi knuder der kun indeholder punkter i $[x_1, x_2]$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{y range}
+  \frametitle{y-range}
+  \begin{itemize}
+    \item Vi har opdateret $[\hat{y}_1, \hat{y}_2]$ fra roden til både $\hat{x}_1$ og $\hat{x}_2$. Dvs vi ved hvilke bolde i hver knude vi fandt før der indeholder punkter i $[y_1, y_2]$.
+      \pause
+    \item  Vi har nu nogle knuder og lister over indeces i disse knuder. Det er præcis det problem ball inheritance løser. Vi kan nu bruge ball inheritance på alle disse knuder til at finde ud af hvilke blade der indeholder punkter i $[y_1, y_2]$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ballinheritance}
+  Vi har nu at hver knude der er fully contained laver ball inheritance på det y-range den får givet. Det tager $\mathcal{O}(k\cdot\lg^\epsilon n)$ tid. Det tager $\mathcal{O}(\lg n)$ at lave binær søgning og at gå fra roden til $\hat{x}_1$ og $\hat{x}_2$.
+  \pause
+  Det giver en kørselstid på $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ for at finde $k$ punkter.
+\end{frame}
+
+\begin{frame}{plads}
+  Denne datastruktur bruger $\mathcal{O}(n)$ plads.
+  \begin{itemize}
+    \item Bit vectors.
+      \pause
+    \item Store hop (Kommer vi til)
+      \pause
+    \item Egentlig punkter
+      \pause
+    \item Binær søgning
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Små hop}
+  bla bla om pladsen og constant time query
+\end{frame}
+
+\begin{frame}{store hop}
+  bla bla om pladsen
 \end{frame}
 
 \end{document}

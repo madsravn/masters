@@ -4,4 +4,4 @@
 \beamer@subsectionintoc {1}{2}{Previous data structures}{7}{0}{1}
 \beamer@sectionintoc {2}{Ball Inheritance Search}{11}{0}{2}
 \beamer@subsectionintoc {2}{1}{Ball Inheritance Problem}{12}{0}{2}
-\beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{22}{0}{2}
+\beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{19}{0}{2}
