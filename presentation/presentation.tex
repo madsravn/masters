@@ -229,24 +229,167 @@
 \begin{frame}{Store hop}
   $\mathcal{O}(\lg \Sigma)$ per entry. $\Sigma = 2^{B^i}$. Så plads er $\mathcal{O}(B^i)$ bits per entry.\\
 
-  Det er $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ for hele kæden.
+  Det er $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ for hele kæden. Vælg nu $B \geq \lg^\epsilon n$.
 \end{frame}
 
 \begin{frame}{Store hop}
-  Tid for store hop
+  Tiden for de store hop er højst $\mathcal{O}(B \lg_B \lg n)$. Vælg $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
+\end{frame}
+
+\begin{frame}{OBIS}
+  OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + k\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
+\end{frame}
+
+\begin{frame}{OBIS}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics{pictures/ors_step2-eps-converted-to.pdf}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Op til nærmeste level med pred-search
+      \item Gå ned til LCA højst $\lg \lg n$ levels nede.
+      \item Gå ned og find resultater i begge børn af LCA.
+    \end{itemize}
+
+  \end{columns}
+\end{frame}
+
+\begin{frame}{OBIS}
+
+  \includegraphics{pictures/ors_step3-eps-converted-to.pdf}
 \end{frame}
 
 \section{Resultater}
 
+\begin{frame}{setup}
+  \begin{itemize}
+    \item Square area $\sqrt{n}\cdot\sqrt{k}\times\sqrt{n}\cdot\sqrt{k}$ returnerer $k$ punkter.
+    \item Slices af størrelse $k$ skulle returnere $k$ punkter. $[0,n] \times [y, y+k]$
+    \item $\sqrt{n}+k = \lg n + k\cdot\lg^\epsilon n \Leftrightarrow k = \frac{\sqrt{n}-\lg n}{\lg^\epsilon n -1}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item Hvad vil vi gerne vise af resultater?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Squared}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/sqrt_17.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/sqrt_25.png}
+  \end{columns}
+\end{frame}
+
 \begin{frame}{Squared}
 
-\end{frame}
+  \includegraphics[scale=0.35]{pictures/analysis/factor_difference_sqrtn_100.png}
 
+\end{frame}
 
 \begin{frame}{vertical}
-
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/vert_17.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/vert_25.png}
+  \end{columns}
 \end{frame}
 
+\begin{frame}{vertical}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/vert.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/vert_theory.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{horizontal}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/hori_17.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/hori_25.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{horizontal}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/hori.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/hori_theory.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{small k}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/vert_17.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/vert_25.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{small k}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/vert_fac_17.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/vert_fac_25.png}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{small k}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_100.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_kdtree_100.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{small k}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_50.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_150.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{small k}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/comparing_BIS_50.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/comparing_BIS_100.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{sizes}
+  \begin{center}
+    \includegraphics[scale=0.35]{pictures/analysis/sizes.png}
+  \end{center}
+\end{frame}
+
+
+
+
+
+\begin{frame}{small k}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/bis_ratio_100.png}
+    \column{0.5\textwidth}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/kdtree_ratio_100.png}
+  \end{columns}
+\end{frame}
 
 
 \end{document}

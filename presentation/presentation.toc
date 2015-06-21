@@ -5,4 +5,4 @@
 \beamer@sectionintoc {2}{Ball Inheritance Search}{11}{0}{2}
 \beamer@subsectionintoc {2}{1}{Ball Inheritance Problem}{12}{0}{2}
 \beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{19}{0}{2}
-\beamer@sectionintoc {3}{Resultater}{34}{0}{3}
+\beamer@sectionintoc {3}{Resultater}{37}{0}{3}
