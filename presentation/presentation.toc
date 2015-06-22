@@ -1,8 +1,9 @@
-\beamer@endinputifotherversion {3.33pt}
+\beamer@endinputifotherversion {3.36pt}
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Orthogonal Range Searching}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{Previous data structures}{7}{0}{1}
 \beamer@sectionintoc {2}{Ball Inheritance Search}{11}{0}{2}
 \beamer@subsectionintoc {2}{1}{Ball Inheritance Problem}{12}{0}{2}
-\beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{19}{0}{2}
-\beamer@sectionintoc {3}{Resultater}{37}{0}{3}
+\beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{24}{0}{2}
+\beamer@sectionintoc {3}{Resultater}{42}{0}{3}
+\beamer@subsectionintoc {3}{1}{Resultater}{42}{0}{3}
