@@ -1,4 +1,4 @@
-\beamer@endinputifotherversion {3.36pt}
+\beamer@endinputifotherversion {3.33pt}
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Orthogonal Range Searching}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{Previous data structures}{7}{0}{1}
