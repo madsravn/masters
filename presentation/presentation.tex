@@ -79,6 +79,15 @@
   \titlepage
 \end{frame}
 
+\begin{frame}
+  \begin{itemize}
+    \item Giv en præsentation af den i specialet introducerede simplificerede datastruktur til range searching i 2d. (3)
+    \item Beskriv ball-inheritance problemet og forklar sammenhængen til range searching. (2)
+    \item Beskriv også det klassiske kd-træ (1)
+    \item og fortæl om hvilke eksperimenter du har foretaget for at sammenligne performance af de to strukturer. Forklar hvad du så og om det var som forventet. (4)
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Outline}
   \tableofcontents
   % You might wish to add the option [pausesections]
@@ -89,17 +98,27 @@
 
 \begin{frame}{Orthogonal Range Searching}
   \frametitle{Orthogonal Range Searching}
-  \begin{center}
-    \includegraphics{pictures/introduction.png}
-  \end{center}
+    \begin{center}
+      \includegraphics[scale=0.8]{pictures/introduction.png}
+    \end{center}
+
 \end{frame}
 
 \begin{frame}{Preleminaries}
   \frametitle{Preleminaries}
+  Orthogonal range searching
   \begin{itemize}
-    \item Alle koordinater er unikke
+    \item Svar effektivt på forespørgslen $q = [x_1, x_2] \times [y_1, y_2]$.
+    \item $p \in [x_1, x_2] \times [y_1, y_2] \Leftrightarrow p_x \in [x_1, x_2] \wedge p_y \in [y_1, y_2]$
+  \end{itemize}
+
+  Preleminaries
+  \begin{itemize}
+
+    \item $n$ punkter fra $\mathbb{R}^2$. Alle koordinater er unikke
     \item Rank space
     \item $n$ er en potens af $2$
+    \item static og output-sensitive
   \end{itemize}
 \end{frame}
 
@@ -114,17 +133,18 @@
 
 \begin{frame}{kd-træ}
   \frametitle{kd-træ}
-
-  Givet $n$ punkter: Punkterne bliver sorteret efter $x$ eller $y$ på skift. Median bliver fundet og punkterne mindre end medianen bliver givet til venstre barn og punkterne højere end medianen bliver givet til højre barn. Et punkt per blad i træet.
+  Jon L. Bentley. Multidimensional binary search trees used for associative searching. 1975.
   \begin{itemize}
     \item $\mathcal{O}(n)$ plads
     \item $\mathcal{O}(\sqrt{n} + k)$ tid
   \end{itemize}
+
+  Givet $n$ punkter: Punkterne bliver sorteret efter $x$ eller $y$ på skift. Median bliver fundet og punkterne mindre end medianen bliver givet til venstre barn og punkterne højere end medianen bliver givet til højre barn. Et punkt per blad i træet.
 \end{frame}
 
 \begin{frame}{Opbygning}
   \frametitle{Opbygning af kd-træ}
-  Det $\lceil \frac{n}{2} \rceil$'te element bliver valgt som median. Dette element fungerer som en skille-linje mellem de to punkt-mængder. Medianen bliver låst fast på denne plads i arrayet.
+  Det $\lceil \frac{n}{2} \rceil$'te element bliver valgt som median. Dette element fungerer som en skille-linje mellem de to punkt-mængder. Medianen bliver låst fast på denne plads i arrayet. Det er nu skillelinjen mellem de to regioner.
   \includegraphics[scale=0.75]{pictures/kd_subdivision-eps-converted-to.pdf}
 \end{frame}
 
@@ -133,6 +153,14 @@
   \frametitle{Søgning i kd-træ}
   \begin{center}
     \includegraphics[scale=0.75]{pictures/search_query_overlap.png}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{Søgning}
+  \frametitle{Søgning i kd-træ}
+  \begin{center}
+    \includegraphics[scale=0.75]{pictures/kd_bound2.png}
   \end{center}
 \end{frame}
 
@@ -311,6 +339,7 @@
 \begin{frame}
   \begin{itemize}
     \item Hvad vil vi gerne vise af resultater?
+    \item Hvad forventer vi at se af tendenser og hvorfor?
   \end{itemize}
 \end{frame}
 

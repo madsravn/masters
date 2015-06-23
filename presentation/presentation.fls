@@ -338,6 +338,9 @@ INPUT ./pictures/kd_subdivision-eps-converted-to.pdf
 INPUT pictures/search_query_overlap.png
 INPUT ./pictures/search_query_overlap.png
 INPUT ./pictures/search_query_overlap.png
+INPUT pictures/kd_bound2.png
+INPUT ./pictures/kd_bound2.png
+INPUT ./pictures/kd_bound2.png
 INPUT presentation.toc
 INPUT presentation.toc
 INPUT pictures/bolde_8.pdf
