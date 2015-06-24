@@ -122,13 +122,6 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Orthogonal Range Searching}
-  \frametitle{Orthogonal Range Searching}
-
-  Vi er givet $n$ punkter fra $\mathbb{R}^2$ som vi ønsker at indsætte i en datastruktur sådan at vi kan svare effektivt på forespørgslen $q = [x_1, x_2] \times [y_1, y_2]$.
-  Et punkt $p = (p_x, p_y)$ ligger i $q = [x_1, x_2] \times [y_1, y_2]$ hvis $p_x \in [x_1, x_2]$ og $p_y \in [y_1, y_2]$. Man kunne derfor sige at et 2-dimensionelt query består af to 1-dimensional sub-queries. Kommer til at virke for alle tre datastrukturer.
-\end{frame}
-
 \subsection{Previous data structures}
 
 \begin{frame}{kd-træ}
@@ -170,7 +163,7 @@
 
 \section{Ball Inheritance Search}
 \begin{frame}{BISintro}
-  Ball Inheritance Search (BIS) er en datastruktur bygget som en simplificering af den datastruktur Chan et al laver.
+  Ball Inheritance Search (BIS) er en datastruktur bygget som en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.
 
 \end{frame}
 
@@ -184,7 +177,7 @@
       \pause
     \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt. Elementerne i roden er sorteret.
       \pause
-    \item Hver knude har en liste over hvilke bolder der går igennem den. De bolde ender så i træet med rod i den knude. Boldene i knudens liste har samme rækkefølge som boldene i forældre-knudens liste.
+    \item Hver knude har en liste over hvilke bolder der går igennem den. Boldene i knudens liste har samme rækkefølge som boldene i forældre-knudens liste.
      \pause
     \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved? Vi kan følge bolden 
      \pause
@@ -216,6 +209,10 @@
 
 \begin{frame}{RANK SELECT}
 
+  Rank-Select query er en constant-time query der kan afgøre hvor mange bolde før den $i$'te bold der går til et givet barn.
+
+  Teoretisk $rank_v(k) = \Sigma_{i\leq k} A_v[i]$. Til højde er det $rank_v(i)$ og til venstre er det $i-rank_v(i)$.
+
   Husk RANK-SELECT struktur. Hvordan fungerer den? Med $\lg n$ og $\lg \Sigma$.
 
 \end{frame}
@@ -224,6 +221,20 @@
 \begin{frame}{ball inheritance}
   \begin{center}
     \includegraphics[scale=1.0]{pictures/uden_bolde.pdf}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \includegraphics[scale=1.0]{pictures/uden_bolde_med_tal.pdf}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
   \end{center}
 \end{frame}
 
@@ -263,6 +274,8 @@
   \begin{itemize}
     \item Vi har opdateret $[\hat{y}_1, \hat{y}_2]$ fra roden til både $\hat{x}_1$ og $\hat{x}_2$. Dvs vi ved hvilke bolde i hver knude vi fandt før der indeholder punkter i $[y_1, y_2]$.
       \pause
+    \item $[\hat{y}_1, \hat{y}_2]$ betegner det interval af y-koordinater der ligger mellem $y_1$ og $y_2$ i knuden $v$.
+      \pause
     \item  Vi har nu nogle knuder og lister over indeces i disse knuder. Det er præcis det problem ball inheritance løser. Vi kan nu bruge ball inheritance på alle disse knuder til at finde ud af hvilke blade der indeholder punkter i $[y_1, y_2]$.
   \end{itemize}
 \end{frame}
@@ -273,10 +286,28 @@
   Det giver en kørselstid på $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ for at finde $k$ punkter.
 \end{frame}
 
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \begin{columns}
+      \column{0.5\textwidth}
+        \includegraphics[scale=1.5]{pictures/BIS.pdf}
+      \column{0.5\textwidth}
+        \begin{itemize}
+          \item Rank space opslag ved roden.
+          \item Vedligehold $[\hat{y}_1, \hat{y}_2]$ ned til LCA.
+          \item Find fully contained knuder og deres $[\hat{y}_1, \hat{y}_2]$ interval.
+          \item Ball Inheritance fra knuder.
+        \end{itemize}
+      \end{columns}
+  \end{center}
+\end{frame}
+
+
+
 \begin{frame}{plads}
   Denne datastruktur bruger $\mathcal{O}(n)$ plads.
   \begin{itemize}
-    \item Bit vectors.
+    \item Bit vectors (Kommer vi til)
       \pause
     \item Store hop (Kommer vi til)
       \pause
@@ -332,6 +363,7 @@
   \begin{itemize}
     \item Square area $\sqrt{n}\cdot\sqrt{k}\times\sqrt{n}\cdot\sqrt{k}$ returnerer $k$ punkter.
     \item Slices af størrelse $k$ skulle returnere $k$ punkter. $[0,n] \times [y, y+k]$
+    \item Hvad forventer vi af $\mathcal{O}(\sqrt{n} + k)$ vs $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$?
     \item $\sqrt{n}+k = \lg n + k\cdot\lg^\epsilon n \Leftrightarrow k = \frac{\sqrt{n}-\lg n}{\lg^\epsilon n -1}$
   \end{itemize}
 \end{frame}
@@ -340,15 +372,17 @@
   \begin{itemize}
     \item Hvad vil vi gerne vise af resultater?
     \item Hvad forventer vi at se af tendenser og hvorfor?
+    \item Mindre ændring mellem shapes når det er $\lg^\epsilon n$ i stedet for $\mathcal{O}(\sqrt{n})$.
+    \item Hvert eksperiment er kørt mange gange. 10 forskellige data-set, mange forskellige steder i søgerummet.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Squared}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/sqrt_17.png}
+    \includegraphics[scale=0.3]{pictures/analysis/sqrt_17.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/sqrt_25.png}
+    \includegraphics[scale=0.3]{pictures/analysis/sqrt_25.png}
   \end{columns}
 \end{frame}
 
@@ -418,7 +452,7 @@
     \column{0.5\textwidth}
     \includegraphics[scale=0.35]{pictures/analysis/smalls/all_100.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_kdtree_100.png}
+    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_kdtree_100_2.png}
   \end{columns}
 \end{frame}
 
@@ -446,6 +480,15 @@
   \end{center}
 \end{frame}
 
+\begin{frame}{Future work}
+  \begin{itemize}
+    \item Bedre udpakning
+    \item Cache
+    \item Concurrency
+    \item Bedre kd-træ
+  \end{itemize}
+\end{frame}
+
 
 
 
@@ -459,6 +502,20 @@
   \end{columns}
 \end{frame}
 
+
+\begin{frame}[allowframebreaks]
+  \frametitle<presentation>{References}
+    
+  \begin{thebibliography}{10}
+    
+  \beamertemplatebookbibitems
+  % Start with overview books.
+
+  \bibitem{chanetal}
+    Timothy M. Chan, Kasper Green Larsen, Mihai Patrascu.
+    \newblock {\em Orthogonal Range Searching on the RAM, Revisited}.
+ \end{thebibliography}
+\end{frame}
 
 \end{document}
 

@@ -341,6 +341,7 @@ INPUT ./pictures/search_query_overlap.png
 INPUT pictures/kd_bound2.png
 INPUT ./pictures/kd_bound2.png
 INPUT ./pictures/kd_bound2.png
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT presentation.toc
 INPUT presentation.toc
 INPUT pictures/bolde_8.pdf
@@ -355,8 +356,17 @@ INPUT ./pictures/bolde_4.pdf
 INPUT pictures/uden_bolde.pdf
 INPUT ./pictures/uden_bolde.pdf
 INPUT ./pictures/uden_bolde.pdf
+INPUT pictures/uden_bolde_med_tal.pdf
+INPUT ./pictures/uden_bolde_med_tal.pdf
+INPUT ./pictures/uden_bolde_med_tal.pdf
+INPUT pictures/bolde_med_to_tal.pdf
+INPUT ./pictures/bolde_med_to_tal.pdf
+INPUT ./pictures/bolde_med_to_tal.pdf
 INPUT presentation.toc
 INPUT presentation.toc
+INPUT pictures/BIS.pdf
+INPUT ./pictures/BIS.pdf
+INPUT ./pictures/BIS.pdf
 INPUT pictures/ors_step2-eps-converted-to.pdf
 INPUT ./pictures/ors_step2-eps-converted-to.pdf
 INPUT ./pictures/ors_step2-eps-converted-to.pdf
@@ -413,9 +423,9 @@ INPUT ./pictures/analysis/smalls/vert_fac_25.png
 INPUT pictures/analysis/smalls/all_100.png
 INPUT ./pictures/analysis/smalls/all_100.png
 INPUT ./pictures/analysis/smalls/all_100.png
-INPUT pictures/analysis/smalls/all_kdtree_100.png
-INPUT ./pictures/analysis/smalls/all_kdtree_100.png
-INPUT ./pictures/analysis/smalls/all_kdtree_100.png
+INPUT pictures/analysis/smalls/all_kdtree_100_2.png
+INPUT ./pictures/analysis/smalls/all_kdtree_100_2.png
+INPUT ./pictures/analysis/smalls/all_kdtree_100_2.png
 INPUT pictures/analysis/smalls/all_50.png
 INPUT ./pictures/analysis/smalls/all_50.png
 INPUT ./pictures/analysis/smalls/all_50.png
@@ -450,6 +460,7 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
