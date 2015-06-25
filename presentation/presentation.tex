@@ -162,24 +162,21 @@
 % and table of contents.
 
 \section{Ball Inheritance Search}
-\begin{frame}{BISintro}
-  Ball Inheritance Search (BIS) er en datastruktur bygget som en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.
-
-\end{frame}
-
 
 \subsection{Ball Inheritance Problem}
+
+
 
 \begin{frame}{Ball Inheritance}
 
   \begin{itemize}
     \item Vi er givet et perfekt binært træ.
       \pause
-    \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt. Elementerne i roden er sorteret.
+    \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt. Boldene i roden er sorteret.
       \pause
     \item Hver knude har en liste over hvilke bolder der går igennem den. Boldene i knudens liste har samme rækkefølge som boldene i forældre-knudens liste.
      \pause
-    \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved? Vi kan følge bolden 
+    \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved?
      \pause
     \item Vi kan nu følge en bold fra en knude til et blad med $\mathcal{O}(\lg n)$ skridt.
 
@@ -232,13 +229,6 @@
 \end{frame}
 
 
-\begin{frame}{ball inheritance}
-  \begin{center}
-    \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
-  \end{center}
-\end{frame}
-
-
 
 \begin{frame}{Faster Queries}
   Vi ønsker at gøre antallet skridt fra en knude til et blad mindre. Vi udvider alfabetet på udvalgte niveauer.
@@ -252,12 +242,29 @@
 \end{frame}
 
 \subsection{Ball Inheritance Search Data Structure}
+
+\begin{frame}{BISintro}
+  Ball Inheritance Search (BIS) er en datastruktur bygget som en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.
+
+\end{frame}
+
+
+
 \begin{frame}{Ball Inheritance Search}
   \begin{itemize}
     \item $\mathcal{O}(n)$ plads
     \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ tid, hvor $\epsilon > 0$ er en arbitrær lille konstant
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
+  \end{center}
+\end{frame}
+
+
 
 \begin{frame}{x range}
   \frametitle{x-range}
@@ -317,20 +324,6 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Små hop}
-  Hvert niveau gemmer $n$ bits som indikerer om bolden er gået til højre eller venstre. Hvert $32$ bit gemmer vi et $32$ bit major checkpoint. Precomputed tabel med $16$ bit tal som tæller antal $1$-entries. $\mathcal{O}(n)$ bits per level.
-\end{frame}
-
-\begin{frame}{Store hop}
-  $\mathcal{O}(\lg \Sigma)$ per entry. $\Sigma = 2^{B^i}$. Så plads er $\mathcal{O}(B^i)$ bits per entry.\\
-
-  Det er $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ for hele kæden. Vælg nu $B = \Omega(\lg^\epsilon n)$.
-\end{frame}
-
-\begin{frame}{Store hop}
-  Tiden for de store hop er højst $\mathcal{O}(B \lg_B \lg n)$. Vælg $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
-\end{frame}
-
 \begin{frame}{OBIS}
   OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + k\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
 \end{frame}
@@ -362,69 +355,81 @@
 \begin{frame}{setup}
   \begin{itemize}
     \item Square area $\sqrt{n}\cdot\sqrt{k}\times\sqrt{n}\cdot\sqrt{k}$ returnerer $k$ punkter.
-    \item Slices af størrelse $k$ skulle returnere $k$ punkter. $[0,n] \times [y, y+k]$
+    \item Slices af størrelse $k$ returnerer $k$ punkter. $[0,n] \times [y, y+k]$
     \item Hvad forventer vi af $\mathcal{O}(\sqrt{n} + k)$ vs $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$?
     \item $\sqrt{n}+k = \lg n + k\cdot\lg^\epsilon n \Leftrightarrow k = \frac{\sqrt{n}-\lg n}{\lg^\epsilon n -1}$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \begin{itemize}
-    \item Hvad vil vi gerne vise af resultater?
-    \item Hvad forventer vi at se af tendenser og hvorfor?
-    \item Mindre ændring mellem shapes når det er $\lg^\epsilon n$ i stedet for $\mathcal{O}(\sqrt{n})$.
-    \item Hvert eksperiment er kørt mange gange. 10 forskellige data-set, mange forskellige steder i søgerummet.
-  \end{itemize}
+  \begin{columns}
+    \column{05\textwidth}
+      \begin{itemize}
+        \item Hvad vil vi gerne vise af resultater?
+        \item Hvad forventer vi at se af tendenser og hvorfor?
+        \item Mindre ændring mellem shapes når det er $\lg^\epsilon n$ i stedet for $\mathcal{O}(\sqrt{n})$.
+        \item Hvert eksperiment er kørt mange gange. 10 forskellige data-set, mange forskellige steder i søgerummet.
+      \end{itemize}
+      \column{0.5\textwidth}
+      \begin{itemize}
+        \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ vs $\mathcal{O}(\sqrt{n} + k)$.
+        \item BIS er mere stabil når vi ændrer shape.
+        \item kd-træ er hurtigere jo flere punkter, og jo mindre $\mathcal{O}(\sqrt{n})$ er.
+        \item $\lg n < \sqrt{n}$, så vi forventer at en dårlig shape betyder meget for kd-træet.
+      \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Squared}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.3]{pictures/analysis/sqrt_17.png}
+    \includegraphics[scale=0.32]{pictures/analysis/sqrt_17.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.3]{pictures/analysis/sqrt_25.png}
+    \includegraphics[scale=0.32]{pictures/analysis/sqrt_25.png}
   \end{columns}
 \end{frame}
 
 \begin{frame}{Squared}
 
-  \includegraphics[scale=0.35]{pictures/analysis/factor_difference_sqrtn_100.png}
+  \begin{center}
+    \includegraphics[scale=0.35]{pictures/analysis/factor_difference_sqrtn_100.png}
+  \end{center}
 
 \end{frame}
 
 \begin{frame}{vertical}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/vert_17.png}
+    \includegraphics[scale=0.32]{pictures/analysis/vert_17.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/vert_25.png}
+    \includegraphics[scale=0.32]{pictures/analysis/vert_25.png}
   \end{columns}
 \end{frame}
 
 \begin{frame}{vertical}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/vert.png}
+    \includegraphics[scale=0.3]{pictures/analysis/vert.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/vert_theory.png}
+    \includegraphics[scale=0.3]{pictures/analysis/vert_theory.png}
   \end{columns}
 \end{frame}
 
 \begin{frame}{horizontal}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/hori_17.png}
+    \includegraphics[scale=0.34]{pictures/analysis/hori_17.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/hori_25.png}
+    \includegraphics[scale=0.34]{pictures/analysis/hori_25.png}
   \end{columns}
 \end{frame}
 
 \begin{frame}{horizontal}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/hori.png}
+    \includegraphics[scale=0.3]{pictures/analysis/hori.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/hori_theory.png}
+    \includegraphics[scale=0.3]{pictures/analysis/hori_theory.png}
   \end{columns}
 \end{frame}
 
@@ -492,6 +497,21 @@
 
 
 
+\begin{frame}{Små hop}
+  Hvert niveau gemmer $n$ bits som indikerer om bolden er gået til højre eller venstre. Hvert $32$ bit gemmer vi et $32$ bit major checkpoint. Precomputed tabel med $16$ bit tal som tæller antal $1$-entries. $\mathcal{O}(n)$ bits per level.
+\end{frame}
+
+\begin{frame}{Store hop}
+  $\mathcal{O}(\lg \Sigma)$ per entry. $\Sigma = 2^{B^i}$. Så plads er $\mathcal{O}(B^i)$ bits per entry.\\
+
+  Det er $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ for hele kæden. Vælg nu $B = \Omega(\lg^\epsilon n)$.
+\end{frame}
+
+\begin{frame}{Store hop}
+  Tiden for de store hop er højst $\mathcal{O}(B \lg_B \lg n)$. Vælg $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
+\end{frame}
+
+
 
 \begin{frame}{small k}
   \begin{columns}
@@ -501,6 +521,7 @@
     \includegraphics[scale=0.35]{pictures/analysis/smalls/kdtree_ratio_100.png}
   \end{columns}
 \end{frame}
+
 
 
 \begin{frame}[allowframebreaks]

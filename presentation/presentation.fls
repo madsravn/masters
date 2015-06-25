@@ -341,7 +341,6 @@ INPUT ./pictures/search_query_overlap.png
 INPUT pictures/kd_bound2.png
 INPUT ./pictures/kd_bound2.png
 INPUT ./pictures/kd_bound2.png
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT presentation.toc
 INPUT presentation.toc
 INPUT pictures/bolde_8.pdf
@@ -359,11 +358,12 @@ INPUT ./pictures/uden_bolde.pdf
 INPUT pictures/uden_bolde_med_tal.pdf
 INPUT ./pictures/uden_bolde_med_tal.pdf
 INPUT ./pictures/uden_bolde_med_tal.pdf
+INPUT presentation.toc
+INPUT presentation.toc
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT pictures/bolde_med_to_tal.pdf
 INPUT ./pictures/bolde_med_to_tal.pdf
 INPUT ./pictures/bolde_med_to_tal.pdf
-INPUT presentation.toc
-INPUT presentation.toc
 INPUT pictures/BIS.pdf
 INPUT ./pictures/BIS.pdf
 INPUT ./pictures/BIS.pdf
