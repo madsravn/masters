@@ -94,10 +94,10 @@
 \end{frame}
 
 \section{Introduction}
-\subsection{Orthogonal Range Searching}
+\subsection{Orthogonal Range Searching i 2D}
 
-\begin{frame}{Orthogonal Range Searching}
-  \frametitle{Orthogonal Range Searching}
+\begin{frame}{Orthogonal Range Searching i 2D}
+  \frametitle{Orthogonal Range Searching i 2D}
     \begin{center}
       \includegraphics[scale=0.8]{pictures/introduction.png}
     \end{center}
@@ -116,7 +116,7 @@
   \begin{itemize}
 
     \item $n$ punkter fra $\mathbb{R}^2$. Alle koordinater er unikke
-    \item Rank space
+    \item Rank space. Vi finder $\hat{y}_1$ og $\hat{y}_2$ og så ved vi hvor mange elementer der er imellem dem.
     \item $n$ er en potens af $2$
     \item static og output-sensitive
   \end{itemize}
@@ -126,27 +126,34 @@
 
 \begin{frame}{kd-træ}
   \frametitle{kd-træ}
-  Jon L. Bentley. Multidimensional binary search trees used for associative searching. 1975.
+  Jon L. Bentley. 1975.
   \begin{itemize}
     \item $\mathcal{O}(n)$ plads
     \item $\mathcal{O}(\sqrt{n} + k)$ tid
   \end{itemize}
 
-  Givet $n$ punkter: Punkterne bliver sorteret efter $x$ eller $y$ på skift. Median bliver fundet og punkterne mindre end medianen bliver givet til venstre barn og punkterne højere end medianen bliver givet til højre barn. Et punkt per blad i træet.
+  Givet $n$ punkter: $x$ eller $y$ på skift. Et punkt per blad i træet.
 \end{frame}
 
 \begin{frame}{Opbygning}
   \frametitle{Opbygning af kd-træ}
-  Det $\lceil \frac{n}{2} \rceil$'te element bliver valgt som median. Dette element fungerer som en skille-linje mellem de to punkt-mængder. Medianen bliver låst fast på denne plads i arrayet. Det er nu skillelinjen mellem de to regioner.
+  Det $\lceil \frac{n}{2} \rceil$'te element bliver valgt som median. Dette element fungerer som en skille-linje mellem de to punkt-mængder. 
   \includegraphics[scale=0.75]{pictures/kd_subdivision-eps-converted-to.pdf}
+
+    Punkter i region, punkter i undertræ. Under-inddel.
 \end{frame}
 
 
 \begin{frame}{Søgning}
   \frametitle{Søgning i kd-træ}
   \begin{center}
-    \includegraphics[scale=0.75]{pictures/search_query_overlap.png}
+    \includegraphics[scale=0.75]{pictures/search_query_overlap.png} \\
+
+    $1$ tager $\mathcal{O}(k)$ tid, $3$ tager $\mathcal{O}(1)$ tid. Bound på $2$.\\
+
+
   \end{center}
+
 \end{frame}
 
 
@@ -178,7 +185,7 @@
      \pause
     \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved?
      \pause
-    \item Vi kan nu følge en bold fra en knude til et blad med $\mathcal{O}(\lg n)$ skridt.
+    \item Vi kan nu følge en bold fra en knude til et blad med $\mathcal{O}(\lg n)$ skridt. 
 
   \end{itemize}
 \end{frame}
@@ -206,19 +213,9 @@
 
 \begin{frame}{RANK SELECT}
 
-  Rank-Select query er en constant-time query der kan afgøre hvor mange bolde før den $i$'te bold der går til et givet barn.
+  Rank-Select query er en constant-time query der finder boldens nye position.
 
-  Teoretisk $rank_v(k) = \Sigma_{i\leq k} A_v[i]$. Til højde er det $rank_v(i)$ og til venstre er det $i-rank_v(i)$.
-
-  Husk RANK-SELECT struktur. Hvordan fungerer den? Med $\lg n$ og $\lg \Sigma$.
-
-\end{frame}
-
-
-\begin{frame}{ball inheritance}
-  \begin{center}
-    \includegraphics[scale=1.0]{pictures/uden_bolde.pdf}
-  \end{center}
+  Man kan nu komme ned med $\mathcal{O}(\lg n)$ skridt. 
 \end{frame}
 
 
@@ -238,23 +235,72 @@
     \item $\mathcal{O}(\lg^\epsilon n)$ tid
   \end{itemize}
   hvor $\epsilon > 0$ er en arbitrær lille konstant. Space-time tradeoff.
-  Vis koncept, tid og plads her
+
+  knuder på niveau deleligt med $B^i$ hopper $B^i$ niveauer over.
+  \pause
+  $B = \Omega(\lg^\epsilon n)$.
 \end{frame}
 
 \subsection{Ball Inheritance Search Data Structure}
 
 \begin{frame}{BISintro}
-  Ball Inheritance Search (BIS) er en datastruktur bygget som en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.
+  Ball Inheritance Search (BIS) er en datastruktur som er en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.
+  UDDYB simplificering.
 
 \end{frame}
 
 
 
 \begin{frame}{Ball Inheritance Search}
+
+  Et punkt er kun lagret i et blad.
+  \pause
+
   \begin{itemize}
-    \item $\mathcal{O}(n)$ plads
-    \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ tid, hvor $\epsilon > 0$ er en arbitrær lille konstant
+    \item $\mathcal{O}(n + n\cdot\lg_B\lg n) = \mathcal{O}(n + \frac{n}{\epsilon})$ plads.
+    \item $\mathcal{O}(\lg n + k\cdot B\lg_B\lg n) = \mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ tid, hvor $\epsilon > 0$ er en arbitrær lille konstant
   \end{itemize}
+    da vi har valgt $B = \Omega(\lg^\epsilon n) = \lceil \frac{1}{2}\lg^\frac{1}{3} n \rceil$.
+\end{frame}
+
+\begin{frame}{ball inheritance}
+  Vi vil nu gerne bruge ball inheritance datastrukturen til flere ting: OMFORMULER
+  \begin{itemize}
+    \item Følge $\hat{y}_1$ og $\hat{y}_2$ fra roden til lca.
+    \item Følge dem fra lca til $x_1$ og $x_2$ og markere de knuder der kun indeholder punkter imellem dem ($x_1$ og $x_2$).
+    \item Til at lave egentlig ball inheritance med sådan at vi kan slå punktet op.
+  \end{itemize}
+
+  Det er til at følge en range ned. Denne range indeholder kun y-koordinater som ligger i $[y_1, y_2]$. Dette gøres et skridt ad gangen. Og så bruges det til at slå blade op baseret på knude-index forhold.
+\end{frame}
+
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \begin{columns}
+      \column{0.5\textwidth}
+        \includegraphics[scale=1.5]{pictures/BIS.pdf}
+      \column{0.5\textwidth}
+        \begin{itemize}
+          \item Rank space opslag ved roden.
+          \item Vedligehold $[\hat{y}_1, \hat{y}_2]$ ned til LCA.
+          \item Find fully contained knuder og deres $[\hat{y}_1, \hat{y}_2]$ interval.
+          \item Ball Inheritance fra knuder.
+        \end{itemize}
+      \end{columns}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{ball inheritance}
+  \begin{center}
+    \includegraphics[scale=1.0]{pictures/bolde_1.pdf}
+  \end{center}
 \end{frame}
 
 
@@ -263,7 +309,6 @@
     \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
   \end{center}
 \end{frame}
-
 
 
 \begin{frame}{x range}
@@ -293,30 +338,13 @@
   Det giver en kørselstid på $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ for at finde $k$ punkter.
 \end{frame}
 
-\begin{frame}{ball inheritance}
-  \begin{center}
-    \begin{columns}
-      \column{0.5\textwidth}
-        \includegraphics[scale=1.5]{pictures/BIS.pdf}
-      \column{0.5\textwidth}
-        \begin{itemize}
-          \item Rank space opslag ved roden.
-          \item Vedligehold $[\hat{y}_1, \hat{y}_2]$ ned til LCA.
-          \item Find fully contained knuder og deres $[\hat{y}_1, \hat{y}_2]$ interval.
-          \item Ball Inheritance fra knuder.
-        \end{itemize}
-      \end{columns}
-  \end{center}
-\end{frame}
-
-
 
 \begin{frame}{plads}
   Denne datastruktur bruger $\mathcal{O}(n)$ plads.
   \begin{itemize}
-    \item Bit vectors (Kommer vi til)
+    \item Bit vectors. $\mathcal{O}(n)$ bits per level.
       \pause
-    \item Store hop (Kommer vi til)
+    \item Store hop $\mathcal{O}(\lg \Sigma)$ bits per entry hvert $\lg \Sigma$ level.
       \pause
     \item Egentlig punkter
       \pause
@@ -325,7 +353,7 @@
 \end{frame}
 
 \begin{frame}{OBIS}
-  OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + k\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
+  OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + (1+k)\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
 \end{frame}
 
 \begin{frame}{OBIS}
@@ -362,22 +390,19 @@
 \end{frame}
 
 \begin{frame}
-  \begin{columns}
-    \column{05\textwidth}
       \begin{itemize}
         \item Hvad vil vi gerne vise af resultater?
         \item Hvad forventer vi at se af tendenser og hvorfor?
         \item Mindre ændring mellem shapes når det er $\lg^\epsilon n$ i stedet for $\mathcal{O}(\sqrt{n})$.
         \item Hvert eksperiment er kørt mange gange. 10 forskellige data-set, mange forskellige steder i søgerummet.
       \end{itemize}
-      \column{0.5\textwidth}
       \begin{itemize}
         \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ vs $\mathcal{O}(\sqrt{n} + k)$.
         \item BIS er mere stabil når vi ændrer shape.
         \item kd-træ er hurtigere jo flere punkter, og jo mindre $\mathcal{O}(\sqrt{n})$ er.
         \item $\lg n < \sqrt{n}$, så vi forventer at en dårlig shape betyder meget for kd-træet.
+        \item Vi har også kigget på $k \leq 200$ for personlig interaktion. Der er BIS god.
       \end{itemize}
-  \end{columns}
 \end{frame}
 
 \begin{frame}{Squared}
@@ -494,7 +519,16 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Færdig}
+  Spørgsmål?
+\end{frame}
 
+
+\begin{frame}{praktisk log epsilon n}
+  \begin{center}
+    \includegraphics[scale=0.35]{pictures/theory_vs_actual.png}
+  \end{center}
+\end{frame}
 
 
 \begin{frame}{Små hop}
@@ -505,6 +539,9 @@
   $\mathcal{O}(\lg \Sigma)$ per entry. $\Sigma = 2^{B^i}$. Så plads er $\mathcal{O}(B^i)$ bits per entry.\\
 
   Det er $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ for hele kæden. Vælg nu $B = \Omega(\lg^\epsilon n)$.
+
+
+  Vi har $n$ punkter, hvilket giver $\mathcal{O}(n\lg n \cdot\lg_B \lg n)$ bits. Det er $\mathcal{O}(n\cdot\frac{\lg lg n}{\epsilon \lg \lg n}) = \mathcal{O}(\frac{n}{\epsilon})$ ord.
 \end{frame}
 
 \begin{frame}{Store hop}
@@ -516,9 +553,9 @@
 \begin{frame}{small k}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/bis_ratio_100.png}
+    \includegraphics[scale=0.32]{pictures/analysis/smalls/bis_ratio_100.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/kdtree_ratio_100.png}
+    \includegraphics[scale=0.32]{pictures/analysis/smalls/kdtree_ratio_100.png}
   \end{columns}
 \end{frame}
 

@@ -352,9 +352,6 @@ INPUT ./pictures/bolde_1.pdf
 INPUT pictures/bolde_4.pdf
 INPUT ./pictures/bolde_4.pdf
 INPUT ./pictures/bolde_4.pdf
-INPUT pictures/uden_bolde.pdf
-INPUT ./pictures/uden_bolde.pdf
-INPUT ./pictures/uden_bolde.pdf
 INPUT pictures/uden_bolde_med_tal.pdf
 INPUT ./pictures/uden_bolde_med_tal.pdf
 INPUT ./pictures/uden_bolde_med_tal.pdf
@@ -367,6 +364,10 @@ INPUT ./pictures/bolde_med_to_tal.pdf
 INPUT pictures/BIS.pdf
 INPUT ./pictures/BIS.pdf
 INPUT ./pictures/BIS.pdf
+INPUT pictures/bolde_1.pdf
+INPUT ./pictures/bolde_1.pdf
+INPUT pictures/bolde_med_to_tal.pdf
+INPUT ./pictures/bolde_med_to_tal.pdf
 INPUT pictures/ors_step2-eps-converted-to.pdf
 INPUT ./pictures/ors_step2-eps-converted-to.pdf
 INPUT ./pictures/ors_step2-eps-converted-to.pdf
@@ -441,6 +442,9 @@ INPUT ./pictures/analysis/comparing_BIS_100.png
 INPUT pictures/analysis/sizes.png
 INPUT ./pictures/analysis/sizes.png
 INPUT ./pictures/analysis/sizes.png
+INPUT pictures/theory_vs_actual.png
+INPUT ./pictures/theory_vs_actual.png
+INPUT ./pictures/theory_vs_actual.png
 INPUT pictures/analysis/smalls/bis_ratio_100.png
 INPUT ./pictures/analysis/smalls/bis_ratio_100.png
 INPUT ./pictures/analysis/smalls/bis_ratio_100.png
