@@ -98,9 +98,18 @@
 
 \begin{frame}{Orthogonal Range Searching i 2D}
   \frametitle{Orthogonal Range Searching i 2D}
+  \begin{columns}
+    \column{0.7\textwidth}
     \begin{center}
       \includegraphics[scale=0.8]{pictures/introduction.png}
     \end{center}
+    \column{0.3\textwidth}
+    Punkter repræsenterer objekter der er plottet efter to attributer. Nu kan der søges.\\
+
+    Opdeling af akser.
+
+
+  \end{columns}
 
 \end{frame}
 
@@ -116,13 +125,13 @@
   \begin{itemize}
 
     \item $n$ punkter fra $\mathbb{R}^2$. Alle koordinater er unikke
-    \item Rank space. Vi finder $\hat{y}_1$ og $\hat{y}_2$ og så ved vi hvor mange elementer der er imellem dem.
+    \item Rank space. Sorteret array. Vi finder $\hat{y}_1$ og $\hat{y}_2$ og så ved vi hvor mange elementer der er imellem dem.
     \item $n$ er en potens af $2$
     \item static og output-sensitive
   \end{itemize}
 \end{frame}
 
-\subsection{Previous data structures}
+\subsection{kd-tree}
 
 \begin{frame}{kd-træ}
   \frametitle{kd-træ}
@@ -140,7 +149,7 @@
   Det $\lceil \frac{n}{2} \rceil$'te element bliver valgt som median. Dette element fungerer som en skille-linje mellem de to punkt-mængder. 
   \includegraphics[scale=0.75]{pictures/kd_subdivision-eps-converted-to.pdf}
 
-    Punkter i region, punkter i undertræ. Under-inddel.
+    Punkter i region, punkter i undertræ. Under-opdel.
 \end{frame}
 
 
@@ -159,9 +168,14 @@
 
 \begin{frame}{Søgning}
   \frametitle{Søgning i kd-træ}
+  \begin{columns}
+    \column{0.7\textwidth}
   \begin{center}
     \includegraphics[scale=0.75]{pictures/kd_bound2.png}
   \end{center}
+  \column{0.3\textwidth}
+  $\mathcal{O}(\sqrt{n})$ regioner.
+\end{columns}
 \end{frame}
 
 
@@ -181,7 +195,7 @@
       \pause
     \item Roden indeholder $n$ punkter(bolde) som er blevet fordelt sådan at hvert blad lagrer et punkt. Boldene i roden er sorteret.
       \pause
-    \item Hver knude har en liste over hvilke bolder der går igennem den. Boldene i knudens liste har samme rækkefølge som boldene i forældre-knudens liste.
+    \item Hver knude har en liste over hvilke bolde der går igennem den. Boldene i knudens liste har samme rækkefølge som boldene i forældre-knudens liste.
      \pause
     \item Løs: Givet en knude og et index i knudens liste, hvilket blad ender denne bold ved?
      \pause
@@ -189,7 +203,6 @@
 
   \end{itemize}
 \end{frame}
-
 
 \begin{frame}{ball inheritance}
   \begin{center}
@@ -213,7 +226,7 @@
 
 \begin{frame}{RANK SELECT}
 
-  Rank-Select query er en constant-time query der finder boldens nye position.
+  Givet en bitvektor, så er Rank-Select query en constant-time query der finder boldens nye position i barnets bitvektor.
 
   Man kan nu komme ned med $\mathcal{O}(\lg n)$ skridt. 
 \end{frame}
@@ -231,30 +244,27 @@
   Vi ønsker at gøre antallet skridt fra en knude til et blad mindre. Vi udvider alfabetet på udvalgte niveauer.
   Det bruger
   \begin{itemize}
-    \item $\mathcal{O}(\frac{n}{\epsilon}) = \mathcal{O}(n)$ plads
-    \item $\mathcal{O}(\lg^\epsilon n)$ tid
+    \item $\mathcal{O}(n \cdot \lg_B \lg n) = \mathcal{O}(\frac{n}{\epsilon}) = \mathcal{O}(n)$ plads
+    \item $\mathcal{O}(B \cdot \lg_B \lg n) = \mathcal{O}(\lg^\epsilon n)$ tid
   \end{itemize}
   hvor $\epsilon > 0$ er en arbitrær lille konstant. Space-time tradeoff.
 
   knuder på niveau deleligt med $B^i$ hopper $B^i$ niveauer over.
   \pause
-  $B = \Omega(\lg^\epsilon n)$.
+  $B = \Omega(\lg^\epsilon n)$ og $B = \lg^\frac{\epsilon}{2} = \Omega(\lg \lg n)$.
 \end{frame}
 
 \subsection{Ball Inheritance Search Data Structure}
 
 \begin{frame}{BISintro}
-  Ball Inheritance Search (BIS) er en datastruktur som er en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.
-  UDDYB simplificering.
+  Ball Inheritance Search (BIS) er en datastruktur som er en simplificering af den datastruktur der findes i \textbf{Orthogonal Range Searching on the RAM, Revisited}\cite{chanetal} af Chan et al.\\
+
+  $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ imod $\mathcal{O}(\lg \lg n + (1+k)\cdot\lg^\epsilon n)$.
 
 \end{frame}
 
 
-
 \begin{frame}{Ball Inheritance Search}
-
-  Et punkt er kun lagret i et blad.
-  \pause
 
   \begin{itemize}
     \item $\mathcal{O}(n + n\cdot\lg_B\lg n) = \mathcal{O}(n + \frac{n}{\epsilon})$ plads.
@@ -263,15 +273,14 @@
     da vi har valgt $B = \Omega(\lg^\epsilon n) = \lceil \frac{1}{2}\lg^\frac{1}{3} n \rceil$.
 \end{frame}
 
-\begin{frame}{ball inheritance}
-  Vi vil nu gerne bruge ball inheritance datastrukturen til flere ting: OMFORMULER
+\begin{frame}{Ball Inheritance Search}
+  I denne datastruktur bruger vi ball-inheritance til
   \begin{itemize}
-    \item Følge $\hat{y}_1$ og $\hat{y}_2$ fra roden til lca.
-    \item Følge dem fra lca til $x_1$ og $x_2$ og markere de knuder der kun indeholder punkter imellem dem ($x_1$ og $x_2$).
-    \item Til at lave egentlig ball inheritance med sådan at vi kan slå punktet op.
+    \item Følge en bold ned når vi ved den ligger i vores søge-område.
+    \item Fra roden, opdatere et interval af hvilke bolder der ligger i $[y_1, y_2]$.
   \end{itemize}
 
-  Det er til at følge en range ned. Denne range indeholder kun y-koordinater som ligger i $[y_1, y_2]$. Dette gøres et skridt ad gangen. Og så bruges det til at slå blade op baseret på knude-index forhold.
+  Nu har vi markeret de bolde der ligger i $[y_1, y_2]$ på de knuder hvis undertræ kun indeholder punkter i $[x_1, x_2]$. Og det er netop de punkter der ligger i $[x_1, x_2] \times [y_1, y_2]$.
 \end{frame}
 
 \begin{frame}{ball inheritance}
@@ -296,41 +305,19 @@
   \end{center}
 \end{frame}
 
+\begin{frame}{Ball Inheritance Search}
 
-\begin{frame}{ball inheritance}
-  \begin{center}
-    \includegraphics[scale=1.0]{pictures/bolde_1.pdf}
-  \end{center}
+  Vi har nu nogle knuder og lister over indeces i disse knuder. Det er præcis det problem ball inheritance løser. Vi kan nu bruge ball inheritance på alle disse knuder til at finde ud af hvilke blade der indeholder punkter i $[y_1, y_2]$.
+
 \end{frame}
-
 
 \begin{frame}{ball inheritance}
   \begin{center}
     \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
   \end{center}
+
 \end{frame}
 
-
-\begin{frame}{x range}
-  \frametitle{x-range}
-  \begin{itemize}
-    \item Vi oversætter vores query til rank space $[x_1, x_2] \times [y_1, y_2] \Rightarrow [\hat{x}_1, \hat{x}_2] \times [\hat{y}_1, \hat{y}_2]$.
-      \pause
-
-    \item Vi går ned til least common ancestor af $\hat{x}_1$ og $\hat{x}_2$ og herfra ned til $\hat{x}_1$ og $\hat{x}_2$. På den måde finder vi knuder der kun indeholder punkter i $[x_1, x_2]$.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{y range}
-  \frametitle{y-range}
-  \begin{itemize}
-    \item Vi har opdateret $[\hat{y}_1, \hat{y}_2]$ fra roden til både $\hat{x}_1$ og $\hat{x}_2$. Dvs vi ved hvilke bolde i hver knude vi fandt før der indeholder punkter i $[y_1, y_2]$.
-      \pause
-    \item $[\hat{y}_1, \hat{y}_2]$ betegner det interval af y-koordinater der ligger mellem $y_1$ og $y_2$ i knuden $v$.
-      \pause
-    \item  Vi har nu nogle knuder og lister over indeces i disse knuder. Det er præcis det problem ball inheritance løser. Vi kan nu bruge ball inheritance på alle disse knuder til at finde ud af hvilke blade der indeholder punkter i $[y_1, y_2]$.
-  \end{itemize}
-\end{frame}
 
 \begin{frame}{ballinheritance}
   Vi har nu at hver knude der er fully contained laver ball inheritance på det y-range den får givet. Det tager $\mathcal{O}(k\cdot\lg^\epsilon n)$ tid. Det tager $\mathcal{O}(\lg n)$ at lave binær søgning og at gå fra roden til $\hat{x}_1$ og $\hat{x}_2$.
@@ -352,30 +339,6 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{OBIS}
-  OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + (1+k)\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
-\end{frame}
-
-\begin{frame}{OBIS}
-  \begin{columns}
-    \column{0.5\textwidth}
-    \includegraphics{pictures/ors_step2-eps-converted-to.pdf}
-    \column{0.5\textwidth}
-    \begin{itemize}
-      \item Op til nærmeste level med pred-search
-      \item Gå ned til LCA højst $\lg \lg n$ levels nede.
-      \item Gå ned og find resultater i begge børn af LCA.
-    \end{itemize}
-
-  \end{columns}
-\end{frame}
-
-\begin{frame}{OBIS}
-
-  \includegraphics{pictures/ors_step3-eps-converted-to.pdf}
-\end{frame}
-
-
 
 \section{Resultater}
 \subsection{Resultater}
@@ -384,21 +347,15 @@
   \begin{itemize}
     \item Square area $\sqrt{n}\cdot\sqrt{k}\times\sqrt{n}\cdot\sqrt{k}$ returnerer $k$ punkter.
     \item Slices af størrelse $k$ returnerer $k$ punkter. $[0,n] \times [y, y+k]$
-    \item Hvad forventer vi af $\mathcal{O}(\sqrt{n} + k)$ vs $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$?
     \item $\sqrt{n}+k = \lg n + k\cdot\lg^\epsilon n \Leftrightarrow k = \frac{\sqrt{n}-\lg n}{\lg^\epsilon n -1}$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
       \begin{itemize}
-        \item Hvad vil vi gerne vise af resultater?
-        \item Hvad forventer vi at se af tendenser og hvorfor?
-        \item Mindre ændring mellem shapes når det er $\lg^\epsilon n$ i stedet for $\mathcal{O}(\sqrt{n})$.
-        \item Hvert eksperiment er kørt mange gange. 10 forskellige data-set, mange forskellige steder i søgerummet.
-      \end{itemize}
-      \begin{itemize}
         \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ vs $\mathcal{O}(\sqrt{n} + k)$.
-        \item BIS er mere stabil når vi ændrer shape.
+        \item BIS er mere stabil når vi ændrer shape. $\mathcal{O}(\sqrt{n})$ er problemet.
+        \item Slice er godt for BIS og square er godt for kd-træ.
         \item kd-træ er hurtigere jo flere punkter, og jo mindre $\mathcal{O}(\sqrt{n})$ er.
         \item $\lg n < \sqrt{n}$, så vi forventer at en dårlig shape betyder meget for kd-træet.
         \item Vi har også kigget på $k \leq 200$ for personlig interaktion. Der er BIS god.
@@ -480,27 +437,27 @@
 \begin{frame}{small k}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_100.png}
+    \includegraphics[scale=0.32]{pictures/analysis/smalls/all_100.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_kdtree_100_2.png}
+    \includegraphics[scale=0.32]{pictures/analysis/smalls/all_kdtree_100_2.png}
   \end{columns}
 \end{frame}
 
 \begin{frame}{small k}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_50.png}
+    \includegraphics[scale=0.32]{pictures/analysis/smalls/all_50.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/smalls/all_150.png}
+    \includegraphics[scale=0.32]{pictures/analysis/smalls/all_150.png}
   \end{columns}
 \end{frame}
 
 \begin{frame}{small k}
   \begin{columns}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/comparing_BIS_50.png}
+    \includegraphics[scale=0.32]{pictures/analysis/comparing_BIS_50.png}
     \column{0.5\textwidth}
-    \includegraphics[scale=0.35]{pictures/analysis/comparing_BIS_100.png}
+    \includegraphics[scale=0.32]{pictures/analysis/comparing_BIS_100.png}
   \end{columns}
 \end{frame}
 
@@ -515,7 +472,6 @@
     \item Bedre udpakning
     \item Cache
     \item Concurrency
-    \item Bedre kd-træ
   \end{itemize}
 \end{frame}
 
@@ -547,6 +503,30 @@
 \begin{frame}{Store hop}
   Tiden for de store hop er højst $\mathcal{O}(B \lg_B \lg n)$. Vælg $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
 \end{frame}
+
+\begin{frame}{OBIS}
+  OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + (1+k)\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
+\end{frame}
+
+\begin{frame}{OBIS}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics{pictures/ors_step2-eps-converted-to.pdf}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Op til nærmeste level med pred-search
+      \item Gå ned til LCA højst $\lg \lg n$ levels nede.
+      \item Gå ned og find resultater i begge børn af LCA.
+    \end{itemize}
+
+  \end{columns}
+\end{frame}
+
+\begin{frame}{OBIS}
+
+  \includegraphics{pictures/ors_step3-eps-converted-to.pdf}
+\end{frame}
+
 
 
 
