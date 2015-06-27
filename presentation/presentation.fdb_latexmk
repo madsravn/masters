@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1435424797 "presentation.tex" "presentation.pdf" "presentation" 1435424801
+["pdflatex"] 1435431332 "presentation.tex" "presentation.pdf" "presentation" 1435432096
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1407968436 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1407968433 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1407968433 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -231,16 +231,16 @@
   "pictures/search_query_overlap.png" 1434959243 10559 cd36382e795f1e87585a8cac57e409ba ""
   "pictures/theory_vs_actual.png" 1434959243 16207 62dcab13f580506b0f33e9bf07f65a37 ""
   "pictures/uden_bolde_med_tal.pdf" 1435334393 71027 d10675e13dd224e3653c00b27952ce0b ""
-  "presentation.aux" 1435424801 11131 6ebc9459f056874f14e0fd0bf7d79141 ""
-  "presentation.nav" 1435424801 7375 55ec81061c78002692a5015dc981da11 ""
-  "presentation.out" 1435424801 508 39c3626458b4970179b938c7e5133d37 ""
-  "presentation.tex" 1435424787 16961 c4703ecbf21503efd4c29ee8d5f0f068 ""
-  "presentation.toc" 1435424801 518 c997d4878485bf7cbd91c4bc93647f9e ""
+  "presentation.aux" 1435431335 10964 c15164b405638812717a3c9080b0c38a ""
+  "presentation.nav" 1435431335 7244 11febee31e6dab18c340004ade1b66ff ""
+  "presentation.out" 1435431335 508 73ccb9e6931b27a95fe682a1f5b5ee3e ""
+  "presentation.tex" 1435431323 16982 c0a08f1912a2d141656dc944caf806e8 ""
+  "presentation.toc" 1435431335 518 22f8aa9ac8e3c622bf3286c13a2ffeec ""
   (generated)
-  "presentation.pdf"
   "presentation.aux"
+  "presentation.log"
   "presentation.snm"
+  "presentation.toc"
+  "presentation.pdf"
   "presentation.out"
   "presentation.nav"
-  "presentation.toc"
-  "presentation.log"

@@ -228,7 +228,7 @@
 
   Givet en bitvektor, så er Rank-Select query en constant-time query der finder boldens nye position i barnets bitvektor.
 
-  Man kan nu komme ned med $\mathcal{O}(\lg n)$ skridt. 
+  Man kan nu komme ned med $\mathcal{O}(\lg n)$ tid. $\mathcal{O}(1\cdot\lg n)$.
 \end{frame}
 
 
@@ -241,17 +241,19 @@
 
 
 \begin{frame}{Faster Queries}
-  Vi ønsker at gøre antallet skridt fra en knude til et blad mindre. Vi udvider alfabetet på udvalgte niveauer.
+  Færre skridt fra knude til blad. Knuder på niveau deleligt med $B^i$ hopper $B^i$ niveauer over. \\
+
   Det bruger
   \begin{itemize}
     \item $\mathcal{O}(n \cdot \lg_B \lg n) = \mathcal{O}(\frac{n}{\epsilon}) = \mathcal{O}(n)$ plads
     \item $\mathcal{O}(B \cdot \lg_B \lg n) = \mathcal{O}(\lg^\epsilon n)$ tid
   \end{itemize}
-  hvor $\epsilon > 0$ er en arbitrær lille konstant. Space-time tradeoff.
+  hvor $\epsilon > 0$ er en arbitrær lille konstant. Space-time tradeoff.\\
 
-  knuder på niveau deleligt med $B^i$ hopper $B^i$ niveauer over.
   \pause
-  $B = \Omega(\lg^\epsilon n)$ og $B = \lg^\frac{\epsilon}{2} = \Omega(\lg \lg n)$.
+  $B = \Omega(\lg^\epsilon n)$ og $B = \lg^\frac{\epsilon}{2} = \Omega(\lg \lg n)$.\\
+
+  $\lg_B \lg n$ er valgt fordi $B^i \leq \lg n \Leftrightarrow i \leq \lg_B \lg n$.
 \end{frame}
 
 \subsection{Ball Inheritance Search Data Structure}
@@ -273,14 +275,13 @@
     da vi har valgt $B = \Omega(\lg^\epsilon n) = \lceil \frac{1}{2}\lg^\frac{1}{3} n \rceil$.
 \end{frame}
 
-\begin{frame}{Ball Inheritance Search}
-  I denne datastruktur bruger vi ball-inheritance til
-  \begin{itemize}
-    \item Følge en bold ned når vi ved den ligger i vores søge-område.
-    \item Fra roden, opdatere et interval af hvilke bolder der ligger i $[y_1, y_2]$.
-  \end{itemize}
 
-  Nu har vi markeret de bolde der ligger i $[y_1, y_2]$ på de knuder hvis undertræ kun indeholder punkter i $[x_1, x_2]$. Og det er netop de punkter der ligger i $[x_1, x_2] \times [y_1, y_2]$.
+\begin{frame}{Ball Inheritance Search}
+  Når vi kigger på BIS, så er punkterne \textbf{fordelt} efter x og \textbf{sorteret} efter y. Det betyder
+  \begin{itemize}
+    \item Undertræer i knuder i mellem $x_1$ og $x_2$ kun indeholder punkter i $[x_1, x_2]$.
+    \item Bolde mellem $\hat{y}_1$ og $\hat{y}_2$ kun indeholder punkter i $[y_1, y_2]$.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{ball inheritance}
@@ -288,6 +289,18 @@
     \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
   \end{center}
 \end{frame}
+
+
+\begin{frame}{Ball Inheritance Search}
+  I denne datastruktur bruger vi ball-inheritance til
+  \begin{itemize}
+    \item Følge en bold ned når vi ved den ligger i vores søge-område. Dvs dekode fra bold-til-blad(punkt).
+    \item Fra roden, opdatere et interval af hvilke bolder der ligger i $[y_1, y_2]$.
+  \end{itemize}
+
+  Nu har vi markeret de bolde der ligger i $[y_1, y_2]$ på de knuder hvis undertræ kun indeholder punkter i $[x_1, x_2]$. Og det er netop de punkter der ligger i $[x_1, x_2] \times [y_1, y_2]$.
+\end{frame}
+
 
 \begin{frame}{ball inheritance}
   \begin{center}
@@ -309,29 +322,16 @@
 
   Vi har nu nogle knuder og lister over indeces i disse knuder. Det er præcis det problem ball inheritance løser. Vi kan nu bruge ball inheritance på alle disse knuder til at finde ud af hvilke blade der indeholder punkter i $[y_1, y_2]$.
 
-\end{frame}
-
-\begin{frame}{ball inheritance}
-  \begin{center}
-    \includegraphics[scale=1.0]{pictures/bolde_med_to_tal.pdf}
-  \end{center}
-
-\end{frame}
-
-
-\begin{frame}{ballinheritance}
-  Vi har nu at hver knude der er fully contained laver ball inheritance på det y-range den får givet. Det tager $\mathcal{O}(k\cdot\lg^\epsilon n)$ tid. Det tager $\mathcal{O}(\lg n)$ at lave binær søgning og at gå fra roden til $\hat{x}_1$ og $\hat{x}_2$.
-  \pause
   Det giver en kørselstid på $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ for at finde $k$ punkter.
-\end{frame}
 
+\end{frame}
 
 \begin{frame}{plads}
   Denne datastruktur bruger $\mathcal{O}(n)$ plads.
   \begin{itemize}
     \item Bit vectors. $\mathcal{O}(n)$ bits per level.
       \pause
-    \item Store hop $\mathcal{O}(\lg \Sigma)$ bits per entry hvert $\lg \Sigma$ level.
+    \item Store hop $\mathcal{O}(\lg \Sigma)$ bits per entry hvert $\lg \Sigma$ level. ($\lg \Sigma = B^i$).
       \pause
     \item Egentlig punkter
       \pause
@@ -503,6 +503,7 @@
 \begin{frame}{Store hop}
   Tiden for de store hop er højst $\mathcal{O}(B \lg_B \lg n)$. Vælg $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
 \end{frame}
+
 
 \begin{frame}{OBIS}
   OBIS af Chan et al. Med $\mathcal{O}(n)$ plads og $\mathcal{O}(\lg \lg n + (1+k)\cdot\lg^\epsilon n)$. Bruger også Ball Inheritance til at finde de $k$ punkter.
