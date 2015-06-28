@@ -4,6 +4,6 @@
 \beamer@subsectionintoc {1}{2}{kd-tree}{7}{0}{1}
 \beamer@sectionintoc {2}{Ball Inheritance Search}{12}{0}{2}
 \beamer@subsectionintoc {2}{1}{Ball Inheritance Problem}{12}{0}{2}
-\beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{25}{0}{2}
-\beamer@sectionintoc {3}{Resultater}{37}{0}{3}
-\beamer@subsectionintoc {3}{1}{Resultater}{37}{0}{3}
+\beamer@subsectionintoc {2}{2}{Ball Inheritance Search Data Structure}{26}{0}{2}
+\beamer@sectionintoc {3}{Resultater}{38}{0}{3}
+\beamer@subsectionintoc {3}{1}{Resultater}{38}{0}{3}

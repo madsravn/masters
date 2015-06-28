@@ -374,6 +374,9 @@ INPUT ./pictures/BIS.pdf
 INPUT ./pictures/BIS.pdf
 INPUT presentation.toc
 INPUT presentation.toc
+INPUT pictures/felter.pdf
+INPUT ./pictures/felter.pdf
+INPUT ./pictures/felter.pdf
 INPUT pictures/analysis/sqrt_17.png
 INPUT ./pictures/analysis/sqrt_17.png
 INPUT ./pictures/analysis/sqrt_17.png
