@@ -104,7 +104,9 @@
       \includegraphics[scale=0.8]{pictures/introduction.png}
     \end{center}
     \column{0.3\textwidth}
-    Punkter repræsenterer objekter der er plottet efter to attributer. 2D søgerum.\\
+    Punkt i 2D søgerum er objekt.\\
+    
+    En rektangulær søgeboks er defineret ved \\
 
     Opdeling af akser.
 
@@ -113,15 +115,15 @@
 
 \end{frame}
 
-\begin{frame}{Preleminaries}
-  \frametitle{Preleminaries}
+\begin{frame}{Preliminaries}
+  \frametitle{Preliminaries}
   Orthogonal range searching
   \begin{itemize}
     \item Svar effektivt på forespørgslen $q = [x_1, x_2] \times [y_1, y_2]$.
     \item $p \in [x_1, x_2] \times [y_1, y_2] \Leftrightarrow p_x \in [x_1, x_2] \wedge p_y \in [y_1, y_2]$
   \end{itemize}
 
-  Preleminaries
+  Preliminaries
   \begin{itemize}
 
     \item $n$ punkter fra $\mathbb{R}^2$. Alle koordinater er unikke
@@ -238,28 +240,10 @@
 \end{frame}
 
 
-\begin{frame}{Store hop}
-  Færre skridt. $\mathcal{O}(B^i)$ bits per entry hvert $B^i$te level.
-
-  $$\sum_{i=1}^{\lg_B \lg n} \frac{\lg n}{B^i}\cdot\mathcal{O}(B^i) = \mathcal{O}(\lg n \cdot \lg_B \lg n)$$ 
-
-
-  Vi har $n$ punkter, hvilket giver $\mathcal{O}(n\lg n \cdot\lg_B \lg n)$ bits. Det er $\mathcal{O}(n\cdot\frac{\lg lg n}{\epsilon \lg \lg n}) = \mathcal{O}(\frac{n}{\epsilon})$ ord, da $B = \Omega(\lg^\epsilon n)$.
-\end{frame}
-
-\begin{frame}{Store hop}
-  Vi hopper højst $B$ hop på $B^i$ før vi rammer hop på $B^{i+1}$. Vi har at $i = \lg_B \lg n$ er det største $i$ sådan at $B^i \leq \lg n$. \\
-
-  $$\mathcal{O}(B \lg_B \lg n) = \mathcal{O}(\lg^\epsilon n)$$
-
-
-   $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
-\end{frame}
-
 
 
 \begin{frame}{Faster Queries}
-  Færre skridt fra knude til blad. Knuder på niveau deleligt med $B^i$ hopper $B^i$ niveauer over. \\
+  Færre skridt fra knude til blad. Knuder på niveau deleligt med $B^i$ hopper $B^i$ niveauer over. Det er $\mathcal{O}(B^i)$ bits per bold per $B^i$te level. $B = \Omega(lg^\epsilon n)$.
 
   Det bruger
   \begin{itemize}
@@ -328,6 +312,7 @@
           \item Vedligehold $[\hat{y}_1, \hat{y}_2]$ ned til LCA.
           \item Find fully contained knuder og deres $[\hat{y}_1, \hat{y}_2]$ interval.
           \item Ball Inheritance fra knuder.
+          \item $p \in [x_1, x_2] \times [y_1, y_2] \Leftrightarrow ..$
         \end{itemize}
       \end{columns}
   \end{center}
@@ -374,12 +359,10 @@
 
 \begin{frame}{Setup}
       \begin{itemize}
-        \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ vs $\mathcal{O}(\sqrt{n} + k)$.
-        \item $y = ax + b$. Forskel i $a$ og $b$.
+        \item $\mathcal{O}(\lg n + k\cdot\lg^\epsilon n)$ vs $\mathcal{O}(\sqrt{n} + k)$. $y = ax + b$
         \item BIS er mere stabil når vi ændrer shape. $\mathcal{O}(\sqrt{n})$ er problemet.
         \item Slice er godt for BIS og square er godt for kd-træ.
-        \item kd-træ er hurtigere jo flere punkter, og jo mindre $\mathcal{O}(\sqrt{n})$ er.
-        \item Vi har også kigget på $k \leq 200$ for personlig interaktion. Der er BIS god.
+        \item kd-træ er hurtigere jo flere punkter, og jo mindre $\mathcal{O}(\sqrt{n})$ er. Så BIS vil klare sig bedre når $k$ er mindre.
       \end{itemize}
 \end{frame}
 
@@ -523,8 +506,14 @@
   Vi har $n$ punkter, hvilket giver $\mathcal{O}(n\lg n \cdot\lg_B \lg n)$ bits. Det er $\mathcal{O}(n\cdot\frac{\lg lg n}{\epsilon \lg \lg n}) = \mathcal{O}(\frac{n}{\epsilon})$ ord.
 \end{frame}
 
+
 \begin{frame}{Store hop}
-  Tiden for de store hop er højst $\mathcal{O}(B \lg_B \lg n)$. Vælg $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
+  Vi hopper højst $B$ hop på $B^i$ før vi rammer hop på $B^{i+1}$. Vi har at $i = \lg_B \lg n$ er det største $i$ sådan at $B^i \leq \lg n$. \\
+
+  $$\mathcal{O}(B \lg_B \lg n) = \mathcal{O}(\lg^\epsilon n)$$
+
+
+   $B = \lg^{\epsilon / 2} n = \Omega(\lg \lg n)$.
 \end{frame}
 
 \begin{frame}
